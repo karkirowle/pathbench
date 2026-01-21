@@ -1,4 +1,12 @@
 pathbench.egg-info
+pathbench/__pycache__/
+datasets/neurovoz_clean
 tools/venv
 tools/*.done
-
+*.out
+comparison.sh
+extract_*.py
+tmp/
+measure_distance_bence.py
+test_estoi.py
+utils.py

@@ -1,5 +1,6 @@
 from pathlib import Path
-from typing import Dict, Iterator, Any
+from typing import Dict, Iterator, Any, Optional, List
+import numpy as np
 
 def _load_kaldi_style_file(file_path: Path, num_parts: int) -> Dict[str, list[str]]:
     """Loads a Kaldi-style file (e.g., wav.scp, text, utt2spk) into a dictionary."""
@@ -12,10 +13,21 @@ def _load_kaldi_style_file(file_path: Path, num_parts: int) -> Dict[str, list[st
                 data[key] = values
     return data
 
+PHONEMISER_LANG_MAPPING = {
+    "en": "en-us",
+    "nl": "nl",
+    "it": "it",
+    "es": "es",
+}
+
+
 class Dataset:
     """Handles a speech dataset in a Kaldi-style format."""
 
-    def __init__(self, dataset_path: str):
+    def __init__(self, dataset_path: str, use_reference: bool = False,
+                 reference_path: str = None,
+                 reference_type: str = 'control',
+                 reference_mapping: dict = None):
         self.path = Path(dataset_path)
         if not self.path.is_dir():
             raise FileNotFoundError(f"Dataset directory not found: {self.path}")
@@ -23,12 +35,14 @@ class Dataset:
         # Load language from file or default to 'en'
         lang_file = self.path / "language"
         if lang_file.exists():
-            self.language = lang_file.read_text().strip()
+            lang = lang_file.read_text().strip()
         else:
-            self.language = "en"
+            lang = "en"
             print(
                 f"Warning: 'language' file not found in {self.path}. Defaulting to 'en'."
             )
+        
+        self.language = PHONEMISER_LANG_MAPPING.get(lang, lang)
 
         self.segments = self._load_if_exists("segments", 4)
         self.wav_scp = {key: value[0] for key, value in self._load_if_exists("wav.scp", 2).items()}
@@ -36,6 +50,23 @@ class Dataset:
         self.utt2spk = {key: value[0] for key, value in self._load_if_exists("utt2spk", 2).items()}
         self.spk2score = self._load_scores_if_exists("spk2score")
         self.utt2score = self._load_scores_if_exists("utt2score")
+        self.spk2gender = {key: value[0] for key, value in self._load_if_exists("spk2gender", 2).items()}
+        
+        self.use_reference = use_reference
+        self.reference_path = reference_path
+        self.reference_type = reference_type
+        self.reference_mapping = reference_mapping
+        self.reference_dataset = None
+
+        if self.use_reference:
+            if self.reference_type == "none":
+                pass
+            elif self.reference_type in ['control', 'all']:
+                if not self.reference_path:
+                    raise ValueError('reference_path is required for control/all reference types')
+                self.reference_dataset = Dataset(self.reference_path)
+            elif self.reference_type == 'custom' and not self.reference_mapping:
+                raise ValueError('reference_mapping is required for custom reference type')
 
 
     def _load_if_exists(self, filename: str, num_parts: int) -> Dict[str, list[str]]:
@@ -51,22 +82,137 @@ class Dataset:
             with open(file_path, 'r') as f:
                 for line in f:
                     key, score = line.strip().split()
-                    scores[key] = float(score)
+                    if score == 'N/A':
+                        print("Warning: Found 'N/A' score for key:", key)
+                        scores[key] = np.nan
+                    else:
+                        scores[key] = float(score)
         return scores
 
-    def __iter__(self) -> Iterator[tuple[str, str, str]]:
-        """Iterates over utterances, yielding utterance ID, audio path, and transcription."""
+    def __iter__(self) -> Iterator[tuple[str, str, str, Optional[List[str]]]]:
+        """
+        Iterates over utterances, yielding utterance ID, audio path, transcription,
+        and optionally a list of reference audio paths.
+        """
         if self.segments:
-            for utt_id, seg_info in self.segments.items():
-                rec_id, start, end = seg_info
-                audio_path = self.wav_scp.get(rec_id)
-                if audio_path:
-                    transcription = self.text.get(utt_id, "")
-                    yield utt_id, audio_path, transcription
+            utt_ids = list(self.segments.keys())
         else:
-            for utt_id, audio_path in self.wav_scp.items():
-                transcription = self.text.get(utt_id, "")
-                yield utt_id, audio_path, transcription
+            utt_ids = list(self.wav_scp.keys())
+
+        for utt_id in utt_ids:
+            if self.segments:
+                rec_id, _, _ = self.segments[utt_id]
+                audio_path = self.wav_scp.get(rec_id)
+            else:
+                audio_path = self.wav_scp.get(utt_id)
+
+            if not audio_path:
+                continue
+
+            transcription = self.text.get(utt_id, "")
+
+            if not self.use_reference:
+                yield utt_id, audio_path, transcription, None
+            else:
+                reference_audio_paths = self._get_reference_audios(utt_id, transcription)
+                yield utt_id, audio_path, transcription, reference_audio_paths
+
+    def _get_reference_audios(self, utt_id: str, transcription: str) -> List[str]:
+        if self.reference_type == "control":
+            return self._load_same_text_references(utt_id, transcription)
+        elif self.reference_type == "all":
+            current_speaker = self.utt2spk.get(utt_id)
+            return self._load_all_same_text_references(transcription, current_speaker)
+        elif self.reference_type == "custom":
+            return self._load_custom_references(utt_id)
+        else:
+            raise ValueError(f"Unsupported reference_type: {self.reference_type}")
+
+    def _load_same_text_references(self, utt_id: str, transcription: str) -> List[str]:
+        """
+        Loads reference audios from control speakers with the same transcription and gender.
+        """
+        if not self.reference_dataset:
+            return []
+
+        current_speaker = self.utt2spk.get(utt_id)
+        if not current_speaker:
+            return []
+        
+        current_gender = self.spk2gender.get(current_speaker)
+        if not current_gender:
+            return []
+
+        ref_paths = []
+        for ref_utt_id, ref_trans in self.reference_dataset.text.items():
+            if ref_trans == transcription:
+                ref_speaker = self.reference_dataset.utt2spk.get(ref_utt_id)
+                if not ref_speaker:
+                    continue
+                
+                ref_gender = self.reference_dataset.spk2gender.get(ref_speaker)
+                if ref_gender != current_gender:
+                    continue
+
+                if self.reference_dataset.segments:
+                    if ref_utt_id in self.reference_dataset.segments:
+                        rec_id, _, _ = self.reference_dataset.segments[ref_utt_id]
+                        audio_path = self.reference_dataset.wav_scp.get(rec_id)
+                    else:
+                        continue
+                else:
+                    audio_path = self.reference_dataset.wav_scp.get(ref_utt_id)
+                
+                if audio_path:
+                    ref_paths.append(audio_path)
+        print(f"Utterance: {utt_id}, References: {ref_paths}")
+        return ref_paths
+
+    def _load_all_same_text_references(self, transcription: str, current_speaker: str) -> List[str]:
+        """
+        Loads all reference audios with the same transcription from different speakers,
+        from both the main dataset and the reference dataset.
+        """
+        ref_paths = []
+
+        # Search in the main dataset (e.g., pathological)
+        ref_paths.extend(Dataset._find_matching_references_in_dataset(self, transcription, current_speaker))
+
+        # Search in the reference dataset (e.g., control)
+        if self.reference_dataset:
+            ref_paths.extend(Dataset._find_matching_references_in_dataset(self.reference_dataset, transcription, current_speaker))
+        
+        return ref_paths
+
+    @staticmethod
+    def _find_matching_references_in_dataset(dataset, transcription: str, current_speaker: str) -> List[str]:
+        paths = []
+        for utt_id, trans in dataset.text.items():
+            if trans == transcription:
+                speaker = dataset.utt2spk.get(utt_id)
+                # The speaker check should be against the original utterance speaker
+                if speaker != current_speaker:
+                    if dataset.segments:
+                        if utt_id in dataset.segments:
+                            rec_id, _, _ = dataset.segments[utt_id]
+                            path = dataset.wav_scp.get(rec_id)
+                        else:
+                            continue
+                    else:
+                        path = dataset.wav_scp.get(utt_id)
+                    
+                    if path:
+                        paths.append(path)
+        return paths
+
+    def _load_custom_references(self, utt_id: str) -> List[str]:
+        """
+        Loads reference audios based on a custom mapping.
+        Assumes the mapping is from utterance ID to a list of audio file paths.
+        """
+        if not self.reference_mapping:
+            return []
+        return self.reference_mapping.get(utt_id, [])
 
     def get_utterances(self):
         """Returns a list of utterance IDs."""

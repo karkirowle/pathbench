@@ -1,11 +1,16 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Optional
+import re
 
 import jiwer
 import soundfile as sf
 import torch
-#from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
+from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
+import librosa
+from phonemizer.phonemize import phonemize
+from phonemizer.separator import Separator
 
+from pathbench.string_clean import clean_text
 
 class Evaluator(ABC):
     """Abstract base class for evaluators."""
@@ -103,17 +108,13 @@ class ASREvaluator(Evaluator):
         Performs ASR on the audio file and returns 1 - WER as the score.
         """
         try:
-            speech, sample_rate = sf.read(audio_path)
+            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True)
         except Exception as e:
             print(f"Error reading audio file {audio_path}: {e}")
             return None
 
-        if sample_rate != 16000:
-            # TODO: Add resampling for non-16kHz audio.
-            print(
-                f"Warning: audio for {utterance_id} has sample rate {sample_rate}Hz. "
-                "ASR model expects 16kHz. Skipping."
-            )
+        if len(speech) < 400:
+            print(f"Warning: Skipping audio file {audio_path} because it is too short ({len(speech)} samples).")
             return None
 
         # Process audio
@@ -128,31 +129,31 @@ class ASREvaluator(Evaluator):
         predicted_ids = torch.argmax(logits, dim=-1)
         predicted_transcription = self.processor.batch_decode(predicted_ids)[0]
 
+        print(f"Reference: {transcription}")
+        print(f"Predicted: {predicted_transcription}")
+
+        # Clean transcriptions
+        cleaned_reference = clean_text(transcription)
+        cleaned_prediction = clean_text(predicted_transcription)
+
+        print("Cleaned Reference:", cleaned_reference)
+        print("Cleaned Predicted:", cleaned_prediction)
         # Calculate WER
-        # Normalize transcriptions for a fairer comparison
-        transformation = jiwer.Compose(
-            [
-                jiwer.ToLowerCase(),
-                jiwer.RemoveMultipleSpaces(),
-                jiwer.Strip(),
-                jiwer.RemovePunctuation(),
-                jiwer.SentencesToListOfWords(),
-            ]
-        )
+        wer = jiwer.wer(cleaned_reference, cleaned_prediction)
 
-        wer = jiwer.wer(
-            transcription,
-            predicted_transcription,
-            truth_transform=transformation,
-            hypothesis_transform=transformation,
-        )
-
-        # Return 1 - WER so that a higher score is better
-        return 1 - wer
+        return wer
 
 
-class DurationEvaluator(Evaluator):
-    """An evaluator that scores based on the duration of the audio."""
+class PEREvaluator(Evaluator):
+    """An evaluator that uses an ASR model to compute a score based on PER."""
+
+    def __init__(self, model_id: str):
+        self.processor = Wav2Vec2Processor.from_pretrained(model_id)
+        self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.model.to(self.device)
+        print(f"ASR model '{model_id}' loaded on {self.device}.")
+
 
     def score(
         self,
@@ -163,11 +164,146 @@ class DurationEvaluator(Evaluator):
         **kwargs,
     ) -> Optional[float]:
         """
-        Returns the duration of the audio file in seconds.
+        Performs ASR on the audio file and returns 1 - PER as the score.
         """
         try:
-            info = sf.info(audio_path)
-            return info.duration
+            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True)
         except Exception as e:
-            print(f"Error reading audio file info {audio_path}: {e}")
+            print(f"Error reading audio file {audio_path}: {e}")
             return None
+
+        if len(speech) < 400:
+            print(f"Warning: Skipping audio file {audio_path} because it is too short ({len(speech)} samples).")
+            return None
+
+        # Process audio
+        input_values = self.processor(
+            speech, sampling_rate=sample_rate, return_tensors="pt", padding="longest"
+        ).input_values
+        input_values = input_values.to(self.device)
+
+        # Get ASR prediction
+        with torch.no_grad():
+            logits = self.model(input_values).logits
+        predicted_ids = torch.argmax(logits, dim=-1)
+        predicted_transcription = self.processor.batch_decode(predicted_ids)[0]
+
+        print(f"Reference: {transcription}")
+        print(f"Predicted: {predicted_transcription}")
+
+        separator = Separator(phone = " ", word = "|")
+        # Phonemize transcriptions
+        phonemized_reference = phonemize(
+            clean_text(transcription),
+            language=language,
+            backend="espeak",
+            strip=True,
+            preserve_punctuation=False,
+            separator=separator
+        )
+        phonemized_prediction = phonemize(
+            clean_text(predicted_transcription),
+            language=language,
+            backend="espeak",
+            strip=True,
+            preserve_punctuation=False,
+            separator=separator
+        )
+        
+        print(f"Phonemized Reference: {phonemized_reference}")
+        print(f"Phonemized Predicted: {phonemized_prediction}")
+
+        cleaned_reference = phonemized_reference.replace("|", " ")
+        cleaned_prediction = phonemized_prediction.replace("|", " ")
+
+        cleaned_reference = re.sub(r"\s+", " ", cleaned_reference).strip()
+        cleaned_prediction = re.sub(r"\s+", " ", cleaned_prediction).strip()
+        print("Cleaned Phonemized Reference:", cleaned_reference)
+        print("Cleaned Phonemized Predicted:", cleaned_prediction)
+
+
+        # Calculate PER
+        per = jiwer.wer(cleaned_reference, cleaned_prediction)
+
+        # Return 1 - PER so that a higher score is better
+        return per
+
+class DirectPEREvaluator(Evaluator):
+    """An evaluator that uses an ASR model to compute a score based on PER."""
+
+    def __init__(self):
+        self.processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-xlsr-53-espeak-cv-ft")
+        self.model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-xlsr-53-espeak-cv-ft")
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.model.to(self.device)
+
+
+    def score(
+        self,
+        utterance_id: str,
+        audio_path: str,
+        transcription: str,
+        language: str,
+        **kwargs,
+    ) -> Optional[float]:
+        """
+        Performs ASR on the audio file and returns 1 - PER as the score.
+        """
+        try:
+            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True)
+        except Exception as e:
+            print(f"Error reading audio file {audio_path}: {e}")
+            return None
+
+        if len(speech) < 400:
+            print(f"Warning: Skipping audio file {audio_path} because it is too short ({len(speech)} samples).")
+            return None
+
+        # Process audio
+        input_values = self.processor(
+            speech, sampling_rate=sample_rate, return_tensors="pt", padding="longest"
+        ).input_values
+        input_values = input_values.to(self.device)
+
+        # Get ASR prediction
+        with torch.no_grad():
+            logits = self.model(input_values).logits
+        predicted_ids = torch.argmax(logits, dim=-1)
+        predicted_transcription = self.processor.batch_decode(predicted_ids)[0]
+
+        print(f"Reference: {transcription}")
+
+        separator = Separator(phone = " ", word = "|")
+        # Phonemize transcriptions
+        phonemized_reference = phonemize(
+            clean_text(transcription),
+            language=language,
+            backend="espeak",
+            strip=True,
+            preserve_punctuation=False,
+            separator=separator
+        )
+
+        phonemized_prediction = predicted_transcription
+        print(f"Phonemized Reference: {phonemized_reference}")
+        print(f"Phonemized Predicted: {phonemized_prediction}")
+
+        cleaned_reference = phonemized_reference.replace("|", " ")
+        cleaned_prediction = phonemized_prediction.replace("|", " ")
+
+        cleaned_reference = re.sub(r"\s+", " ", cleaned_reference).strip()
+        cleaned_prediction = re.sub(r"\s+", " ", cleaned_prediction).strip()
+        print("Cleaned Phonemized Reference:", cleaned_reference)
+        print("Cleaned Phonemized Predicted:", cleaned_prediction)
+
+
+        # Calculate PER
+        per = jiwer.wer(cleaned_reference, cleaned_prediction)
+
+        # Return 1 - PER so that a higher score is better
+        return per
+
+
+
+
+

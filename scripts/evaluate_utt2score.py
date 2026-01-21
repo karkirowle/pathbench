@@ -1,40 +1,45 @@
-import argparse
 import sys
 from collections import defaultdict
 import numpy as np
+from tqdm import tqdm
 
+from pathbench.evaluator import Utt2ScoreEvaluator, PEREvaluator, ASREvaluator
 from pathbench.dataset import Dataset
-from pathbench.evaluator import Utt2ScoreEvaluator, DurationEvaluator
 
 
 def main():
     dataset_dirs = [
-        "datasets/neurovoz/pathological",
-        "datasets/youtube",
+        "datasets/torgo/pathological/utterances",
     ]
 
     results = {}
     for dataset_dir in dataset_dirs:
         print(f"--- Evaluating: {dataset_dir} ---")
         try:
-            pcc = evaluate_dataset(dataset_dir)
-            if pcc is not None:
-                results[dataset_dir] = pcc
+            res = evaluate_dataset(dataset_dir)
+            if res is not None:
+                results[dataset_dir] = res
         except FileNotFoundError as e:
             print(f"Error loading dataset: {e}", file=sys.stderr)
         print("\n")
 
     print("\n--- Evaluation Summary ---")
-    
+
     datasets = list(results.keys())
     header = "| Metric |" + "".join([f" {dataset} |" for dataset in datasets])
     print(header)
     print("|" + "---|" * (len(datasets) + 1))
-    
-    row = "| PCC (utt2score vs duration) |"
+
+    row = "| ASR (1-PER) |"
     for dataset in datasets:
-        pcc = results[dataset]
-        row += f" {pcc:.4f} |"
+        per = results[dataset]["per"]
+        row += f" {per:.4f} |"
+    print(row)
+
+    row = "| ASR (1-WER) |"
+    for dataset in datasets:
+        wer = results[dataset]["wer"]
+        row += f" {wer:.4f} |"
     print(row)
 
 
@@ -52,7 +57,8 @@ def evaluate_dataset(dataset_dir):
 
     evaluators = {
         "utt2score": Utt2ScoreEvaluator(dataset.utt2score),
-        "duration": DurationEvaluator(),
+        "per": PEREvaluator("facebook/wav2vec2-base-960h"),
+        "wer": ASREvaluator("facebook/wav2vec2-base-960h"),
     }
 
     # --- 3. Run Evaluation ---
@@ -60,7 +66,7 @@ def evaluate_dataset(dataset_dir):
     scores = defaultdict(list)
     scored_utterances = 0
 
-    for utt_id, audio_path, transcription in dataset:
+    for utt_id, audio_path, transcription in tqdm(dataset, desc=f"Evaluating {dataset_dir}"):
         evaluator_scores = {}
         for name, evaluator in evaluators.items():
             score = evaluator.score(
@@ -89,17 +95,13 @@ def evaluate_dataset(dataset_dir):
             avg_score = np.mean(score_list)
             print(f"  - {name}: {avg_score:.4f}")
 
-    if "duration" in scores and "utt2score" in scores:
-        if len(scores["duration"]) > 1:
-            pcc = np.corrcoef(scores["utt2score"], scores["duration"])[0, 1]
-            print("\n--- Correlation Analysis ---")
-            print(f"Pearson Correlation between 'utt2score' and 'duration': {pcc:.4f}")
-            print(f"(Based on {len(scores['duration'])} commonly scored utterances)")
-            return pcc
-        else:
-            print("\nCould not calculate correlation: not enough common data points.")
-    
-    return None
+    results = {}
+    if "per" in scores:
+        results["per"] = np.mean(scores["per"])
+    if "wer" in scores:
+        results["wer"] = np.mean(scores["wer"])
+
+    return results if results else None
 
 
 if __name__ == "__main__":
