@@ -5,16 +5,30 @@ from tqdm import tqdm
 
 from pathbench.evaluator import Spk2ScoreEvaluator, PEREvaluator, ASREvaluator, DirectPEREvaluator
 from pathbench.reference_evaluator import ESTOIEvaluator
+from pathbench.nad_evaluator import NADEvaluator
 from pathbench.articulatory_precision_evaluator import ArticulatoryPrecisionEvaluator
+from pathbench.speech_rate import WpmEvaluator
 from pathbench.dataset import Dataset
-
+from pathbench.p_estoi_evaluator import ForcedAlignmentPESTOIEvaluator
+from pathbench.cpp_evaluator import CPPEvaluator
 
 def main():
     dataset_dirs = [
-        #"datasets/uaspeech/pathological/word",
+        "datasets/uaspeech/pathological/word/balanced",
+        "datasets/uaspeech/pathological/word/unbalanced",
         #"datasets/copas/pathological/utterances",
         #"datasets/neurovoz_clean",
+        
+        #"datasets/torgo/pathological/utterances/balanced",
+        "datasets/torgo/pathological/word/balanced",
+        "datasets/torgo/pathological/word/unbalanced",
+        "datasets/torgo/pathological/utterances/unbalanced",
+        "datasets/torgo/pathological/utterances/balanced",
+        #...
         "datasets/neurovoz_balanced/pathological",
+        "datasets/neurovoz_all/pathological",
+        #"datasets/torgo/pathological/word/unbalanced",
+        #"datasets/copas/pathological/utterances"
     ]
 
     results = {}
@@ -35,7 +49,7 @@ def main():
     print(header)
     print("|" + "---|" * (len(datasets) + 1))
 
-    metrics = [ "dper", "p-estoi" ]
+    metrics = [ "speech_rate", "cpp", "per", "dper", "artp", "p_estoi", "p_estoi_fa", "nad" ]
     for metric in metrics:
         row = f"| PCC (spk2score vs {metric}) |"
         for dataset in datasets:
@@ -81,33 +95,42 @@ def evaluate_dataset(dataset_dir):
 
     evaluators = {
         "spk2score": Spk2ScoreEvaluator(dataset.spk2score, dataset.utt2spk),
-        #"artp": ArticulatoryPrecisionEvaluator(),
+        "speech_rate": WpmEvaluator(),
+        "cpp": CPPEvaluator(),
+        "per": PEREvaluator(),
         "dper" : DirectPEREvaluator(),
+        "artp": ArticulatoryPrecisionEvaluator(),
         # "per": PEREvaluator("jonatasgrosman/wav2vec2-large-xlsr-53-spanish"),
         #"wer": ASREvaluator("jonatasgrosman/wav2vec2-large-xlsr-53-spanish"),
     }
     # Example of how other evaluators would be added
     if use_reference:
-         evaluators["p-estoi"] = ESTOIEvaluator(
-             normalization_method='RMS',
-             centroid_ind=0,
-             frame_deletion=True
+         
+         evaluators["p_estoi"] = ESTOIEvaluator(
+                normalization_method = "RMS",
+                centroid_ind = 0,
+                frame_deletion = True)
+             
+         evaluators["p_estoi_fa"] = ForcedAlignmentPESTOIEvaluator(
          )
+
+         evaluators["nad"] = NADEvaluator()
 
     # --- 3. Run Evaluation & Collect Utterance Scores ---
     print("\nRunning evaluation...")
     # Structure: {speaker_id: {metric: [scores]}}
     spk_utt_scores = defaultdict(lambda: defaultdict(list))
     
-    for utt_id, audio_path, transcription, _ in tqdm(dataset, desc=f"Evaluating {dataset_dir}"):
+    for utt_id, audio_path, transcription, reference_audios in tqdm(dataset, desc=f"Evaluating {dataset_dir}"):
         speaker_id = dataset.utt2spk.get(utt_id)
         if not speaker_id:
             continue
-
+        print("reference_audios:", reference_audios)
         for name, evaluator in evaluators.items():
             score = evaluator.score(
                 utterance_id=utt_id,
                 audio_path=audio_path,
+                reference_audios=reference_audios,
                 transcription=transcription,
                 language=dataset.language,
             )

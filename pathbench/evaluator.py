@@ -147,12 +147,21 @@ class ASREvaluator(Evaluator):
 class PEREvaluator(Evaluator):
     """An evaluator that uses an ASR model to compute a score based on PER."""
 
-    def __init__(self, model_id: str):
-        self.processor = Wav2Vec2Processor.from_pretrained(model_id)
-        self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
+    def __init__(self):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model.to(self.device)
-        print(f"ASR model '{model_id}' loaded on {self.device}.")
+        model_ids = {
+            "en": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
+            "en-us": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
+            "es": "jonatasgrosman/wav2vec2-large-xlsr-53-spanish",
+            "nl": "jonatasgrosman/wav2vec2-large-xlsr-53-dutch",
+        }
+        self.processors = {}
+        self.models = {}
+        for lang, model_id in model_ids.items():
+            self.processors[lang] = Wav2Vec2Processor.from_pretrained(model_id)
+            self.models[lang] = Wav2Vec2ForCTC.from_pretrained(model_id)
+            self.models[lang].to(self.device)
+            print(f"ASR model '{model_id}' for language '{lang}' loaded on {self.device}.")
 
 
     def score(
@@ -166,6 +175,13 @@ class PEREvaluator(Evaluator):
         """
         Performs ASR on the audio file and returns 1 - PER as the score.
         """
+        if language not in self.models:
+            print(f"Error: Language '{language}' is not supported for PEREvaluator. Supported languages are: {list(self.models.keys())}")
+            return None
+
+        processor = self.processors[language]
+        model = self.models[language]
+
         try:
             speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True)
         except Exception as e:
@@ -177,25 +193,34 @@ class PEREvaluator(Evaluator):
             return None
 
         # Process audio
-        input_values = self.processor(
+        input_values = processor(
             speech, sampling_rate=sample_rate, return_tensors="pt", padding="longest"
         ).input_values
         input_values = input_values.to(self.device)
 
         # Get ASR prediction
         with torch.no_grad():
-            logits = self.model(input_values).logits
+            logits = model(input_values).logits
         predicted_ids = torch.argmax(logits, dim=-1)
-        predicted_transcription = self.processor.batch_decode(predicted_ids)[0]
+        predicted_transcription = processor.batch_decode(predicted_ids)[0]
 
         print(f"Reference: {transcription}")
         print(f"Predicted: {predicted_transcription}")
 
         separator = Separator(phone = " ", word = "|")
+        
+        espeak_language_map = {
+            "en": "en-us",
+            "en-us": "en-us",
+            "es": "es",
+            "nl": "nl"
+        }
+        espeak_lang = espeak_language_map.get(language, language)
+
         # Phonemize transcriptions
         phonemized_reference = phonemize(
             clean_text(transcription),
-            language=language,
+            language=espeak_lang,
             backend="espeak",
             strip=True,
             preserve_punctuation=False,
@@ -203,7 +228,7 @@ class PEREvaluator(Evaluator):
         )
         phonemized_prediction = phonemize(
             clean_text(predicted_transcription),
-            language=language,
+            language=espeak_lang,
             backend="espeak",
             strip=True,
             preserve_punctuation=False,

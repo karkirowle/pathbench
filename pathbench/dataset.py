@@ -1,6 +1,8 @@
 from pathlib import Path
 from typing import Dict, Iterator, Any, Optional, List
 import numpy as np
+from pathbench.string_clean import clean_text
+
 
 def _load_kaldi_style_file(file_path: Path, num_parts: int) -> Dict[str, list[str]]:
     """Loads a Kaldi-style file (e.g., wav.scp, text, utt2spk) into a dictionary."""
@@ -144,8 +146,11 @@ class Dataset:
             return []
 
         ref_paths = []
+        cleaned_transcription = clean_text(transcription)
         for ref_utt_id, ref_trans in self.reference_dataset.text.items():
-            if ref_trans == transcription:
+            #print("check sameness:", clean_text(ref_trans), cleaned_transcription)
+            if clean_text(ref_trans) == cleaned_transcription:
+                #print("same")
                 ref_speaker = self.reference_dataset.utt2spk.get(ref_utt_id)
                 if not ref_speaker:
                     continue
