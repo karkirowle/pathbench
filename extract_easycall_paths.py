@@ -1,9 +1,11 @@
 import os
 import argparse
 import glob
+import string
+from collections import defaultdict
 
 # ==========================================
-# 1. TOM SCORES (User Provided)
+# 1. SCORES & CONFIG
 # ==========================================
 SPEAKER_SCORES = {
     "f01": "1", "f02": "3", "f03": "1", "f05": "1", "f06": "1",
@@ -12,13 +14,10 @@ SPEAKER_SCORES = {
     "m06": "4", "m07": "4", "m08": "3", "m09": "1", "m10": "3",
     "m11": "5", "m12": "1", "m13": "1", "m14": "5", "m15": "1",
     "m16": "3", "m17": "1", "m18": "1", "m19": "3", "m20": "1",
-    # Controls must be in this list to be processed
-    "fc01": "Control", "fc02": "Control", "mc01": "Control", "mc02": "Control"
+    # Controls
+    "fc01": "N/A", "fc02": "N/A", "mc01": "N/A", "mc02": "N/A"
 }
 
-# ==========================================
-# 2. OFFICIAL UTTERANCE LIST
-# ==========================================
 OFFICIAL_TRANSCRIPTS = [
     "Aggiungi ai preferiti", "Aggiungi", "Apri rubrica", "Apri",
     "Attiva vivavoce", "Bue", "Cancella contatto", "Cancella tutto",
@@ -37,14 +36,10 @@ OFFICIAL_TRANSCRIPTS = [
 ]
 
 # ==========================================
-# 3. HELPER FUNCTIONS
+# 2. HELPER FUNCTIONS
 # ==========================================
 
 def normalize_text(text):
-    """
-    Removes spaces, punctuation, and casing to create a robust lookup key.
-    Ex: "Scorri verso l’alto" -> "scorriversolalto"
-    """
     t = text.lower()
     t = t.replace("’", "").replace("'", "")
     t = t.replace(" ", "").replace("_", "")
@@ -57,105 +52,202 @@ def build_lookup_table(official_list):
         table[key] = phrase
     return table
 
+def get_gender(speaker_id):
+    if speaker_id.lower().startswith("f"):
+        return "f"
+    return "m"
+
 # ==========================================
-# 4. MAIN PROCESSING
+# 3. SCANNING
 # ==========================================
 
-def process_easycall(dataset_root, output_dir):
-    
+def scan_easycall(dataset_root):
     lookup_table = build_lookup_table(OFFICIAL_TRANSCRIPTS)
+    all_entries = []
     
-    groups = ["pathological", "control"]
-    handles = {}
-
-    # Setup Output Files
-    for g in groups:
-        out_path = os.path.join(output_dir, "easycall", g, "commands")
-        os.makedirs(out_path, exist_ok=True)
-        handles[g] = {
-            "wav_scp": open(os.path.join(out_path, "wav.scp"), "w", encoding="utf-8"),
-            "text": open(os.path.join(out_path, "text"), "w", encoding="utf-8"),
-            "utt2spk": open(os.path.join(out_path, "utt2spk"), "w", encoding="utf-8"),
-            "spk2score": open(os.path.join(out_path, "spk2score"), "w", encoding="utf-8"),
-            "speakers_found": set()
-        }
-
     print(f"Scanning directory: {dataset_root}...")
-    
     all_wavs = glob.glob(os.path.join(dataset_root, "**", "*.wav"), recursive=True)
     
-    count = 0
-    skipped_text_match = 0
-    skipped_no_score = 0
-
     for wav_path in all_wavs:
         filename = os.path.basename(wav_path)
         
-        if filename.count("_") < 2:
-            continue
+        # Expecting: m05_01_apri.wav
+        if filename.count("_") < 2: continue
 
         try:
             parts = filename.split("_", 2)
-            speaker_id = parts[0]   # m05
-            session_id = parts[1]   # 01
-            raw_text_part = parts[2] 
+            speaker_id = parts[0].lower()
+            session_id = parts[1]
+            raw_text_part = parts[2]
             
-            # --- NEW CHECK: Exclude speakers without scores ---
-            if speaker_id not in SPEAKER_SCORES:
-                skipped_no_score += 1
-                continue
+            # Filter Check
+            if speaker_id not in SPEAKER_SCORES: continue
 
             raw_text_no_ext = os.path.splitext(raw_text_part)[0]
             
-            # 1. Normalize and Lookup
+            # Lookup Transcript
             file_key = normalize_text(raw_text_no_ext)
             official_transcript = lookup_table.get(file_key)
-            
-            if not official_transcript:
-                skipped_text_match += 1
-                continue
+            if not official_transcript: continue
 
-            # 2. Group Classification
-            if speaker_id.lower().startswith(('c', 'fc', 'mc')):
+            # Determine Group
+            if "c" in speaker_id:
                 group = "control"
             else:
                 group = "pathological"
             
-            # 3. Write Output
+            # Determine Type (Word vs Utterance)
+            if " " in official_transcript:
+                dtype = "utterances"
+            else:
+                dtype = "word"
+
             utt_id = f"{speaker_id}_{session_id}_{file_key}"
             
-            h = handles[group]
-            h["speakers_found"].add(speaker_id)
-            
-            h["wav_scp"].write(f"{utt_id} {os.path.abspath(wav_path)}\n")
-            h["text"].write(f"{utt_id} {official_transcript}\n")
-            h["utt2spk"].write(f"{utt_id} {speaker_id}\n")
-            
-            count += 1
+            all_entries.append({
+                "utt_id": utt_id,
+                "wav_path": os.path.abspath(wav_path),
+                "transcript": official_transcript,
+                "norm_text": file_key, 
+                "speaker": speaker_id,
+                "gender": get_gender(speaker_id),
+                "group": group,
+                "dtype": dtype,
+                "score": SPEAKER_SCORES[speaker_id]
+            })
 
-        except Exception as e:
-            print(f"Error processing {filename}: {e}")
-
-    # Write Scores and Close Files
-    for g in groups:
-        h = handles[g]
-        for spk in sorted(list(h["speakers_found"])):
-            # We already know spk is in SPEAKER_SCORES because we filtered earlier
-            score = SPEAKER_SCORES[spk]
-            h["spk2score"].write(f"{spk} {score}\n")
+        except Exception: pass
             
-        h["wav_scp"].close()
-        h["text"].close()
-        h["utt2spk"].close()
-        h["spk2score"].close()
+    return all_entries
 
-    print(f"Processing complete.")
-    print(f"Successfully processed: {count} utterances.")
-    if skipped_no_score > 0:
-        print(f"Skipped {skipped_no_score} files (Speaker not in score list).")
-    if skipped_text_match > 0:
-        print(f"Skipped {skipped_text_match} files (Filename did not match official list).")
-    print(f"Output saved to: {os.path.join(output_dir, 'easycall')}")
+# ==========================================
+# 4. LOGIC: INTERSECTION & VALIDATION
+# ==========================================
+
+def get_intersection_texts(entries, group_filter="pathological", dtype_filter="word"):
+    """
+    Returns normalized texts spoken by ALL speakers in the target group.
+    """
+    filtered = [e for e in entries if e["group"] == group_filter and e["dtype"] == dtype_filter]
+    
+    text_to_spk = defaultdict(set)
+    all_spk = set()
+    
+    for e in filtered:
+        text_to_spk[e["norm_text"]].add(e["speaker"])
+        all_spk.add(e["speaker"])
+        
+    intersection = set()
+    for text, speakers in text_to_spk.items():
+        if speakers == all_spk:
+            intersection.add(text)
+            
+    return intersection, all_spk
+
+def get_valid_texts_by_gender_count(entries, dtype_filter, min_per_gender=2):
+    """
+    Returns texts spoken by >= min Males AND >= min Females (Controls).
+    """
+    control_entries = [e for e in entries if e["group"] == "control" and e["dtype"] == dtype_filter]
+    
+    text_stats = defaultdict(lambda: {'m': set(), 'f': set()})
+    
+    for e in control_entries:
+        g = e['gender']
+        text_stats[e["norm_text"]][g].add(e["speaker"])
+    
+    valid_texts = set()
+    for text, stats in text_stats.items():
+        if len(stats['m']) >= min_per_gender and len(stats['f']) >= min_per_gender:
+            valid_texts.add(text)
+            
+    return valid_texts
+
+# ==========================================
+# 5. WRITING OUTPUTS
+# ==========================================
+
+def write_kaldi_subset(entries, out_dir):
+    os.makedirs(out_dir, exist_ok=True)
+    
+    with open(os.path.join(out_dir, "wav.scp"), "w") as f_wav, \
+         open(os.path.join(out_dir, "text"), "w") as f_text, \
+         open(os.path.join(out_dir, "utt2spk"), "w") as f_u2s, \
+         open(os.path.join(out_dir, "language"), "w") as f_lang:
+         
+        f_lang.write("it\n")
+         
+        for e in entries:
+            f_wav.write(f"{e['utt_id']} {e['wav_path']}\n")
+            f_text.write(f"{e['utt_id']} {e['transcript']}\n")
+            f_u2s.write(f"{e['utt_id']} {e['speaker']}\n")
+
+    spk_map = {e['speaker']: e['score'] for e in entries}
+    
+    with open(os.path.join(out_dir, "spk2score"), "w") as f_s2sc, \
+         open(os.path.join(out_dir, "spk2gender"), "w") as f_s2gen:
+         
+        for spk in sorted(spk_map.keys()):
+            f_s2sc.write(f"{spk} {spk_map[spk]}\n")
+            f_s2gen.write(f"{spk} {get_gender(spk)}\n")
+
+    return len(spk_map) # Return number of unique speakers
+
+def process_easycall(dataset_root, output_dir):
+    # 1. Scan
+    entries = scan_easycall(dataset_root)
+    print(f"Total utterances found: {len(entries)}")
+    
+    groups = ["pathological", "control"]
+    dtypes = ["word", "utterances"]
+    
+    for dtype in dtypes:
+        print(f"\n=== Processing {dtype.upper()} ===")
+        
+        # A. Strict Control Validation (Used for Balanced/Unbalanced only)
+        valid_control_texts = get_valid_texts_by_gender_count(entries, dtype, 2)
+        print(f"  Valid Control Texts (>=2M & >=2F): {len(valid_control_texts)}")
+
+        # B. Pathological Intersection
+        raw_bal_texts, pd_spks = get_intersection_texts(entries, "pathological", dtype)
+        
+        # C. Target Texts for Balanced/Unbalanced (Intersection + Valid Controls)
+        final_balanced_texts = raw_bal_texts.intersection(valid_control_texts)
+        print(f"  Final Balanced Texts (Intersection + Control Valid): {len(final_balanced_texts)}")
+        
+        for group in groups:
+            subset_entries = [e for e in entries if e["group"] == group and e["dtype"] == dtype]
+            
+            # --- 1. Balanced (Intersection + Valid Control + Deduplication) ---
+            balanced_set = []
+            seen_bal = set()
+            for e in subset_entries:
+                if e["norm_text"] in final_balanced_texts:
+                    key = (e["speaker"], e["norm_text"])
+                    if key not in seen_bal:
+                        balanced_set.append(e)
+                        seen_bal.add(key)
+            
+            # --- 2. Unbalanced (Same texts as Balanced + All Recordings) ---
+            unbalanced_set = []
+            for e in subset_entries:
+                if e["norm_text"] in final_balanced_texts:
+                    unbalanced_set.append(e)
+
+            # --- 3. All (No Text Filtering) ---
+            all_set = subset_entries
+
+            # Write Outputs
+            base_p = os.path.join(output_dir, "easycall", group, dtype)
+            
+            n_bal = write_kaldi_subset(balanced_set, os.path.join(base_p, "balanced"))
+            n_unbal = write_kaldi_subset(unbalanced_set, os.path.join(base_p, "unbalanced"))
+            n_all = write_kaldi_subset(all_set, os.path.join(base_p, "all"))
+            
+            print(f"  [{group.upper()}]")
+            print(f"    Balanced:   {len(balanced_set)} utts ({n_bal} spks)")
+            print(f"    Unbalanced: {len(unbalanced_set)} utts ({n_unbal} spks)")
+            print(f"    All:        {len(all_set)} utts ({n_all} spks)")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

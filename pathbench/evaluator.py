@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 import re
 
 import jiwer
@@ -15,13 +15,14 @@ from pathbench.string_clean import clean_text
 class Evaluator(ABC):
     """Abstract base class for evaluators."""
 
-    @abstractmethod
     def score(
         self,
         utterance_id: str,
         audio_path: str,
         transcription: str,
         language: str,
+        start_time: float,
+        end_time: float,
         **kwargs,
     ) -> Optional[float]:
         """
@@ -32,6 +33,32 @@ class Evaluator(ABC):
             audio_path: The path to the audio file.
             transcription: The transcription of the utterance.
             language: The language of the utterance.
+            **kwargs: Additional information that might be needed by the evaluator.
+
+        Returns:
+            A score, or None if a score cannot be computed.
+        """
+        pass
+
+
+class SpeakerEvaluator(ABC):
+    """Abstract base class for speaker-level evaluators."""
+
+    @abstractmethod
+    def score(
+        self,
+        audio_files: List[tuple[str, float, float]],
+        transcriptions: List[str],
+        language: str,
+        **kwargs,
+    ) -> Optional[float]:
+        """
+        Scores a given speaker based on all their utterances.
+
+        Args:
+            audio_paths: A list of paths to the audio files for the speaker.
+            transcriptions: A list of transcriptions for the speaker.
+            language: The language of the utterances.
             **kwargs: Additional information that might be needed by the evaluator.
 
         Returns:
@@ -52,12 +79,10 @@ class Utt2ScoreEvaluator(Evaluator):
         audio_path: str,
         transcription: str,
         language: str,
+        start_time: float,
+        end_time: float,
         **kwargs,
     ) -> Optional[float]:
-        """
-        Returns the pre-computed score for a given utterance ID.
-        The other arguments are ignored.
-        """
         return self.scores.get(utterance_id)
 
 
@@ -74,12 +99,10 @@ class Spk2ScoreEvaluator(Evaluator):
         audio_path: str,
         transcription: str,
         language: str,
+        start_time: float,
+        end_time: float,
         **kwargs,
     ) -> Optional[float]:
-        """
-        Returns the pre-computed score for a given utterance ID based on its speaker.
-        The other arguments are ignored.
-        """
         speaker_id = self.utt2spk.get(utterance_id)
         if speaker_id:
             return self.spk2score.get(speaker_id)
@@ -102,13 +125,16 @@ class ASREvaluator(Evaluator):
         audio_path: str,
         transcription: str,
         language: str,
+        start_time: float,
+        end_time: float,
         **kwargs,
     ) -> Optional[float]:
         """
         Performs ASR on the audio file and returns 1 - WER as the score.
         """
         try:
-            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True)
+            duration = end_time - start_time if end_time >= 0 else None
+            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True, offset=start_time, duration=duration)
         except Exception as e:
             print(f"Error reading audio file {audio_path}: {e}")
             return None
@@ -154,6 +180,7 @@ class PEREvaluator(Evaluator):
             "en-us": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
             "es": "jonatasgrosman/wav2vec2-large-xlsr-53-spanish",
             "nl": "jonatasgrosman/wav2vec2-large-xlsr-53-dutch",
+            "it": "jonatasgrosman/wav2vec2-large-xlsr-53-italian",
         }
         self.processors = {}
         self.models = {}
@@ -170,6 +197,8 @@ class PEREvaluator(Evaluator):
         audio_path: str,
         transcription: str,
         language: str,
+        start_time: float,
+        end_time: float,
         **kwargs,
     ) -> Optional[float]:
         """
@@ -183,7 +212,8 @@ class PEREvaluator(Evaluator):
         model = self.models[language]
 
         try:
-            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True)
+            duration = end_time - start_time if end_time >= 0 else None
+            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True, offset=start_time, duration=duration)
         except Exception as e:
             print(f"Error reading audio file {audio_path}: {e}")
             return None
@@ -269,13 +299,16 @@ class DirectPEREvaluator(Evaluator):
         audio_path: str,
         transcription: str,
         language: str,
+        start_time: float,
+        end_time: float,
         **kwargs,
     ) -> Optional[float]:
         """
         Performs ASR on the audio file and returns 1 - PER as the score.
         """
         try:
-            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True)
+            duration = end_time - start_time if end_time >= 0 else None
+            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True, offset=start_time, duration=duration)
         except Exception as e:
             print(f"Error reading audio file {audio_path}: {e}")
             return None

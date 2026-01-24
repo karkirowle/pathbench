@@ -15,8 +15,9 @@ def load_wav2vec2_featurizer(model_name, layer):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model.to(device)
 
-    def _featurize(path):
-        input_values, _ = librosa.load(path, sr=16000, mono=True)
+    def _featurize(path, start_time=0.0, end_time=-1.0):
+        duration = end_time - start_time if end_time != -1 else None
+        input_values, _ = librosa.load(path, sr=16000, mono=True, offset=start_time, duration=duration)
         input_values = torch.from_numpy(input_values).unsqueeze(0).to(device)
         with torch.no_grad():
             hidden_states = model(input_values, output_hidden_states=True).hidden_states
@@ -41,14 +42,16 @@ class NADEvaluator(ReferenceEvaluator):
         audio_path: str,
         transcription: str,
         language: str,
-        reference_audios: List[str],
+        reference_audios: List[tuple[str, float, float]],
+        start_time: float,
+        end_time: float,
         **kwargs,
     ) -> Optional[float]:
         """
         Computes the average DTW distance between the test audio and reference audios.
         """
         try:
-            test_feats = self.featurizer(audio_path)
+            test_feats = self.featurizer(audio_path, start_time, end_time)
         except Exception as e:
             print(f"Error featurizing test audio {audio_path}: {e}")
             return None
@@ -57,9 +60,9 @@ class NADEvaluator(ReferenceEvaluator):
             return None
 
         distances = []
-        for ref_path in reference_audios:
+        for ref_path, ref_start, ref_end in reference_audios:
             try:
-                ref_feats = self.featurizer(ref_path)
+                ref_feats = self.featurizer(ref_path, ref_start, ref_end)
             except Exception as e:
                 print(f"Error featurizing reference audio {ref_path}: {e}")
                 distances.append(np.nan)

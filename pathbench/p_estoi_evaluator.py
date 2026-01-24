@@ -26,17 +26,17 @@ class ForcedAlignmentPESTOIEvaluator(ReferenceEvaluator):
         self.cache = {}
         print(f"Phonetic model '{model_id}' loaded on {self.device}.")
 
-    def _trim_audio(self, audio_path: str, transcription: str, language: str) -> Optional[np.ndarray]:
+    def _trim_audio(self, audio_path: str, transcription: str, language: str, start_time: float = 0.0, end_time: float = -1.0) -> Optional[np.ndarray]:
         """
         Trims silence from the beginning and end of an audio file using forced alignment.
         """
-        cache_key = (audio_path, transcription, language)
+        cache_key = (audio_path, transcription, language, start_time, end_time)
         if cache_key in self.cache:
             return self.cache[cache_key]
 
         try:
-            speech, sample_rate = librosa.load(audio_path, sr=16000)
-            #speech, sample_rate = sf.read(audio_path)
+            duration = end_time - start_time if end_time != -1 else None
+            speech, sample_rate = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration, dtype=np.float64)
             print(speech, sample_rate)
         except Exception as e:
             print(f"Error reading audio file {audio_path}: {e}")
@@ -74,11 +74,22 @@ class ForcedAlignmentPESTOIEvaluator(ReferenceEvaluator):
         # 2. Get the mapping from phonemes to model vocab indices.
         vocab = self.processor.tokenizer.get_vocab()
         target_phonemes = phonemized_reference.split()
-        
+
+        # remove j
+        target_phonemes = [p.replace("ʲ", "") for p in target_phonemes]
+        # remove dz
+        target_phonemes = [p.replace("dz", "z") for p in target_phonemes]
+
+        for p in target_phonemes:
+            if p not in vocab:
+                # Remove
+                print(f"Warning: Phoneme {p} not in model vocabulary for {audio_path}.")
+                target_phonemes.remove(p)
+
         try:
             target_ids = [vocab[p] for p in target_phonemes]
         except KeyError as e:
-            print(f"Phoneme {e} not in model vocabulary.")
+            print(f"Error: Phoneme {e} not in model vocabulary.")
             return None
 
         # 3. Forced alignment
@@ -127,7 +138,7 @@ class ForcedAlignmentPESTOIEvaluator(ReferenceEvaluator):
         trimmed_audio = speech[start_frame:end_frame]
         print("trimmed_audio_length", trimmed_audio.shape)
         self.cache[cache_key] = trimmed_audio
-        return trimmed_audio.astype(np.float64)
+        return trimmed_audio
 
 
     def score(
@@ -136,21 +147,32 @@ class ForcedAlignmentPESTOIEvaluator(ReferenceEvaluator):
         audio_path: str,
         transcription: str,
         language: str,
-        reference_audios: List[str],
+        reference_audios: List[tuple[str, float, float]],
+        start_time: float,
+        end_time: float,
         **kwargs,
     ) -> Optional[float]:
         """
         Computes the P-ESTOI score after trimming silence.
         """
-        trimmed_audio = self._trim_audio(audio_path, transcription, language)
-        #trimmed_audio = sf.read(audio_path)[0]
-        if trimmed_audio is None:
-            return None
+        trimmed_audio = self._trim_audio(audio_path, transcription, language, start_time, end_time)
+
+        # Check if test_audio is full silence
+        if trimmed_audio is None or np.all(trimmed_audio == 0):
+            print(f"Warning: Test audio {audio_path} is silent or could not be trimmed. Returning P-ESTOI score of 0.0.")
+            return 0.0
     
-        #reference_audios_data = [sf.read]
-        reference_audios_data = [self._trim_audio(path, transcription, language) for path in reference_audios]
-        #reference_audios_data = [sf.read(path)[0] for path in reference_audios]
-        #print(trimmed_audio.shape, [ref.shape for ref in reference_audios_data])
+        reference_audios_data = []
+        if reference_audios:
+            for ref_path, ref_start, ref_end in reference_audios:
+                ref_audio = self._trim_audio(ref_path, transcription, language, ref_start, ref_end)
+                if ref_audio is not None:
+                    reference_audios_data.append(ref_audio)
+
+        if not reference_audios_data:
+            print(f"Warning: No valid reference audios found for {utterance_id}. Cannot compute P-ESTOI.")
+            return None
+
         stoi_object = STOI(
             normalization_method='RMS',
             centroid_ind=0,

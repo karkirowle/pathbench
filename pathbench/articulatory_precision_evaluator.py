@@ -83,6 +83,15 @@ class ArticulatoryPrecisionEvaluator(Evaluator):
         target_phonemes = phonemized_reference.split()
         print(target_phonemes)
         
+        # ʲ phonemes are not in so remove
+        target_phonemes = [p.replace("ʲ", "") for p in target_phonemes]
+        target_phonemes = [p.replace("dz", "z") for p in target_phonemes]
+        
+        for p in target_phonemes:
+            if p not in vocab:
+                # Remove
+                print(f"Warning: Phoneme {p} not in model vocabulary for {audio_path}.")
+                target_phonemes.remove(p)
         try:
             target_ids = [vocab[p] for p in target_phonemes]
         except KeyError as e:

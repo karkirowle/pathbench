@@ -17,6 +17,8 @@ from typing import List, Optional
 import librosa
 from pathbench.evaluator import Evaluator
 
+eps = np.finfo(float).eps
+
 
 class STOI():
 
@@ -279,9 +281,9 @@ class STOI():
 
         for ind, m in enumerate(range(N, X.shape[1] + 1, frame_shift)):
             y_segment = (Y[:, (m - N):m] - np.mean(Y[:, (m - N):m], axis=1, keepdims=True)) / \
-                        np.std(Y[:, (m - N):m], axis=1, keepdims=True)
+                        (np.std(Y[:, (m - N):m], axis=1, keepdims=True) + eps)
             x_segment = (X[:, (m - N):m] - np.mean(X[:, (m - N):m], axis=1, keepdims=True)) / \
-                        np.std(X[:, (m - N):m], axis=1, keepdims=True)
+                        (np.std(X[:, (m - N):m], axis=1, keepdims=True) + eps)
             for j in range(N):
                 d_interm_e[j, ind], _ = pearsonr(x_segment[:, j], y_segment[:, j])  # Eq 4 from Parvaneh's paper
 
@@ -351,7 +353,9 @@ class ReferenceEvaluator(Evaluator):
         audio_path: str,
         transcription: str,
         language: str,
-        reference_audios: List[str],
+        reference_audios: List[tuple[str, float, float]],
+        start_time: float,
+        end_time: float,
         **kwargs,
     ) -> Optional[float]:
         pass
@@ -365,14 +369,23 @@ class PSTOIEvaluator(ReferenceEvaluator):
         audio_path: str,
         transcription: str,
         language: str,
-        reference_audios: List[str],
+        reference_audios: List[tuple[str, float, float]],
+        start_time: float,
+        end_time: float,
         **kwargs,
     ) -> Optional[float]:
         """
         Computes the PSTOI score.
         """
-        test_audio, sr = sf.read(audio_path)
-        reference_audios_data = [sf.read(path)[0] for path in reference_audios]
+        duration = end_time - start_time if end_time != -1 else None
+        test_audio, sr = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration, dtype=np.float64)
+
+        reference_audios_data = []
+        for ref_path, ref_start, ref_end in reference_audios:
+            ref_duration = ref_end - ref_start if ref_end != -1 else None
+            ref_audio, _ = librosa.load(ref_path, sr=16000, offset=ref_start, duration=ref_duration, dtype=np.float64)
+            reference_audios_data.append(ref_audio)
+
         stoi_object = STOI(
             reference_words=reference_audios_data,
             test_words=[test_audio],
@@ -389,18 +402,28 @@ class ESTOIEvaluator(ReferenceEvaluator):
         audio_path: str,
         transcription: str,
         language: str,
-        reference_audios: List[str],
+        reference_audios: List[tuple[str, float, float]],
+        start_time: float,
+        end_time: float,
         **kwargs,
     ) -> Optional[float]:
         """
         Computes the P-ESTOI score.
         """
-        test_audio, sr = sf.read(audio_path)
+        duration = end_time - start_time if end_time != -1 else None
+        test_audio, sr = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration, dtype=np.float64)
 
-        #print("Reference audios:", reference_audios)
-        reference_audios_data = [sf.read(path)[0] for path in reference_audios]
-        #print("references audios data", reference_audios_data)
-        #print("reference_audios_data lengths:", [len(data) for data in reference_audios_data])
+        # Check if test_audio is full silence
+        if np.all(test_audio == 0):
+            print(f"Warning: Test audio {audio_path} is silent. Returning P-ESTOI score of 0.0.")
+            return 0.0
+
+        reference_audios_data = []
+        for ref_path, ref_start, ref_end in reference_audios:
+            ref_duration = ref_end - ref_start if ref_end != -1 else None
+            ref_audio, _ = librosa.load(ref_path, sr=16000, offset=ref_start, duration=ref_duration, dtype=np.float64)
+            reference_audios_data.append(ref_audio)
+
         stoi_object = STOI(
             reference_words=reference_audios_data,
             test_words=[test_audio],

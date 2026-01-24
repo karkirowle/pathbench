@@ -91,10 +91,10 @@ class Dataset:
                         scores[key] = float(score)
         return scores
 
-    def __iter__(self) -> Iterator[tuple[str, str, str, Optional[List[str]]]]:
+    def __iter__(self) -> Iterator[tuple[str, str, str, Optional[List[str]], float, float]]:
         """
         Iterates over utterances, yielding utterance ID, audio path, transcription,
-        and optionally a list of reference audio paths.
+        a list of reference audio paths, start time, and end time.
         """
         if self.segments:
             utt_ids = list(self.segments.keys())
@@ -102,9 +102,15 @@ class Dataset:
             utt_ids = list(self.wav_scp.keys())
 
         for utt_id in utt_ids:
+            start_time, end_time = 0.0, -1.0
             if self.segments:
-                rec_id, _, _ = self.segments[utt_id]
-                audio_path = self.wav_scp.get(rec_id)
+                if utt_id in self.segments:
+                    rec_id, start_str, end_str = self.segments[utt_id]
+                    audio_path = self.wav_scp.get(rec_id)
+                    start_time = float(start_str)
+                    end_time = float(end_str)
+                else:
+                    continue
             else:
                 audio_path = self.wav_scp.get(utt_id)
 
@@ -113,13 +119,13 @@ class Dataset:
 
             transcription = self.text.get(utt_id, "")
 
-            if not self.use_reference:
-                yield utt_id, audio_path, transcription, None
-            else:
+            reference_audio_paths = None
+            if self.use_reference:
                 reference_audio_paths = self._get_reference_audios(utt_id, transcription)
-                yield utt_id, audio_path, transcription, reference_audio_paths
+            print("gets here")
+            yield utt_id, audio_path, transcription, reference_audio_paths, start_time, end_time
 
-    def _get_reference_audios(self, utt_id: str, transcription: str) -> List[str]:
+    def _get_reference_audios(self, utt_id: str, transcription: str) -> List[tuple[str, float, float]]:
         if self.reference_type == "control":
             return self._load_same_text_references(utt_id, transcription)
         elif self.reference_type == "all":
@@ -130,7 +136,7 @@ class Dataset:
         else:
             raise ValueError(f"Unsupported reference_type: {self.reference_type}")
 
-    def _load_same_text_references(self, utt_id: str, transcription: str) -> List[str]:
+    def _load_same_text_references(self, utt_id: str, transcription: str) -> List[tuple[str, float, float]]:
         """
         Loads reference audios from control speakers with the same transcription and gender.
         """
@@ -159,21 +165,24 @@ class Dataset:
                 if ref_gender != current_gender:
                     continue
 
+                start_time, end_time = 0.0, -1.0
                 if self.reference_dataset.segments:
                     if ref_utt_id in self.reference_dataset.segments:
-                        rec_id, _, _ = self.reference_dataset.segments[ref_utt_id]
+                        rec_id, start_str, end_str = self.reference_dataset.segments[ref_utt_id]
                         audio_path = self.reference_dataset.wav_scp.get(rec_id)
+                        start_time = float(start_str)
+                        end_time = float(end_str)
                     else:
                         continue
                 else:
                     audio_path = self.reference_dataset.wav_scp.get(ref_utt_id)
                 
                 if audio_path:
-                    ref_paths.append(audio_path)
+                    ref_paths.append((audio_path, start_time, end_time))
         print(f"Utterance: {utt_id}, References: {ref_paths}")
         return ref_paths
 
-    def _load_all_same_text_references(self, transcription: str, current_speaker: str) -> List[str]:
+    def _load_all_same_text_references(self, transcription: str, current_speaker: str) -> List[tuple[str, float, float]]:
         """
         Loads all reference audios with the same transcription from different speakers,
         from both the main dataset and the reference dataset.
@@ -190,34 +199,40 @@ class Dataset:
         return ref_paths
 
     @staticmethod
-    def _find_matching_references_in_dataset(dataset, transcription: str, current_speaker: str) -> List[str]:
+    def _find_matching_references_in_dataset(dataset, transcription: str, current_speaker: str) -> List[tuple[str, float, float]]:
         paths = []
         for utt_id, trans in dataset.text.items():
             if trans == transcription:
                 speaker = dataset.utt2spk.get(utt_id)
                 # The speaker check should be against the original utterance speaker
                 if speaker != current_speaker:
+                    start_time, end_time = 0.0, -1.0
                     if dataset.segments:
                         if utt_id in dataset.segments:
-                            rec_id, _, _ = dataset.segments[utt_id]
+                            rec_id, start_str, end_str = dataset.segments[utt_id]
                             path = dataset.wav_scp.get(rec_id)
+                            start_time = float(start_str)
+                            end_time = float(end_str)
                         else:
                             continue
                     else:
                         path = dataset.wav_scp.get(utt_id)
                     
                     if path:
-                        paths.append(path)
+                        paths.append((path, start_time, end_time))
         return paths
 
-    def _load_custom_references(self, utt_id: str) -> List[str]:
+    def _load_custom_references(self, utt_id: str) -> List[tuple[str, float, float]]:
         """
         Loads reference audios based on a custom mapping.
         Assumes the mapping is from utterance ID to a list of audio file paths.
+        Segments are not supported for custom references.
         """
         if not self.reference_mapping:
             return []
-        return self.reference_mapping.get(utt_id, [])
+        
+        paths = self.reference_mapping.get(utt_id, [])
+        return [(path, 0.0, -1.0) for path in paths]
 
     def get_utterances(self):
         """Returns a list of utterance IDs."""

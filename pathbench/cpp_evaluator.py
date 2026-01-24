@@ -8,6 +8,7 @@ import librosa
 
 from pathbench.evaluator import Evaluator
 
+eps = np.finfo(float).eps
 
 def cpp_func(x, fs, normOpt, dBScaleOpt):
     """
@@ -76,11 +77,11 @@ def cpp_func(x, fs, normOpt, dBScaleOpt):
     # Cepstrum
     SpecMat = np.abs(np.fft.fft(frameMat, axis=0))
     with np.errstate(divide='ignore'):
-        SpecdB = 20*np.log10(SpecMat)
+        SpecdB = 20*np.log10(SpecMat + eps)
     if dBScaleOpt:
-        ceps = 20*np.log10(np.abs(np.fft.fft(SpecdB, axis=0)))
+        ceps = 20*np.log10(np.abs(np.fft.fft(SpecdB, axis=0)) + eps)
     else:
-        ceps = 2*np.log(np.abs(np.fft.fft(SpecdB, axis=0)))
+        ceps = 2*np.log(np.abs(np.fft.fft(SpecdB, axis=0)) + eps)
 
     # Finding the peak
     ceps_lim = ceps[quef_seq, :]
