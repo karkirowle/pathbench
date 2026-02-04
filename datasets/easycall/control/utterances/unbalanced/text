@@ -1,456 +1,3142 @@
-fc01_03_vaiallatastiera Vai alla tastiera
-fc01_03_chiudiapplicazione Chiudi applicazione
-fc01_03_chiudirubrica Chiudi rubrica
-fc01_03_scorriversoilbasso Scorri verso il basso
-fc01_03_vaineipreferiti Vai nei preferiti
+fc01_01_aggiungiaipreferiti Aggiungi ai preferiti
+fc01_01_aprirubrica Apri rubrica
+fc01_01_attivavivavoce Attiva vivavoce
+fc01_01_cancellacontatto Cancella contatto
+fc01_01_cancellatutto Cancella tutto
+fc01_01_chiamaemergenza Chiama emergenza
+fc01_01_chiamaultimonumero Chiama ultimo numero
+fc01_01_chiudiapplicazione Chiudi applicazione
+fc01_01_chiudirubrica Chiudi rubrica
+fc01_01_disattivavivavoce Disattiva vivavoce
+fc01_01_faiunatelefonata Fai una telefonata
+fc01_01_nuovocontatto Nuovo contatto
+fc01_01_scorriversoilbasso Scorri verso il basso
+fc01_01_scorriversolalto Scorri verso l’alto
+fc01_01_terminachiamata Termina chiamata
+fc01_01_vaiallapaginaprincipale Vai alla pagina principale
+fc01_01_vaiallatastiera Vai alla tastiera
+fc01_01_vaineipreferiti Vai nei preferiti
+fc01_01_vainellarubrica Vai nella rubrica
+fc01_01_vainelregistrochiamate Vai nel registro chiamate
+fc01_02_aggiungiaipreferiti Aggiungi ai preferiti
+fc01_02_aprirubrica Apri rubrica
+fc01_02_attivavivavoce Attiva vivavoce
+fc01_02_cancellacontatto Cancella contatto
+fc01_02_cancellatutto Cancella tutto
+fc01_02_chiamaemergenza Chiama emergenza
+fc01_02_chiamaultimonumero Chiama ultimo numero
+fc01_02_chiudiapplicazione Chiudi applicazione
+fc01_02_chiudirubrica Chiudi rubrica
+fc01_02_disattivavivavoce Disattiva vivavoce
+fc01_02_faiunatelefonata Fai una telefonata
+fc01_02_nuovocontatto Nuovo contatto
+fc01_02_scorriversoilbasso Scorri verso il basso
+fc01_02_scorriversolalto Scorri verso l’alto
+fc01_02_terminachiamata Termina chiamata
+fc01_02_vaiallapaginaprincipale Vai alla pagina principale
+fc01_02_vaiallatastiera Vai alla tastiera
+fc01_02_vaineipreferiti Vai nei preferiti
+fc01_02_vainellarubrica Vai nella rubrica
+fc01_02_vainelregistrochiamate Vai nel registro chiamate
+fc01_03_aggiungiaipreferiti Aggiungi ai preferiti
+fc01_03_aprirubrica Apri rubrica
+fc01_03_attivavivavoce Attiva vivavoce
 fc01_03_cancellacontatto Cancella contatto
 fc01_03_cancellatutto Cancella tutto
-fc01_03_vaiallapaginaprincipale Vai alla pagina principale
-fc01_03_terminachiamata Termina chiamata
-fc01_03_vainelregistrochiamate Vai nel registro chiamate
+fc01_03_chiamaemergenza Chiama emergenza
+fc01_03_chiamaultimonumero Chiama ultimo numero
+fc01_03_chiudiapplicazione Chiudi applicazione
+fc01_03_chiudirubrica Chiudi rubrica
 fc01_03_disattivavivavoce Disattiva vivavoce
 fc01_03_faiunatelefonata Fai una telefonata
-fc01_03_chiamaemergenza Chiama emergenza
 fc01_03_nuovocontatto Nuovo contatto
-fc01_03_attivavivavoce Attiva vivavoce
-fc01_03_aggiungiaipreferiti Aggiungi ai preferiti
-fc01_03_vainellarubrica Vai nella rubrica
+fc01_03_scorriversoilbasso Scorri verso il basso
 fc01_03_scorriversolalto Scorri verso l’alto
-fc01_03_chiamaultimonumero Chiama ultimo numero
+fc01_03_terminachiamata Termina chiamata
+fc01_03_vaiallapaginaprincipale Vai alla pagina principale
+fc01_03_vaiallatastiera Vai alla tastiera
+fc01_03_vaineipreferiti Vai nei preferiti
+fc01_03_vainellarubrica Vai nella rubrica
+fc01_03_vainelregistrochiamate Vai nel registro chiamate
+fc01_04_aggiungiaipreferiti Aggiungi ai preferiti
+fc01_04_aprirubrica Apri rubrica
 fc01_04_attivavivavoce Attiva vivavoce
 fc01_04_cancellacontatto Cancella contatto
-fc01_04_chiamaemergenza Chiama emergenza
-fc01_04_disattivavivavoce Disattiva vivavoce
-fc01_04_scorriversolalto Scorri verso l’alto
-fc01_04_vainellarubrica Vai nella rubrica
-fc01_04_faiunatelefonata Fai una telefonata
-fc01_04_aggiungiaipreferiti Aggiungi ai preferiti
-fc01_04_chiamaultimonumero Chiama ultimo numero
-fc01_04_chiudirubrica Chiudi rubrica
-fc01_04_nuovocontatto Nuovo contatto
-fc01_04_terminachiamata Termina chiamata
-fc01_04_vaineipreferiti Vai nei preferiti
-fc01_04_scorriversoilbasso Scorri verso il basso
-fc01_04_vaiallatastiera Vai alla tastiera
 fc01_04_cancellatutto Cancella tutto
-fc01_04_vainelregistrochiamate Vai nel registro chiamate
-fc01_04_vaiallapaginaprincipale Vai alla pagina principale
+fc01_04_chiamaemergenza Chiama emergenza
+fc01_04_chiamaultimonumero Chiama ultimo numero
 fc01_04_chiudiapplicazione Chiudi applicazione
-fc01_02_vaiallatastiera Vai alla tastiera
-fc01_02_scorriversoilbasso Scorri verso il basso
-fc01_02_vainellarubrica Vai nella rubrica
-fc01_02_cancellacontatto Cancella contatto
-fc01_02_nuovocontatto Nuovo contatto
-fc01_02_chiamaemergenza Chiama emergenza
-fc01_02_attivavivavoce Attiva vivavoce
-fc01_02_vainelregistrochiamate Vai nel registro chiamate
-fc01_02_aggiungiaipreferiti Aggiungi ai preferiti
-fc01_02_cancellatutto Cancella tutto
-fc01_02_faiunatelefonata Fai una telefonata
-fc01_02_scorriversolalto Scorri verso l’alto
-fc01_02_chiamaultimonumero Chiama ultimo numero
-fc01_02_vaiallapaginaprincipale Vai alla pagina principale
-fc01_02_chiudirubrica Chiudi rubrica
-fc01_02_terminachiamata Termina chiamata
-fc01_02_vaineipreferiti Vai nei preferiti
-fc01_02_chiudiapplicazione Chiudi applicazione
-fc01_02_disattivavivavoce Disattiva vivavoce
-fc01_06_chiamaemergenza Chiama emergenza
-fc01_06_cancellatutto Cancella tutto
-fc01_06_disattivavivavoce Disattiva vivavoce
-fc01_06_nuovocontatto Nuovo contatto
-fc01_06_vaineipreferiti Vai nei preferiti
-fc01_06_chiamaultimonumero Chiama ultimo numero
-fc01_06_scorriversolalto Scorri verso l’alto
-fc01_06_chiudiapplicazione Chiudi applicazione
-fc01_06_vainelregistrochiamate Vai nel registro chiamate
-fc01_06_cancellacontatto Cancella contatto
-fc01_06_scorriversoilbasso Scorri verso il basso
-fc01_06_terminachiamata Termina chiamata
-fc01_06_attivavivavoce Attiva vivavoce
-fc01_06_vaiallapaginaprincipale Vai alla pagina principale
-fc01_06_vainellarubrica Vai nella rubrica
-fc01_06_chiudirubrica Chiudi rubrica
-fc01_06_aggiungiaipreferiti Aggiungi ai preferiti
-fc01_06_vaiallatastiera Vai alla tastiera
-fc01_06_faiunatelefonata Fai una telefonata
-fc01_05_vaiallatastiera Vai alla tastiera
-fc01_05_disattivavivavoce Disattiva vivavoce
-fc01_05_vaineipreferiti Vai nei preferiti
-fc01_05_chiamaemergenza Chiama emergenza
-fc01_05_faiunatelefonata Fai una telefonata
-fc01_05_scorriversolalto Scorri verso l’alto
-fc01_05_vaiallapaginaprincipale Vai alla pagina principale
-fc01_05_chiudiapplicazione Chiudi applicazione
-fc01_05_attivavivavoce Attiva vivavoce
-fc01_05_terminachiamata Termina chiamata
-fc01_05_cancellatutto Cancella tutto
-fc01_05_nuovocontatto Nuovo contatto
-fc01_05_chiudirubrica Chiudi rubrica
-fc01_05_vainelregistrochiamate Vai nel registro chiamate
-fc01_05_vainellarubrica Vai nella rubrica
-fc01_05_cancellacontatto Cancella contatto
+fc01_04_chiudirubrica Chiudi rubrica
+fc01_04_disattivavivavoce Disattiva vivavoce
+fc01_04_faiunatelefonata Fai una telefonata
+fc01_04_nuovocontatto Nuovo contatto
+fc01_04_scorriversoilbasso Scorri verso il basso
+fc01_04_scorriversolalto Scorri verso l’alto
+fc01_04_terminachiamata Termina chiamata
+fc01_04_vaiallapaginaprincipale Vai alla pagina principale
+fc01_04_vaiallatastiera Vai alla tastiera
+fc01_04_vaineipreferiti Vai nei preferiti
+fc01_04_vainellarubrica Vai nella rubrica
+fc01_04_vainelregistrochiamate Vai nel registro chiamate
 fc01_05_aggiungiaipreferiti Aggiungi ai preferiti
+fc01_05_aprirubrica Apri rubrica
+fc01_05_attivavivavoce Attiva vivavoce
+fc01_05_cancellacontatto Cancella contatto
+fc01_05_cancellatutto Cancella tutto
+fc01_05_chiamaemergenza Chiama emergenza
 fc01_05_chiamaultimonumero Chiama ultimo numero
+fc01_05_chiudiapplicazione Chiudi applicazione
+fc01_05_chiudirubrica Chiudi rubrica
+fc01_05_disattivavivavoce Disattiva vivavoce
+fc01_05_faiunatelefonata Fai una telefonata
+fc01_05_nuovocontatto Nuovo contatto
 fc01_05_scorriversoilbasso Scorri verso il basso
-fc01_01_cancellatutto Cancella tutto
-fc01_01_scorriversoilbasso Scorri verso il basso
-fc01_01_chiudiapplicazione Chiudi applicazione
-fc01_01_vaiallatastiera Vai alla tastiera
-fc01_01_scorriversolalto Scorri verso l’alto
-fc01_01_vainelregistrochiamate Vai nel registro chiamate
-fc01_01_chiamaemergenza Chiama emergenza
-fc01_01_terminachiamata Termina chiamata
-fc01_01_chiamaultimonumero Chiama ultimo numero
-fc01_01_vaiallapaginaprincipale Vai alla pagina principale
-fc01_01_nuovocontatto Nuovo contatto
-fc01_01_vainellarubrica Vai nella rubrica
-fc01_01_cancellacontatto Cancella contatto
-fc01_01_chiudirubrica Chiudi rubrica
-fc01_01_faiunatelefonata Fai una telefonata
-fc01_01_attivavivavoce Attiva vivavoce
-fc01_01_vaineipreferiti Vai nei preferiti
-fc01_01_disattivavivavoce Disattiva vivavoce
-fc01_01_aggiungiaipreferiti Aggiungi ai preferiti
-mc02_03_attivavivavoce Attiva vivavoce
-mc02_03_scorriversoilbasso Scorri verso il basso
-mc02_03_cancellacontatto Cancella contatto
-mc02_03_nuovocontatto Nuovo contatto
-mc02_03_vaiallatastiera Vai alla tastiera
-mc02_03_cancellatutto Cancella tutto
-mc02_03_chiudirubrica Chiudi rubrica
-mc02_03_vaiallapaginaprincipale Vai alla pagina principale
-mc02_03_vainellarubrica Vai nella rubrica
-mc02_03_chiamaemergenza Chiama emergenza
-mc02_03_terminachiamata Termina chiamata
-mc02_03_chiudiapplicazione Chiudi applicazione
-mc02_03_chiamaultimonumero Chiama ultimo numero
-mc02_03_disattivavivavoce Disattiva vivavoce
-mc02_03_vaineipreferiti Vai nei preferiti
-mc02_03_aggiungiaipreferiti Aggiungi ai preferiti
-mc02_03_faiunatelefonata Fai una telefonata
-mc02_03_vainelregistrochiamate Vai nel registro chiamate
-mc02_03_scorriversolalto Scorri verso l’alto
-mc02_04_attivavivavoce Attiva vivavoce
-mc02_04_cancellatutto Cancella tutto
-mc02_04_vaiallatastiera Vai alla tastiera
-mc02_04_disattivavivavoce Disattiva vivavoce
-mc02_04_vaiallapaginaprincipale Vai alla pagina principale
-mc02_04_scorriversolalto Scorri verso l’alto
-mc02_04_cancellacontatto Cancella contatto
-mc02_04_vainellarubrica Vai nella rubrica
-mc02_04_chiudirubrica Chiudi rubrica
-mc02_04_vaineipreferiti Vai nei preferiti
-mc02_04_chiamaultimonumero Chiama ultimo numero
-mc02_04_chiudiapplicazione Chiudi applicazione
-mc02_04_aggiungiaipreferiti Aggiungi ai preferiti
-mc02_04_faiunatelefonata Fai una telefonata
-mc02_04_terminachiamata Termina chiamata
-mc02_04_nuovocontatto Nuovo contatto
-mc02_04_scorriversoilbasso Scorri verso il basso
-mc02_04_chiamaemergenza Chiama emergenza
-mc02_04_vainelregistrochiamate Vai nel registro chiamate
-mc02_02_vainelregistrochiamate Vai nel registro chiamate
-mc02_02_attivavivavoce Attiva vivavoce
-mc02_02_terminachiamata Termina chiamata
-mc02_02_vainellarubrica Vai nella rubrica
-mc02_02_cancellatutto Cancella tutto
-mc02_02_chiamaemergenza Chiama emergenza
-mc02_02_scorriversolalto Scorri verso l’alto
-mc02_02_vaineipreferiti Vai nei preferiti
-mc02_02_faiunatelefonata Fai una telefonata
-mc02_02_scorriversoilbasso Scorri verso il basso
-mc02_02_chiamaultimonumero Chiama ultimo numero
-mc02_02_nuovocontatto Nuovo contatto
-mc02_02_chiudiapplicazione Chiudi applicazione
-mc02_02_vaiallatastiera Vai alla tastiera
-mc02_02_aggiungiaipreferiti Aggiungi ai preferiti
-mc02_02_vaiallapaginaprincipale Vai alla pagina principale
-mc02_02_cancellacontatto Cancella contatto
-mc02_02_chiudirubrica Chiudi rubrica
-mc02_02_disattivavivavoce Disattiva vivavoce
-mc02_06_cancellacontatto Cancella contatto
-mc02_06_vainelregistrochiamate Vai nel registro chiamate
-mc02_06_faiunatelefonata Fai una telefonata
-mc02_06_terminachiamata Termina chiamata
-mc02_06_vaiallatastiera Vai alla tastiera
-mc02_06_attivavivavoce Attiva vivavoce
-mc02_06_vaineipreferiti Vai nei preferiti
-mc02_06_disattivavivavoce Disattiva vivavoce
-mc02_06_chiamaemergenza Chiama emergenza
-mc02_06_nuovocontatto Nuovo contatto
-mc02_06_chiamaultimonumero Chiama ultimo numero
-mc02_06_vaiallapaginaprincipale Vai alla pagina principale
-mc02_06_cancellatutto Cancella tutto
-mc02_06_aggiungiaipreferiti Aggiungi ai preferiti
-mc02_06_chiudiapplicazione Chiudi applicazione
-mc02_06_vainellarubrica Vai nella rubrica
-mc02_06_scorriversoilbasso Scorri verso il basso
-mc02_06_chiudirubrica Chiudi rubrica
-mc02_06_scorriversolalto Scorri verso l’alto
-mc02_05_vainellarubrica Vai nella rubrica
-mc02_05_chiudirubrica Chiudi rubrica
-mc02_05_chiamaultimonumero Chiama ultimo numero
-mc02_05_cancellatutto Cancella tutto
-mc02_05_vaiallapaginaprincipale Vai alla pagina principale
-mc02_05_vaiallatastiera Vai alla tastiera
-mc02_05_scorriversoilbasso Scorri verso il basso
-mc02_05_vaineipreferiti Vai nei preferiti
-mc02_05_aggiungiaipreferiti Aggiungi ai preferiti
-mc02_05_attivavivavoce Attiva vivavoce
-mc02_05_chiudiapplicazione Chiudi applicazione
-mc02_05_terminachiamata Termina chiamata
-mc02_05_scorriversolalto Scorri verso l’alto
-mc02_05_vainelregistrochiamate Vai nel registro chiamate
-mc02_05_nuovocontatto Nuovo contatto
-mc02_05_faiunatelefonata Fai una telefonata
-mc02_05_chiamaemergenza Chiama emergenza
-mc02_05_disattivavivavoce Disattiva vivavoce
-mc02_05_cancellacontatto Cancella contatto
-mc02_01_chiamaemergenza Chiama emergenza
-mc02_01_chiudiapplicazione Chiudi applicazione
-mc02_01_chiudirubrica Chiudi rubrica
-mc02_01_vaiallatastiera Vai alla tastiera
-mc02_01_faiunatelefonata Fai una telefonata
-mc02_01_cancellacontatto Cancella contatto
-mc02_01_vainellarubrica Vai nella rubrica
-mc02_01_scorriversolalto Scorri verso l’alto
-mc02_01_nuovocontatto Nuovo contatto
-mc02_01_aggiungiaipreferiti Aggiungi ai preferiti
-mc02_01_vainelregistrochiamate Vai nel registro chiamate
-mc02_01_vaiallapaginaprincipale Vai alla pagina principale
-mc02_01_cancellatutto Cancella tutto
-mc02_01_attivavivavoce Attiva vivavoce
-mc02_01_vaineipreferiti Vai nei preferiti
-mc02_01_disattivavivavoce Disattiva vivavoce
-mc02_01_terminachiamata Termina chiamata
-mc02_01_chiamaultimonumero Chiama ultimo numero
-mc02_01_scorriversoilbasso Scorri verso il basso
-mc01_03_chiudirubrica Chiudi rubrica
-mc01_03_faiunatelefonata Fai una telefonata
-mc01_03_nuovocontatto Nuovo contatto
-mc01_03_vaiallatastiera Vai alla tastiera
-mc01_03_attivavivavoce Attiva vivavoce
-mc01_03_disattivavivavoce Disattiva vivavoce
-mc01_03_aggiungiaipreferiti Aggiungi ai preferiti
-mc01_03_chiamaultimonumero Chiama ultimo numero
-mc01_03_cancellatutto Cancella tutto
-mc01_03_scorriversolalto Scorri verso l’alto
-mc01_03_vainellarubrica Vai nella rubrica
-mc01_03_scorriversoilbasso Scorri verso il basso
-mc01_03_terminachiamata Termina chiamata
-mc01_03_vaiallapaginaprincipale Vai alla pagina principale
-mc01_03_vainelregistrochiamate Vai nel registro chiamate
-mc01_03_chiudiapplicazione Chiudi applicazione
-mc01_03_vaineipreferiti Vai nei preferiti
-mc01_03_cancellacontatto Cancella contatto
-mc01_03_chiamaemergenza Chiama emergenza
-mc01_04_vainellarubrica Vai nella rubrica
-mc01_04_vaiallapaginaprincipale Vai alla pagina principale
-mc01_04_chiamaemergenza Chiama emergenza
-mc01_04_vainelregistrochiamate Vai nel registro chiamate
-mc01_04_cancellacontatto Cancella contatto
-mc01_04_cancellatutto Cancella tutto
-mc01_04_chiudiapplicazione Chiudi applicazione
-mc01_04_scorriversolalto Scorri verso l’alto
-mc01_04_disattivavivavoce Disattiva vivavoce
-mc01_04_aggiungiaipreferiti Aggiungi ai preferiti
-mc01_04_chiamaultimonumero Chiama ultimo numero
-mc01_04_vaineipreferiti Vai nei preferiti
-mc01_04_vaiallatastiera Vai alla tastiera
-mc01_04_attivavivavoce Attiva vivavoce
-mc01_04_scorriversoilbasso Scorri verso il basso
-mc01_04_faiunatelefonata Fai una telefonata
-mc01_04_chiudirubrica Chiudi rubrica
-mc01_04_terminachiamata Termina chiamata
-mc01_04_nuovocontatto Nuovo contatto
-mc01_02_aggiungiaipreferiti Aggiungi ai preferiti
-mc01_02_chiamaemergenza Chiama emergenza
-mc01_02_chiudiapplicazione Chiudi applicazione
-mc01_02_nuovocontatto Nuovo contatto
-mc01_02_chiudirubrica Chiudi rubrica
-mc01_02_vainellarubrica Vai nella rubrica
-mc01_02_vaineipreferiti Vai nei preferiti
-mc01_02_attivavivavoce Attiva vivavoce
-mc01_02_cancellacontatto Cancella contatto
-mc01_02_chiamaultimonumero Chiama ultimo numero
-mc01_02_disattivavivavoce Disattiva vivavoce
-mc01_02_faiunatelefonata Fai una telefonata
-mc01_02_scorriversoilbasso Scorri verso il basso
-mc01_02_cancellatutto Cancella tutto
-mc01_02_terminachiamata Termina chiamata
-mc01_02_vaiallapaginaprincipale Vai alla pagina principale
-mc01_02_vainelregistrochiamate Vai nel registro chiamate
-mc01_02_vaiallatastiera Vai alla tastiera
-mc01_02_scorriversolalto Scorri verso l’alto
-mc01_06_scorriversolalto Scorri verso l’alto
-mc01_06_faiunatelefonata Fai una telefonata
-mc01_06_vaineipreferiti Vai nei preferiti
-mc01_06_chiamaultimonumero Chiama ultimo numero
-mc01_06_chiudirubrica Chiudi rubrica
-mc01_06_scorriversoilbasso Scorri verso il basso
-mc01_06_chiamaemergenza Chiama emergenza
-mc01_06_vaiallatastiera Vai alla tastiera
-mc01_06_attivavivavoce Attiva vivavoce
-mc01_06_nuovocontatto Nuovo contatto
-mc01_06_vaiallapaginaprincipale Vai alla pagina principale
-mc01_06_disattivavivavoce Disattiva vivavoce
-mc01_06_chiudiapplicazione Chiudi applicazione
-mc01_06_vainellarubrica Vai nella rubrica
-mc01_06_aggiungiaipreferiti Aggiungi ai preferiti
-mc01_06_cancellatutto Cancella tutto
-mc01_06_vainelregistrochiamate Vai nel registro chiamate
-mc01_06_terminachiamata Termina chiamata
-mc01_06_cancellacontatto Cancella contatto
-mc01_05_chiudiapplicazione Chiudi applicazione
-mc01_05_disattivavivavoce Disattiva vivavoce
-mc01_05_vainellarubrica Vai nella rubrica
-mc01_05_vaiallatastiera Vai alla tastiera
-mc01_05_attivavivavoce Attiva vivavoce
-mc01_05_nuovocontatto Nuovo contatto
-mc01_05_vaineipreferiti Vai nei preferiti
-mc01_05_vainelregistrochiamate Vai nel registro chiamate
-mc01_05_scorriversoilbasso Scorri verso il basso
-mc01_05_vaiallapaginaprincipale Vai alla pagina principale
-mc01_05_chiamaemergenza Chiama emergenza
-mc01_05_chiamaultimonumero Chiama ultimo numero
-mc01_05_aggiungiaipreferiti Aggiungi ai preferiti
-mc01_05_faiunatelefonata Fai una telefonata
-mc01_05_chiudirubrica Chiudi rubrica
-mc01_05_terminachiamata Termina chiamata
-mc01_05_cancellatutto Cancella tutto
-mc01_05_cancellacontatto Cancella contatto
-mc01_05_scorriversolalto Scorri verso l’alto
-mc01_01_cancellacontatto Cancella contatto
-mc01_01_disattivavivavoce Disattiva vivavoce
-mc01_01_vaiallapaginaprincipale Vai alla pagina principale
-mc01_01_scorriversoilbasso Scorri verso il basso
-mc01_01_vainelregistrochiamate Vai nel registro chiamate
-mc01_01_scorriversolalto Scorri verso l’alto
-mc01_01_vaineipreferiti Vai nei preferiti
-mc01_01_aggiungiaipreferiti Aggiungi ai preferiti
-mc01_01_chiudirubrica Chiudi rubrica
-mc01_01_chiamaultimonumero Chiama ultimo numero
-mc01_01_cancellatutto Cancella tutto
-mc01_01_vainellarubrica Vai nella rubrica
-mc01_01_attivavivavoce Attiva vivavoce
-mc01_01_chiudiapplicazione Chiudi applicazione
-mc01_01_nuovocontatto Nuovo contatto
-mc01_01_chiamaemergenza Chiama emergenza
-mc01_01_terminachiamata Termina chiamata
-mc01_01_faiunatelefonata Fai una telefonata
-mc01_01_vaiallatastiera Vai alla tastiera
-fc02_03_chiamaultimonumero Chiama ultimo numero
-fc02_03_scorriversoilbasso Scorri verso il basso
-fc02_03_attivavivavoce Attiva vivavoce
-fc02_03_cancellatutto Cancella tutto
-fc02_03_disattivavivavoce Disattiva vivavoce
-fc02_03_chiamaemergenza Chiama emergenza
-fc02_03_cancellacontatto Cancella contatto
-fc02_03_aggiungiaipreferiti Aggiungi ai preferiti
-fc02_03_terminachiamata Termina chiamata
-fc02_03_vaiallapaginaprincipale Vai alla pagina principale
-fc02_03_scorriversolalto Scorri verso l’alto
-fc02_03_vaineipreferiti Vai nei preferiti
-fc02_03_vainelregistrochiamate Vai nel registro chiamate
-fc02_03_chiudirubrica Chiudi rubrica
-fc02_03_chiudiapplicazione Chiudi applicazione
-fc02_03_vaiallatastiera Vai alla tastiera
-fc02_03_nuovocontatto Nuovo contatto
-fc02_03_vainellarubrica Vai nella rubrica
-fc02_03_faiunatelefonata Fai una telefonata
-fc02_04_vaineipreferiti Vai nei preferiti
-fc02_04_chiudirubrica Chiudi rubrica
-fc02_04_attivavivavoce Attiva vivavoce
-fc02_04_vaiallatastiera Vai alla tastiera
-fc02_04_vaiallapaginaprincipale Vai alla pagina principale
-fc02_04_scorriversolalto Scorri verso l’alto
-fc02_04_scorriversoilbasso Scorri verso il basso
-fc02_04_faiunatelefonata Fai una telefonata
-fc02_04_chiamaemergenza Chiama emergenza
-fc02_04_disattivavivavoce Disattiva vivavoce
-fc02_04_nuovocontatto Nuovo contatto
-fc02_04_aggiungiaipreferiti Aggiungi ai preferiti
-fc02_04_cancellacontatto Cancella contatto
-fc02_04_vainellarubrica Vai nella rubrica
-fc02_04_cancellatutto Cancella tutto
-fc02_04_terminachiamata Termina chiamata
-fc02_04_chiamaultimonumero Chiama ultimo numero
-fc02_04_chiudiapplicazione Chiudi applicazione
-fc02_04_vainelregistrochiamate Vai nel registro chiamate
-fc02_02_vaineipreferiti Vai nei preferiti
-fc02_02_terminachiamata Termina chiamata
-fc02_02_vaiallatastiera Vai alla tastiera
+fc01_05_scorriversolalto Scorri verso l’alto
+fc01_05_terminachiamata Termina chiamata
+fc01_05_vaiallapaginaprincipale Vai alla pagina principale
+fc01_05_vaiallatastiera Vai alla tastiera
+fc01_05_vaineipreferiti Vai nei preferiti
+fc01_05_vainellarubrica Vai nella rubrica
+fc01_05_vainelregistrochiamate Vai nel registro chiamate
+fc01_06_aggiungiaipreferiti Aggiungi ai preferiti
+fc01_06_aprirubrica Apri rubrica
+fc01_06_attivavivavoce Attiva vivavoce
+fc01_06_cancellacontatto Cancella contatto
+fc01_06_cancellatutto Cancella tutto
+fc01_06_chiamaemergenza Chiama emergenza
+fc01_06_chiamaultimonumero Chiama ultimo numero
+fc01_06_chiudiapplicazione Chiudi applicazione
+fc01_06_chiudirubrica Chiudi rubrica
+fc01_06_disattivavivavoce Disattiva vivavoce
+fc01_06_faiunatelefonata Fai una telefonata
+fc01_06_nuovocontatto Nuovo contatto
+fc01_06_scorriversoilbasso Scorri verso il basso
+fc01_06_scorriversolalto Scorri verso l’alto
+fc01_06_terminachiamata Termina chiamata
+fc01_06_vaiallapaginaprincipale Vai alla pagina principale
+fc01_06_vaiallatastiera Vai alla tastiera
+fc01_06_vaineipreferiti Vai nei preferiti
+fc01_06_vainellarubrica Vai nella rubrica
+fc01_06_vainelregistrochiamate Vai nel registro chiamate
+fc02_01_aggiungiaipreferiti Aggiungi ai preferiti
+fc02_01_aprirubrica Apri rubrica
+fc02_01_attivavivavoce Attiva vivavoce
+fc02_01_cancellacontatto Cancella contatto
+fc02_01_cancellatutto Cancella tutto
+fc02_01_chiamaemergenza Chiama emergenza
+fc02_01_chiamaultimonumero Chiama ultimo numero
+fc02_01_chiudiapplicazione Chiudi applicazione
+fc02_01_chiudirubrica Chiudi rubrica
+fc02_01_disattivavivavoce Disattiva vivavoce
+fc02_01_faiunatelefonata Fai una telefonata
+fc02_01_nuovocontatto Nuovo contatto
+fc02_01_scorriversoilbasso Scorri verso il basso
+fc02_01_scorriversolalto Scorri verso l’alto
+fc02_01_terminachiamata Termina chiamata
+fc02_01_vaiallapaginaprincipale Vai alla pagina principale
+fc02_01_vaiallatastiera Vai alla tastiera
+fc02_01_vaineipreferiti Vai nei preferiti
+fc02_01_vainellarubrica Vai nella rubrica
+fc02_01_vainelregistrochiamate Vai nel registro chiamate
+fc02_02_aggiungiaipreferiti Aggiungi ai preferiti
+fc02_02_aprirubrica Apri rubrica
+fc02_02_attivavivavoce Attiva vivavoce
+fc02_02_cancellacontatto Cancella contatto
+fc02_02_cancellatutto Cancella tutto
+fc02_02_chiamaemergenza Chiama emergenza
+fc02_02_chiamaultimonumero Chiama ultimo numero
 fc02_02_chiudiapplicazione Chiudi applicazione
 fc02_02_chiudirubrica Chiudi rubrica
+fc02_02_disattivavivavoce Disattiva vivavoce
+fc02_02_faiunatelefonata Fai una telefonata
+fc02_02_nuovocontatto Nuovo contatto
 fc02_02_scorriversoilbasso Scorri verso il basso
 fc02_02_scorriversolalto Scorri verso l’alto
-fc02_02_nuovocontatto Nuovo contatto
-fc02_02_aggiungiaipreferiti Aggiungi ai preferiti
-fc02_02_chiamaultimonumero Chiama ultimo numero
-fc02_02_cancellatutto Cancella tutto
-fc02_02_attivavivavoce Attiva vivavoce
+fc02_02_terminachiamata Termina chiamata
 fc02_02_vaiallapaginaprincipale Vai alla pagina principale
-fc02_02_chiamaemergenza Chiama emergenza
-fc02_02_cancellacontatto Cancella contatto
-fc02_02_faiunatelefonata Fai una telefonata
+fc02_02_vaiallatastiera Vai alla tastiera
+fc02_02_vaineipreferiti Vai nei preferiti
 fc02_02_vainellarubrica Vai nella rubrica
-fc02_02_disattivavivavoce Disattiva vivavoce
 fc02_02_vainelregistrochiamate Vai nel registro chiamate
-fc02_06_vaiallapaginaprincipale Vai alla pagina principale
-fc02_06_vaiallatastiera Vai alla tastiera
-fc02_06_chiamaemergenza Chiama emergenza
-fc02_06_vainellarubrica Vai nella rubrica
-fc02_06_cancellacontatto Cancella contatto
-fc02_06_scorriversoilbasso Scorri verso il basso
-fc02_06_scorriversolalto Scorri verso l’alto
-fc02_06_vainelregistrochiamate Vai nel registro chiamate
-fc02_06_cancellatutto Cancella tutto
-fc02_06_faiunatelefonata Fai una telefonata
-fc02_06_chiamaultimonumero Chiama ultimo numero
-fc02_06_terminachiamata Termina chiamata
-fc02_06_nuovocontatto Nuovo contatto
-fc02_06_disattivavivavoce Disattiva vivavoce
-fc02_06_vaineipreferiti Vai nei preferiti
-fc02_06_chiudirubrica Chiudi rubrica
-fc02_06_aggiungiaipreferiti Aggiungi ai preferiti
-fc02_06_attivavivavoce Attiva vivavoce
-fc02_06_chiudiapplicazione Chiudi applicazione
+fc02_03_aggiungiaipreferiti Aggiungi ai preferiti
+fc02_03_aprirubrica Apri rubrica
+fc02_03_attivavivavoce Attiva vivavoce
+fc02_03_cancellacontatto Cancella contatto
+fc02_03_cancellatutto Cancella tutto
+fc02_03_chiamaemergenza Chiama emergenza
+fc02_03_chiamaultimonumero Chiama ultimo numero
+fc02_03_chiudiapplicazione Chiudi applicazione
+fc02_03_chiudirubrica Chiudi rubrica
+fc02_03_disattivavivavoce Disattiva vivavoce
+fc02_03_faiunatelefonata Fai una telefonata
+fc02_03_nuovocontatto Nuovo contatto
+fc02_03_scorriversoilbasso Scorri verso il basso
+fc02_03_scorriversolalto Scorri verso l’alto
+fc02_03_terminachiamata Termina chiamata
+fc02_03_vaiallapaginaprincipale Vai alla pagina principale
+fc02_03_vaiallatastiera Vai alla tastiera
+fc02_03_vaineipreferiti Vai nei preferiti
+fc02_03_vainellarubrica Vai nella rubrica
+fc02_03_vainelregistrochiamate Vai nel registro chiamate
+fc02_04_aggiungiaipreferiti Aggiungi ai preferiti
+fc02_04_aprirubrica Apri rubrica
+fc02_04_attivavivavoce Attiva vivavoce
+fc02_04_cancellacontatto Cancella contatto
+fc02_04_cancellatutto Cancella tutto
+fc02_04_chiamaemergenza Chiama emergenza
+fc02_04_chiamaultimonumero Chiama ultimo numero
+fc02_04_chiudiapplicazione Chiudi applicazione
+fc02_04_chiudirubrica Chiudi rubrica
+fc02_04_disattivavivavoce Disattiva vivavoce
+fc02_04_faiunatelefonata Fai una telefonata
+fc02_04_nuovocontatto Nuovo contatto
+fc02_04_scorriversoilbasso Scorri verso il basso
+fc02_04_scorriversolalto Scorri verso l’alto
+fc02_04_terminachiamata Termina chiamata
+fc02_04_vaiallapaginaprincipale Vai alla pagina principale
+fc02_04_vaiallatastiera Vai alla tastiera
+fc02_04_vaineipreferiti Vai nei preferiti
+fc02_04_vainellarubrica Vai nella rubrica
+fc02_04_vainelregistrochiamate Vai nel registro chiamate
+fc02_05_aggiungiaipreferiti Aggiungi ai preferiti
+fc02_05_aprirubrica Apri rubrica
+fc02_05_attivavivavoce Attiva vivavoce
+fc02_05_cancellacontatto Cancella contatto
+fc02_05_cancellatutto Cancella tutto
+fc02_05_chiamaemergenza Chiama emergenza
+fc02_05_chiamaultimonumero Chiama ultimo numero
+fc02_05_chiudiapplicazione Chiudi applicazione
+fc02_05_chiudirubrica Chiudi rubrica
+fc02_05_disattivavivavoce Disattiva vivavoce
 fc02_05_faiunatelefonata Fai una telefonata
-fc02_05_vainelregistrochiamate Vai nel registro chiamate
+fc02_05_nuovocontatto Nuovo contatto
+fc02_05_scorriversoilbasso Scorri verso il basso
 fc02_05_scorriversolalto Scorri verso l’alto
 fc02_05_terminachiamata Termina chiamata
-fc02_05_cancellatutto Cancella tutto
-fc02_05_aggiungiaipreferiti Aggiungi ai preferiti
-fc02_05_vaineipreferiti Vai nei preferiti
-fc02_05_chiamaultimonumero Chiama ultimo numero
-fc02_05_vainellarubrica Vai nella rubrica
-fc02_05_disattivavivavoce Disattiva vivavoce
-fc02_05_chiudirubrica Chiudi rubrica
-fc02_05_vaiallatastiera Vai alla tastiera
-fc02_05_attivavivavoce Attiva vivavoce
-fc02_05_chiamaemergenza Chiama emergenza
-fc02_05_nuovocontatto Nuovo contatto
-fc02_05_cancellacontatto Cancella contatto
-fc02_05_scorriversoilbasso Scorri verso il basso
-fc02_05_chiudiapplicazione Chiudi applicazione
 fc02_05_vaiallapaginaprincipale Vai alla pagina principale
-fc02_01_cancellacontatto Cancella contatto
-fc02_01_chiamaultimonumero Chiama ultimo numero
-fc02_01_chiamaemergenza Chiama emergenza
-fc02_01_faiunatelefonata Fai una telefonata
-fc02_01_attivavivavoce Attiva vivavoce
-fc02_01_chiudiapplicazione Chiudi applicazione
-fc02_01_cancellatutto Cancella tutto
-fc02_01_vaiallatastiera Vai alla tastiera
-fc02_01_scorriversoilbasso Scorri verso il basso
-fc02_01_terminachiamata Termina chiamata
-fc02_01_vainellarubrica Vai nella rubrica
-fc02_01_disattivavivavoce Disattiva vivavoce
-fc02_01_nuovocontatto Nuovo contatto
-fc02_01_vaineipreferiti Vai nei preferiti
-fc02_01_vaiallapaginaprincipale Vai alla pagina principale
-fc02_01_aggiungiaipreferiti Aggiungi ai preferiti
-fc02_01_vainelregistrochiamate Vai nel registro chiamate
-fc02_01_scorriversolalto Scorri verso l’alto
-fc02_01_chiudirubrica Chiudi rubrica
+fc02_05_vaiallatastiera Vai alla tastiera
+fc02_05_vaineipreferiti Vai nei preferiti
+fc02_05_vainellarubrica Vai nella rubrica
+fc02_05_vainelregistrochiamate Vai nel registro chiamate
+fc02_06_aggiungiaipreferiti Aggiungi ai preferiti
+fc02_06_aprirubrica Apri rubrica
+fc02_06_attivavivavoce Attiva vivavoce
+fc02_06_cancellacontatto Cancella contatto
+fc02_06_cancellatutto Cancella tutto
+fc02_06_chiamaemergenza Chiama emergenza
+fc02_06_chiamaultimonumero Chiama ultimo numero
+fc02_06_chiudiapplicazione Chiudi applicazione
+fc02_06_chiudirubrica Chiudi rubrica
+fc02_06_disattivavivavoce Disattiva vivavoce
+fc02_06_faiunatelefonata Fai una telefonata
+fc02_06_nuovocontatto Nuovo contatto
+fc02_06_scorriversoilbasso Scorri verso il basso
+fc02_06_scorriversolalto Scorri verso l’alto
+fc02_06_terminachiamata Termina chiamata
+fc02_06_vaiallapaginaprincipale Vai alla pagina principale
+fc02_06_vaiallatastiera Vai alla tastiera
+fc02_06_vaineipreferiti Vai nei preferiti
+fc02_06_vainellarubrica Vai nella rubrica
+fc02_06_vainelregistrochiamate Vai nel registro chiamate
+fc03_01_aggiungiaipreferiti Aggiungi ai preferiti
+fc03_01_aprirubrica Apri rubrica
+fc03_01_attivavivavoce Attiva vivavoce
+fc03_01_cancellacontatto Cancella contatto
+fc03_01_cancellatutto Cancella tutto
+fc03_01_chiamaemergenza Chiama emergenza
+fc03_01_chiamaultimonumero Chiama ultimo numero
+fc03_01_chiudiapplicazione Chiudi applicazione
+fc03_01_chiudirubrica Chiudi rubrica
+fc03_01_disattivavivavoce Disattiva vivavoce
+fc03_01_faiunatelefonata Fai una telefonata
+fc03_01_nuovocontatto Nuovo contatto
+fc03_01_scorriversoilbasso Scorri verso il basso
+fc03_01_scorriversolalto Scorri verso l’alto
+fc03_01_terminachiamata Termina chiamata
+fc03_01_vaiallapaginaprincipale Vai alla pagina principale
+fc03_01_vaiallatastiera Vai alla tastiera
+fc03_01_vaineipreferiti Vai nei preferiti
+fc03_01_vainellarubrica Vai nella rubrica
+fc03_01_vainelregistrochiamate Vai nel registro chiamate
+fc03_02_aggiungiaipreferiti Aggiungi ai preferiti
+fc03_02_aprirubrica Apri rubrica
+fc03_02_attivavivavoce Attiva vivavoce
+fc03_02_cancellacontatto Cancella contatto
+fc03_02_cancellatutto Cancella tutto
+fc03_02_chiamaemergenza Chiama emergenza
+fc03_02_chiamaultimonumero Chiama ultimo numero
+fc03_02_chiudiapplicazione Chiudi applicazione
+fc03_02_chiudirubrica Chiudi rubrica
+fc03_02_disattivavivavoce Disattiva vivavoce
+fc03_02_faiunatelefonata Fai una telefonata
+fc03_02_nuovocontatto Nuovo contatto
+fc03_02_scorriversoilbasso Scorri verso il basso
+fc03_02_scorriversolalto Scorri verso l’alto
+fc03_02_terminachiamata Termina chiamata
+fc03_02_vaiallapaginaprincipale Vai alla pagina principale
+fc03_02_vaiallatastiera Vai alla tastiera
+fc03_02_vaineipreferiti Vai nei preferiti
+fc03_02_vainellarubrica Vai nella rubrica
+fc03_02_vainelregistrochiamate Vai nel registro chiamate
+fc03_03_aggiungiaipreferiti Aggiungi ai preferiti
+fc03_03_aprirubrica Apri rubrica
+fc03_03_attivavivavoce Attiva vivavoce
+fc03_03_cancellacontatto Cancella contatto
+fc03_03_cancellatutto Cancella tutto
+fc03_03_chiamaemergenza Chiama emergenza
+fc03_03_chiamaultimonumero Chiama ultimo numero
+fc03_03_chiudiapplicazione Chiudi applicazione
+fc03_03_chiudirubrica Chiudi rubrica
+fc03_03_disattivavivavoce Disattiva vivavoce
+fc03_03_faiunatelefonata Fai una telefonata
+fc03_03_nuovocontatto Nuovo contatto
+fc03_03_scorriversoilbasso Scorri verso il basso
+fc03_03_scorriversolalto Scorri verso l’alto
+fc03_03_terminachiamata Termina chiamata
+fc03_03_vaiallapaginaprincipale Vai alla pagina principale
+fc03_03_vaiallatastiera Vai alla tastiera
+fc03_03_vaineipreferiti Vai nei preferiti
+fc03_03_vainellarubrica Vai nella rubrica
+fc03_03_vainelregistrochiamate Vai nel registro chiamate
+fc03_04_aggiungiaipreferiti Aggiungi ai preferiti
+fc03_04_aprirubrica Apri rubrica
+fc03_04_attivavivavoce Attiva vivavoce
+fc03_04_cancellacontatto Cancella contatto
+fc03_04_cancellatutto Cancella tutto
+fc03_04_chiamaemergenza Chiama emergenza
+fc03_04_chiamaultimonumero Chiama ultimo numero
+fc03_04_chiudiapplicazione Chiudi applicazione
+fc03_04_chiudirubrica Chiudi rubrica
+fc03_04_disattivavivavoce Disattiva vivavoce
+fc03_04_faiunatelefonata Fai una telefonata
+fc03_04_nuovocontatto Nuovo contatto
+fc03_04_scorriversoilbasso Scorri verso il basso
+fc03_04_scorriversolalto Scorri verso l’alto
+fc03_04_terminachiamata Termina chiamata
+fc03_04_vaiallapaginaprincipale Vai alla pagina principale
+fc03_04_vaiallatastiera Vai alla tastiera
+fc03_04_vaineipreferiti Vai nei preferiti
+fc03_04_vainellarubrica Vai nella rubrica
+fc03_04_vainelregistrochiamate Vai nel registro chiamate
+fc03_05_aggiungiaipreferiti Aggiungi ai preferiti
+fc03_05_aprirubrica Apri rubrica
+fc03_05_attivavivavoce Attiva vivavoce
+fc03_05_cancellacontatto Cancella contatto
+fc03_05_cancellatutto Cancella tutto
+fc03_05_chiamaemergenza Chiama emergenza
+fc03_05_chiamaultimonumero Chiama ultimo numero
+fc03_05_chiudiapplicazione Chiudi applicazione
+fc03_05_chiudirubrica Chiudi rubrica
+fc03_05_disattivavivavoce Disattiva vivavoce
+fc03_05_faiunatelefonata Fai una telefonata
+fc03_05_nuovocontatto Nuovo contatto
+fc03_05_scorriversoilbasso Scorri verso il basso
+fc03_05_scorriversolalto Scorri verso l’alto
+fc03_05_terminachiamata Termina chiamata
+fc03_05_vaiallapaginaprincipale Vai alla pagina principale
+fc03_05_vaiallatastiera Vai alla tastiera
+fc03_05_vaineipreferiti Vai nei preferiti
+fc03_05_vainellarubrica Vai nella rubrica
+fc03_05_vainelregistrochiamate Vai nel registro chiamate
+fc03_06_aggiungiaipreferiti Aggiungi ai preferiti
+fc03_06_aprirubrica Apri rubrica
+fc03_06_attivavivavoce Attiva vivavoce
+fc03_06_cancellacontatto Cancella contatto
+fc03_06_cancellatutto Cancella tutto
+fc03_06_chiamaemergenza Chiama emergenza
+fc03_06_chiamaultimonumero Chiama ultimo numero
+fc03_06_chiudiapplicazione Chiudi applicazione
+fc03_06_chiudirubrica Chiudi rubrica
+fc03_06_disattivavivavoce Disattiva vivavoce
+fc03_06_faiunatelefonata Fai una telefonata
+fc03_06_nuovocontatto Nuovo contatto
+fc03_06_scorriversoilbasso Scorri verso il basso
+fc03_06_scorriversolalto Scorri verso l’alto
+fc03_06_terminachiamata Termina chiamata
+fc03_06_vaiallapaginaprincipale Vai alla pagina principale
+fc03_06_vaiallatastiera Vai alla tastiera
+fc03_06_vaineipreferiti Vai nei preferiti
+fc03_06_vainellarubrica Vai nella rubrica
+fc03_06_vainelregistrochiamate Vai nel registro chiamate
+fc04_01_aggiungiaipreferiti Aggiungi ai preferiti
+fc04_01_aprirubrica Apri rubrica
+fc04_01_attivavivavoce Attiva vivavoce
+fc04_01_cancellacontatto Cancella contatto
+fc04_01_cancellatutto Cancella tutto
+fc04_01_chiamaemergenza Chiama emergenza
+fc04_01_chiamaultimonumero Chiama ultimo numero
+fc04_01_chiudiapplicazione Chiudi applicazione
+fc04_01_chiudirubrica Chiudi rubrica
+fc04_01_disattivavivavoce Disattiva vivavoce
+fc04_01_faiunatelefonata Fai una telefonata
+fc04_01_nuovocontatto Nuovo contatto
+fc04_01_scorriversoilbasso Scorri verso il basso
+fc04_01_scorriversolalto Scorri verso l’alto
+fc04_01_terminachiamata Termina chiamata
+fc04_01_vaiallapaginaprincipale Vai alla pagina principale
+fc04_01_vaiallatastiera Vai alla tastiera
+fc04_01_vaineipreferiti Vai nei preferiti
+fc04_01_vainellarubrica Vai nella rubrica
+fc04_01_vainelregistrochiamate Vai nel registro chiamate
+fc04_02_aggiungiaipreferiti Aggiungi ai preferiti
+fc04_02_aprirubrica Apri rubrica
+fc04_02_attivavivavoce Attiva vivavoce
+fc04_02_cancellacontatto Cancella contatto
+fc04_02_cancellatutto Cancella tutto
+fc04_02_chiamaemergenza Chiama emergenza
+fc04_02_chiamaultimonumero Chiama ultimo numero
+fc04_02_chiudiapplicazione Chiudi applicazione
+fc04_02_chiudirubrica Chiudi rubrica
+fc04_02_disattivavivavoce Disattiva vivavoce
+fc04_02_faiunatelefonata Fai una telefonata
+fc04_02_nuovocontatto Nuovo contatto
+fc04_02_scorriversoilbasso Scorri verso il basso
+fc04_02_scorriversolalto Scorri verso l’alto
+fc04_02_terminachiamata Termina chiamata
+fc04_02_vaiallapaginaprincipale Vai alla pagina principale
+fc04_02_vaiallatastiera Vai alla tastiera
+fc04_02_vaineipreferiti Vai nei preferiti
+fc04_02_vainellarubrica Vai nella rubrica
+fc04_02_vainelregistrochiamate Vai nel registro chiamate
+fc04_03_aggiungiaipreferiti Aggiungi ai preferiti
+fc04_03_aprirubrica Apri rubrica
+fc04_03_attivavivavoce Attiva vivavoce
+fc04_03_cancellacontatto Cancella contatto
+fc04_03_cancellatutto Cancella tutto
+fc04_03_chiamaemergenza Chiama emergenza
+fc04_03_chiamaultimonumero Chiama ultimo numero
+fc04_03_chiudiapplicazione Chiudi applicazione
+fc04_03_chiudirubrica Chiudi rubrica
+fc04_03_disattivavivavoce Disattiva vivavoce
+fc04_03_faiunatelefonata Fai una telefonata
+fc04_03_nuovocontatto Nuovo contatto
+fc04_03_scorriversoilbasso Scorri verso il basso
+fc04_03_scorriversolalto Scorri verso l’alto
+fc04_03_terminachiamata Termina chiamata
+fc04_03_vaiallapaginaprincipale Vai alla pagina principale
+fc04_03_vaiallatastiera Vai alla tastiera
+fc04_03_vaineipreferiti Vai nei preferiti
+fc04_03_vainellarubrica Vai nella rubrica
+fc04_03_vainelregistrochiamate Vai nel registro chiamate
+fc04_04_aggiungiaipreferiti Aggiungi ai preferiti
+fc04_04_aprirubrica Apri rubrica
+fc04_04_attivavivavoce Attiva vivavoce
+fc04_04_cancellacontatto Cancella contatto
+fc04_04_cancellatutto Cancella tutto
+fc04_04_chiamaemergenza Chiama emergenza
+fc04_04_chiamaultimonumero Chiama ultimo numero
+fc04_04_chiudiapplicazione Chiudi applicazione
+fc04_04_chiudirubrica Chiudi rubrica
+fc04_04_disattivavivavoce Disattiva vivavoce
+fc04_04_faiunatelefonata Fai una telefonata
+fc04_04_nuovocontatto Nuovo contatto
+fc04_04_scorriversoilbasso Scorri verso il basso
+fc04_04_scorriversolalto Scorri verso l’alto
+fc04_04_terminachiamata Termina chiamata
+fc04_04_vaiallapaginaprincipale Vai alla pagina principale
+fc04_04_vaiallatastiera Vai alla tastiera
+fc04_04_vaineipreferiti Vai nei preferiti
+fc04_04_vainellarubrica Vai nella rubrica
+fc04_04_vainelregistrochiamate Vai nel registro chiamate
+fc04_05_aggiungiaipreferiti Aggiungi ai preferiti
+fc04_05_aprirubrica Apri rubrica
+fc04_05_attivavivavoce Attiva vivavoce
+fc04_05_cancellacontatto Cancella contatto
+fc04_05_cancellatutto Cancella tutto
+fc04_05_chiamaemergenza Chiama emergenza
+fc04_05_chiamaultimonumero Chiama ultimo numero
+fc04_05_chiudiapplicazione Chiudi applicazione
+fc04_05_chiudirubrica Chiudi rubrica
+fc04_05_disattivavivavoce Disattiva vivavoce
+fc04_05_faiunatelefonata Fai una telefonata
+fc04_05_nuovocontatto Nuovo contatto
+fc04_05_scorriversoilbasso Scorri verso il basso
+fc04_05_scorriversolalto Scorri verso l’alto
+fc04_05_terminachiamata Termina chiamata
+fc04_05_vaiallapaginaprincipale Vai alla pagina principale
+fc04_05_vaiallatastiera Vai alla tastiera
+fc04_05_vaineipreferiti Vai nei preferiti
+fc04_05_vainellarubrica Vai nella rubrica
+fc04_05_vainelregistrochiamate Vai nel registro chiamate
+fc04_06_aggiungiaipreferiti Aggiungi ai preferiti
+fc04_06_aprirubrica Apri rubrica
+fc04_06_attivavivavoce Attiva vivavoce
+fc04_06_cancellacontatto Cancella contatto
+fc04_06_cancellatutto Cancella tutto
+fc04_06_chiamaemergenza Chiama emergenza
+fc04_06_chiamaultimonumero Chiama ultimo numero
+fc04_06_chiudiapplicazione Chiudi applicazione
+fc04_06_chiudirubrica Chiudi rubrica
+fc04_06_disattivavivavoce Disattiva vivavoce
+fc04_06_faiunatelefonata Fai una telefonata
+fc04_06_nuovocontatto Nuovo contatto
+fc04_06_scorriversoilbasso Scorri verso il basso
+fc04_06_scorriversolalto Scorri verso l’alto
+fc04_06_terminachiamata Termina chiamata
+fc04_06_vaiallapaginaprincipale Vai alla pagina principale
+fc04_06_vaiallatastiera Vai alla tastiera
+fc04_06_vaineipreferiti Vai nei preferiti
+fc04_06_vainellarubrica Vai nella rubrica
+fc04_06_vainelregistrochiamate Vai nel registro chiamate
+fc05_01_aggiungiaipreferiti Aggiungi ai preferiti
+fc05_01_aprirubrica1 Apri rubrica
+fc05_01_aprirubrica2 Apri rubrica
+fc05_01_aprirubrica3 Apri rubrica
+fc05_01_attivavivavoce Attiva vivavoce
+fc05_01_cancellacontatto Cancella contatto
+fc05_01_cancellatutto Cancella tutto
+fc05_01_chiamaemergenza Chiama emergenza
+fc05_01_chiamaultimonumero Chiama ultimo numero
+fc05_01_chiudiapplicazione Chiudi applicazione
+fc05_01_chiudirubrica Chiudi rubrica
+fc05_01_disattivavivavoce Disattiva vivavoce
+fc05_01_faiunatelefonata Fai una telefonata
+fc05_01_nuovocontatto Nuovo contatto
+fc05_01_scorriversoilbasso Scorri verso il basso
+fc05_01_scorriversolalto Scorri verso l’alto
+fc05_01_terminachiamata Termina chiamata
+fc05_01_vaiallapaginaprincipale Vai alla pagina principale
+fc05_01_vaiallatastiera Vai alla tastiera
+fc05_01_vaineipreferiti Vai nei preferiti
+fc05_01_vainellarubrica Vai nella rubrica
+fc05_01_vainelregistrochiamate Vai nel registro chiamate
+fc05_02_aggiungiaipreferiti Aggiungi ai preferiti
+fc05_02_aprirubrica1 Apri rubrica
+fc05_02_aprirubrica2 Apri rubrica
+fc05_02_aprirubrica3 Apri rubrica
+fc05_02_attivavivavoce Attiva vivavoce
+fc05_02_cancellacontatto Cancella contatto
+fc05_02_cancellatutto Cancella tutto
+fc05_02_chiamaemergenza Chiama emergenza
+fc05_02_chiamaultimonumero Chiama ultimo numero
+fc05_02_chiudiapplicazione Chiudi applicazione
+fc05_02_chiudirubrica Chiudi rubrica
+fc05_02_disattivavivavoce Disattiva vivavoce
+fc05_02_faiunatelefonata Fai una telefonata
+fc05_02_nuovocontatto Nuovo contatto
+fc05_02_scorriversoilbasso Scorri verso il basso
+fc05_02_scorriversolalto Scorri verso l’alto
+fc05_02_terminachiamata Termina chiamata
+fc05_02_vaiallapaginaprincipale Vai alla pagina principale
+fc05_02_vaiallatastiera Vai alla tastiera
+fc05_02_vaineipreferiti Vai nei preferiti
+fc05_02_vainellarubrica Vai nella rubrica
+fc05_02_vainelregistrochiamate Vai nel registro chiamate
+fc05_03_aggiungiaipreferiti Aggiungi ai preferiti
+fc05_03_aprirubrica1 Apri rubrica
+fc05_03_aprirubrica2 Apri rubrica
+fc05_03_aprirubrica3 Apri rubrica
+fc05_03_attivavivavoce Attiva vivavoce
+fc05_03_cancellacontatto Cancella contatto
+fc05_03_cancellatutto Cancella tutto
+fc05_03_chiamaemergenza Chiama emergenza
+fc05_03_chiamaultimonumero Chiama ultimo numero
+fc05_03_chiudiapplicazione Chiudi applicazione
+fc05_03_chiudirubrica Chiudi rubrica
+fc05_03_disattivavivavoce Disattiva vivavoce
+fc05_03_faiunatelefonata Fai una telefonata
+fc05_03_nuovocontatto Nuovo contatto
+fc05_03_scorriversoilbasso Scorri verso il basso
+fc05_03_scorriversolalto Scorri verso l’alto
+fc05_03_terminachiamata Termina chiamata
+fc05_03_vaiallapaginaprincipale Vai alla pagina principale
+fc05_03_vaiallatastiera Vai alla tastiera
+fc05_03_vaineipreferiti Vai nei preferiti
+fc05_03_vainellarubrica Vai nella rubrica
+fc05_03_vainelregistrochiamate Vai nel registro chiamate
+fc05_04_aggiungiaipreferiti Aggiungi ai preferiti
+fc05_04_aprirubrica1 Apri rubrica
+fc05_04_aprirubrica2 Apri rubrica
+fc05_04_aprirubrica3 Apri rubrica
+fc05_04_attivavivavoce Attiva vivavoce
+fc05_04_cancellacontatto Cancella contatto
+fc05_04_cancellatutto Cancella tutto
+fc05_04_chiamaemergenza Chiama emergenza
+fc05_04_chiamaultimonumero Chiama ultimo numero
+fc05_04_chiudiapplicazione Chiudi applicazione
+fc05_04_chiudirubrica Chiudi rubrica
+fc05_04_disattivavivavoce Disattiva vivavoce
+fc05_04_faiunatelefonata Fai una telefonata
+fc05_04_nuovocontatto Nuovo contatto
+fc05_04_scorriversoilbasso Scorri verso il basso
+fc05_04_scorriversolalto Scorri verso l’alto
+fc05_04_terminachiamata Termina chiamata
+fc05_04_vaiallapaginaprincipale Vai alla pagina principale
+fc05_04_vaiallatastiera Vai alla tastiera
+fc05_04_vaineipreferiti Vai nei preferiti
+fc05_04_vainellarubrica Vai nella rubrica
+fc05_04_vainelregistrochiamate Vai nel registro chiamate
+fc05_05_aggiungiaipreferiti Aggiungi ai preferiti
+fc05_05_aprirubrica1 Apri rubrica
+fc05_05_aprirubrica2 Apri rubrica
+fc05_05_aprirubrica3 Apri rubrica
+fc05_05_attivavivavoce Attiva vivavoce
+fc05_05_cancellacontatto Cancella contatto
+fc05_05_cancellatutto Cancella tutto
+fc05_05_chiamaemergenza Chiama emergenza
+fc05_05_chiamaultimonumero Chiama ultimo numero
+fc05_05_chiudiapplicazione Chiudi applicazione
+fc05_05_chiudirubrica Chiudi rubrica
+fc05_05_disattivavivavoce Disattiva vivavoce
+fc05_05_faiunatelefonata Fai una telefonata
+fc05_05_nuovocontatto Nuovo contatto
+fc05_05_scorriversoilbasso Scorri verso il basso
+fc05_05_scorriversolalto Scorri verso l’alto
+fc05_05_terminachiamata Termina chiamata
+fc05_05_vaiallapaginaprincipale Vai alla pagina principale
+fc05_05_vaiallatastiera Vai alla tastiera
+fc05_05_vaineipreferiti Vai nei preferiti
+fc05_05_vainellarubrica Vai nella rubrica
+fc05_05_vainelregistrochiamate Vai nel registro chiamate
+fc05_06_aggiungiaipreferiti Aggiungi ai preferiti
+fc05_06_aprirubrica1 Apri rubrica
+fc05_06_aprirubrica2 Apri rubrica
+fc05_06_aprirubrica3 Apri rubrica
+fc05_06_attivavivavoce Attiva vivavoce
+fc05_06_cancellacontatto Cancella contatto
+fc05_06_cancellatutto Cancella tutto
+fc05_06_chiamaemergenza Chiama emergenza
+fc05_06_chiamaultimonumero Chiama ultimo numero
+fc05_06_chiudiapplicazione Chiudi applicazione
+fc05_06_chiudirubrica Chiudi rubrica
+fc05_06_disattivavivavoce Disattiva vivavoce
+fc05_06_faiunatelefonata Fai una telefonata
+fc05_06_nuovocontatto Nuovo contatto
+fc05_06_scorriversoilbasso Scorri verso il basso
+fc05_06_scorriversolalto Scorri verso l’alto
+fc05_06_terminachiamata Termina chiamata
+fc05_06_vaiallapaginaprincipale Vai alla pagina principale
+fc05_06_vaiallatastiera Vai alla tastiera
+fc05_06_vaineipreferiti Vai nei preferiti
+fc05_06_vainellarubrica Vai nella rubrica
+fc05_06_vainelregistrochiamate Vai nel registro chiamate
+fc05_07_aggiungiaipreferiti Aggiungi ai preferiti
+fc05_07_aprirubrica1 Apri rubrica
+fc05_07_aprirubrica2 Apri rubrica
+fc05_07_aprirubrica3 Apri rubrica
+fc05_07_attivavivavoce Attiva vivavoce
+fc05_07_cancellacontatto Cancella contatto
+fc05_07_cancellatutto Cancella tutto
+fc05_07_chiamaemergenza Chiama emergenza
+fc05_07_chiamaultimonumero Chiama ultimo numero
+fc05_07_chiudiapplicazione Chiudi applicazione
+fc05_07_chiudirubrica Chiudi rubrica
+fc05_07_disattivavivavoce Disattiva vivavoce
+fc05_07_faiunatelefonata Fai una telefonata
+fc05_07_nuovocontatto Nuovo contatto
+fc05_07_scorriversoilbasso Scorri verso il basso
+fc05_07_scorriversolalto Scorri verso l’alto
+fc05_07_terminachiamata Termina chiamata
+fc05_07_vaiallapaginaprincipale Vai alla pagina principale
+fc05_07_vaiallatastiera Vai alla tastiera
+fc05_07_vaineipreferiti Vai nei preferiti
+fc05_07_vainellarubrica Vai nella rubrica
+fc05_07_vainelregistrochiamate Vai nel registro chiamate
+fc06_01_aggiungiaipreferiti Aggiungi ai preferiti
+fc06_01_aprirubrica1 Apri rubrica
+fc06_01_aprirubrica2 Apri rubrica
+fc06_01_aprirubrica3 Apri rubrica
+fc06_01_attivavivavoce Attiva vivavoce
+fc06_01_cancellacontatto Cancella contatto
+fc06_01_cancellatutto Cancella tutto
+fc06_01_chiamaemergenza Chiama emergenza
+fc06_01_chiamaultimonumero Chiama ultimo numero
+fc06_01_chiudiapplicazione Chiudi applicazione
+fc06_01_chiudirubrica Chiudi rubrica
+fc06_01_disattivavivavoce Disattiva vivavoce
+fc06_01_faiunatelefonata Fai una telefonata
+fc06_01_nuovocontatto Nuovo contatto
+fc06_01_scorriversoilbasso Scorri verso il basso
+fc06_01_scorriversolalto Scorri verso l’alto
+fc06_01_terminachiamata Termina chiamata
+fc06_01_vaiallapaginaprincipale Vai alla pagina principale
+fc06_01_vaiallatastiera Vai alla tastiera
+fc06_01_vaineipreferiti Vai nei preferiti
+fc06_01_vainellarubrica Vai nella rubrica
+fc06_01_vainelregistrochiamate Vai nel registro chiamate
+fc06_02_aggiungiaipreferiti Aggiungi ai preferiti
+fc06_02_aprirubrica1 Apri rubrica
+fc06_02_aprirubrica2 Apri rubrica
+fc06_02_aprirubrica3 Apri rubrica
+fc06_02_attivavivavoce Attiva vivavoce
+fc06_02_cancellacontatto Cancella contatto
+fc06_02_cancellatutto Cancella tutto
+fc06_02_chiamaemergenza Chiama emergenza
+fc06_02_chiamaultimonumero Chiama ultimo numero
+fc06_02_chiudiapplicazione Chiudi applicazione
+fc06_02_chiudirubrica Chiudi rubrica
+fc06_02_disattivavivavoce Disattiva vivavoce
+fc06_02_faiunatelefonata Fai una telefonata
+fc06_02_nuovocontatto Nuovo contatto
+fc06_02_scorriversoilbasso Scorri verso il basso
+fc06_02_scorriversolalto Scorri verso l’alto
+fc06_02_terminachiamata Termina chiamata
+fc06_02_vaiallapaginaprincipale Vai alla pagina principale
+fc06_02_vaiallatastiera Vai alla tastiera
+fc06_02_vaineipreferiti Vai nei preferiti
+fc06_02_vainellarubrica Vai nella rubrica
+fc06_02_vainelregistrochiamate Vai nel registro chiamate
+fc06_03_aggiungiaipreferiti Aggiungi ai preferiti
+fc06_03_aprirubrica1 Apri rubrica
+fc06_03_aprirubrica2 Apri rubrica
+fc06_03_aprirubrica3 Apri rubrica
+fc06_03_attivavivavoce Attiva vivavoce
+fc06_03_cancellacontatto Cancella contatto
+fc06_03_cancellatutto Cancella tutto
+fc06_03_chiamaemergenza Chiama emergenza
+fc06_03_chiamaultimonumero Chiama ultimo numero
+fc06_03_chiudiapplicazione Chiudi applicazione
+fc06_03_chiudirubrica Chiudi rubrica
+fc06_03_disattivavivavoce Disattiva vivavoce
+fc06_03_faiunatelefonata Fai una telefonata
+fc06_03_nuovocontatto Nuovo contatto
+fc06_03_scorriversoilbasso Scorri verso il basso
+fc06_03_scorriversolalto Scorri verso l’alto
+fc06_03_terminachiamata Termina chiamata
+fc06_03_vaiallapaginaprincipale Vai alla pagina principale
+fc06_03_vaiallatastiera Vai alla tastiera
+fc06_03_vaineipreferiti Vai nei preferiti
+fc06_03_vainellarubrica Vai nella rubrica
+fc06_03_vainelregistrochiamate Vai nel registro chiamate
+fc06_04_aggiungiaipreferiti Aggiungi ai preferiti
+fc06_04_aprirubrica1 Apri rubrica
+fc06_04_aprirubrica2 Apri rubrica
+fc06_04_aprirubrica3 Apri rubrica
+fc06_04_attivavivavoce Attiva vivavoce
+fc06_04_cancellacontatto Cancella contatto
+fc06_04_cancellatutto Cancella tutto
+fc06_04_chiamaemergenza Chiama emergenza
+fc06_04_chiamaultimonumero Chiama ultimo numero
+fc06_04_chiudiapplicazione Chiudi applicazione
+fc06_04_chiudirubrica Chiudi rubrica
+fc06_04_disattivavivavoce Disattiva vivavoce
+fc06_04_faiunatelefonata Fai una telefonata
+fc06_04_nuovocontatto Nuovo contatto
+fc06_04_scorriversoilbasso Scorri verso il basso
+fc06_04_scorriversolalto Scorri verso l’alto
+fc06_04_terminachiamata Termina chiamata
+fc06_04_vaiallapaginaprincipale Vai alla pagina principale
+fc06_04_vaiallatastiera Vai alla tastiera
+fc06_04_vaineipreferiti Vai nei preferiti
+fc06_04_vainellarubrica Vai nella rubrica
+fc06_04_vainelregistrochiamate Vai nel registro chiamate
+fc06_05_aggiungiaipreferiti Aggiungi ai preferiti
+fc06_05_aprirubrica1 Apri rubrica
+fc06_05_aprirubrica2 Apri rubrica
+fc06_05_aprirubrica3 Apri rubrica
+fc06_05_attivavivavoce Attiva vivavoce
+fc06_05_cancellacontatto Cancella contatto
+fc06_05_cancellatutto Cancella tutto
+fc06_05_chiamaemergenza Chiama emergenza
+fc06_05_chiamaultimonumero Chiama ultimo numero
+fc06_05_chiudiapplicazione Chiudi applicazione
+fc06_05_chiudirubrica Chiudi rubrica
+fc06_05_disattivavivavoce Disattiva vivavoce
+fc06_05_faiunatelefonata Fai una telefonata
+fc06_05_nuovocontatto Nuovo contatto
+fc06_05_scorriversoilbasso Scorri verso il basso
+fc06_05_scorriversolalto Scorri verso l’alto
+fc06_05_terminachiamata Termina chiamata
+fc06_05_vaiallapaginaprincipale Vai alla pagina principale
+fc06_05_vaiallatastiera Vai alla tastiera
+fc06_05_vaineipreferiti Vai nei preferiti
+fc06_05_vainellarubrica Vai nella rubrica
+fc06_05_vainelregistrochiamate Vai nel registro chiamate
+fc06_06_aggiungiaipreferiti Aggiungi ai preferiti
+fc06_06_aprirubrica1 Apri rubrica
+fc06_06_aprirubrica2 Apri rubrica
+fc06_06_aprirubrica3 Apri rubrica
+fc06_06_attivavivavoce Attiva vivavoce
+fc06_06_cancellacontatto Cancella contatto
+fc06_06_cancellatutto Cancella tutto
+fc06_06_chiamaemergenza Chiama emergenza
+fc06_06_chiamaultimonumero Chiama ultimo numero
+fc06_06_chiudiapplicazione Chiudi applicazione
+fc06_06_chiudirubrica Chiudi rubrica
+fc06_06_disattivavivavoce Disattiva vivavoce
+fc06_06_faiunatelefonata Fai una telefonata
+fc06_06_nuovocontatto Nuovo contatto
+fc06_06_scorriversoilbasso Scorri verso il basso
+fc06_06_scorriversolalto Scorri verso l’alto
+fc06_06_terminachiamata Termina chiamata
+fc06_06_vaiallapaginaprincipale Vai alla pagina principale
+fc06_06_vaiallatastiera Vai alla tastiera
+fc06_06_vaineipreferiti Vai nei preferiti
+fc06_06_vainellarubrica Vai nella rubrica
+fc06_06_vainelregistrochiamate Vai nel registro chiamate
+fc07_01_aggiungiaipreferiti Aggiungi ai preferiti
+fc07_01_aprirubrica1 Apri rubrica
+fc07_01_aprirubrica2 Apri rubrica
+fc07_01_aprirubrica3 Apri rubrica
+fc07_01_attivavivavoce Attiva vivavoce
+fc07_01_cancellacontatto Cancella contatto
+fc07_01_cancellatutto Cancella tutto
+fc07_01_chiamaemergenza Chiama emergenza
+fc07_01_chiamaultimonumero Chiama ultimo numero
+fc07_01_chiudiapplicazione Chiudi applicazione
+fc07_01_chiudirubrica Chiudi rubrica
+fc07_01_disattivavivavoce Disattiva vivavoce
+fc07_01_faiunatelefonata Fai una telefonata
+fc07_01_nuovocontatto Nuovo contatto
+fc07_01_scorriversoilbasso Scorri verso il basso
+fc07_01_scorriversolalto Scorri verso l’alto
+fc07_01_terminachiamata Termina chiamata
+fc07_01_vaiallapaginaprincipale Vai alla pagina principale
+fc07_01_vaiallatastiera Vai alla tastiera
+fc07_01_vaineipreferiti Vai nei preferiti
+fc07_01_vainellarubrica Vai nella rubrica
+fc07_01_vainelregistrochiamate Vai nel registro chiamate
+fc07_02_aggiungiaipreferiti Aggiungi ai preferiti
+fc07_02_aprirubrica1 Apri rubrica
+fc07_02_aprirubrica2 Apri rubrica
+fc07_02_aprirubrica3 Apri rubrica
+fc07_02_attivavivavoce Attiva vivavoce
+fc07_02_cancellacontatto Cancella contatto
+fc07_02_cancellatutto Cancella tutto
+fc07_02_chiamaemergenza Chiama emergenza
+fc07_02_chiamaultimonumero Chiama ultimo numero
+fc07_02_chiudiapplicazione Chiudi applicazione
+fc07_02_chiudirubrica Chiudi rubrica
+fc07_02_disattivavivavoce Disattiva vivavoce
+fc07_02_faiunatelefonata Fai una telefonata
+fc07_02_nuovocontatto Nuovo contatto
+fc07_02_scorriversoilbasso Scorri verso il basso
+fc07_02_scorriversolalto Scorri verso l’alto
+fc07_02_terminachiamata Termina chiamata
+fc07_02_vaiallapaginaprincipale Vai alla pagina principale
+fc07_02_vaiallatastiera Vai alla tastiera
+fc07_02_vaineipreferiti Vai nei preferiti
+fc07_02_vainellarubrica Vai nella rubrica
+fc07_02_vainelregistrochiamate Vai nel registro chiamate
+fc07_03_aggiungiaipreferiti Aggiungi ai preferiti
+fc07_03_aprirubrica1 Apri rubrica
+fc07_03_aprirubrica2 Apri rubrica
+fc07_03_aprirubrica3 Apri rubrica
+fc07_03_attivavivavoce Attiva vivavoce
+fc07_03_cancellacontatto Cancella contatto
+fc07_03_cancellatutto Cancella tutto
+fc07_03_chiamaemergenza Chiama emergenza
+fc07_03_chiamaultimonumero Chiama ultimo numero
+fc07_03_chiudiapplicazione Chiudi applicazione
+fc07_03_chiudirubrica Chiudi rubrica
+fc07_03_disattivavivavoce Disattiva vivavoce
+fc07_03_faiunatelefonata Fai una telefonata
+fc07_03_nuovocontatto Nuovo contatto
+fc07_03_scorriversoilbasso Scorri verso il basso
+fc07_03_scorriversolalto Scorri verso l’alto
+fc07_03_terminachiamata Termina chiamata
+fc07_03_vaiallapaginaprincipale Vai alla pagina principale
+fc07_03_vaiallatastiera Vai alla tastiera
+fc07_03_vaineipreferiti Vai nei preferiti
+fc07_03_vainellarubrica Vai nella rubrica
+fc07_03_vainelregistrochiamate Vai nel registro chiamate
+fc07_04_aggiungiaipreferiti Aggiungi ai preferiti
+fc07_04_aprirubrica1 Apri rubrica
+fc07_04_aprirubrica2 Apri rubrica
+fc07_04_aprirubrica3 Apri rubrica
+fc07_04_attivavivavoce Attiva vivavoce
+fc07_04_cancellacontatto Cancella contatto
+fc07_04_cancellatutto Cancella tutto
+fc07_04_chiamaemergenza Chiama emergenza
+fc07_04_chiamaultimonumero Chiama ultimo numero
+fc07_04_chiudiapplicazione Chiudi applicazione
+fc07_04_chiudirubrica Chiudi rubrica
+fc07_04_disattivavivavoce Disattiva vivavoce
+fc07_04_faiunatelefonata Fai una telefonata
+fc07_04_nuovocontatto Nuovo contatto
+fc07_04_scorriversoilbasso Scorri verso il basso
+fc07_04_scorriversolalto Scorri verso l’alto
+fc07_04_terminachiamata Termina chiamata
+fc07_04_vaiallapaginaprincipale Vai alla pagina principale
+fc07_04_vaiallatastiera Vai alla tastiera
+fc07_04_vaineipreferiti Vai nei preferiti
+fc07_04_vainellarubrica Vai nella rubrica
+fc07_04_vainelregistrochiamate Vai nel registro chiamate
+fc07_05_aggiungiaipreferiti Aggiungi ai preferiti
+fc07_05_aprirubrica1 Apri rubrica
+fc07_05_aprirubrica2 Apri rubrica
+fc07_05_aprirubrica3 Apri rubrica
+fc07_05_attivavivavoce Attiva vivavoce
+fc07_05_cancellacontatto Cancella contatto
+fc07_05_cancellatutto Cancella tutto
+fc07_05_chiamaemergenza Chiama emergenza
+fc07_05_chiamaultimonumero Chiama ultimo numero
+fc07_05_chiudiapplicazione Chiudi applicazione
+fc07_05_chiudirubrica Chiudi rubrica
+fc07_05_disattivavivavoce Disattiva vivavoce
+fc07_05_faiunatelefonata Fai una telefonata
+fc07_05_nuovocontatto Nuovo contatto
+fc07_05_scorriversoilbasso Scorri verso il basso
+fc07_05_scorriversolalto Scorri verso l’alto
+fc07_05_terminachiamata Termina chiamata
+fc07_05_vaiallapaginaprincipale Vai alla pagina principale
+fc07_05_vaiallatastiera Vai alla tastiera
+fc07_05_vaineipreferiti Vai nei preferiti
+fc07_05_vainellarubrica Vai nella rubrica
+fc07_05_vainelregistrochiamate Vai nel registro chiamate
+fc07_06_aggiungiaipreferiti Aggiungi ai preferiti
+fc07_06_aprirubrica1 Apri rubrica
+fc07_06_aprirubrica2 Apri rubrica
+fc07_06_aprirubrica3 Apri rubrica
+fc07_06_attivavivavoce Attiva vivavoce
+fc07_06_cancellacontatto Cancella contatto
+fc07_06_cancellatutto Cancella tutto
+fc07_06_chiamaemergenza Chiama emergenza
+fc07_06_chiamaultimonumero Chiama ultimo numero
+fc07_06_chiudiapplicazione Chiudi applicazione
+fc07_06_chiudirubrica Chiudi rubrica
+fc07_06_disattivavivavoce Disattiva vivavoce
+fc07_06_faiunatelefonata Fai una telefonata
+fc07_06_nuovocontatto Nuovo contatto
+fc07_06_scorriversoilbasso Scorri verso il basso
+fc07_06_scorriversolalto Scorri verso l’alto
+fc07_06_terminachiamata Termina chiamata
+fc07_06_vaiallapaginaprincipale Vai alla pagina principale
+fc07_06_vaiallatastiera Vai alla tastiera
+fc07_06_vaineipreferiti Vai nei preferiti
+fc07_06_vainellarubrica Vai nella rubrica
+fc07_06_vainelregistrochiamate Vai nel registro chiamate
+fc08_01_aggiungiaipreferiti Aggiungi ai preferiti
+fc08_01_aprirubrica1 Apri rubrica
+fc08_01_aprirubrica2 Apri rubrica
+fc08_01_aprirubrica3 Apri rubrica
+fc08_01_attivavivavoce Attiva vivavoce
+fc08_01_cancellacontatto Cancella contatto
+fc08_01_cancellatutto Cancella tutto
+fc08_01_chiamaemergenza Chiama emergenza
+fc08_01_chiamaultimonumero Chiama ultimo numero
+fc08_01_chiudiapplicazione Chiudi applicazione
+fc08_01_chiudirubrica Chiudi rubrica
+fc08_01_disattivavivavoce Disattiva vivavoce
+fc08_01_faiunatelefonata Fai una telefonata
+fc08_01_nuovocontatto Nuovo contatto
+fc08_01_scorriversoilbasso Scorri verso il basso
+fc08_01_scorriversolalto Scorri verso l’alto
+fc08_01_terminachiamata Termina chiamata
+fc08_01_vaiallapaginaprincipale Vai alla pagina principale
+fc08_01_vaiallatastiera Vai alla tastiera
+fc08_01_vaineipreferiti Vai nei preferiti
+fc08_01_vainellarubrica Vai nella rubrica
+fc08_01_vainelregistrochiamate Vai nel registro chiamate
+fc08_02_aggiungiaipreferiti Aggiungi ai preferiti
+fc08_02_aprirubrica1 Apri rubrica
+fc08_02_aprirubrica2 Apri rubrica
+fc08_02_aprirubrica3 Apri rubrica
+fc08_02_attivavivavoce Attiva vivavoce
+fc08_02_cancellacontatto Cancella contatto
+fc08_02_cancellatutto Cancella tutto
+fc08_02_chiamaemergenza Chiama emergenza
+fc08_02_chiamaultimonumero Chiama ultimo numero
+fc08_02_chiudiapplicazione Chiudi applicazione
+fc08_02_chiudirubrica Chiudi rubrica
+fc08_02_disattivavivavoce Disattiva vivavoce
+fc08_02_faiunatelefonata Fai una telefonata
+fc08_02_nuovocontatto Nuovo contatto
+fc08_02_scorriversoilbasso Scorri verso il basso
+fc08_02_scorriversolalto Scorri verso l’alto
+fc08_02_terminachiamata Termina chiamata
+fc08_02_vaiallapaginaprincipale Vai alla pagina principale
+fc08_02_vaiallatastiera Vai alla tastiera
+fc08_02_vaineipreferiti Vai nei preferiti
+fc08_02_vainellarubrica Vai nella rubrica
+fc08_02_vainelregistrochiamate Vai nel registro chiamate
+fc08_03_aggiungiaipreferiti Aggiungi ai preferiti
+fc08_03_aprirubrica1 Apri rubrica
+fc08_03_aprirubrica2 Apri rubrica
+fc08_03_aprirubrica3 Apri rubrica
+fc08_03_attivavivavoce Attiva vivavoce
+fc08_03_cancellacontatto Cancella contatto
+fc08_03_cancellatutto Cancella tutto
+fc08_03_chiamaemergenza Chiama emergenza
+fc08_03_chiamaultimonumero Chiama ultimo numero
+fc08_03_chiudiapplicazione Chiudi applicazione
+fc08_03_chiudirubrica Chiudi rubrica
+fc08_03_disattivavivavoce Disattiva vivavoce
+fc08_03_faiunatelefonata Fai una telefonata
+fc08_03_nuovocontatto Nuovo contatto
+fc08_03_scorriversoilbasso Scorri verso il basso
+fc08_03_scorriversolalto Scorri verso l’alto
+fc08_03_terminachiamata Termina chiamata
+fc08_03_vaiallapaginaprincipale Vai alla pagina principale
+fc08_03_vaiallatastiera Vai alla tastiera
+fc08_03_vaineipreferiti Vai nei preferiti
+fc08_03_vainellarubrica Vai nella rubrica
+fc08_03_vainelregistrochiamate Vai nel registro chiamate
+fc08_04_aggiungiaipreferiti Aggiungi ai preferiti
+fc08_04_aprirubrica1 Apri rubrica
+fc08_04_aprirubrica2 Apri rubrica
+fc08_04_aprirubrica3 Apri rubrica
+fc08_04_attivavivavoce Attiva vivavoce
+fc08_04_cancellacontatto Cancella contatto
+fc08_04_cancellatutto Cancella tutto
+fc08_04_chiamaemergenza Chiama emergenza
+fc08_04_chiamaultimonumero Chiama ultimo numero
+fc08_04_chiudiapplicazione Chiudi applicazione
+fc08_04_chiudirubrica Chiudi rubrica
+fc08_04_disattivavivavoce Disattiva vivavoce
+fc08_04_faiunatelefonata Fai una telefonata
+fc08_04_nuovocontatto Nuovo contatto
+fc08_04_scorriversoilbasso Scorri verso il basso
+fc08_04_scorriversolalto Scorri verso l’alto
+fc08_04_terminachiamata Termina chiamata
+fc08_04_vaiallapaginaprincipale Vai alla pagina principale
+fc08_04_vaiallatastiera Vai alla tastiera
+fc08_04_vaineipreferiti Vai nei preferiti
+fc08_04_vainellarubrica Vai nella rubrica
+fc08_04_vainelregistrochiamate Vai nel registro chiamate
+fc08_05_aggiungiaipreferiti Aggiungi ai preferiti
+fc08_05_aprirubrica1 Apri rubrica
+fc08_05_aprirubrica2 Apri rubrica
+fc08_05_aprirubrica3 Apri rubrica
+fc08_05_attivavivavoce Attiva vivavoce
+fc08_05_cancellacontatto Cancella contatto
+fc08_05_cancellatutto Cancella tutto
+fc08_05_chiamaemergenza Chiama emergenza
+fc08_05_chiamaultimonumero Chiama ultimo numero
+fc08_05_chiudiapplicazione Chiudi applicazione
+fc08_05_chiudirubrica Chiudi rubrica
+fc08_05_disattivavivavoce Disattiva vivavoce
+fc08_05_faiunatelefonata Fai una telefonata
+fc08_05_nuovocontatto Nuovo contatto
+fc08_05_scorriversoilbasso Scorri verso il basso
+fc08_05_scorriversolalto Scorri verso l’alto
+fc08_05_terminachiamata Termina chiamata
+fc08_05_vaiallapaginaprincipale Vai alla pagina principale
+fc08_05_vaiallatastiera Vai alla tastiera
+fc08_05_vaineipreferiti Vai nei preferiti
+fc08_05_vainellarubrica Vai nella rubrica
+fc08_05_vainelregistrochiamate Vai nel registro chiamate
+fc08_06_aggiungiaipreferiti Aggiungi ai preferiti
+fc08_06_aprirubrica1 Apri rubrica
+fc08_06_aprirubrica2 Apri rubrica
+fc08_06_aprirubrica3 Apri rubrica
+fc08_06_attivavivavoce Attiva vivavoce
+fc08_06_cancellacontatto Cancella contatto
+fc08_06_cancellatutto Cancella tutto
+fc08_06_chiamaemergenza Chiama emergenza
+fc08_06_chiamaultimonumero Chiama ultimo numero
+fc08_06_chiudiapplicazione Chiudi applicazione
+fc08_06_chiudirubrica Chiudi rubrica
+fc08_06_disattivavivavoce Disattiva vivavoce
+fc08_06_faiunatelefonata Fai una telefonata
+fc08_06_nuovocontatto Nuovo contatto
+fc08_06_scorriversoilbasso Scorri verso il basso
+fc08_06_scorriversolalto Scorri verso l’alto
+fc08_06_terminachiamata Termina chiamata
+fc08_06_vaiallapaginaprincipale Vai alla pagina principale
+fc08_06_vaiallatastiera Vai alla tastiera
+fc08_06_vaineipreferiti Vai nei preferiti
+fc08_06_vainellarubrica Vai nella rubrica
+fc08_06_vainelregistrochiamate Vai nel registro chiamate
+fc08_07_aggiungiaipreferiti Aggiungi ai preferiti
+fc08_07_aprirubrica1 Apri rubrica
+fc08_07_aprirubrica2 Apri rubrica
+fc08_07_aprirubrica3 Apri rubrica
+fc08_07_attivavivavoce Attiva vivavoce
+fc08_07_cancellacontatto Cancella contatto
+fc08_07_cancellatutto Cancella tutto
+fc08_07_chiamaemergenza Chiama emergenza
+fc08_07_chiamaultimonumero Chiama ultimo numero
+fc08_07_chiudiapplicazione Chiudi applicazione
+fc08_07_chiudirubrica Chiudi rubrica
+fc08_07_disattivavivavoce Disattiva vivavoce
+fc08_07_faiunatelefonata Fai una telefonata
+fc08_07_nuovocontatto Nuovo contatto
+fc08_07_scorriversoilbasso Scorri verso il basso
+fc08_07_scorriversolalto Scorri verso l’alto
+fc08_07_terminachiamata Termina chiamata
+fc08_07_vaiallapaginaprincipale Vai alla pagina principale
+fc08_07_vaiallatastiera Vai alla tastiera
+fc08_07_vaineipreferiti Vai nei preferiti
+fc08_07_vainellarubrica Vai nella rubrica
+fc08_07_vainelregistrochiamate Vai nel registro chiamate
+fc08_08_aggiungiaipreferiti Aggiungi ai preferiti
+fc08_08_aprirubrica1 Apri rubrica
+fc08_08_aprirubrica2 Apri rubrica
+fc08_08_aprirubrica3 Apri rubrica
+fc08_08_attivavivavoce Attiva vivavoce
+fc08_08_cancellacontatto Cancella contatto
+fc08_08_cancellatutto Cancella tutto
+fc08_08_chiamaemergenza Chiama emergenza
+fc08_08_chiamaultimonumero Chiama ultimo numero
+fc08_08_chiudiapplicazione Chiudi applicazione
+fc08_08_chiudirubrica Chiudi rubrica
+fc08_08_disattivavivavoce Disattiva vivavoce
+fc08_08_faiunatelefonata Fai una telefonata
+fc08_08_nuovocontatto Nuovo contatto
+fc08_08_scorriversoilbasso Scorri verso il basso
+fc08_08_scorriversolalto Scorri verso l’alto
+fc08_08_terminachiamata Termina chiamata
+fc08_08_vaiallapaginaprincipale Vai alla pagina principale
+fc08_08_vaiallatastiera Vai alla tastiera
+fc08_08_vaineipreferiti Vai nei preferiti
+fc08_08_vainellarubrica Vai nella rubrica
+fc08_08_vainelregistrochiamate Vai nel registro chiamate
+fc09_01_aggiungiaipreferiti Aggiungi ai preferiti
+fc09_01_aprirubrica1 Apri rubrica
+fc09_01_aprirubrica2 Apri rubrica
+fc09_01_aprirubrica3 Apri rubrica
+fc09_01_attivavivavoce Attiva vivavoce
+fc09_01_cancellacontatto Cancella contatto
+fc09_01_cancellatutto Cancella tutto
+fc09_01_chiamaemergenza Chiama emergenza
+fc09_01_chiamaultimonumero Chiama ultimo numero
+fc09_01_chiudiapplicazione Chiudi applicazione
+fc09_01_chiudirubrica Chiudi rubrica
+fc09_01_disattivavivavoce Disattiva vivavoce
+fc09_01_faiunatelefonata Fai una telefonata
+fc09_01_nuovocontatto Nuovo contatto
+fc09_01_scorriversoilbasso Scorri verso il basso
+fc09_01_scorriversolalto Scorri verso l’alto
+fc09_01_terminachiamata Termina chiamata
+fc09_01_vaiallapaginaprincipale Vai alla pagina principale
+fc09_01_vaiallatastiera Vai alla tastiera
+fc09_01_vaineipreferiti Vai nei preferiti
+fc09_01_vainellarubrica Vai nella rubrica
+fc09_01_vainelregistrochiamate Vai nel registro chiamate
+fc09_02_aggiungiaipreferiti Aggiungi ai preferiti
+fc09_02_aprirubrica1 Apri rubrica
+fc09_02_aprirubrica2 Apri rubrica
+fc09_02_aprirubrica3 Apri rubrica
+fc09_02_attivavivavoce Attiva vivavoce
+fc09_02_cancellacontatto Cancella contatto
+fc09_02_cancellatutto Cancella tutto
+fc09_02_chiamaemergenza Chiama emergenza
+fc09_02_chiamaultimonumero Chiama ultimo numero
+fc09_02_chiudiapplicazione Chiudi applicazione
+fc09_02_chiudirubrica Chiudi rubrica
+fc09_02_disattivavivavoce Disattiva vivavoce
+fc09_02_faiunatelefonata Fai una telefonata
+fc09_02_nuovocontatto Nuovo contatto
+fc09_02_scorriversoilbasso Scorri verso il basso
+fc09_02_scorriversolalto Scorri verso l’alto
+fc09_02_terminachiamata Termina chiamata
+fc09_02_vaiallapaginaprincipale Vai alla pagina principale
+fc09_02_vaiallatastiera Vai alla tastiera
+fc09_02_vaineipreferiti Vai nei preferiti
+fc09_02_vainellarubrica Vai nella rubrica
+fc09_02_vainelregistrochiamate Vai nel registro chiamate
+fc09_03_aggiungiaipreferiti Aggiungi ai preferiti
+fc09_03_aprirubrica1 Apri rubrica
+fc09_03_aprirubrica2 Apri rubrica
+fc09_03_aprirubrica3 Apri rubrica
+fc09_03_attivavivavoce Attiva vivavoce
+fc09_03_cancellacontatto Cancella contatto
+fc09_03_cancellatutto Cancella tutto
+fc09_03_chiamaemergenza Chiama emergenza
+fc09_03_chiamaultimonumero Chiama ultimo numero
+fc09_03_chiudiapplicazione Chiudi applicazione
+fc09_03_chiudirubrica Chiudi rubrica
+fc09_03_disattivavivavoce Disattiva vivavoce
+fc09_03_faiunatelefonata Fai una telefonata
+fc09_03_nuovocontatto Nuovo contatto
+fc09_03_scorriversoilbasso Scorri verso il basso
+fc09_03_scorriversolalto Scorri verso l’alto
+fc09_03_terminachiamata Termina chiamata
+fc09_03_vaiallapaginaprincipale Vai alla pagina principale
+fc09_03_vaiallatastiera Vai alla tastiera
+fc09_03_vaineipreferiti Vai nei preferiti
+fc09_03_vainellarubrica Vai nella rubrica
+fc09_03_vainelregistrochiamate Vai nel registro chiamate
+fc09_04_aggiungiaipreferiti Aggiungi ai preferiti
+fc09_04_aprirubrica1 Apri rubrica
+fc09_04_aprirubrica2 Apri rubrica
+fc09_04_aprirubrica3 Apri rubrica
+fc09_04_attivavivavoce Attiva vivavoce
+fc09_04_cancellacontatto Cancella contatto
+fc09_04_cancellatutto Cancella tutto
+fc09_04_chiamaemergenza Chiama emergenza
+fc09_04_chiamaultimonumero Chiama ultimo numero
+fc09_04_chiudiapplicazione Chiudi applicazione
+fc09_04_chiudirubrica Chiudi rubrica
+fc09_04_disattivavivavoce Disattiva vivavoce
+fc09_04_faiunatelefonata Fai una telefonata
+fc09_04_nuovocontatto Nuovo contatto
+fc09_04_scorriversoilbasso Scorri verso il basso
+fc09_04_scorriversolalto Scorri verso l’alto
+fc09_04_terminachiamata Termina chiamata
+fc09_04_vaiallapaginaprincipale Vai alla pagina principale
+fc09_04_vaiallatastiera Vai alla tastiera
+fc09_04_vaineipreferiti Vai nei preferiti
+fc09_04_vainellarubrica Vai nella rubrica
+fc09_04_vainelregistrochiamate Vai nel registro chiamate
+fc09_05_aggiungiaipreferiti Aggiungi ai preferiti
+fc09_05_aprirubrica1 Apri rubrica
+fc09_05_aprirubrica2 Apri rubrica
+fc09_05_aprirubrica3 Apri rubrica
+fc09_05_attivavivavoce Attiva vivavoce
+fc09_05_cancellacontatto Cancella contatto
+fc09_05_cancellatutto Cancella tutto
+fc09_05_chiamaemergenza Chiama emergenza
+fc09_05_chiamaultimonumero Chiama ultimo numero
+fc09_05_chiudiapplicazione Chiudi applicazione
+fc09_05_chiudirubrica Chiudi rubrica
+fc09_05_disattivavivavoce Disattiva vivavoce
+fc09_05_faiunatelefonata Fai una telefonata
+fc09_05_nuovocontatto Nuovo contatto
+fc09_05_scorriversoilbasso Scorri verso il basso
+fc09_05_scorriversolalto Scorri verso l’alto
+fc09_05_terminachiamata Termina chiamata
+fc09_05_vaiallapaginaprincipale Vai alla pagina principale
+fc09_05_vaiallatastiera Vai alla tastiera
+fc09_05_vaineipreferiti Vai nei preferiti
+fc09_05_vainellarubrica Vai nella rubrica
+fc09_05_vainelregistrochiamate Vai nel registro chiamate
+fc09_06_aggiungiaipreferiti Aggiungi ai preferiti
+fc09_06_aprirubrica1 Apri rubrica
+fc09_06_aprirubrica2 Apri rubrica
+fc09_06_aprirubrica3 Apri rubrica
+fc09_06_attivavivavoce Attiva vivavoce
+fc09_06_cancellacontatto Cancella contatto
+fc09_06_cancellatutto Cancella tutto
+fc09_06_chiamaemergenza Chiama emergenza
+fc09_06_chiamaultimonumero Chiama ultimo numero
+fc09_06_chiudiapplicazione Chiudi applicazione
+fc09_06_chiudirubrica Chiudi rubrica
+fc09_06_disattivavivavoce Disattiva vivavoce
+fc09_06_faiunatelefonata Fai una telefonata
+fc09_06_nuovocontatto Nuovo contatto
+fc09_06_scorriversoilbasso Scorri verso il basso
+fc09_06_scorriversolalto Scorri verso l’alto
+fc09_06_terminachiamata Termina chiamata
+fc09_06_vaiallapaginaprincipale Vai alla pagina principale
+fc09_06_vaiallatastiera Vai alla tastiera
+fc09_06_vaineipreferiti Vai nei preferiti
+fc09_06_vainellarubrica Vai nella rubrica
+fc09_06_vainelregistrochiamate Vai nel registro chiamate
+fc10_01_aggiungiaipreferiti Aggiungi ai preferiti
+fc10_01_aprirubrica1 Apri rubrica
+fc10_01_aprirubrica2 Apri rubrica
+fc10_01_aprirubrica3 Apri rubrica
+fc10_01_attivavivavoce Attiva vivavoce
+fc10_01_cancellacontatto Cancella contatto
+fc10_01_cancellatutto Cancella tutto
+fc10_01_chiamaemergenza Chiama emergenza
+fc10_01_chiamaultimonumero Chiama ultimo numero
+fc10_01_chiudiapplicazione Chiudi applicazione
+fc10_01_chiudirubrica Chiudi rubrica
+fc10_01_disattivavivavoce Disattiva vivavoce
+fc10_01_faiunatelefonata Fai una telefonata
+fc10_01_nuovocontatto Nuovo contatto
+fc10_01_scorriversoilbasso Scorri verso il basso
+fc10_01_scorriversolalto Scorri verso l’alto
+fc10_01_terminachiamata Termina chiamata
+fc10_01_vaiallapaginaprincipale Vai alla pagina principale
+fc10_01_vaiallatastiera Vai alla tastiera
+fc10_01_vaineipreferiti Vai nei preferiti
+fc10_01_vainellarubrica Vai nella rubrica
+fc10_01_vainelregistrochiamate Vai nel registro chiamate
+fc10_02_aggiungiaipreferiti Aggiungi ai preferiti
+fc10_02_aprirubrica1 Apri rubrica
+fc10_02_aprirubrica2 Apri rubrica
+fc10_02_aprirubrica3 Apri rubrica
+fc10_02_attivavivavoce Attiva vivavoce
+fc10_02_cancellacontatto Cancella contatto
+fc10_02_cancellatutto Cancella tutto
+fc10_02_chiamaemergenza Chiama emergenza
+fc10_02_chiamaultimonumero Chiama ultimo numero
+fc10_02_chiudiapplicazione Chiudi applicazione
+fc10_02_chiudirubrica Chiudi rubrica
+fc10_02_disattivavivavoce Disattiva vivavoce
+fc10_02_faiunatelefonata Fai una telefonata
+fc10_02_nuovocontatto Nuovo contatto
+fc10_02_scorriversoilbasso Scorri verso il basso
+fc10_02_scorriversolalto Scorri verso l’alto
+fc10_02_terminachiamata Termina chiamata
+fc10_02_vaiallapaginaprincipale Vai alla pagina principale
+fc10_02_vaiallatastiera Vai alla tastiera
+fc10_02_vaineipreferiti Vai nei preferiti
+fc10_02_vainellarubrica Vai nella rubrica
+fc10_02_vainelregistrochiamate Vai nel registro chiamate
+fc10_03_aggiungiaipreferiti Aggiungi ai preferiti
+fc10_03_aprirubrica1 Apri rubrica
+fc10_03_aprirubrica2 Apri rubrica
+fc10_03_aprirubrica3 Apri rubrica
+fc10_03_attivavivavoce Attiva vivavoce
+fc10_03_cancellacontatto Cancella contatto
+fc10_03_cancellatutto Cancella tutto
+fc10_03_chiamaemergenza Chiama emergenza
+fc10_03_chiamaultimonumero Chiama ultimo numero
+fc10_03_chiudiapplicazione Chiudi applicazione
+fc10_03_chiudirubrica Chiudi rubrica
+fc10_03_disattivavivavoce Disattiva vivavoce
+fc10_03_faiunatelefonata Fai una telefonata
+fc10_03_nuovocontatto Nuovo contatto
+fc10_03_scorriversoilbasso Scorri verso il basso
+fc10_03_scorriversolalto Scorri verso l’alto
+fc10_03_terminachiamata Termina chiamata
+fc10_03_vaiallapaginaprincipale Vai alla pagina principale
+fc10_03_vaiallatastiera Vai alla tastiera
+fc10_03_vaineipreferiti Vai nei preferiti
+fc10_03_vainellarubrica Vai nella rubrica
+fc10_03_vainelregistrochiamate Vai nel registro chiamate
+fc10_04_aggiungiaipreferiti Aggiungi ai preferiti
+fc10_04_aprirubrica1 Apri rubrica
+fc10_04_aprirubrica2 Apri rubrica
+fc10_04_aprirubrica3 Apri rubrica
+fc10_04_attivavivavoce Attiva vivavoce
+fc10_04_cancellacontatto Cancella contatto
+fc10_04_cancellatutto Cancella tutto
+fc10_04_chiamaemergenza Chiama emergenza
+fc10_04_chiamaultimonumero Chiama ultimo numero
+fc10_04_chiudiapplicazione Chiudi applicazione
+fc10_04_chiudirubrica Chiudi rubrica
+fc10_04_disattivavivavoce Disattiva vivavoce
+fc10_04_faiunatelefonata Fai una telefonata
+fc10_04_nuovocontatto Nuovo contatto
+fc10_04_scorriversoilbasso Scorri verso il basso
+fc10_04_scorriversolalto Scorri verso l’alto
+fc10_04_terminachiamata Termina chiamata
+fc10_04_vaiallapaginaprincipale Vai alla pagina principale
+fc10_04_vaiallatastiera Vai alla tastiera
+fc10_04_vaineipreferiti Vai nei preferiti
+fc10_04_vainellarubrica Vai nella rubrica
+fc10_04_vainelregistrochiamate Vai nel registro chiamate
+fc10_05_aggiungiaipreferiti Aggiungi ai preferiti
+fc10_05_aprirubrica1 Apri rubrica
+fc10_05_aprirubrica2 Apri rubrica
+fc10_05_aprirubrica3 Apri rubrica
+fc10_05_attivavivavoce Attiva vivavoce
+fc10_05_cancellacontatto Cancella contatto
+fc10_05_cancellatutto Cancella tutto
+fc10_05_chiamaemergenza Chiama emergenza
+fc10_05_chiamaultimonumero Chiama ultimo numero
+fc10_05_chiudiapplicazione Chiudi applicazione
+fc10_05_chiudirubrica Chiudi rubrica
+fc10_05_disattivavivavoce Disattiva vivavoce
+fc10_05_faiunatelefonata Fai una telefonata
+fc10_05_nuovocontatto Nuovo contatto
+fc10_05_scorriversoilbasso Scorri verso il basso
+fc10_05_scorriversolalto Scorri verso l’alto
+fc10_05_terminachiamata Termina chiamata
+fc10_05_vaiallapaginaprincipale Vai alla pagina principale
+fc10_05_vaiallatastiera Vai alla tastiera
+fc10_05_vaineipreferiti Vai nei preferiti
+fc10_05_vainellarubrica Vai nella rubrica
+fc10_05_vainelregistrochiamate Vai nel registro chiamate
+fc10_06_aggiungiaipreferiti Aggiungi ai preferiti
+fc10_06_aprirubrica1 Apri rubrica
+fc10_06_aprirubrica2 Apri rubrica
+fc10_06_aprirubrica3 Apri rubrica
+fc10_06_attivavivavoce Attiva vivavoce
+fc10_06_cancellacontatto Cancella contatto
+fc10_06_cancellatutto Cancella tutto
+fc10_06_chiamaemergenza Chiama emergenza
+fc10_06_chiamaultimonumero Chiama ultimo numero
+fc10_06_chiudiapplicazione Chiudi applicazione
+fc10_06_chiudirubrica Chiudi rubrica
+fc10_06_disattivavivavoce Disattiva vivavoce
+fc10_06_faiunatelefonata Fai una telefonata
+fc10_06_nuovocontatto Nuovo contatto
+fc10_06_scorriversoilbasso Scorri verso il basso
+fc10_06_scorriversolalto Scorri verso l’alto
+fc10_06_terminachiamata Termina chiamata
+fc10_06_vaiallapaginaprincipale Vai alla pagina principale
+fc10_06_vaiallatastiera Vai alla tastiera
+fc10_06_vaineipreferiti Vai nei preferiti
+fc10_06_vainellarubrica Vai nella rubrica
+fc10_06_vainelregistrochiamate Vai nel registro chiamate
+mc01_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc01_01_aprirubrica Apri rubrica
+mc01_01_attivavivavoce Attiva vivavoce
+mc01_01_cancellacontatto Cancella contatto
+mc01_01_cancellatutto Cancella tutto
+mc01_01_chiamaemergenza Chiama emergenza
+mc01_01_chiamaultimonumero Chiama ultimo numero
+mc01_01_chiudiapplicazione Chiudi applicazione
+mc01_01_chiudirubrica Chiudi rubrica
+mc01_01_disattivavivavoce Disattiva vivavoce
+mc01_01_faiunatelefonata Fai una telefonata
+mc01_01_nuovocontatto Nuovo contatto
+mc01_01_scorriversoilbasso Scorri verso il basso
+mc01_01_scorriversolalto Scorri verso l’alto
+mc01_01_terminachiamata Termina chiamata
+mc01_01_vaiallapaginaprincipale Vai alla pagina principale
+mc01_01_vaiallatastiera Vai alla tastiera
+mc01_01_vaineipreferiti Vai nei preferiti
+mc01_01_vainellarubrica Vai nella rubrica
+mc01_01_vainelregistrochiamate Vai nel registro chiamate
+mc01_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc01_02_aprirubrica Apri rubrica
+mc01_02_attivavivavoce Attiva vivavoce
+mc01_02_cancellacontatto Cancella contatto
+mc01_02_cancellatutto Cancella tutto
+mc01_02_chiamaemergenza Chiama emergenza
+mc01_02_chiamaultimonumero Chiama ultimo numero
+mc01_02_chiudiapplicazione Chiudi applicazione
+mc01_02_chiudirubrica Chiudi rubrica
+mc01_02_disattivavivavoce Disattiva vivavoce
+mc01_02_faiunatelefonata Fai una telefonata
+mc01_02_nuovocontatto Nuovo contatto
+mc01_02_scorriversoilbasso Scorri verso il basso
+mc01_02_scorriversolalto Scorri verso l’alto
+mc01_02_terminachiamata Termina chiamata
+mc01_02_vaiallapaginaprincipale Vai alla pagina principale
+mc01_02_vaiallatastiera Vai alla tastiera
+mc01_02_vaineipreferiti Vai nei preferiti
+mc01_02_vainellarubrica Vai nella rubrica
+mc01_02_vainelregistrochiamate Vai nel registro chiamate
+mc01_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc01_03_aprirubrica Apri rubrica
+mc01_03_attivavivavoce Attiva vivavoce
+mc01_03_cancellacontatto Cancella contatto
+mc01_03_cancellatutto Cancella tutto
+mc01_03_chiamaemergenza Chiama emergenza
+mc01_03_chiamaultimonumero Chiama ultimo numero
+mc01_03_chiudiapplicazione Chiudi applicazione
+mc01_03_chiudirubrica Chiudi rubrica
+mc01_03_disattivavivavoce Disattiva vivavoce
+mc01_03_faiunatelefonata Fai una telefonata
+mc01_03_nuovocontatto Nuovo contatto
+mc01_03_scorriversoilbasso Scorri verso il basso
+mc01_03_scorriversolalto Scorri verso l’alto
+mc01_03_terminachiamata Termina chiamata
+mc01_03_vaiallapaginaprincipale Vai alla pagina principale
+mc01_03_vaiallatastiera Vai alla tastiera
+mc01_03_vaineipreferiti Vai nei preferiti
+mc01_03_vainellarubrica Vai nella rubrica
+mc01_03_vainelregistrochiamate Vai nel registro chiamate
+mc01_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc01_04_aprirubrica Apri rubrica
+mc01_04_attivavivavoce Attiva vivavoce
+mc01_04_cancellacontatto Cancella contatto
+mc01_04_cancellatutto Cancella tutto
+mc01_04_chiamaemergenza Chiama emergenza
+mc01_04_chiamaultimonumero Chiama ultimo numero
+mc01_04_chiudiapplicazione Chiudi applicazione
+mc01_04_chiudirubrica Chiudi rubrica
+mc01_04_disattivavivavoce Disattiva vivavoce
+mc01_04_faiunatelefonata Fai una telefonata
+mc01_04_nuovocontatto Nuovo contatto
+mc01_04_scorriversoilbasso Scorri verso il basso
+mc01_04_scorriversolalto Scorri verso l’alto
+mc01_04_terminachiamata Termina chiamata
+mc01_04_vaiallapaginaprincipale Vai alla pagina principale
+mc01_04_vaiallatastiera Vai alla tastiera
+mc01_04_vaineipreferiti Vai nei preferiti
+mc01_04_vainellarubrica Vai nella rubrica
+mc01_04_vainelregistrochiamate Vai nel registro chiamate
+mc01_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc01_05_aprirubrica Apri rubrica
+mc01_05_attivavivavoce Attiva vivavoce
+mc01_05_cancellacontatto Cancella contatto
+mc01_05_cancellatutto Cancella tutto
+mc01_05_chiamaemergenza Chiama emergenza
+mc01_05_chiamaultimonumero Chiama ultimo numero
+mc01_05_chiudiapplicazione Chiudi applicazione
+mc01_05_chiudirubrica Chiudi rubrica
+mc01_05_disattivavivavoce Disattiva vivavoce
+mc01_05_faiunatelefonata Fai una telefonata
+mc01_05_nuovocontatto Nuovo contatto
+mc01_05_scorriversoilbasso Scorri verso il basso
+mc01_05_scorriversolalto Scorri verso l’alto
+mc01_05_terminachiamata Termina chiamata
+mc01_05_vaiallapaginaprincipale Vai alla pagina principale
+mc01_05_vaiallatastiera Vai alla tastiera
+mc01_05_vaineipreferiti Vai nei preferiti
+mc01_05_vainellarubrica Vai nella rubrica
+mc01_05_vainelregistrochiamate Vai nel registro chiamate
+mc01_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc01_06_aprirubrica Apri rubrica
+mc01_06_attivavivavoce Attiva vivavoce
+mc01_06_cancellacontatto Cancella contatto
+mc01_06_cancellatutto Cancella tutto
+mc01_06_chiamaemergenza Chiama emergenza
+mc01_06_chiamaultimonumero Chiama ultimo numero
+mc01_06_chiudiapplicazione Chiudi applicazione
+mc01_06_chiudirubrica Chiudi rubrica
+mc01_06_disattivavivavoce Disattiva vivavoce
+mc01_06_faiunatelefonata Fai una telefonata
+mc01_06_nuovocontatto Nuovo contatto
+mc01_06_scorriversoilbasso Scorri verso il basso
+mc01_06_scorriversolalto Scorri verso l’alto
+mc01_06_terminachiamata Termina chiamata
+mc01_06_vaiallapaginaprincipale Vai alla pagina principale
+mc01_06_vaiallatastiera Vai alla tastiera
+mc01_06_vaineipreferiti Vai nei preferiti
+mc01_06_vainellarubrica Vai nella rubrica
+mc01_06_vainelregistrochiamate Vai nel registro chiamate
+mc02_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc02_01_aprirubrica Apri rubrica
+mc02_01_attivavivavoce Attiva vivavoce
+mc02_01_cancellacontatto Cancella contatto
+mc02_01_cancellatutto Cancella tutto
+mc02_01_chiamaemergenza Chiama emergenza
+mc02_01_chiamaultimonumero Chiama ultimo numero
+mc02_01_chiudiapplicazione Chiudi applicazione
+mc02_01_chiudirubrica Chiudi rubrica
+mc02_01_disattivavivavoce Disattiva vivavoce
+mc02_01_faiunatelefonata Fai una telefonata
+mc02_01_nuovocontatto Nuovo contatto
+mc02_01_scorriversoilbasso Scorri verso il basso
+mc02_01_scorriversolalto Scorri verso l’alto
+mc02_01_terminachiamata Termina chiamata
+mc02_01_vaiallapaginaprincipale Vai alla pagina principale
+mc02_01_vaiallatastiera Vai alla tastiera
+mc02_01_vaineipreferiti Vai nei preferiti
+mc02_01_vainellarubrica Vai nella rubrica
+mc02_01_vainelregistrochiamate Vai nel registro chiamate
+mc02_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc02_02_aprirubrica Apri rubrica
+mc02_02_attivavivavoce Attiva vivavoce
+mc02_02_cancellacontatto Cancella contatto
+mc02_02_cancellatutto Cancella tutto
+mc02_02_chiamaemergenza Chiama emergenza
+mc02_02_chiamaultimonumero Chiama ultimo numero
+mc02_02_chiudiapplicazione Chiudi applicazione
+mc02_02_chiudirubrica Chiudi rubrica
+mc02_02_disattivavivavoce Disattiva vivavoce
+mc02_02_faiunatelefonata Fai una telefonata
+mc02_02_nuovocontatto Nuovo contatto
+mc02_02_scorriversoilbasso Scorri verso il basso
+mc02_02_scorriversolalto Scorri verso l’alto
+mc02_02_terminachiamata Termina chiamata
+mc02_02_vaiallapaginaprincipale Vai alla pagina principale
+mc02_02_vaiallatastiera Vai alla tastiera
+mc02_02_vaineipreferiti Vai nei preferiti
+mc02_02_vainellarubrica Vai nella rubrica
+mc02_02_vainelregistrochiamate Vai nel registro chiamate
+mc02_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc02_03_aprirubrica Apri rubrica
+mc02_03_attivavivavoce Attiva vivavoce
+mc02_03_cancellacontatto Cancella contatto
+mc02_03_cancellatutto Cancella tutto
+mc02_03_chiamaemergenza Chiama emergenza
+mc02_03_chiamaultimonumero Chiama ultimo numero
+mc02_03_chiudiapplicazione Chiudi applicazione
+mc02_03_chiudirubrica Chiudi rubrica
+mc02_03_disattivavivavoce Disattiva vivavoce
+mc02_03_faiunatelefonata Fai una telefonata
+mc02_03_nuovocontatto Nuovo contatto
+mc02_03_scorriversoilbasso Scorri verso il basso
+mc02_03_scorriversolalto Scorri verso l’alto
+mc02_03_terminachiamata Termina chiamata
+mc02_03_vaiallapaginaprincipale Vai alla pagina principale
+mc02_03_vaiallatastiera Vai alla tastiera
+mc02_03_vaineipreferiti Vai nei preferiti
+mc02_03_vainellarubrica Vai nella rubrica
+mc02_03_vainelregistrochiamate Vai nel registro chiamate
+mc02_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc02_04_aprirubrica Apri rubrica
+mc02_04_attivavivavoce Attiva vivavoce
+mc02_04_cancellacontatto Cancella contatto
+mc02_04_cancellatutto Cancella tutto
+mc02_04_chiamaemergenza Chiama emergenza
+mc02_04_chiamaultimonumero Chiama ultimo numero
+mc02_04_chiudiapplicazione Chiudi applicazione
+mc02_04_chiudirubrica Chiudi rubrica
+mc02_04_disattivavivavoce Disattiva vivavoce
+mc02_04_faiunatelefonata Fai una telefonata
+mc02_04_nuovocontatto Nuovo contatto
+mc02_04_scorriversoilbasso Scorri verso il basso
+mc02_04_scorriversolalto Scorri verso l’alto
+mc02_04_terminachiamata Termina chiamata
+mc02_04_vaiallapaginaprincipale Vai alla pagina principale
+mc02_04_vaiallatastiera Vai alla tastiera
+mc02_04_vaineipreferiti Vai nei preferiti
+mc02_04_vainellarubrica Vai nella rubrica
+mc02_04_vainelregistrochiamate Vai nel registro chiamate
+mc02_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc02_05_aprirubrica Apri rubrica
+mc02_05_attivavivavoce Attiva vivavoce
+mc02_05_cancellacontatto Cancella contatto
+mc02_05_cancellatutto Cancella tutto
+mc02_05_chiamaemergenza Chiama emergenza
+mc02_05_chiamaultimonumero Chiama ultimo numero
+mc02_05_chiudiapplicazione Chiudi applicazione
+mc02_05_chiudirubrica Chiudi rubrica
+mc02_05_disattivavivavoce Disattiva vivavoce
+mc02_05_faiunatelefonata Fai una telefonata
+mc02_05_nuovocontatto Nuovo contatto
+mc02_05_scorriversoilbasso Scorri verso il basso
+mc02_05_scorriversolalto Scorri verso l’alto
+mc02_05_terminachiamata Termina chiamata
+mc02_05_vaiallapaginaprincipale Vai alla pagina principale
+mc02_05_vaiallatastiera Vai alla tastiera
+mc02_05_vaineipreferiti Vai nei preferiti
+mc02_05_vainellarubrica Vai nella rubrica
+mc02_05_vainelregistrochiamate Vai nel registro chiamate
+mc02_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc02_06_aprirubrica Apri rubrica
+mc02_06_attivavivavoce Attiva vivavoce
+mc02_06_cancellacontatto Cancella contatto
+mc02_06_cancellatutto Cancella tutto
+mc02_06_chiamaemergenza Chiama emergenza
+mc02_06_chiamaultimonumero Chiama ultimo numero
+mc02_06_chiudiapplicazione Chiudi applicazione
+mc02_06_chiudirubrica Chiudi rubrica
+mc02_06_disattivavivavoce Disattiva vivavoce
+mc02_06_faiunatelefonata Fai una telefonata
+mc02_06_nuovocontatto Nuovo contatto
+mc02_06_scorriversoilbasso Scorri verso il basso
+mc02_06_scorriversolalto Scorri verso l’alto
+mc02_06_terminachiamata Termina chiamata
+mc02_06_vaiallapaginaprincipale Vai alla pagina principale
+mc02_06_vaiallatastiera Vai alla tastiera
+mc02_06_vaineipreferiti Vai nei preferiti
+mc02_06_vainellarubrica Vai nella rubrica
+mc02_06_vainelregistrochiamate Vai nel registro chiamate
+mc03_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc03_01_aprirubrica Apri rubrica
+mc03_01_attivavivavoce Attiva vivavoce
+mc03_01_cancellacontatto Cancella contatto
+mc03_01_cancellatutto Cancella tutto
+mc03_01_chiamaemergenza Chiama emergenza
+mc03_01_chiamaultimonumero Chiama ultimo numero
+mc03_01_chiudiapplicazione Chiudi applicazione
+mc03_01_chiudirubrica Chiudi rubrica
+mc03_01_disattivavivavoce Disattiva vivavoce
+mc03_01_faiunatelefonata Fai una telefonata
+mc03_01_nuovocontatto Nuovo contatto
+mc03_01_scorriversoilbasso Scorri verso il basso
+mc03_01_scorriversolalto Scorri verso l’alto
+mc03_01_terminachiamata Termina chiamata
+mc03_01_vaiallapaginaprincipale Vai alla pagina principale
+mc03_01_vaiallatastiera Vai alla tastiera
+mc03_01_vaineipreferiti Vai nei preferiti
+mc03_01_vainellarubrica Vai nella rubrica
+mc03_01_vainelregistrochiamate Vai nel registro chiamate
+mc03_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc03_02_aprirubrica Apri rubrica
+mc03_02_attivavivavoce Attiva vivavoce
+mc03_02_cancellacontatto Cancella contatto
+mc03_02_cancellatutto Cancella tutto
+mc03_02_chiamaemergenza Chiama emergenza
+mc03_02_chiamaultimonumero Chiama ultimo numero
+mc03_02_chiudiapplicazione Chiudi applicazione
+mc03_02_chiudirubrica Chiudi rubrica
+mc03_02_disattivavivavoce Disattiva vivavoce
+mc03_02_faiunatelefonata Fai una telefonata
+mc03_02_nuovocontatto Nuovo contatto
+mc03_02_scorriversoilbasso Scorri verso il basso
+mc03_02_scorriversolalto Scorri verso l’alto
+mc03_02_terminachiamata Termina chiamata
+mc03_02_vaiallapaginaprincipale Vai alla pagina principale
+mc03_02_vaiallatastiera Vai alla tastiera
+mc03_02_vaineipreferiti Vai nei preferiti
+mc03_02_vainellarubrica Vai nella rubrica
+mc03_02_vainelregistrochiamate Vai nel registro chiamate
+mc03_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc03_03_aprirubrica Apri rubrica
+mc03_03_attivavivavoce Attiva vivavoce
+mc03_03_cancellacontatto Cancella contatto
+mc03_03_cancellatutto Cancella tutto
+mc03_03_chiamaemergenza Chiama emergenza
+mc03_03_chiamaultimonumero Chiama ultimo numero
+mc03_03_chiudiapplicazione Chiudi applicazione
+mc03_03_chiudirubrica Chiudi rubrica
+mc03_03_disattivavivavoce Disattiva vivavoce
+mc03_03_faiunatelefonata Fai una telefonata
+mc03_03_nuovocontatto Nuovo contatto
+mc03_03_scorriversoilbasso Scorri verso il basso
+mc03_03_scorriversolalto Scorri verso l’alto
+mc03_03_terminachiamata Termina chiamata
+mc03_03_vaiallapaginaprincipale Vai alla pagina principale
+mc03_03_vaiallatastiera Vai alla tastiera
+mc03_03_vaineipreferiti Vai nei preferiti
+mc03_03_vainellarubrica Vai nella rubrica
+mc03_03_vainelregistrochiamate Vai nel registro chiamate
+mc03_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc03_04_aprirubrica Apri rubrica
+mc03_04_attivavivavoce Attiva vivavoce
+mc03_04_cancellacontatto Cancella contatto
+mc03_04_cancellatutto Cancella tutto
+mc03_04_chiamaemergenza Chiama emergenza
+mc03_04_chiamaultimonumero Chiama ultimo numero
+mc03_04_chiudiapplicazione Chiudi applicazione
+mc03_04_chiudirubrica Chiudi rubrica
+mc03_04_disattivavivavoce Disattiva vivavoce
+mc03_04_faiunatelefonata Fai una telefonata
+mc03_04_nuovocontatto Nuovo contatto
+mc03_04_scorriversoilbasso Scorri verso il basso
+mc03_04_scorriversolalto Scorri verso l’alto
+mc03_04_terminachiamata Termina chiamata
+mc03_04_vaiallapaginaprincipale Vai alla pagina principale
+mc03_04_vaiallatastiera Vai alla tastiera
+mc03_04_vaineipreferiti Vai nei preferiti
+mc03_04_vainellarubrica Vai nella rubrica
+mc03_04_vainelregistrochiamate Vai nel registro chiamate
+mc03_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc03_05_aprirubrica Apri rubrica
+mc03_05_attivavivavoce Attiva vivavoce
+mc03_05_cancellacontatto Cancella contatto
+mc03_05_cancellatutto Cancella tutto
+mc03_05_chiamaemergenza Chiama emergenza
+mc03_05_chiamaultimonumero Chiama ultimo numero
+mc03_05_chiudiapplicazione Chiudi applicazione
+mc03_05_chiudirubrica Chiudi rubrica
+mc03_05_disattivavivavoce Disattiva vivavoce
+mc03_05_faiunatelefonata Fai una telefonata
+mc03_05_nuovocontatto Nuovo contatto
+mc03_05_scorriversoilbasso Scorri verso il basso
+mc03_05_scorriversolalto Scorri verso l’alto
+mc03_05_terminachiamata Termina chiamata
+mc03_05_vaiallapaginaprincipale Vai alla pagina principale
+mc03_05_vaiallatastiera Vai alla tastiera
+mc03_05_vaineipreferiti Vai nei preferiti
+mc03_05_vainellarubrica Vai nella rubrica
+mc03_05_vainelregistrochiamate Vai nel registro chiamate
+mc03_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc03_06_aprirubrica Apri rubrica
+mc03_06_attivavivavoce Attiva vivavoce
+mc03_06_cancellacontatto Cancella contatto
+mc03_06_cancellatutto Cancella tutto
+mc03_06_chiamaemergenza Chiama emergenza
+mc03_06_chiamaultimonumero Chiama ultimo numero
+mc03_06_chiudiapplicazione Chiudi applicazione
+mc03_06_chiudirubrica Chiudi rubrica
+mc03_06_disattivavivavoce Disattiva vivavoce
+mc03_06_faiunatelefonata Fai una telefonata
+mc03_06_nuovocontatto Nuovo contatto
+mc03_06_scorriversoilbasso Scorri verso il basso
+mc03_06_scorriversolalto Scorri verso l’alto
+mc03_06_terminachiamata Termina chiamata
+mc03_06_vaiallapaginaprincipale Vai alla pagina principale
+mc03_06_vaiallatastiera Vai alla tastiera
+mc03_06_vaineipreferiti Vai nei preferiti
+mc03_06_vainellarubrica Vai nella rubrica
+mc03_06_vainelregistrochiamate Vai nel registro chiamate
+mc04_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc04_01_aprirubrica Apri rubrica
+mc04_01_attivavivavoce Attiva vivavoce
+mc04_01_cancellacontatto Cancella contatto
+mc04_01_cancellatutto Cancella tutto
+mc04_01_chiamaemergenza Chiama emergenza
+mc04_01_chiamaultimonumero Chiama ultimo numero
+mc04_01_chiudiapplicazione Chiudi applicazione
+mc04_01_chiudirubrica Chiudi rubrica
+mc04_01_disattivavivavoce Disattiva vivavoce
+mc04_01_faiunatelefonata Fai una telefonata
+mc04_01_nuovocontatto Nuovo contatto
+mc04_01_scorriversoilbasso Scorri verso il basso
+mc04_01_scorriversolalto Scorri verso l’alto
+mc04_01_terminachiamata Termina chiamata
+mc04_01_vaiallapaginaprincipale Vai alla pagina principale
+mc04_01_vaiallatastiera Vai alla tastiera
+mc04_01_vaineipreferiti Vai nei preferiti
+mc04_01_vainellarubrica Vai nella rubrica
+mc04_01_vainelregistrochiamate Vai nel registro chiamate
+mc04_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc04_02_aprirubrica Apri rubrica
+mc04_02_attivavivavoce Attiva vivavoce
+mc04_02_cancellacontatto Cancella contatto
+mc04_02_cancellatutto Cancella tutto
+mc04_02_chiamaemergenza Chiama emergenza
+mc04_02_chiamaultimonumero Chiama ultimo numero
+mc04_02_chiudiapplicazione Chiudi applicazione
+mc04_02_chiudirubrica Chiudi rubrica
+mc04_02_disattivavivavoce Disattiva vivavoce
+mc04_02_faiunatelefonata Fai una telefonata
+mc04_02_nuovocontatto Nuovo contatto
+mc04_02_scorriversoilbasso Scorri verso il basso
+mc04_02_scorriversolalto Scorri verso l’alto
+mc04_02_terminachiamata Termina chiamata
+mc04_02_vaiallapaginaprincipale Vai alla pagina principale
+mc04_02_vaiallatastiera Vai alla tastiera
+mc04_02_vaineipreferiti Vai nei preferiti
+mc04_02_vainellarubrica Vai nella rubrica
+mc04_02_vainelregistrochiamate Vai nel registro chiamate
+mc04_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc04_03_aprirubrica Apri rubrica
+mc04_03_attivavivavoce Attiva vivavoce
+mc04_03_cancellacontatto Cancella contatto
+mc04_03_cancellatutto Cancella tutto
+mc04_03_chiamaemergenza Chiama emergenza
+mc04_03_chiamaultimonumero Chiama ultimo numero
+mc04_03_chiudiapplicazione Chiudi applicazione
+mc04_03_chiudirubrica Chiudi rubrica
+mc04_03_disattivavivavoce Disattiva vivavoce
+mc04_03_faiunatelefonata Fai una telefonata
+mc04_03_nuovocontatto Nuovo contatto
+mc04_03_scorriversoilbasso Scorri verso il basso
+mc04_03_scorriversolalto Scorri verso l’alto
+mc04_03_terminachiamata Termina chiamata
+mc04_03_vaiallapaginaprincipale Vai alla pagina principale
+mc04_03_vaiallatastiera Vai alla tastiera
+mc04_03_vaineipreferiti Vai nei preferiti
+mc04_03_vainellarubrica Vai nella rubrica
+mc04_03_vainelregistrochiamate Vai nel registro chiamate
+mc04_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc04_04_aprirubrica Apri rubrica
+mc04_04_attivavivavoce Attiva vivavoce
+mc04_04_cancellacontatto Cancella contatto
+mc04_04_cancellatutto Cancella tutto
+mc04_04_chiamaemergenza Chiama emergenza
+mc04_04_chiamaultimonumero Chiama ultimo numero
+mc04_04_chiudiapplicazione Chiudi applicazione
+mc04_04_chiudirubrica Chiudi rubrica
+mc04_04_disattivavivavoce Disattiva vivavoce
+mc04_04_faiunatelefonata Fai una telefonata
+mc04_04_nuovocontatto Nuovo contatto
+mc04_04_scorriversoilbasso Scorri verso il basso
+mc04_04_scorriversolalto Scorri verso l’alto
+mc04_04_terminachiamata Termina chiamata
+mc04_04_vaiallapaginaprincipale Vai alla pagina principale
+mc04_04_vaiallatastiera Vai alla tastiera
+mc04_04_vaineipreferiti Vai nei preferiti
+mc04_04_vainellarubrica Vai nella rubrica
+mc04_04_vainelregistrochiamate Vai nel registro chiamate
+mc04_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc04_05_aprirubrica Apri rubrica
+mc04_05_attivavivavoce Attiva vivavoce
+mc04_05_cancellacontatto Cancella contatto
+mc04_05_cancellatutto Cancella tutto
+mc04_05_chiamaemergenza Chiama emergenza
+mc04_05_chiamaultimonumero Chiama ultimo numero
+mc04_05_chiudiapplicazione Chiudi applicazione
+mc04_05_chiudirubrica Chiudi rubrica
+mc04_05_disattivavivavoce Disattiva vivavoce
+mc04_05_faiunatelefonata Fai una telefonata
+mc04_05_nuovocontatto Nuovo contatto
+mc04_05_scorriversoilbasso Scorri verso il basso
+mc04_05_scorriversolalto Scorri verso l’alto
+mc04_05_terminachiamata Termina chiamata
+mc04_05_vaiallapaginaprincipale Vai alla pagina principale
+mc04_05_vaiallatastiera Vai alla tastiera
+mc04_05_vaineipreferiti Vai nei preferiti
+mc04_05_vainellarubrica Vai nella rubrica
+mc04_05_vainelregistrochiamate Vai nel registro chiamate
+mc04_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc04_06_aprirubrica Apri rubrica
+mc04_06_attivavivavoce Attiva vivavoce
+mc04_06_cancellacontatto Cancella contatto
+mc04_06_cancellatutto Cancella tutto
+mc04_06_chiamaemergenza Chiama emergenza
+mc04_06_chiamaultimonumero Chiama ultimo numero
+mc04_06_chiudiapplicazione Chiudi applicazione
+mc04_06_chiudirubrica Chiudi rubrica
+mc04_06_disattivavivavoce Disattiva vivavoce
+mc04_06_faiunatelefonata Fai una telefonata
+mc04_06_nuovocontatto Nuovo contatto
+mc04_06_scorriversoilbasso Scorri verso il basso
+mc04_06_scorriversolalto Scorri verso l’alto
+mc04_06_terminachiamata Termina chiamata
+mc04_06_vaiallapaginaprincipale Vai alla pagina principale
+mc04_06_vaiallatastiera Vai alla tastiera
+mc04_06_vaineipreferiti Vai nei preferiti
+mc04_06_vainellarubrica Vai nella rubrica
+mc04_06_vainelregistrochiamate Vai nel registro chiamate
+mc05_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc05_01_aprirubrica Apri rubrica
+mc05_01_attivavivavoce Attiva vivavoce
+mc05_01_cancellacontatto Cancella contatto
+mc05_01_cancellatutto Cancella tutto
+mc05_01_chiamaemergenza Chiama emergenza
+mc05_01_chiamaultimonumero Chiama ultimo numero
+mc05_01_chiudiapplicazione Chiudi applicazione
+mc05_01_chiudirubrica Chiudi rubrica
+mc05_01_disattivavivavoce Disattiva vivavoce
+mc05_01_faiunatelefonata Fai una telefonata
+mc05_01_nuovocontatto Nuovo contatto
+mc05_01_scorriversoilbasso Scorri verso il basso
+mc05_01_scorriversolalto Scorri verso l’alto
+mc05_01_terminachiamata Termina chiamata
+mc05_01_vaiallapaginaprincipale Vai alla pagina principale
+mc05_01_vaiallatastiera Vai alla tastiera
+mc05_01_vaineipreferiti Vai nei preferiti
+mc05_01_vainellarubrica Vai nella rubrica
+mc05_01_vainelregistrochiamate Vai nel registro chiamate
+mc05_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc05_02_aprirubrica Apri rubrica
+mc05_02_attivavivavoce Attiva vivavoce
+mc05_02_cancellacontatto Cancella contatto
+mc05_02_cancellatutto Cancella tutto
+mc05_02_chiamaemergenza Chiama emergenza
+mc05_02_chiamaultimonumero Chiama ultimo numero
+mc05_02_chiudiapplicazione Chiudi applicazione
+mc05_02_chiudirubrica Chiudi rubrica
+mc05_02_disattivavivavoce Disattiva vivavoce
+mc05_02_faiunatelefonata Fai una telefonata
+mc05_02_nuovocontatto Nuovo contatto
+mc05_02_scorriversoilbasso Scorri verso il basso
+mc05_02_scorriversolalto Scorri verso l’alto
+mc05_02_terminachiamata Termina chiamata
+mc05_02_vaiallapaginaprincipale Vai alla pagina principale
+mc05_02_vaiallatastiera Vai alla tastiera
+mc05_02_vaineipreferiti Vai nei preferiti
+mc05_02_vainellarubrica Vai nella rubrica
+mc05_02_vainelregistrochiamate Vai nel registro chiamate
+mc05_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc05_03_aprirubrica Apri rubrica
+mc05_03_attivavivavoce Attiva vivavoce
+mc05_03_cancellacontatto Cancella contatto
+mc05_03_cancellatutto Cancella tutto
+mc05_03_chiamaemergenza Chiama emergenza
+mc05_03_chiamaultimonumero Chiama ultimo numero
+mc05_03_chiudiapplicazione Chiudi applicazione
+mc05_03_chiudirubrica Chiudi rubrica
+mc05_03_disattivavivavoce Disattiva vivavoce
+mc05_03_faiunatelefonata Fai una telefonata
+mc05_03_nuovocontatto Nuovo contatto
+mc05_03_scorriversoilbasso Scorri verso il basso
+mc05_03_scorriversolalto Scorri verso l’alto
+mc05_03_terminachiamata Termina chiamata
+mc05_03_vaiallapaginaprincipale Vai alla pagina principale
+mc05_03_vaiallatastiera Vai alla tastiera
+mc05_03_vaineipreferiti Vai nei preferiti
+mc05_03_vainellarubrica Vai nella rubrica
+mc05_03_vainelregistrochiamate Vai nel registro chiamate
+mc05_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc05_04_aprirubrica Apri rubrica
+mc05_04_attivavivavoce Attiva vivavoce
+mc05_04_cancellacontatto Cancella contatto
+mc05_04_cancellatutto Cancella tutto
+mc05_04_chiamaemergenza Chiama emergenza
+mc05_04_chiamaultimonumero Chiama ultimo numero
+mc05_04_chiudiapplicazione Chiudi applicazione
+mc05_04_chiudirubrica Chiudi rubrica
+mc05_04_disattivavivavoce Disattiva vivavoce
+mc05_04_faiunatelefonata Fai una telefonata
+mc05_04_nuovocontatto Nuovo contatto
+mc05_04_scorriversoilbasso Scorri verso il basso
+mc05_04_scorriversolalto Scorri verso l’alto
+mc05_04_terminachiamata Termina chiamata
+mc05_04_vaiallapaginaprincipale Vai alla pagina principale
+mc05_04_vaiallatastiera Vai alla tastiera
+mc05_04_vaineipreferiti Vai nei preferiti
+mc05_04_vainellarubrica Vai nella rubrica
+mc05_04_vainelregistrochiamate Vai nel registro chiamate
+mc05_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc05_05_aprirubrica Apri rubrica
+mc05_05_attivavivavoce Attiva vivavoce
+mc05_05_cancellacontatto Cancella contatto
+mc05_05_cancellatutto Cancella tutto
+mc05_05_chiamaemergenza Chiama emergenza
+mc05_05_chiamaultimonumero Chiama ultimo numero
+mc05_05_chiudiapplicazione Chiudi applicazione
+mc05_05_chiudirubrica Chiudi rubrica
+mc05_05_disattivavivavoce Disattiva vivavoce
+mc05_05_faiunatelefonata Fai una telefonata
+mc05_05_nuovocontatto Nuovo contatto
+mc05_05_scorriversoilbasso Scorri verso il basso
+mc05_05_scorriversolalto Scorri verso l’alto
+mc05_05_terminachiamata Termina chiamata
+mc05_05_vaiallapaginaprincipale Vai alla pagina principale
+mc05_05_vaiallatastiera Vai alla tastiera
+mc05_05_vaineipreferiti Vai nei preferiti
+mc05_05_vainellarubrica Vai nella rubrica
+mc05_05_vainelregistrochiamate Vai nel registro chiamate
+mc05_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc05_06_aprirubrica Apri rubrica
+mc05_06_attivavivavoce Attiva vivavoce
+mc05_06_cancellacontatto Cancella contatto
+mc05_06_cancellatutto Cancella tutto
+mc05_06_chiamaemergenza Chiama emergenza
+mc05_06_chiamaultimonumero Chiama ultimo numero
+mc05_06_chiudiapplicazione Chiudi applicazione
+mc05_06_chiudirubrica Chiudi rubrica
+mc05_06_disattivavivavoce Disattiva vivavoce
+mc05_06_faiunatelefonata Fai una telefonata
+mc05_06_nuovocontatto Nuovo contatto
+mc05_06_scorriversoilbasso Scorri verso il basso
+mc05_06_scorriversolalto Scorri verso l’alto
+mc05_06_terminachiamata Termina chiamata
+mc05_06_vaiallapaginaprincipale Vai alla pagina principale
+mc05_06_vaiallatastiera Vai alla tastiera
+mc05_06_vaineipreferiti Vai nei preferiti
+mc05_06_vainellarubrica Vai nella rubrica
+mc05_06_vainelregistrochiamate Vai nel registro chiamate
+mc05_07_aggiungiaipreferiti Aggiungi ai preferiti
+mc05_07_aprirubrica Apri rubrica
+mc05_07_attivavivavoce Attiva vivavoce
+mc05_07_cancellacontatto Cancella contatto
+mc05_07_cancellatutto Cancella tutto
+mc05_07_chiamaemergenza Chiama emergenza
+mc05_07_chiamaultimonumero Chiama ultimo numero
+mc05_07_chiudiapplicazione Chiudi applicazione
+mc05_07_chiudirubrica Chiudi rubrica
+mc05_07_disattivavivavoce Disattiva vivavoce
+mc05_07_faiunatelefonata Fai una telefonata
+mc05_07_nuovocontatto Nuovo contatto
+mc05_07_scorriversoilbasso Scorri verso il basso
+mc05_07_scorriversolalto Scorri verso l’alto
+mc05_07_terminachiamata Termina chiamata
+mc05_07_vaiallapaginaprincipale Vai alla pagina principale
+mc05_07_vaiallatastiera Vai alla tastiera
+mc05_07_vaineipreferiti Vai nei preferiti
+mc05_07_vainellarubrica Vai nella rubrica
+mc05_07_vainelregistrochiamate Vai nel registro chiamate
+mc06_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc06_01_aprirubrica Apri rubrica
+mc06_01_attivavivavoce Attiva vivavoce
+mc06_01_cancellacontatto Cancella contatto
+mc06_01_cancellatutto Cancella tutto
+mc06_01_chiamaemergenza Chiama emergenza
+mc06_01_chiamaultimonumero Chiama ultimo numero
+mc06_01_chiudiapplicazione Chiudi applicazione
+mc06_01_chiudirubrica Chiudi rubrica
+mc06_01_disattivavivavoce Disattiva vivavoce
+mc06_01_faiunatelefonata Fai una telefonata
+mc06_01_nuovocontatto Nuovo contatto
+mc06_01_scorriversoilbasso Scorri verso il basso
+mc06_01_scorriversolalto Scorri verso l’alto
+mc06_01_terminachiamata Termina chiamata
+mc06_01_vaiallapaginaprincipale Vai alla pagina principale
+mc06_01_vaiallatastiera Vai alla tastiera
+mc06_01_vaineipreferiti Vai nei preferiti
+mc06_01_vainellarubrica Vai nella rubrica
+mc06_01_vainelregistrochiamate Vai nel registro chiamate
+mc06_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc06_02_aprirubrica Apri rubrica
+mc06_02_attivavivavoce Attiva vivavoce
+mc06_02_cancellacontatto Cancella contatto
+mc06_02_cancellatutto Cancella tutto
+mc06_02_chiamaemergenza Chiama emergenza
+mc06_02_chiamaultimonumero Chiama ultimo numero
+mc06_02_chiudiapplicazione Chiudi applicazione
+mc06_02_chiudirubrica Chiudi rubrica
+mc06_02_disattivavivavoce Disattiva vivavoce
+mc06_02_faiunatelefonata Fai una telefonata
+mc06_02_nuovocontatto Nuovo contatto
+mc06_02_scorriversoilbasso Scorri verso il basso
+mc06_02_scorriversolalto Scorri verso l’alto
+mc06_02_terminachiamata Termina chiamata
+mc06_02_vaiallapaginaprincipale Vai alla pagina principale
+mc06_02_vaiallatastiera Vai alla tastiera
+mc06_02_vaineipreferiti Vai nei preferiti
+mc06_02_vainellarubrica Vai nella rubrica
+mc06_02_vainelregistrochiamate Vai nel registro chiamate
+mc06_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc06_03_aprirubrica Apri rubrica
+mc06_03_attivavivavoce Attiva vivavoce
+mc06_03_cancellacontatto Cancella contatto
+mc06_03_cancellatutto Cancella tutto
+mc06_03_chiamaemergenza Chiama emergenza
+mc06_03_chiamaultimonumero Chiama ultimo numero
+mc06_03_chiudiapplicazione Chiudi applicazione
+mc06_03_chiudirubrica Chiudi rubrica
+mc06_03_disattivavivavoce Disattiva vivavoce
+mc06_03_faiunatelefonata Fai una telefonata
+mc06_03_nuovocontatto Nuovo contatto
+mc06_03_scorriversoilbasso Scorri verso il basso
+mc06_03_scorriversolalto Scorri verso l’alto
+mc06_03_terminachiamata Termina chiamata
+mc06_03_vaiallapaginaprincipale Vai alla pagina principale
+mc06_03_vaiallatastiera Vai alla tastiera
+mc06_03_vaineipreferiti Vai nei preferiti
+mc06_03_vainellarubrica Vai nella rubrica
+mc06_03_vainelregistrochiamate Vai nel registro chiamate
+mc06_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc06_04_aprirubrica Apri rubrica
+mc06_04_attivavivavoce Attiva vivavoce
+mc06_04_cancellacontatto Cancella contatto
+mc06_04_cancellatutto Cancella tutto
+mc06_04_chiamaemergenza Chiama emergenza
+mc06_04_chiamaultimonumero Chiama ultimo numero
+mc06_04_chiudiapplicazione Chiudi applicazione
+mc06_04_chiudirubrica Chiudi rubrica
+mc06_04_disattivavivavoce Disattiva vivavoce
+mc06_04_faiunatelefonata Fai una telefonata
+mc06_04_nuovocontatto Nuovo contatto
+mc06_04_scorriversoilbasso Scorri verso il basso
+mc06_04_scorriversolalto Scorri verso l’alto
+mc06_04_terminachiamata Termina chiamata
+mc06_04_vaiallapaginaprincipale Vai alla pagina principale
+mc06_04_vaiallatastiera Vai alla tastiera
+mc06_04_vaineipreferiti Vai nei preferiti
+mc06_04_vainellarubrica Vai nella rubrica
+mc06_04_vainelregistrochiamate Vai nel registro chiamate
+mc06_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc06_05_aprirubrica Apri rubrica
+mc06_05_attivavivavoce Attiva vivavoce
+mc06_05_cancellacontatto Cancella contatto
+mc06_05_cancellatutto Cancella tutto
+mc06_05_chiamaemergenza Chiama emergenza
+mc06_05_chiamaultimonumero Chiama ultimo numero
+mc06_05_chiudiapplicazione Chiudi applicazione
+mc06_05_chiudirubrica Chiudi rubrica
+mc06_05_disattivavivavoce Disattiva vivavoce
+mc06_05_faiunatelefonata Fai una telefonata
+mc06_05_nuovocontatto Nuovo contatto
+mc06_05_scorriversoilbasso Scorri verso il basso
+mc06_05_scorriversolalto Scorri verso l’alto
+mc06_05_terminachiamata Termina chiamata
+mc06_05_vaiallapaginaprincipale Vai alla pagina principale
+mc06_05_vaiallatastiera Vai alla tastiera
+mc06_05_vaineipreferiti Vai nei preferiti
+mc06_05_vainellarubrica Vai nella rubrica
+mc06_05_vainelregistrochiamate Vai nel registro chiamate
+mc06_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc06_06_aprirubrica Apri rubrica
+mc06_06_attivavivavoce Attiva vivavoce
+mc06_06_cancellacontatto Cancella contatto
+mc06_06_cancellatutto Cancella tutto
+mc06_06_chiamaemergenza Chiama emergenza
+mc06_06_chiamaultimonumero Chiama ultimo numero
+mc06_06_chiudiapplicazione Chiudi applicazione
+mc06_06_chiudirubrica Chiudi rubrica
+mc06_06_disattivavivavoce Disattiva vivavoce
+mc06_06_faiunatelefonata Fai una telefonata
+mc06_06_nuovocontatto Nuovo contatto
+mc06_06_scorriversoilbasso Scorri verso il basso
+mc06_06_scorriversolalto Scorri verso l’alto
+mc06_06_terminachiamata Termina chiamata
+mc06_06_vaiallapaginaprincipale Vai alla pagina principale
+mc06_06_vaiallatastiera Vai alla tastiera
+mc06_06_vaineipreferiti Vai nei preferiti
+mc06_06_vainellarubrica Vai nella rubrica
+mc06_06_vainelregistrochiamate Vai nel registro chiamate
+mc07_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc07_01_aprirubrica Apri rubrica
+mc07_01_attivavivavoce Attiva vivavoce
+mc07_01_cancellacontatto Cancella contatto
+mc07_01_cancellatutto Cancella tutto
+mc07_01_chiamaemergenza Chiama emergenza
+mc07_01_chiamaultimonumero Chiama ultimo numero
+mc07_01_chiudiapplicazione Chiudi applicazione
+mc07_01_chiudirubrica Chiudi rubrica
+mc07_01_disattivavivavoce Disattiva vivavoce
+mc07_01_faiunatelefonata Fai una telefonata
+mc07_01_nuovocontatto Nuovo contatto
+mc07_01_scorriversoilbasso Scorri verso il basso
+mc07_01_scorriversolalto Scorri verso l’alto
+mc07_01_terminachiamata Termina chiamata
+mc07_01_vaiallapaginaprincipale Vai alla pagina principale
+mc07_01_vaiallatastiera Vai alla tastiera
+mc07_01_vaineipreferiti Vai nei preferiti
+mc07_01_vainellarubrica Vai nella rubrica
+mc07_01_vainelregistrochiamate Vai nel registro chiamate
+mc07_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc07_02_aprirubrica Apri rubrica
+mc07_02_attivavivavoce Attiva vivavoce
+mc07_02_cancellacontatto Cancella contatto
+mc07_02_cancellatutto Cancella tutto
+mc07_02_chiamaemergenza Chiama emergenza
+mc07_02_chiamaultimonumero Chiama ultimo numero
+mc07_02_chiudiapplicazione Chiudi applicazione
+mc07_02_chiudirubrica Chiudi rubrica
+mc07_02_disattivavivavoce Disattiva vivavoce
+mc07_02_faiunatelefonata Fai una telefonata
+mc07_02_nuovocontatto Nuovo contatto
+mc07_02_scorriversoilbasso Scorri verso il basso
+mc07_02_scorriversolalto Scorri verso l’alto
+mc07_02_terminachiamata Termina chiamata
+mc07_02_vaiallapaginaprincipale Vai alla pagina principale
+mc07_02_vaiallatastiera Vai alla tastiera
+mc07_02_vaineipreferiti Vai nei preferiti
+mc07_02_vainellarubrica Vai nella rubrica
+mc07_02_vainelregistrochiamate Vai nel registro chiamate
+mc07_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc07_03_aprirubrica Apri rubrica
+mc07_03_attivavivavoce Attiva vivavoce
+mc07_03_cancellacontatto Cancella contatto
+mc07_03_cancellatutto Cancella tutto
+mc07_03_chiamaemergenza Chiama emergenza
+mc07_03_chiamaultimonumero Chiama ultimo numero
+mc07_03_chiudiapplicazione Chiudi applicazione
+mc07_03_chiudirubrica Chiudi rubrica
+mc07_03_disattivavivavoce Disattiva vivavoce
+mc07_03_faiunatelefonata Fai una telefonata
+mc07_03_nuovocontatto Nuovo contatto
+mc07_03_scorriversoilbasso Scorri verso il basso
+mc07_03_scorriversolalto Scorri verso l’alto
+mc07_03_terminachiamata Termina chiamata
+mc07_03_vaiallapaginaprincipale Vai alla pagina principale
+mc07_03_vaiallatastiera Vai alla tastiera
+mc07_03_vaineipreferiti Vai nei preferiti
+mc07_03_vainellarubrica Vai nella rubrica
+mc07_03_vainelregistrochiamate Vai nel registro chiamate
+mc07_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc07_04_aprirubrica Apri rubrica
+mc07_04_attivavivavoce Attiva vivavoce
+mc07_04_cancellacontatto Cancella contatto
+mc07_04_cancellatutto Cancella tutto
+mc07_04_chiamaemergenza Chiama emergenza
+mc07_04_chiamaultimonumero Chiama ultimo numero
+mc07_04_chiudiapplicazione Chiudi applicazione
+mc07_04_chiudirubrica Chiudi rubrica
+mc07_04_disattivavivavoce Disattiva vivavoce
+mc07_04_faiunatelefonata Fai una telefonata
+mc07_04_nuovocontatto Nuovo contatto
+mc07_04_scorriversoilbasso Scorri verso il basso
+mc07_04_scorriversolalto Scorri verso l’alto
+mc07_04_terminachiamata Termina chiamata
+mc07_04_vaiallapaginaprincipale Vai alla pagina principale
+mc07_04_vaiallatastiera Vai alla tastiera
+mc07_04_vaineipreferiti Vai nei preferiti
+mc07_04_vainellarubrica Vai nella rubrica
+mc07_04_vainelregistrochiamate Vai nel registro chiamate
+mc07_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc07_05_aprirubrica Apri rubrica
+mc07_05_attivavivavoce Attiva vivavoce
+mc07_05_cancellacontatto Cancella contatto
+mc07_05_cancellatutto Cancella tutto
+mc07_05_chiamaemergenza Chiama emergenza
+mc07_05_chiamaultimonumero Chiama ultimo numero
+mc07_05_chiudiapplicazione Chiudi applicazione
+mc07_05_chiudirubrica Chiudi rubrica
+mc07_05_disattivavivavoce Disattiva vivavoce
+mc07_05_faiunatelefonata Fai una telefonata
+mc07_05_nuovocontatto Nuovo contatto
+mc07_05_scorriversoilbasso Scorri verso il basso
+mc07_05_scorriversolalto Scorri verso l’alto
+mc07_05_terminachiamata Termina chiamata
+mc07_05_vaiallapaginaprincipale Vai alla pagina principale
+mc07_05_vaiallatastiera Vai alla tastiera
+mc07_05_vaineipreferiti Vai nei preferiti
+mc07_05_vainellarubrica Vai nella rubrica
+mc07_05_vainelregistrochiamate Vai nel registro chiamate
+mc07_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc07_06_aprirubrica Apri rubrica
+mc07_06_attivavivavoce Attiva vivavoce
+mc07_06_cancellacontatto Cancella contatto
+mc07_06_cancellatutto Cancella tutto
+mc07_06_chiamaemergenza Chiama emergenza
+mc07_06_chiamaultimonumero Chiama ultimo numero
+mc07_06_chiudiapplicazione Chiudi applicazione
+mc07_06_chiudirubrica Chiudi rubrica
+mc07_06_disattivavivavoce Disattiva vivavoce
+mc07_06_faiunatelefonata Fai una telefonata
+mc07_06_nuovocontatto Nuovo contatto
+mc07_06_scorriversoilbasso Scorri verso il basso
+mc07_06_scorriversolalto Scorri verso l’alto
+mc07_06_terminachiamata Termina chiamata
+mc07_06_vaiallapaginaprincipale Vai alla pagina principale
+mc07_06_vaiallatastiera Vai alla tastiera
+mc07_06_vaineipreferiti Vai nei preferiti
+mc07_06_vainellarubrica Vai nella rubrica
+mc07_06_vainelregistrochiamate Vai nel registro chiamate
+mc07_07_aggiungiaipreferiti Aggiungi ai preferiti
+mc07_07_aprirubrica Apri rubrica
+mc07_07_attivavivavoce Attiva vivavoce
+mc07_07_cancellacontatto Cancella contatto
+mc07_07_cancellatutto Cancella tutto
+mc07_07_chiamaemergenza Chiama emergenza
+mc07_07_chiamaultimonumero Chiama ultimo numero
+mc07_07_chiudiapplicazione Chiudi applicazione
+mc07_07_chiudirubrica Chiudi rubrica
+mc07_07_disattivavivavoce Disattiva vivavoce
+mc07_07_faiunatelefonata Fai una telefonata
+mc07_07_nuovocontatto Nuovo contatto
+mc07_07_scorriversoilbasso Scorri verso il basso
+mc07_07_scorriversolalto Scorri verso l’alto
+mc07_07_terminachiamata Termina chiamata
+mc07_07_vaiallapaginaprincipale Vai alla pagina principale
+mc07_07_vaiallatastiera Vai alla tastiera
+mc07_07_vaineipreferiti Vai nei preferiti
+mc07_07_vainellarubrica Vai nella rubrica
+mc07_07_vainelregistrochiamate Vai nel registro chiamate
+mc08_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc08_01_aprirubrica1 Apri rubrica
+mc08_01_aprirubrica2 Apri rubrica
+mc08_01_aprirubrica3 Apri rubrica
+mc08_01_attivavivavoce Attiva vivavoce
+mc08_01_cancellacontatto Cancella contatto
+mc08_01_cancellatutto Cancella tutto
+mc08_01_chiamaemergenza Chiama emergenza
+mc08_01_chiamaultimonumero Chiama ultimo numero
+mc08_01_chiudiapplicazione Chiudi applicazione
+mc08_01_chiudirubrica Chiudi rubrica
+mc08_01_disattivavivavoce Disattiva vivavoce
+mc08_01_faiunatelefonata Fai una telefonata
+mc08_01_nuovocontatto Nuovo contatto
+mc08_01_scorriversoilbasso Scorri verso il basso
+mc08_01_scorriversolalto Scorri verso l’alto
+mc08_01_terminachiamata Termina chiamata
+mc08_01_vaiallapaginaprincipale Vai alla pagina principale
+mc08_01_vaiallatastiera Vai alla tastiera
+mc08_01_vaineipreferiti Vai nei preferiti
+mc08_01_vainellarubrica Vai nella rubrica
+mc08_01_vainelregistrochiamate Vai nel registro chiamate
+mc08_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc08_02_aprirubrica1 Apri rubrica
+mc08_02_aprirubrica2 Apri rubrica
+mc08_02_aprirubrica3 Apri rubrica
+mc08_02_attivavivavoce Attiva vivavoce
+mc08_02_cancellacontatto Cancella contatto
+mc08_02_cancellatutto Cancella tutto
+mc08_02_chiamaemergenza Chiama emergenza
+mc08_02_chiamaultimonumero Chiama ultimo numero
+mc08_02_chiudiapplicazione Chiudi applicazione
+mc08_02_chiudirubrica Chiudi rubrica
+mc08_02_disattivavivavoce Disattiva vivavoce
+mc08_02_faiunatelefonata Fai una telefonata
+mc08_02_nuovocontatto Nuovo contatto
+mc08_02_scorriversoilbasso Scorri verso il basso
+mc08_02_scorriversolalto Scorri verso l’alto
+mc08_02_terminachiamata Termina chiamata
+mc08_02_vaiallapaginaprincipale Vai alla pagina principale
+mc08_02_vaiallatastiera Vai alla tastiera
+mc08_02_vaineipreferiti Vai nei preferiti
+mc08_02_vainellarubrica Vai nella rubrica
+mc08_02_vainelregistrochiamate Vai nel registro chiamate
+mc08_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc08_03_aprirubrica1 Apri rubrica
+mc08_03_aprirubrica2 Apri rubrica
+mc08_03_aprirubrica3 Apri rubrica
+mc08_03_attivavivavoce Attiva vivavoce
+mc08_03_cancellacontatto Cancella contatto
+mc08_03_cancellatutto Cancella tutto
+mc08_03_chiamaemergenza Chiama emergenza
+mc08_03_chiamaultimonumero Chiama ultimo numero
+mc08_03_chiudiapplicazione Chiudi applicazione
+mc08_03_chiudirubrica Chiudi rubrica
+mc08_03_disattivavivavoce Disattiva vivavoce
+mc08_03_faiunatelefonata Fai una telefonata
+mc08_03_nuovocontatto Nuovo contatto
+mc08_03_scorriversoilbasso Scorri verso il basso
+mc08_03_scorriversolalto Scorri verso l’alto
+mc08_03_terminachiamata Termina chiamata
+mc08_03_vaiallapaginaprincipale Vai alla pagina principale
+mc08_03_vaiallatastiera Vai alla tastiera
+mc08_03_vaineipreferiti Vai nei preferiti
+mc08_03_vainellarubrica Vai nella rubrica
+mc08_03_vainelregistrochiamate Vai nel registro chiamate
+mc08_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc08_04_aprirubrica1 Apri rubrica
+mc08_04_aprirubrica2 Apri rubrica
+mc08_04_aprirubrica3 Apri rubrica
+mc08_04_attivavivavoce Attiva vivavoce
+mc08_04_cancellacontatto Cancella contatto
+mc08_04_cancellatutto Cancella tutto
+mc08_04_chiamaemergenza Chiama emergenza
+mc08_04_chiamaultimonumero Chiama ultimo numero
+mc08_04_chiudiapplicazione Chiudi applicazione
+mc08_04_chiudirubrica Chiudi rubrica
+mc08_04_disattivavivavoce Disattiva vivavoce
+mc08_04_faiunatelefonata Fai una telefonata
+mc08_04_nuovocontatto Nuovo contatto
+mc08_04_scorriversoilbasso Scorri verso il basso
+mc08_04_scorriversolalto Scorri verso l’alto
+mc08_04_terminachiamata Termina chiamata
+mc08_04_vaiallapaginaprincipale Vai alla pagina principale
+mc08_04_vaiallatastiera Vai alla tastiera
+mc08_04_vaineipreferiti Vai nei preferiti
+mc08_04_vainellarubrica Vai nella rubrica
+mc08_04_vainelregistrochiamate Vai nel registro chiamate
+mc08_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc08_05_aprirubrica1 Apri rubrica
+mc08_05_aprirubrica2 Apri rubrica
+mc08_05_aprirubrica3 Apri rubrica
+mc08_05_attivavivavoce Attiva vivavoce
+mc08_05_cancellacontatto Cancella contatto
+mc08_05_cancellatutto Cancella tutto
+mc08_05_chiamaemergenza Chiama emergenza
+mc08_05_chiamaultimonumero Chiama ultimo numero
+mc08_05_chiudiapplicazione Chiudi applicazione
+mc08_05_chiudirubrica Chiudi rubrica
+mc08_05_disattivavivavoce Disattiva vivavoce
+mc08_05_faiunatelefonata Fai una telefonata
+mc08_05_nuovocontatto Nuovo contatto
+mc08_05_scorriversoilbasso Scorri verso il basso
+mc08_05_scorriversolalto Scorri verso l’alto
+mc08_05_terminachiamata Termina chiamata
+mc08_05_vaiallapaginaprincipale Vai alla pagina principale
+mc08_05_vaiallatastiera Vai alla tastiera
+mc08_05_vaineipreferiti Vai nei preferiti
+mc08_05_vainellarubrica Vai nella rubrica
+mc08_05_vainelregistrochiamate Vai nel registro chiamate
+mc08_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc08_06_aprirubrica1 Apri rubrica
+mc08_06_aprirubrica2 Apri rubrica
+mc08_06_aprirubrica3 Apri rubrica
+mc08_06_attivavivavoce Attiva vivavoce
+mc08_06_cancellacontatto Cancella contatto
+mc08_06_cancellatutto Cancella tutto
+mc08_06_chiamaemergenza Chiama emergenza
+mc08_06_chiamaultimonumero Chiama ultimo numero
+mc08_06_chiudiapplicazione Chiudi applicazione
+mc08_06_chiudirubrica Chiudi rubrica
+mc08_06_disattivavivavoce Disattiva vivavoce
+mc08_06_faiunatelefonata Fai una telefonata
+mc08_06_nuovocontatto Nuovo contatto
+mc08_06_scorriversoilbasso Scorri verso il basso
+mc08_06_scorriversolalto Scorri verso l’alto
+mc08_06_terminachiamata Termina chiamata
+mc08_06_vaiallapaginaprincipale Vai alla pagina principale
+mc08_06_vaiallatastiera Vai alla tastiera
+mc08_06_vaineipreferiti Vai nei preferiti
+mc08_06_vainellarubrica Vai nella rubrica
+mc08_06_vainelregistrochiamate Vai nel registro chiamate
+mc09_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc09_01_aprirubrica1 Apri rubrica
+mc09_01_aprirubrica2 Apri rubrica
+mc09_01_aprirubrica3 Apri rubrica
+mc09_01_attivavivavoce Attiva vivavoce
+mc09_01_cancellacontatto Cancella contatto
+mc09_01_cancellatutto Cancella tutto
+mc09_01_chiamaemergenza Chiama emergenza
+mc09_01_chiamaultimonumero Chiama ultimo numero
+mc09_01_chiudiapplicazione Chiudi applicazione
+mc09_01_chiudirubrica Chiudi rubrica
+mc09_01_disattivavivavoce Disattiva vivavoce
+mc09_01_faiunatelefonata Fai una telefonata
+mc09_01_nuovocontatto Nuovo contatto
+mc09_01_scorriversoilbasso Scorri verso il basso
+mc09_01_scorriversolalto Scorri verso l’alto
+mc09_01_terminachiamata Termina chiamata
+mc09_01_vaiallapaginaprincipale Vai alla pagina principale
+mc09_01_vaiallatastiera Vai alla tastiera
+mc09_01_vaineipreferiti Vai nei preferiti
+mc09_01_vainellarubrica Vai nella rubrica
+mc09_01_vainelregistrochiamate Vai nel registro chiamate
+mc09_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc09_02_aprirubrica1 Apri rubrica
+mc09_02_aprirubrica2 Apri rubrica
+mc09_02_aprirubrica3 Apri rubrica
+mc09_02_attivavivavoce Attiva vivavoce
+mc09_02_cancellacontatto Cancella contatto
+mc09_02_cancellatutto Cancella tutto
+mc09_02_chiamaemergenza Chiama emergenza
+mc09_02_chiamaultimonumero Chiama ultimo numero
+mc09_02_chiudiapplicazione Chiudi applicazione
+mc09_02_chiudirubrica Chiudi rubrica
+mc09_02_disattivavivavoce Disattiva vivavoce
+mc09_02_faiunatelefonata Fai una telefonata
+mc09_02_nuovocontatto Nuovo contatto
+mc09_02_scorriversoilbasso Scorri verso il basso
+mc09_02_scorriversolalto Scorri verso l’alto
+mc09_02_terminachiamata Termina chiamata
+mc09_02_vaiallapaginaprincipale Vai alla pagina principale
+mc09_02_vaiallatastiera Vai alla tastiera
+mc09_02_vaineipreferiti Vai nei preferiti
+mc09_02_vainellarubrica Vai nella rubrica
+mc09_02_vainelregistrochiamate Vai nel registro chiamate
+mc09_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc09_03_aprirubrica1 Apri rubrica
+mc09_03_aprirubrica2 Apri rubrica
+mc09_03_aprirubrica3 Apri rubrica
+mc09_03_attivavivavoce Attiva vivavoce
+mc09_03_cancellacontatto Cancella contatto
+mc09_03_cancellatutto Cancella tutto
+mc09_03_chiamaemergenza Chiama emergenza
+mc09_03_chiamaultimonumero Chiama ultimo numero
+mc09_03_chiudiapplicazione Chiudi applicazione
+mc09_03_chiudirubrica Chiudi rubrica
+mc09_03_disattivavivavoce Disattiva vivavoce
+mc09_03_faiunatelefonata Fai una telefonata
+mc09_03_nuovocontatto Nuovo contatto
+mc09_03_scorriversoilbasso Scorri verso il basso
+mc09_03_scorriversolalto Scorri verso l’alto
+mc09_03_terminachiamata Termina chiamata
+mc09_03_vaiallapaginaprincipale Vai alla pagina principale
+mc09_03_vaiallatastiera Vai alla tastiera
+mc09_03_vaineipreferiti Vai nei preferiti
+mc09_03_vainellarubrica Vai nella rubrica
+mc09_03_vainelregistrochiamate Vai nel registro chiamate
+mc09_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc09_04_aprirubrica1 Apri rubrica
+mc09_04_aprirubrica2 Apri rubrica
+mc09_04_aprirubrica3 Apri rubrica
+mc09_04_attivavivavoce Attiva vivavoce
+mc09_04_cancellacontatto Cancella contatto
+mc09_04_cancellatutto Cancella tutto
+mc09_04_chiamaemergenza Chiama emergenza
+mc09_04_chiamaultimonumero Chiama ultimo numero
+mc09_04_chiudiapplicazione Chiudi applicazione
+mc09_04_chiudirubrica Chiudi rubrica
+mc09_04_disattivavivavoce Disattiva vivavoce
+mc09_04_faiunatelefonata Fai una telefonata
+mc09_04_nuovocontatto Nuovo contatto
+mc09_04_scorriversoilbasso Scorri verso il basso
+mc09_04_scorriversolalto Scorri verso l’alto
+mc09_04_terminachiamata Termina chiamata
+mc09_04_vaiallapaginaprincipale Vai alla pagina principale
+mc09_04_vaiallatastiera Vai alla tastiera
+mc09_04_vaineipreferiti Vai nei preferiti
+mc09_04_vainellarubrica Vai nella rubrica
+mc09_04_vainelregistrochiamate Vai nel registro chiamate
+mc09_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc09_05_aprirubrica1 Apri rubrica
+mc09_05_aprirubrica2 Apri rubrica
+mc09_05_aprirubrica3 Apri rubrica
+mc09_05_attivavivavoce Attiva vivavoce
+mc09_05_cancellacontatto Cancella contatto
+mc09_05_cancellatutto Cancella tutto
+mc09_05_chiamaemergenza Chiama emergenza
+mc09_05_chiamaultimonumero Chiama ultimo numero
+mc09_05_chiudiapplicazione Chiudi applicazione
+mc09_05_chiudirubrica Chiudi rubrica
+mc09_05_disattivavivavoce Disattiva vivavoce
+mc09_05_faiunatelefonata Fai una telefonata
+mc09_05_nuovocontatto Nuovo contatto
+mc09_05_scorriversoilbasso Scorri verso il basso
+mc09_05_scorriversolalto Scorri verso l’alto
+mc09_05_terminachiamata Termina chiamata
+mc09_05_vaiallapaginaprincipale Vai alla pagina principale
+mc09_05_vaiallatastiera Vai alla tastiera
+mc09_05_vaineipreferiti Vai nei preferiti
+mc09_05_vainellarubrica Vai nella rubrica
+mc09_05_vainelregistrochiamate Vai nel registro chiamate
+mc09_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc09_06_aprirubrica1 Apri rubrica
+mc09_06_aprirubrica2 Apri rubrica
+mc09_06_aprirubrica3 Apri rubrica
+mc09_06_attivavivavoce Attiva vivavoce
+mc09_06_cancellacontatto Cancella contatto
+mc09_06_cancellatutto Cancella tutto
+mc09_06_chiamaemergenza Chiama emergenza
+mc09_06_chiamaultimonumero Chiama ultimo numero
+mc09_06_chiudiapplicazione Chiudi applicazione
+mc09_06_chiudirubrica Chiudi rubrica
+mc09_06_disattivavivavoce Disattiva vivavoce
+mc09_06_faiunatelefonata Fai una telefonata
+mc09_06_nuovocontatto Nuovo contatto
+mc09_06_scorriversoilbasso Scorri verso il basso
+mc09_06_scorriversolalto Scorri verso l’alto
+mc09_06_terminachiamata Termina chiamata
+mc09_06_vaiallapaginaprincipale Vai alla pagina principale
+mc09_06_vaiallatastiera Vai alla tastiera
+mc09_06_vaineipreferiti Vai nei preferiti
+mc09_06_vainellarubrica Vai nella rubrica
+mc09_06_vainelregistrochiamate Vai nel registro chiamate
+mc10_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc10_01_aprirubrica1 Apri rubrica
+mc10_01_aprirubrica2 Apri rubrica
+mc10_01_aprirubrica3 Apri rubrica
+mc10_01_attivavivavoce Attiva vivavoce
+mc10_01_cancellacontatto Cancella contatto
+mc10_01_cancellatutto Cancella tutto
+mc10_01_chiamaemergenza Chiama emergenza
+mc10_01_chiamaultimonumero Chiama ultimo numero
+mc10_01_chiudiapplicazione Chiudi applicazione
+mc10_01_chiudirubrica Chiudi rubrica
+mc10_01_disattivavivavoce Disattiva vivavoce
+mc10_01_faiunatelefonata Fai una telefonata
+mc10_01_nuovocontatto Nuovo contatto
+mc10_01_scorriversoilbasso Scorri verso il basso
+mc10_01_scorriversolalto Scorri verso l’alto
+mc10_01_terminachiamata Termina chiamata
+mc10_01_vaiallapaginaprincipale Vai alla pagina principale
+mc10_01_vaiallatastiera Vai alla tastiera
+mc10_01_vaineipreferiti Vai nei preferiti
+mc10_01_vainellarubrica Vai nella rubrica
+mc10_01_vainelregistrochiamate Vai nel registro chiamate
+mc10_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc10_02_aprirubrica1 Apri rubrica
+mc10_02_aprirubrica2 Apri rubrica
+mc10_02_aprirubrica3 Apri rubrica
+mc10_02_attivavivavoce Attiva vivavoce
+mc10_02_cancellacontatto Cancella contatto
+mc10_02_cancellatutto Cancella tutto
+mc10_02_chiamaemergenza Chiama emergenza
+mc10_02_chiamaultimonumero Chiama ultimo numero
+mc10_02_chiudiapplicazione Chiudi applicazione
+mc10_02_chiudirubrica Chiudi rubrica
+mc10_02_disattivavivavoce Disattiva vivavoce
+mc10_02_faiunatelefonata Fai una telefonata
+mc10_02_nuovocontatto Nuovo contatto
+mc10_02_scorriversoilbasso Scorri verso il basso
+mc10_02_scorriversolalto Scorri verso l’alto
+mc10_02_terminachiamata Termina chiamata
+mc10_02_vaiallapaginaprincipale Vai alla pagina principale
+mc10_02_vaiallatastiera Vai alla tastiera
+mc10_02_vaineipreferiti Vai nei preferiti
+mc10_02_vainellarubrica Vai nella rubrica
+mc10_02_vainelregistrochiamate Vai nel registro chiamate
+mc10_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc10_03_aprirubrica1 Apri rubrica
+mc10_03_aprirubrica2 Apri rubrica
+mc10_03_aprirubrica3 Apri rubrica
+mc10_03_attivavivavoce Attiva vivavoce
+mc10_03_cancellacontatto Cancella contatto
+mc10_03_cancellatutto Cancella tutto
+mc10_03_chiamaemergenza Chiama emergenza
+mc10_03_chiamaultimonumero Chiama ultimo numero
+mc10_03_chiudiapplicazione Chiudi applicazione
+mc10_03_chiudirubrica Chiudi rubrica
+mc10_03_disattivavivavoce Disattiva vivavoce
+mc10_03_faiunatelefonata Fai una telefonata
+mc10_03_nuovocontatto Nuovo contatto
+mc10_03_scorriversoilbasso Scorri verso il basso
+mc10_03_scorriversolalto Scorri verso l’alto
+mc10_03_terminachiamata Termina chiamata
+mc10_03_vaiallapaginaprincipale Vai alla pagina principale
+mc10_03_vaiallatastiera Vai alla tastiera
+mc10_03_vaineipreferiti Vai nei preferiti
+mc10_03_vainellarubrica Vai nella rubrica
+mc10_03_vainelregistrochiamate Vai nel registro chiamate
+mc10_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc10_04_aprirubrica1 Apri rubrica
+mc10_04_aprirubrica2 Apri rubrica
+mc10_04_aprirubrica3 Apri rubrica
+mc10_04_attivavivavoce Attiva vivavoce
+mc10_04_cancellacontatto Cancella contatto
+mc10_04_cancellatutto Cancella tutto
+mc10_04_chiamaemergenza Chiama emergenza
+mc10_04_chiamaultimonumero Chiama ultimo numero
+mc10_04_chiudiapplicazione Chiudi applicazione
+mc10_04_chiudirubrica Chiudi rubrica
+mc10_04_disattivavivavoce Disattiva vivavoce
+mc10_04_faiunatelefonata Fai una telefonata
+mc10_04_nuovocontatto Nuovo contatto
+mc10_04_scorriversoilbasso Scorri verso il basso
+mc10_04_scorriversolalto Scorri verso l’alto
+mc10_04_terminachiamata Termina chiamata
+mc10_04_vaiallapaginaprincipale Vai alla pagina principale
+mc10_04_vaiallatastiera Vai alla tastiera
+mc10_04_vaineipreferiti Vai nei preferiti
+mc10_04_vainellarubrica Vai nella rubrica
+mc10_04_vainelregistrochiamate Vai nel registro chiamate
+mc10_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc10_05_aprirubrica1 Apri rubrica
+mc10_05_aprirubrica2 Apri rubrica
+mc10_05_aprirubrica3 Apri rubrica
+mc10_05_attivavivavoce Attiva vivavoce
+mc10_05_cancellacontatto Cancella contatto
+mc10_05_cancellatutto Cancella tutto
+mc10_05_chiamaemergenza Chiama emergenza
+mc10_05_chiamaultimonumero Chiama ultimo numero
+mc10_05_chiudiapplicazione Chiudi applicazione
+mc10_05_chiudirubrica Chiudi rubrica
+mc10_05_disattivavivavoce Disattiva vivavoce
+mc10_05_faiunatelefonata Fai una telefonata
+mc10_05_nuovocontatto Nuovo contatto
+mc10_05_scorriversoilbasso Scorri verso il basso
+mc10_05_scorriversolalto Scorri verso l’alto
+mc10_05_terminachiamata Termina chiamata
+mc10_05_vaiallapaginaprincipale Vai alla pagina principale
+mc10_05_vaiallatastiera Vai alla tastiera
+mc10_05_vaineipreferiti Vai nei preferiti
+mc10_05_vainellarubrica Vai nella rubrica
+mc10_05_vainelregistrochiamate Vai nel registro chiamate
+mc10_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc10_06_aprirubrica1 Apri rubrica
+mc10_06_aprirubrica2 Apri rubrica
+mc10_06_aprirubrica3 Apri rubrica
+mc10_06_attivavivavoce Attiva vivavoce
+mc10_06_cancellacontatto Cancella contatto
+mc10_06_cancellatutto Cancella tutto
+mc10_06_chiamaemergenza Chiama emergenza
+mc10_06_chiamaultimonumero Chiama ultimo numero
+mc10_06_chiudiapplicazione Chiudi applicazione
+mc10_06_chiudirubrica Chiudi rubrica
+mc10_06_disattivavivavoce Disattiva vivavoce
+mc10_06_faiunatelefonata Fai una telefonata
+mc10_06_nuovocontatto Nuovo contatto
+mc10_06_scorriversoilbasso Scorri verso il basso
+mc10_06_scorriversolalto Scorri verso l’alto
+mc10_06_terminachiamata Termina chiamata
+mc10_06_vaiallapaginaprincipale Vai alla pagina principale
+mc10_06_vaiallatastiera Vai alla tastiera
+mc10_06_vaineipreferiti Vai nei preferiti
+mc10_06_vainellarubrica Vai nella rubrica
+mc10_06_vainelregistrochiamate Vai nel registro chiamate
+mc11_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc11_01_aprirubrica1 Apri rubrica
+mc11_01_aprirubrica2 Apri rubrica
+mc11_01_aprirubrica3 Apri rubrica
+mc11_01_attivavivavoce Attiva vivavoce
+mc11_01_cancellacontatto Cancella contatto
+mc11_01_cancellatutto Cancella tutto
+mc11_01_chiamaemergenza Chiama emergenza
+mc11_01_chiamaultimonumero Chiama ultimo numero
+mc11_01_chiudiapplicazione Chiudi applicazione
+mc11_01_chiudirubrica Chiudi rubrica
+mc11_01_disattivavivavoce Disattiva vivavoce
+mc11_01_faiunatelefonata Fai una telefonata
+mc11_01_nuovocontatto Nuovo contatto
+mc11_01_scorriversoilbasso Scorri verso il basso
+mc11_01_scorriversolalto Scorri verso l’alto
+mc11_01_terminachiamata Termina chiamata
+mc11_01_vaiallapaginaprincipale Vai alla pagina principale
+mc11_01_vaiallatastiera Vai alla tastiera
+mc11_01_vaineipreferiti Vai nei preferiti
+mc11_01_vainellarubrica Vai nella rubrica
+mc11_01_vainelregistrochiamate Vai nel registro chiamate
+mc11_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc11_02_aprirubrica1 Apri rubrica
+mc11_02_aprirubrica2 Apri rubrica
+mc11_02_aprirubrica3 Apri rubrica
+mc11_02_attivavivavoce Attiva vivavoce
+mc11_02_cancellacontatto Cancella contatto
+mc11_02_cancellatutto Cancella tutto
+mc11_02_chiamaemergenza Chiama emergenza
+mc11_02_chiamaultimonumero Chiama ultimo numero
+mc11_02_chiudiapplicazione Chiudi applicazione
+mc11_02_chiudirubrica Chiudi rubrica
+mc11_02_disattivavivavoce Disattiva vivavoce
+mc11_02_faiunatelefonata Fai una telefonata
+mc11_02_nuovocontatto Nuovo contatto
+mc11_02_scorriversoilbasso Scorri verso il basso
+mc11_02_scorriversolalto Scorri verso l’alto
+mc11_02_terminachiamata Termina chiamata
+mc11_02_vaiallapaginaprincipale Vai alla pagina principale
+mc11_02_vaiallatastiera Vai alla tastiera
+mc11_02_vaineipreferiti Vai nei preferiti
+mc11_02_vainellarubrica Vai nella rubrica
+mc11_02_vainelregistrochiamate Vai nel registro chiamate
+mc11_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc11_03_aprirubrica1 Apri rubrica
+mc11_03_aprirubrica2 Apri rubrica
+mc11_03_aprirubrica3 Apri rubrica
+mc11_03_attivavivavoce Attiva vivavoce
+mc11_03_cancellacontatto Cancella contatto
+mc11_03_cancellatutto Cancella tutto
+mc11_03_chiamaemergenza Chiama emergenza
+mc11_03_chiamaultimonumero Chiama ultimo numero
+mc11_03_chiudiapplicazione Chiudi applicazione
+mc11_03_chiudirubrica Chiudi rubrica
+mc11_03_disattivavivavoce Disattiva vivavoce
+mc11_03_faiunatelefonata Fai una telefonata
+mc11_03_nuovocontatto Nuovo contatto
+mc11_03_scorriversoilbasso Scorri verso il basso
+mc11_03_scorriversolalto Scorri verso l’alto
+mc11_03_terminachiamata Termina chiamata
+mc11_03_vaiallapaginaprincipale Vai alla pagina principale
+mc11_03_vaiallatastiera Vai alla tastiera
+mc11_03_vaineipreferiti Vai nei preferiti
+mc11_03_vainellarubrica Vai nella rubrica
+mc11_03_vainelregistrochiamate Vai nel registro chiamate
+mc11_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc11_04_aprirubrica1 Apri rubrica
+mc11_04_aprirubrica2 Apri rubrica
+mc11_04_aprirubrica3 Apri rubrica
+mc11_04_attivavivavoce Attiva vivavoce
+mc11_04_cancellacontatto Cancella contatto
+mc11_04_cancellatutto Cancella tutto
+mc11_04_chiamaemergenza Chiama emergenza
+mc11_04_chiamaultimonumero Chiama ultimo numero
+mc11_04_chiudiapplicazione Chiudi applicazione
+mc11_04_chiudirubrica Chiudi rubrica
+mc11_04_disattivavivavoce Disattiva vivavoce
+mc11_04_faiunatelefonata Fai una telefonata
+mc11_04_nuovocontatto Nuovo contatto
+mc11_04_scorriversoilbasso Scorri verso il basso
+mc11_04_scorriversolalto Scorri verso l’alto
+mc11_04_terminachiamata Termina chiamata
+mc11_04_vaiallapaginaprincipale Vai alla pagina principale
+mc11_04_vaiallatastiera Vai alla tastiera
+mc11_04_vaineipreferiti Vai nei preferiti
+mc11_04_vainellarubrica Vai nella rubrica
+mc11_04_vainelregistrochiamate Vai nel registro chiamate
+mc11_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc11_05_aprirubrica1 Apri rubrica
+mc11_05_aprirubrica2 Apri rubrica
+mc11_05_aprirubrica3 Apri rubrica
+mc11_05_attivavivavoce Attiva vivavoce
+mc11_05_cancellacontatto Cancella contatto
+mc11_05_cancellatutto Cancella tutto
+mc11_05_chiamaemergenza Chiama emergenza
+mc11_05_chiamaultimonumero Chiama ultimo numero
+mc11_05_chiudiapplicazione Chiudi applicazione
+mc11_05_chiudirubrica Chiudi rubrica
+mc11_05_disattivavivavoce Disattiva vivavoce
+mc11_05_faiunatelefonata Fai una telefonata
+mc11_05_nuovocontatto Nuovo contatto
+mc11_05_scorriversoilbasso Scorri verso il basso
+mc11_05_scorriversolalto Scorri verso l’alto
+mc11_05_terminachiamata Termina chiamata
+mc11_05_vaiallapaginaprincipale Vai alla pagina principale
+mc11_05_vaiallatastiera Vai alla tastiera
+mc11_05_vaineipreferiti Vai nei preferiti
+mc11_05_vainellarubrica Vai nella rubrica
+mc11_05_vainelregistrochiamate Vai nel registro chiamate
+mc11_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc11_06_aprirubrica1 Apri rubrica
+mc11_06_aprirubrica2 Apri rubrica
+mc11_06_aprirubrica3 Apri rubrica
+mc11_06_attivavivavoce Attiva vivavoce
+mc11_06_cancellacontatto Cancella contatto
+mc11_06_cancellatutto Cancella tutto
+mc11_06_chiamaemergenza Chiama emergenza
+mc11_06_chiamaultimonumero Chiama ultimo numero
+mc11_06_chiudiapplicazione Chiudi applicazione
+mc11_06_chiudirubrica Chiudi rubrica
+mc11_06_disattivavivavoce Disattiva vivavoce
+mc11_06_faiunatelefonata Fai una telefonata
+mc11_06_nuovocontatto Nuovo contatto
+mc11_06_scorriversoilbasso Scorri verso il basso
+mc11_06_scorriversolalto Scorri verso l’alto
+mc11_06_terminachiamata Termina chiamata
+mc11_06_vaiallapaginaprincipale Vai alla pagina principale
+mc11_06_vaiallatastiera Vai alla tastiera
+mc11_06_vaineipreferiti Vai nei preferiti
+mc11_06_vainellarubrica Vai nella rubrica
+mc11_06_vainelregistrochiamate Vai nel registro chiamate
+mc12_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc12_01_aprirubrica1 Apri rubrica
+mc12_01_aprirubrica2 Apri rubrica
+mc12_01_aprirubrica3 Apri rubrica
+mc12_01_attivavivavoce Attiva vivavoce
+mc12_01_cancellacontatto Cancella contatto
+mc12_01_cancellatutto Cancella tutto
+mc12_01_chiamaemergenza Chiama emergenza
+mc12_01_chiamaultimonumero Chiama ultimo numero
+mc12_01_chiudiapplicazione Chiudi applicazione
+mc12_01_chiudirubrica Chiudi rubrica
+mc12_01_disattivavivavoce Disattiva vivavoce
+mc12_01_faiunatelefonata Fai una telefonata
+mc12_01_nuovocontatto Nuovo contatto
+mc12_01_scorriversoilbasso Scorri verso il basso
+mc12_01_scorriversolalto Scorri verso l’alto
+mc12_01_terminachiamata Termina chiamata
+mc12_01_vaiallapaginaprincipale Vai alla pagina principale
+mc12_01_vaiallatastiera Vai alla tastiera
+mc12_01_vaineipreferiti Vai nei preferiti
+mc12_01_vainellarubrica Vai nella rubrica
+mc12_01_vainelregistrochiamate Vai nel registro chiamate
+mc12_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc12_02_aprirubrica1 Apri rubrica
+mc12_02_aprirubrica2 Apri rubrica
+mc12_02_aprirubrica3 Apri rubrica
+mc12_02_attivavivavoce Attiva vivavoce
+mc12_02_cancellacontatto Cancella contatto
+mc12_02_cancellatutto Cancella tutto
+mc12_02_chiamaemergenza Chiama emergenza
+mc12_02_chiamaultimonumero Chiama ultimo numero
+mc12_02_chiudiapplicazione Chiudi applicazione
+mc12_02_chiudirubrica Chiudi rubrica
+mc12_02_disattivavivavoce Disattiva vivavoce
+mc12_02_faiunatelefonata Fai una telefonata
+mc12_02_nuovocontatto Nuovo contatto
+mc12_02_scorriversoilbasso Scorri verso il basso
+mc12_02_scorriversolalto Scorri verso l’alto
+mc12_02_terminachiamata Termina chiamata
+mc12_02_vaiallapaginaprincipale Vai alla pagina principale
+mc12_02_vaiallatastiera Vai alla tastiera
+mc12_02_vaineipreferiti Vai nei preferiti
+mc12_02_vainellarubrica Vai nella rubrica
+mc12_02_vainelregistrochiamate Vai nel registro chiamate
+mc12_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc12_03_aprirubrica1 Apri rubrica
+mc12_03_aprirubrica2 Apri rubrica
+mc12_03_aprirubrica3 Apri rubrica
+mc12_03_attivavivavoce Attiva vivavoce
+mc12_03_cancellacontatto Cancella contatto
+mc12_03_cancellatutto Cancella tutto
+mc12_03_chiamaemergenza Chiama emergenza
+mc12_03_chiamaultimonumero Chiama ultimo numero
+mc12_03_chiudiapplicazione Chiudi applicazione
+mc12_03_chiudirubrica Chiudi rubrica
+mc12_03_disattivavivavoce Disattiva vivavoce
+mc12_03_faiunatelefonata Fai una telefonata
+mc12_03_nuovocontatto Nuovo contatto
+mc12_03_scorriversoilbasso Scorri verso il basso
+mc12_03_scorriversolalto Scorri verso l’alto
+mc12_03_terminachiamata Termina chiamata
+mc12_03_vaiallapaginaprincipale Vai alla pagina principale
+mc12_03_vaiallatastiera Vai alla tastiera
+mc12_03_vaineipreferiti Vai nei preferiti
+mc12_03_vainellarubrica Vai nella rubrica
+mc12_03_vainelregistrochiamate Vai nel registro chiamate
+mc12_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc12_04_aprirubrica1 Apri rubrica
+mc12_04_aprirubrica2 Apri rubrica
+mc12_04_aprirubrica3 Apri rubrica
+mc12_04_attivavivavoce Attiva vivavoce
+mc12_04_cancellacontatto Cancella contatto
+mc12_04_cancellatutto Cancella tutto
+mc12_04_chiamaemergenza Chiama emergenza
+mc12_04_chiamaultimonumero Chiama ultimo numero
+mc12_04_chiudiapplicazione Chiudi applicazione
+mc12_04_chiudirubrica Chiudi rubrica
+mc12_04_disattivavivavoce Disattiva vivavoce
+mc12_04_faiunatelefonata Fai una telefonata
+mc12_04_nuovocontatto Nuovo contatto
+mc12_04_scorriversoilbasso Scorri verso il basso
+mc12_04_scorriversolalto Scorri verso l’alto
+mc12_04_terminachiamata Termina chiamata
+mc12_04_vaiallapaginaprincipale Vai alla pagina principale
+mc12_04_vaiallatastiera Vai alla tastiera
+mc12_04_vaineipreferiti Vai nei preferiti
+mc12_04_vainellarubrica Vai nella rubrica
+mc12_04_vainelregistrochiamate Vai nel registro chiamate
+mc12_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc12_05_aprirubrica1 Apri rubrica
+mc12_05_aprirubrica2 Apri rubrica
+mc12_05_aprirubrica3 Apri rubrica
+mc12_05_attivavivavoce Attiva vivavoce
+mc12_05_cancellacontatto Cancella contatto
+mc12_05_cancellatutto Cancella tutto
+mc12_05_chiamaemergenza Chiama emergenza
+mc12_05_chiamaultimonumero Chiama ultimo numero
+mc12_05_chiudiapplicazione Chiudi applicazione
+mc12_05_chiudirubrica Chiudi rubrica
+mc12_05_disattivavivavoce Disattiva vivavoce
+mc12_05_faiunatelefonata Fai una telefonata
+mc12_05_nuovocontatto Nuovo contatto
+mc12_05_scorriversoilbasso Scorri verso il basso
+mc12_05_scorriversolalto Scorri verso l’alto
+mc12_05_terminachiamata Termina chiamata
+mc12_05_vaiallapaginaprincipale Vai alla pagina principale
+mc12_05_vaiallatastiera Vai alla tastiera
+mc12_05_vaineipreferiti Vai nei preferiti
+mc12_05_vainellarubrica Vai nella rubrica
+mc12_05_vainelregistrochiamate Vai nel registro chiamate
+mc12_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc12_06_aprirubrica1 Apri rubrica
+mc12_06_aprirubrica2 Apri rubrica
+mc12_06_aprirubrica3 Apri rubrica
+mc12_06_attivavivavoce Attiva vivavoce
+mc12_06_cancellacontatto Cancella contatto
+mc12_06_cancellatutto Cancella tutto
+mc12_06_chiamaemergenza Chiama emergenza
+mc12_06_chiamaultimonumero Chiama ultimo numero
+mc12_06_chiudiapplicazione Chiudi applicazione
+mc12_06_chiudirubrica Chiudi rubrica
+mc12_06_disattivavivavoce Disattiva vivavoce
+mc12_06_faiunatelefonata Fai una telefonata
+mc12_06_nuovocontatto Nuovo contatto
+mc12_06_scorriversoilbasso Scorri verso il basso
+mc12_06_scorriversolalto Scorri verso l’alto
+mc12_06_terminachiamata Termina chiamata
+mc12_06_vaiallapaginaprincipale Vai alla pagina principale
+mc12_06_vaiallatastiera Vai alla tastiera
+mc12_06_vaineipreferiti Vai nei preferiti
+mc12_06_vainellarubrica Vai nella rubrica
+mc12_06_vainelregistrochiamate Vai nel registro chiamate
+mc13_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc13_01_aprirubrica1 Apri rubrica
+mc13_01_aprirubrica2 Apri rubrica
+mc13_01_aprirubrica3 Apri rubrica
+mc13_01_attivavivavoce Attiva vivavoce
+mc13_01_cancellacontatto Cancella contatto
+mc13_01_cancellatutto Cancella tutto
+mc13_01_chiamaemergenza Chiama emergenza
+mc13_01_chiamaultimonumero Chiama ultimo numero
+mc13_01_chiudiapplicazione Chiudi applicazione
+mc13_01_chiudirubrica Chiudi rubrica
+mc13_01_disattivavivavoce Disattiva vivavoce
+mc13_01_faiunatelefonata Fai una telefonata
+mc13_01_nuovocontatto Nuovo contatto
+mc13_01_scorriversoilbasso Scorri verso il basso
+mc13_01_scorriversolalto Scorri verso l’alto
+mc13_01_terminachiamata Termina chiamata
+mc13_01_vaiallapaginaprincipale Vai alla pagina principale
+mc13_01_vaiallatastiera Vai alla tastiera
+mc13_01_vaineipreferiti Vai nei preferiti
+mc13_01_vainellarubrica Vai nella rubrica
+mc13_01_vainelregistrochiamate Vai nel registro chiamate
+mc13_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc13_02_aprirubrica1 Apri rubrica
+mc13_02_aprirubrica2 Apri rubrica
+mc13_02_aprirubrica3 Apri rubrica
+mc13_02_attivavivavoce Attiva vivavoce
+mc13_02_cancellacontatto Cancella contatto
+mc13_02_cancellatutto Cancella tutto
+mc13_02_chiamaemergenza Chiama emergenza
+mc13_02_chiamaultimonumero Chiama ultimo numero
+mc13_02_chiudiapplicazione Chiudi applicazione
+mc13_02_chiudirubrica Chiudi rubrica
+mc13_02_disattivavivavoce Disattiva vivavoce
+mc13_02_faiunatelefonata Fai una telefonata
+mc13_02_nuovocontatto Nuovo contatto
+mc13_02_scorriversoilbasso Scorri verso il basso
+mc13_02_scorriversolalto Scorri verso l’alto
+mc13_02_terminachiamata Termina chiamata
+mc13_02_vaiallapaginaprincipale Vai alla pagina principale
+mc13_02_vaiallatastiera Vai alla tastiera
+mc13_02_vaineipreferiti Vai nei preferiti
+mc13_02_vainellarubrica Vai nella rubrica
+mc13_02_vainelregistrochiamate Vai nel registro chiamate
+mc13_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc13_03_aprirubrica1 Apri rubrica
+mc13_03_aprirubrica2 Apri rubrica
+mc13_03_aprirubrica3 Apri rubrica
+mc13_03_attivavivavoce Attiva vivavoce
+mc13_03_cancellacontatto Cancella contatto
+mc13_03_cancellatutto Cancella tutto
+mc13_03_chiamaemergenza Chiama emergenza
+mc13_03_chiamaultimonumero Chiama ultimo numero
+mc13_03_chiudiapplicazione Chiudi applicazione
+mc13_03_chiudirubrica Chiudi rubrica
+mc13_03_disattivavivavoce Disattiva vivavoce
+mc13_03_faiunatelefonata Fai una telefonata
+mc13_03_nuovocontatto Nuovo contatto
+mc13_03_scorriversoilbasso Scorri verso il basso
+mc13_03_scorriversolalto Scorri verso l’alto
+mc13_03_terminachiamata Termina chiamata
+mc13_03_vaiallapaginaprincipale Vai alla pagina principale
+mc13_03_vaiallatastiera Vai alla tastiera
+mc13_03_vaineipreferiti Vai nei preferiti
+mc13_03_vainellarubrica Vai nella rubrica
+mc13_03_vainelregistrochiamate Vai nel registro chiamate
+mc13_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc13_04_aprirubrica1 Apri rubrica
+mc13_04_aprirubrica2 Apri rubrica
+mc13_04_aprirubrica3 Apri rubrica
+mc13_04_attivavivavoce Attiva vivavoce
+mc13_04_cancellacontatto Cancella contatto
+mc13_04_cancellatutto Cancella tutto
+mc13_04_chiamaemergenza Chiama emergenza
+mc13_04_chiamaultimonumero Chiama ultimo numero
+mc13_04_chiudiapplicazione Chiudi applicazione
+mc13_04_chiudirubrica Chiudi rubrica
+mc13_04_disattivavivavoce Disattiva vivavoce
+mc13_04_faiunatelefonata Fai una telefonata
+mc13_04_nuovocontatto Nuovo contatto
+mc13_04_scorriversoilbasso Scorri verso il basso
+mc13_04_scorriversolalto Scorri verso l’alto
+mc13_04_terminachiamata Termina chiamata
+mc13_04_vaiallapaginaprincipale Vai alla pagina principale
+mc13_04_vaiallatastiera Vai alla tastiera
+mc13_04_vaineipreferiti Vai nei preferiti
+mc13_04_vainellarubrica Vai nella rubrica
+mc13_04_vainelregistrochiamate Vai nel registro chiamate
+mc13_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc13_05_aprirubrica1 Apri rubrica
+mc13_05_aprirubrica2 Apri rubrica
+mc13_05_aprirubrica3 Apri rubrica
+mc13_05_attivavivavoce Attiva vivavoce
+mc13_05_cancellacontatto Cancella contatto
+mc13_05_cancellatutto Cancella tutto
+mc13_05_chiamaemergenza Chiama emergenza
+mc13_05_chiamaultimonumero Chiama ultimo numero
+mc13_05_chiudiapplicazione Chiudi applicazione
+mc13_05_chiudirubrica Chiudi rubrica
+mc13_05_disattivavivavoce Disattiva vivavoce
+mc13_05_faiunatelefonata Fai una telefonata
+mc13_05_nuovocontatto Nuovo contatto
+mc13_05_scorriversoilbasso Scorri verso il basso
+mc13_05_scorriversolalto Scorri verso l’alto
+mc13_05_terminachiamata Termina chiamata
+mc13_05_vaiallapaginaprincipale Vai alla pagina principale
+mc13_05_vaiallatastiera Vai alla tastiera
+mc13_05_vaineipreferiti Vai nei preferiti
+mc13_05_vainellarubrica Vai nella rubrica
+mc13_05_vainelregistrochiamate Vai nel registro chiamate
+mc13_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc13_06_aprirubrica1 Apri rubrica
+mc13_06_aprirubrica2 Apri rubrica
+mc13_06_aprirubrica3 Apri rubrica
+mc13_06_attivavivavoce Attiva vivavoce
+mc13_06_cancellacontatto Cancella contatto
+mc13_06_cancellatutto Cancella tutto
+mc13_06_chiamaemergenza Chiama emergenza
+mc13_06_chiamaultimonumero Chiama ultimo numero
+mc13_06_chiudiapplicazione Chiudi applicazione
+mc13_06_chiudirubrica Chiudi rubrica
+mc13_06_disattivavivavoce Disattiva vivavoce
+mc13_06_faiunatelefonata Fai una telefonata
+mc13_06_nuovocontatto Nuovo contatto
+mc13_06_scorriversoilbasso Scorri verso il basso
+mc13_06_scorriversolalto Scorri verso l’alto
+mc13_06_terminachiamata Termina chiamata
+mc13_06_vaiallapaginaprincipale Vai alla pagina principale
+mc13_06_vaiallatastiera Vai alla tastiera
+mc13_06_vaineipreferiti Vai nei preferiti
+mc13_06_vainellarubrica Vai nella rubrica
+mc13_06_vainelregistrochiamate Vai nel registro chiamate
+mc14_01_aggiungiaipreferiti Aggiungi ai preferiti
+mc14_01_aprirubrica1 Apri rubrica
+mc14_01_aprirubrica2 Apri rubrica
+mc14_01_aprirubrica3 Apri rubrica
+mc14_01_attivavivavoce Attiva vivavoce
+mc14_01_cancellacontatto Cancella contatto
+mc14_01_cancellatutto Cancella tutto
+mc14_01_chiamaemergenza Chiama emergenza
+mc14_01_chiamaultimonumero Chiama ultimo numero
+mc14_01_chiudiapplicazione Chiudi applicazione
+mc14_01_chiudirubrica Chiudi rubrica
+mc14_01_disattivavivavoce Disattiva vivavoce
+mc14_01_faiunatelefonata Fai una telefonata
+mc14_01_nuovocontatto Nuovo contatto
+mc14_01_scorriversoilbasso Scorri verso il basso
+mc14_01_scorriversolalto Scorri verso l’alto
+mc14_01_terminachiamata Termina chiamata
+mc14_01_vaiallapaginaprincipale Vai alla pagina principale
+mc14_01_vaiallatastiera Vai alla tastiera
+mc14_01_vaineipreferiti Vai nei preferiti
+mc14_01_vainellarubrica Vai nella rubrica
+mc14_01_vainelregistrochiamate Vai nel registro chiamate
+mc14_02_aggiungiaipreferiti Aggiungi ai preferiti
+mc14_02_aprirubrica1 Apri rubrica
+mc14_02_aprirubrica2 Apri rubrica
+mc14_02_aprirubrica3 Apri rubrica
+mc14_02_attivavivavoce Attiva vivavoce
+mc14_02_cancellacontatto Cancella contatto
+mc14_02_cancellatutto Cancella tutto
+mc14_02_chiamaemergenza Chiama emergenza
+mc14_02_chiamaultimonumero Chiama ultimo numero
+mc14_02_chiudiapplicazione Chiudi applicazione
+mc14_02_chiudirubrica Chiudi rubrica
+mc14_02_disattivavivavoce Disattiva vivavoce
+mc14_02_faiunatelefonata Fai una telefonata
+mc14_02_nuovocontatto Nuovo contatto
+mc14_02_scorriversoilbasso Scorri verso il basso
+mc14_02_scorriversolalto Scorri verso l’alto
+mc14_02_terminachiamata Termina chiamata
+mc14_02_vaiallapaginaprincipale Vai alla pagina principale
+mc14_02_vaiallatastiera Vai alla tastiera
+mc14_02_vaineipreferiti Vai nei preferiti
+mc14_02_vainellarubrica Vai nella rubrica
+mc14_02_vainelregistrochiamate Vai nel registro chiamate
+mc14_03_aggiungiaipreferiti Aggiungi ai preferiti
+mc14_03_aprirubrica1 Apri rubrica
+mc14_03_aprirubrica2 Apri rubrica
+mc14_03_aprirubrica3 Apri rubrica
+mc14_03_attivavivavoce Attiva vivavoce
+mc14_03_cancellacontatto Cancella contatto
+mc14_03_cancellatutto Cancella tutto
+mc14_03_chiamaemergenza Chiama emergenza
+mc14_03_chiamaultimonumero Chiama ultimo numero
+mc14_03_chiudiapplicazione Chiudi applicazione
+mc14_03_chiudirubrica Chiudi rubrica
+mc14_03_disattivavivavoce Disattiva vivavoce
+mc14_03_faiunatelefonata Fai una telefonata
+mc14_03_nuovocontatto Nuovo contatto
+mc14_03_scorriversoilbasso Scorri verso il basso
+mc14_03_scorriversolalto Scorri verso l’alto
+mc14_03_terminachiamata Termina chiamata
+mc14_03_vaiallapaginaprincipale Vai alla pagina principale
+mc14_03_vaiallatastiera Vai alla tastiera
+mc14_03_vaineipreferiti Vai nei preferiti
+mc14_03_vainellarubrica Vai nella rubrica
+mc14_03_vainelregistrochiamate Vai nel registro chiamate
+mc14_04_aggiungiaipreferiti Aggiungi ai preferiti
+mc14_04_aprirubrica1 Apri rubrica
+mc14_04_aprirubrica2 Apri rubrica
+mc14_04_aprirubrica3 Apri rubrica
+mc14_04_attivavivavoce Attiva vivavoce
+mc14_04_cancellacontatto Cancella contatto
+mc14_04_cancellatutto Cancella tutto
+mc14_04_chiamaemergenza Chiama emergenza
+mc14_04_chiamaultimonumero Chiama ultimo numero
+mc14_04_chiudiapplicazione Chiudi applicazione
+mc14_04_chiudirubrica Chiudi rubrica
+mc14_04_disattivavivavoce Disattiva vivavoce
+mc14_04_faiunatelefonata Fai una telefonata
+mc14_04_nuovocontatto Nuovo contatto
+mc14_04_scorriversoilbasso Scorri verso il basso
+mc14_04_scorriversolalto Scorri verso l’alto
+mc14_04_terminachiamata Termina chiamata
+mc14_04_vaiallapaginaprincipale Vai alla pagina principale
+mc14_04_vaiallatastiera Vai alla tastiera
+mc14_04_vaineipreferiti Vai nei preferiti
+mc14_04_vainellarubrica Vai nella rubrica
+mc14_04_vainelregistrochiamate Vai nel registro chiamate
+mc14_05_aggiungiaipreferiti Aggiungi ai preferiti
+mc14_05_aprirubrica1 Apri rubrica
+mc14_05_aprirubrica2 Apri rubrica
+mc14_05_aprirubrica3 Apri rubrica
+mc14_05_attivavivavoce Attiva vivavoce
+mc14_05_cancellacontatto Cancella contatto
+mc14_05_cancellatutto Cancella tutto
+mc14_05_chiamaemergenza Chiama emergenza
+mc14_05_chiamaultimonumero Chiama ultimo numero
+mc14_05_chiudiapplicazione Chiudi applicazione
+mc14_05_chiudirubrica Chiudi rubrica
+mc14_05_disattivavivavoce Disattiva vivavoce
+mc14_05_faiunatelefonata Fai una telefonata
+mc14_05_nuovocontatto Nuovo contatto
+mc14_05_scorriversoilbasso Scorri verso il basso
+mc14_05_scorriversolalto Scorri verso l’alto
+mc14_05_terminachiamata Termina chiamata
+mc14_05_vaiallapaginaprincipale Vai alla pagina principale
+mc14_05_vaiallatastiera Vai alla tastiera
+mc14_05_vaineipreferiti Vai nei preferiti
+mc14_05_vainellarubrica Vai nella rubrica
+mc14_05_vainelregistrochiamate Vai nel registro chiamate
+mc14_06_aggiungiaipreferiti Aggiungi ai preferiti
+mc14_06_aprirubrica1 Apri rubrica
+mc14_06_aprirubrica2 Apri rubrica
+mc14_06_aprirubrica3 Apri rubrica
+mc14_06_attivavivavoce Attiva vivavoce
+mc14_06_cancellacontatto Cancella contatto
+mc14_06_cancellatutto Cancella tutto
+mc14_06_chiamaemergenza Chiama emergenza
+mc14_06_chiamaultimonumero Chiama ultimo numero
+mc14_06_chiudiapplicazione Chiudi applicazione
+mc14_06_chiudirubrica Chiudi rubrica
+mc14_06_disattivavivavoce Disattiva vivavoce
+mc14_06_faiunatelefonata Fai una telefonata
+mc14_06_nuovocontatto Nuovo contatto
+mc14_06_scorriversoilbasso Scorri verso il basso
+mc14_06_scorriversolalto Scorri verso l’alto
+mc14_06_terminachiamata Termina chiamata
+mc14_06_vaiallapaginaprincipale Vai alla pagina principale
+mc14_06_vaiallatastiera Vai alla tastiera
+mc14_06_vaineipreferiti Vai nei preferiti
+mc14_06_vainellarubrica Vai nella rubrica
+mc14_06_vainelregistrochiamate Vai nel registro chiamate

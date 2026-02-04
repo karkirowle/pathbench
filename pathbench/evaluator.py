@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, List, Optional
 import re
+import os
 
 import jiwer
 import soundfile as sf
@@ -9,6 +10,7 @@ from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 import librosa
 from phonemizer.phonemize import phonemize
 from phonemizer.separator import Separator
+from pyctcdecode import build_ctcdecoder
 
 from pathbench.string_clean import clean_text
 
@@ -173,7 +175,7 @@ class ASREvaluator(Evaluator):
 class PEREvaluator(Evaluator):
     """An evaluator that uses an ASR model to compute a score based on PER."""
 
-    def __init__(self):
+    def __init__(self, language: str):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         model_ids = {
             "en": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
@@ -182,13 +184,16 @@ class PEREvaluator(Evaluator):
             "nl": "jonatasgrosman/wav2vec2-large-xlsr-53-dutch",
             "it": "jonatasgrosman/wav2vec2-large-xlsr-53-italian",
         }
-        self.processors = {}
-        self.models = {}
-        for lang, model_id in model_ids.items():
-            self.processors[lang] = Wav2Vec2Processor.from_pretrained(model_id)
-            self.models[lang] = Wav2Vec2ForCTC.from_pretrained(model_id)
-            self.models[lang].to(self.device)
-            print(f"ASR model '{model_id}' for language '{lang}' loaded on {self.device}.")
+        
+        if language not in model_ids:
+            raise ValueError(f"Language '{language}' is not supported for PEREvaluator.")
+
+        model_id = model_ids[language]
+        self.processor = Wav2Vec2Processor.from_pretrained(model_id)
+        self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
+        self.model.to(self.device)
+        print(f"ASR model '{model_id}' for language '{language}' loaded on {self.device}.")
+        self.language = language
 
 
     def score(
@@ -204,12 +209,12 @@ class PEREvaluator(Evaluator):
         """
         Performs ASR on the audio file and returns 1 - PER as the score.
         """
-        if language not in self.models:
-            print(f"Error: Language '{language}' is not supported for PEREvaluator. Supported languages are: {list(self.models.keys())}")
+        if language != self.language:
+            print(f"Warning: PEREvaluator was initialized for language '{self.language}' but received a request for '{language}'. Skipping.")
             return None
 
-        processor = self.processors[language]
-        model = self.models[language]
+        processor = self.processor
+        model = self.model
 
         try:
             duration = end_time - start_time if end_time >= 0 else None
@@ -235,18 +240,16 @@ class PEREvaluator(Evaluator):
         predicted_transcription = processor.batch_decode(predicted_ids)[0]
 
         print(f"Reference: {transcription}")
-        print(f"Predicted: {predicted_transcription}")
-
-        separator = Separator(phone = " ", word = "|")
-        
         espeak_language_map = {
             "en": "en-us",
             "en-us": "en-us",
             "es": "es",
-            "nl": "nl"
+            "nl": "nl",
+            "it": "it"
         }
         espeak_lang = espeak_language_map.get(language, language)
 
+        separator = Separator(phone = " ", word = "|")
         # Phonemize transcriptions
         phonemized_reference = phonemize(
             clean_text(transcription),
@@ -363,5 +366,158 @@ class DirectPEREvaluator(Evaluator):
 
 
 
+class DoubleASREvaluator(Evaluator):
+    """An evaluator that uses a CTC ASR model with a language model to compute a score based on PER.
+    
+    Note: This evaluator requires `pyctcdecode` and `kenlm`. 
+    You can install them with: pip install pyctcdecode kenlm
+    """
 
+    def __init__(self, language: str):
+        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        model_ids = {
+            "en": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
+            "en-us": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
+            "es": "jonatasgrosman/wav2vec2-large-xlsr-53-spanish",
+            "nl": "jonatasgrosman/wav2vec2-large-xlsr-53-dutch",
+            "it": "jonatasgrosman/wav2vec2-large-xlsr-53-italian",
+        }
 
+        if language not in model_ids:
+            raise ValueError(f"Language '{language}' is not supported for DoubleASREvaluator.")
+
+        model_id = model_ids[language]
+        self.processor = Wav2Vec2Processor.from_pretrained(model_id)
+        self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
+        self.model.to(self.device)
+        print(f"ASR model '{model_id}' for language '{language}' loaded on {self.device}.")
+        self.language = language
+
+        # Assuming the 'lms' directory is at the project root.
+        lms_dir = 'lms' 
+        lm_paths = {
+            "en": os.path.join(lms_dir, "wiki_en_token.arpa"),
+            "nl": os.path.join(lms_dir, "wiki_nl_token.arpa"),
+            "es": os.path.join(lms_dir, "wiki_es_token.arpa.bin"),
+            "it": os.path.join(lms_dir, "wiki_it_token.arpa.bin"),
+        }
+
+        lm_lang = language.split('-')[0]
+        if lm_lang not in lm_paths:
+            lm_lang = 'en' # Default to 'en' if no specific LM
+        
+        lm_path = lm_paths.get(lm_lang)
+        self.decoder = None
+        if lm_path and os.path.exists(lm_path):
+            vocab_dict = self.processor.tokenizer.get_vocab()
+            sorted_vocab_dict = {k: v for k, v in sorted(vocab_dict.items(), key=lambda item: item[1])}
+            labels = list(sorted_vocab_dict.keys())
+            
+            self.decoder = build_ctcdecoder(
+                labels,
+                kenlm_model_path=lm_path,
+            )
+            print(f"CTC decoder for '{language}' with LM '{lm_path}' built.")
+        else:
+            print(f"Warning: Language model for '{language}' not found at '{lm_path}'. No decoder built.")
+
+    def score(
+        self,
+        utterance_id: str,
+        audio_path: str,
+        transcription: str,
+        language: str,
+        start_time: float,
+        end_time: float,
+        **kwargs,
+    ) -> Optional[float]:
+        """
+        Performs ASR on the audio file and returns PER between greedy and LM-based decoding.
+        """
+        if language != self.language:
+            print(f"Warning: DoubleASREvaluator was initialized for language '{self.language}' but received a request for '{language}'. Skipping.")
+            return None
+
+        if not self.decoder:
+            print(f"Error: No decoder available for language '{language}'.")
+            return None
+
+        processor = self.processor
+        model = self.model
+        decoder = self.decoder
+
+        try:
+            duration = end_time - start_time if end_time >= 0 else None
+            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True, offset=start_time, duration=duration)
+        except Exception as e:
+            print(f"Error reading audio file {audio_path}: {e}")
+            return None
+
+        if len(speech) < 400:
+            print(f"Warning: Skipping audio file {audio_path} because it is too short ({len(speech)} samples).")
+            return None
+
+        # Process audio
+        input_values = processor(
+            speech, sampling_rate=sample_rate, return_tensors="pt"
+        ).input_values
+        input_values = input_values.to(self.device)
+
+        # Get ASR prediction
+        with torch.no_grad():
+            logits = model(input_values).logits
+        
+        # Greedy decoding
+        predicted_ids = torch.argmax(logits, dim=-1)
+        greedy_transcription = processor.batch_decode(predicted_ids)[0]
+
+        # LM-based decoding
+        logits_numpy = logits.cpu().numpy()[0]
+        lm_transcription = decoder.decode(logits_numpy)
+
+        print(f"Greedy: {greedy_transcription}")
+        print(f"With LM: {lm_transcription}")
+
+        # Phonemize transcriptions
+        separator = Separator(phone = " ", word = "|")
+        espeak_language_map = {
+            "en": "en-us",
+            "en-us": "en-us",
+            "es": "es",
+            "nl": "nl",
+            "it": "it"
+        }
+        espeak_lang = espeak_language_map.get(language, language)
+
+        phonemized_greedy = phonemize(
+            clean_text(greedy_transcription),
+            language=espeak_lang,
+            backend="espeak",
+            strip=True,
+            preserve_punctuation=False,
+            separator=separator
+        )
+        phonemized_lm = phonemize(
+            clean_text(lm_transcription),
+            language=espeak_lang,
+            backend="espeak",
+            strip=True,
+            preserve_punctuation=False,
+            separator=separator
+        )
+        
+        print(f"Phonemized Greedy: {phonemized_greedy}")
+        print(f"Phonemized With LM: {phonemized_lm}")
+
+        cleaned_greedy = phonemized_greedy.replace("|", " ")
+        cleaned_lm = phonemized_lm.replace("|", " ")
+
+        cleaned_greedy = re.sub(r"\s+", " ", cleaned_greedy).strip()
+        cleaned_lm = re.sub(r"\s+", " ", cleaned_lm).strip()
+        print("Cleaned Phonemized Greedy:", cleaned_greedy)
+        print("Cleaned Phonemized With LM:", cleaned_lm)
+
+        # Calculate PER
+        per = jiwer.wer(cleaned_greedy, cleaned_lm)
+
+        return per

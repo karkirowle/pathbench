@@ -2,8 +2,11 @@ import sys
 from collections import defaultdict
 import numpy as np
 from tqdm import tqdm
+import datetime
+import inspect
+import hashlib
 
-from pathbench.evaluator import Spk2ScoreEvaluator, PEREvaluator, ASREvaluator, DirectPEREvaluator
+from pathbench.evaluator import Spk2ScoreEvaluator, PEREvaluator, ASREvaluator, DirectPEREvaluator, DoubleASREvaluator
 from pathbench.reference_evaluator import ESTOIEvaluator
 from pathbench.nad_evaluator import NADEvaluator
 from pathbench.articulatory_precision_evaluator import ArticulatoryPrecisionEvaluator
@@ -11,70 +14,87 @@ from pathbench.speech_rate import WpmEvaluator
 from pathbench.dataset import Dataset
 from pathbench.p_estoi_evaluator import ForcedAlignmentPESTOIEvaluator
 from pathbench.cpp_evaluator import CPPEvaluator
+from pathbench.wada_snr import WadaSnrEvaluator
+from pathbench.age_evaluator import Spk2AgeEvaluator
+
+def get_class_hash(instance):
+    """Gets the SHA256 hash of the source code of an object's class."""
+    try:
+        source_code = inspect.getsource(instance.__class__)
+        return hashlib.sha256(source_code.encode()).hexdigest()
+    except (TypeError, OSError):
+        # Handle cases where source code can't be found (e.g., built-in types, C extensions)
+        return "N/A"
 
 def main():
-    dataset_dirs = [
-        "datasets/uaspeech/pathological/word/balanced",
-        "datasets/uaspeech/pathological/word/unbalanced",
-        #"datasets/copas/pathological/utterances",
-        #"datasets/neurovoz_clean",
-        
-        #"datasets/torgo/pathological/utterances/balanced",
-        "datasets/torgo/pathological/word/balanced",
-        "datasets/torgo/pathological/word/unbalanced",
-        "datasets/torgo/pathological/utterances/unbalanced",
-        "datasets/torgo/pathological/utterances/balanced",
-        #...
-        "datasets/neurovoz_balanced/pathological",
-        "datasets/neurovoz_all/pathological",
-        #"datasets/torgo/pathological/word/unbalanced",
-        #"datasets/copas/pathological/utterances"
-    ]
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    output_filename = f"evaluation_results_{timestamp}.txt"
 
-    results = {}
-    for dataset_dir in dataset_dirs:
-        print(f"--- Evaluating: {dataset_dir} ---")
-        try:
-            res = evaluate_dataset(dataset_dir)
-            if res is not None:
-                results[dataset_dir] = res
-        except FileNotFoundError as e:
-            print(f"Error loading dataset: {e}", file=sys.stderr)
-        print("\n")
+    with open(output_filename, "w") as output_file:
+        output_file.write(f"Evaluation run on: {timestamp}\n\n")
 
-    print("\n--- Evaluation Summary ---")
+        dataset_dirs = [
+            "datasets/uaspeech/pathological/word/balanced",
+            "datasets/uaspeech/pathological/word/unbalanced",
+            #"datasets/copas/pathological/utterances",
+            #"datasets/neurovoz_clean",
+            
+            #"datasets/torgo/pathological/utterances/balanced",
+            "datasets/torgo/pathological/word/balanced",
+            "datasets/torgo/pathological/word/unbalanced",
+            "datasets/torgo/pathological/utterances/unbalanced",
+            "datasets/torgo/pathological/utterances/balanced",
+            #...
+            "datasets/neurovoz_balanced/pathological",
+            "datasets/neurovoz_all/pathological",
+            #"datasets/torgo/pathological/word/unbalanced",
+            #"datasets/copas/pathological/utterances"
+        ]
 
-    datasets = list(results.keys())
-    header = "| Metric |" + "".join([f" {dataset} |" for dataset in datasets])
-    print(header)
-    print("|" + "---|" * (len(datasets) + 1))
+        results = {}
+        for dataset_dir in dataset_dirs:
+            output_file.write(f"--- Evaluating: {dataset_dir} ---\n")
+            try:
+                res = evaluate_dataset(dataset_dir, output_file)
+                if res is not None:
+                    results[dataset_dir] = res
+            except FileNotFoundError as e:
+                print(f"Error loading dataset: {e}", file=sys.stderr)
+            output_file.write("\n")
 
-    metrics = [ "speech_rate", "cpp", "per", "dper", "artp", "p_estoi", "p_estoi_fa", "nad" ]
-    for metric in metrics:
-        row = f"| PCC (spk2score vs {metric}) |"
-        for dataset in datasets:
-            pcc = results[dataset].get(f"pcc_{metric}")
-            if pcc is not None:
-                row += f" {pcc:.4f} |"
-            else:
-                row += " N/A |"
-        print(row)
+        output_file.write("\n--- Evaluation Summary ---\n")
+
+        datasets = list(results.keys())
+        header = "| Metric |" + "".join([f" {dataset} |" for dataset in datasets])
+        output_file.write(header + "\n")
+        output_file.write("|" + "---|" * (len(datasets) + 1) + "\n")
+
+        metrics = [ "speech_rate", "cpp", "per", "dper", "artp", "p_estoi", "p_estoi_fa", "nad", "wada_snr", "spk2age", "dper" ]
+        for metric in metrics:
+            row = f"| PCC (spk2score vs {metric}) |"
+            for dataset in datasets:
+                pcc = results[dataset].get(f"pcc_{metric}")
+                if pcc is not None:
+                    row += f" {pcc:.4f} |"
+                else:
+                    row += " N/A |"
+            output_file.write(row + "\n")
 
 
-def _calculate_pcc(scores, metric, results):
+def _calculate_pcc(scores, metric, results, output_file):
     """Calculates and stores the Pearson correlation for a given metric against spk2score."""
     if metric in scores and "spk2score" in scores:
         if len(scores[metric]) > 1:
             pcc = np.corrcoef(scores["spk2score"], scores[metric])[0, 1]
-            print(f"Pearson Correlation between 'spk2score' and '{metric}': {pcc:.4f}")
-            print(f"(Based on {len(scores[metric])} commonly scored utterances)")
+            output_file.write(f"Pearson Correlation between 'spk2score' and '{metric}': {pcc:.4f}\n")
+            output_file.write(f"(Based on {len(scores[metric])} commonly scored utterances)\n")
             results[f"pcc_{metric}"] = pcc
         else:
-            print(f"\nCould not calculate correlation for {metric}: not enough common data points.")
+            output_file.write(f"\nCould not calculate correlation for {metric}: not enough common data points.\n")
 
-def evaluate_dataset(dataset_dir):
+def evaluate_dataset(dataset_dir, output_file):
     # --- 1. Load Dataset ---
-    print(f"Loading dataset from: {dataset_dir}")
+    output_file.write(f"Loading dataset from: {dataset_dir}\n")
     use_reference = "pathological" in dataset_dir
     reference_path = dataset_dir.replace("pathological", "control") if use_reference else None
     
@@ -97,12 +117,16 @@ def evaluate_dataset(dataset_dir):
         "spk2score": Spk2ScoreEvaluator(dataset.spk2score, dataset.utt2spk),
         "speech_rate": WpmEvaluator(),
         "cpp": CPPEvaluator(),
-        "per": PEREvaluator(),
+        "per": PEREvaluator(language=dataset.language),
         "dper" : DirectPEREvaluator(),
         "artp": ArticulatoryPrecisionEvaluator(),
+        "wada_snr": WadaSnrEvaluator(),
+        "dper": DoubleASREvaluator(language=dataset.language),
         # "per": PEREvaluator("jonatasgrosman/wav2vec2-large-xlsr-53-spanish"),
         #"wer": ASREvaluator("jonatasgrosman/wav2vec2-large-xlsr-53-spanish"),
     }
+    if dataset.spk2age:
+        evaluators["spk2age"] = Spk2AgeEvaluator(dataset.spk2age, dataset.utt2spk)
     # Example of how other evaluators would be added
     if use_reference:
          
@@ -116,8 +140,13 @@ def evaluate_dataset(dataset_dir):
 
          evaluators["nad"] = NADEvaluator()
 
+    output_file.write("\n--- Evaluator Hashes ---\n")
+    for name, evaluator in evaluators.items():
+        output_file.write(f"{name}: {get_class_hash(evaluator)}\n")
+    output_file.write("\n")
+
     # --- 3. Run Evaluation & Collect Utterance Scores ---
-    print("\nRunning evaluation...")
+    output_file.write("\nRunning evaluation...\n")
     # Structure: {speaker_id: {metric: [scores]}}
     spk_utt_scores = defaultdict(lambda: defaultdict(list))
     
@@ -125,7 +154,7 @@ def evaluate_dataset(dataset_dir):
         speaker_id = dataset.utt2spk.get(utt_id)
         if not speaker_id:
             continue
-        print("reference_audios:", reference_audios)
+        # print("reference_audios:", reference_audios) # This is too verbose for the output file
         for name, evaluator in evaluators.items():
             score = evaluator.score(
                 utterance_id=utt_id,
@@ -138,7 +167,7 @@ def evaluate_dataset(dataset_dir):
                 spk_utt_scores[speaker_id][name].append(score)
 
     # --- 4. Aggregate to Speaker Level ---
-    print("\nAggregating scores to speaker level...")
+    output_file.write("\nAggregating scores to speaker level...\n")
     # Structure: {metric: [speaker_level_scores]}
     agg_spk_metrics = defaultdict(list)
     
@@ -152,7 +181,7 @@ def evaluate_dataset(dataset_dir):
         print("Error: No speakers with both ground truth and evaluated scores found.", file=sys.stderr)
         return None
 
-    print(f"Found {len(valid_speakers)} speakers with complete scores for aggregation.")
+    output_file.write(f"Found {len(valid_speakers)} speakers with complete scores for aggregation.\n")
 
     for spk_id in sorted(valid_speakers):
         # For each metric, calculate the speaker-level score
@@ -162,7 +191,7 @@ def evaluate_dataset(dataset_dir):
             
             # The Spk2ScoreEvaluator already gives a speaker-level score, so just take the first one.
             # For all other evaluators, calculate the mean of the utterance scores.
-            if isinstance(evaluators[metric_name], Spk2ScoreEvaluator):
+            if isinstance(evaluators[metric_name], (Spk2ScoreEvaluator, Spk2AgeEvaluator)):
                 spk_level_score = utt_scores[0]
             else:
                 spk_level_score = np.mean(utt_scores)
@@ -171,13 +200,13 @@ def evaluate_dataset(dataset_dir):
 
     # --- 5. Report Results & Correlation ---
     results = {}
-    print("\n--- Correlation Analysis (Speaker Level) ---")
+    output_file.write("\n--- Correlation Analysis (Speaker Level) ---\n")
     
     # Get a list of metrics that were successfully aggregated, excluding the ground truth itself
     evaluated_metrics = [m for m in agg_spk_metrics.keys() if m != "spk2score"]
 
     for metric_name in evaluated_metrics:
-        _calculate_pcc(agg_spk_metrics, metric_name, results)
+        _calculate_pcc(agg_spk_metrics, metric_name, results, output_file)
 
     return results if results else None
 

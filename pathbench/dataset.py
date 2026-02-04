@@ -53,6 +53,7 @@ class Dataset:
         self.spk2score = self._load_scores_if_exists("spk2score")
         self.utt2score = self._load_scores_if_exists("utt2score")
         self.spk2gender = {key: value[0] for key, value in self._load_if_exists("spk2gender", 2).items()}
+        self.spk2age = self._load_scores_if_exists("spk2age")
         
         self.use_reference = use_reference
         self.reference_path = reference_path
@@ -122,7 +123,7 @@ class Dataset:
             reference_audio_paths = None
             if self.use_reference:
                 reference_audio_paths = self._get_reference_audios(utt_id, transcription)
-            print("gets here")
+            
             yield utt_id, audio_path, transcription, reference_audio_paths, start_time, end_time
 
     def _get_reference_audios(self, utt_id: str, transcription: str) -> List[tuple[str, float, float]]:
@@ -179,7 +180,6 @@ class Dataset:
                 
                 if audio_path:
                     ref_paths.append((audio_path, start_time, end_time))
-        print(f"Utterance: {utt_id}, References: {ref_paths}")
         return ref_paths
 
     def _load_all_same_text_references(self, transcription: str, current_speaker: str) -> List[tuple[str, float, float]]:

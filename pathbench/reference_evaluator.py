@@ -142,7 +142,7 @@ class STOI():
             gabor_word_signal, Ls, g = dgtreal(word_signal, wi, self.Ns, self.nfft)
             #gabor_word_signal_2 = self.dgt_real_substitute(word_signal, wi, self.Ns, self.nfft, self.Nw)
 
-            print("gabor_word_signal shape", gabor_word_signal.shape)
+            #print("gabor_word_signal shape", gabor_word_signal.shape)
             # Delete 0 columns
             gabor_word_signal = np.delete(gabor_word_signal, (np.where(gabor_word_signal == 0)[1]), 1)
 
@@ -254,6 +254,19 @@ class STOI():
 
         self.ref_test = tr
 
+    @staticmethod
+    def _safe_pearsonr(x, y):
+        """
+        Helper to calculate Pearson correlation safely.
+        Returns (0.0, 1.0) if input variance is effectively zero (constant input),
+        otherwise calls scipy.stats.pearsonr.
+        """
+        # Check for constant inputs (near-zero standard deviation)
+        if np.std(x) < 1e-12 or np.std(y) < 1e-12:
+            return 0.0, 1.0  # Correlation 0, p-value 1 (or return NaN based on preference)
+            
+        return pearsonr(x, y)
+
 
     def stoi_calculation(self, N, X, Y, frame_shift, subject_id):
 
@@ -268,7 +281,7 @@ class STOI():
                 d1 = (self.c+1) * x_segment[j, :]
                 d2 = aY_seg[j, :]
                 y_prime = np.min(np.array([d1, d2]), axis=0)
-                d_interm[j, i], _ = pearsonr(x_segment[j, :], y_prime)  # Eq 2 from Parvaneh's paper
+                d_interm[j, i], _ = self._safe_pearsonr(x_segment[j, :], y_prime)  # Eq 2 from Parvaneh's paper
 
         # NaN columns are removed from the calculation
         tmp = np.isnan(d_interm)
@@ -285,7 +298,7 @@ class STOI():
             x_segment = (X[:, (m - N):m] - np.mean(X[:, (m - N):m], axis=1, keepdims=True)) / \
                         (np.std(X[:, (m - N):m], axis=1, keepdims=True) + eps)
             for j in range(N):
-                d_interm_e[j, ind], _ = pearsonr(x_segment[:, j], y_segment[:, j])  # Eq 4 from Parvaneh's paper
+                d_interm_e[j, ind], _ = self._safe_pearsonr(x_segment[:, j], y_segment[:, j])  # Eq 4 from Parvaneh's paper
 
         tmp = (np.isnan(d_interm_e))
         tmp = np.sum(tmp, axis=0)

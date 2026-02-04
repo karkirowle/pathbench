@@ -10,6 +10,13 @@ tmp/
 measure_distance_bence.py
 test_estoi.py
 test_*.py
+outs/
+*.err
 cache/
 .d*
 utils.py
+.tex
+results/
+results_*/
+lms/
+figure/

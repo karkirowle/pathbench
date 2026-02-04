@@ -3,22 +3,48 @@ from collections import defaultdict
 import numpy as np
 from tqdm import tqdm
 
-from pathbench.evaluator import Utt2ScoreEvaluator, PEREvaluator, ASREvaluator
+from pathbench.evaluator import (
+    Utt2ScoreEvaluator,
+    PEREvaluator,
+    ASREvaluator,
+    DirectPEREvaluator,
+    DoubleASREvaluator,
+)
+from pathbench.reference_evaluator import ESTOIEvaluator
+from pathbench.nad_evaluator import NADEvaluator
+from pathbench.articulatory_precision_evaluator import ArticulatoryPrecisionEvaluator
+from pathbench.speech_rate import WpmEvaluator
+from pathbench.artp_double_asr_evaluator import ArtPDoubleASREvaluator
+from pathbench.p_estoi_evaluator import ForcedAlignmentPESTOIEvaluator
+from pathbench.cpp_evaluator import CPPEvaluator
+from pathbench.wada_snr import WadaSnrEvaluator
 from pathbench.dataset import Dataset
 
 
 def main():
-    dataset_dirs = [
-        "datasets/torgo/pathological/utterances",
-    ]
+    if len(sys.argv) < 2:
+        print(
+            f"Usage: python {sys.argv[0]} <dataset_dir1> <dataset_dir2> ...",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    dataset_dirs = sys.argv[1:]
 
     results = {}
     for dataset_dir in dataset_dirs:
         print(f"--- Evaluating: {dataset_dir} ---")
         try:
-            res = evaluate_dataset(dataset_dir)
-            if res is not None:
-                results[dataset_dir] = res
+            print("--- Control ---")
+            res_control = evaluate_dataset(dataset_dir, reference_type="control")
+            if res_control is not None:
+                results[f"{dataset_dir}-control"] = res_control
+
+            if "pathological" in dataset_dir:
+                print("--- All ---")
+                res_all = evaluate_dataset(dataset_dir, reference_type="all")
+                if res_all is not None:
+                    results[f"{dataset_dir}-all"] = res_all
         except FileNotFoundError as e:
             print(f"Error loading dataset: {e}", file=sys.stderr)
         print("\n")
@@ -26,27 +52,48 @@ def main():
     print("\n--- Evaluation Summary ---")
 
     datasets = list(results.keys())
+    if not datasets:
+        print("No results to display.")
+        return
+
+    # Get all unique metric names from all datasets
+    all_metrics = sorted(
+        list(set(metric for res in results.values() for metric in res.keys()))
+    )
+
     header = "| Metric |" + "".join([f" {dataset} |" for dataset in datasets])
     print(header)
     print("|" + "---|" * (len(datasets) + 1))
 
-    row = "| ASR (1-PER) |"
-    for dataset in datasets:
-        per = results[dataset]["per"]
-        row += f" {per:.4f} |"
-    print(row)
-
-    row = "| ASR (1-WER) |"
-    for dataset in datasets:
-        wer = results[dataset]["wer"]
-        row += f" {wer:.4f} |"
-    print(row)
+    for metric in all_metrics:
+        row = f"| {metric} |"
+        for dataset in datasets:
+            value = results[dataset].get(metric)
+            if value is not None:
+                row += f" {value:.4f} |"
+            else:
+                row += " N/A |"
+        print(row)
 
 
-def evaluate_dataset(dataset_dir):
+def evaluate_dataset(dataset_dir, reference_type="control"):
     # --- 1. Load Dataset ---
-    print(f"Loading dataset from: {dataset_dir}")
-    dataset = Dataset(dataset_dir)
+    print(f"Loading dataset from: {dataset_dir} with reference type: {reference_type}")
+    use_reference = "pathological" in dataset_dir
+    reference_path = (
+        dataset_dir.replace("pathological", "control") if use_reference else None
+    )
+
+    if not use_reference and reference_type == "all":
+        return None
+
+    dataset = Dataset(
+        dataset_dir,
+        use_reference=use_reference,
+        reference_path=reference_path,
+        reference_type=reference_type,
+    )
+
     # --- 2. Initialize Evaluators ---
     if not dataset.utt2score:
         print(
@@ -57,16 +104,38 @@ def evaluate_dataset(dataset_dir):
 
     evaluators = {
         "utt2score": Utt2ScoreEvaluator(dataset.utt2score),
-        "per": PEREvaluator("facebook/wav2vec2-base-960h"),
+        "per": PEREvaluator(language=dataset.language),
         "wer": ASREvaluator("facebook/wav2vec2-base-960h"),
+        "speech_rate": WpmEvaluator(),
+        "cpp": CPPEvaluator(),
+        # Dper and double asr are not swappe
+        "dper": DirectPEREvaluator(),
+        "double_asr": DoubleASREvaluator(language=dataset.language),
+        "artp": ArticulatoryPrecisionEvaluator(),
+        "artp_dasr": ArtPDoubleASREvaluator(language=dataset.language),
+        "wada_snr": WadaSnrEvaluator(),
     }
 
+    if use_reference:
+        evaluators["p_estoi"] = ESTOIEvaluator(
+            normalization_method="RMS", centroid_ind=0, frame_deletion=True
+        )
+        evaluators["p_estoi_fa"] = ForcedAlignmentPESTOIEvaluator()
+        evaluators["nad"] = NADEvaluator()
+        # all settings for p-estoi
     # --- 3. Run Evaluation ---
     print("\nRunning evaluation...")
     scores = defaultdict(list)
     scored_utterances = 0
 
-    for utt_id, audio_path, transcription in tqdm(dataset, desc=f"Evaluating {dataset_dir}"):
+    for (
+        utt_id,
+        audio_path,
+        transcription,
+        reference_audios,
+        start_time,
+        end_time,
+    ) in tqdm(dataset, desc=f"Evaluating {dataset_dir}"):
         evaluator_scores = {}
         for name, evaluator in evaluators.items():
             score = evaluator.score(
@@ -74,6 +143,9 @@ def evaluate_dataset(dataset_dir):
                 audio_path=audio_path,
                 transcription=transcription,
                 language=dataset.language,
+                start_time=start_time,
+                end_time=end_time,
+                reference_audios=reference_audios,
             )
             evaluator_scores[name] = score
 
@@ -89,17 +161,21 @@ def evaluate_dataset(dataset_dir):
     print("\n--- Evaluation Summary ---")
     print(f"Successfully scored {scored_utterances} utterances across all evaluators.")
 
-    if scored_utterances > 0:
-        print("\nAverage Scores:")
-        for name, score_list in scores.items():
-            avg_score = np.mean(score_list)
-            print(f"  - {name}: {avg_score:.4f}")
-
     results = {}
-    if "per" in scores:
-        results["per"] = np.mean(scores["per"])
-    if "wer" in scores:
-        results["wer"] = np.mean(scores["wer"])
+    if scored_utterances > 1 and "utt2score" in scores:
+        print("\nCorrelations with utt2score:")
+        utt_scores = scores.pop("utt2score")
+        for name, score_list in scores.items():
+            if len(utt_scores) == len(score_list):
+                correlation = np.corrcoef(utt_scores, score_list)[0, 1]
+                results[name] = correlation
+                print(f"  - {name}: {correlation:.4f}")
+            else:
+                print(f"  - {name}: N/A (score list length mismatch)")
+    elif "utt2score" not in scores:
+        print("  - 'utt2score' not found in scores, cannot calculate correlation.")
+    elif scored_utterances <= 1:
+        print("  - Not enough scored utterances to calculate correlation.")
 
     return results if results else None
 

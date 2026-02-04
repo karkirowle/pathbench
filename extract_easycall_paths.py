@@ -1,6 +1,7 @@
 import os
 import argparse
 import glob
+import re
 import string
 from collections import defaultdict
 
@@ -14,9 +15,15 @@ SPEAKER_SCORES = {
     "m06": "4", "m07": "4", "m08": "3", "m09": "1", "m10": "3",
     "m11": "5", "m12": "1", "m13": "1", "m14": "5", "m15": "1",
     "m16": "3", "m17": "1", "m18": "1", "m19": "3", "m20": "1",
-    # Controls
     "fc01": "N/A", "fc02": "N/A", "mc01": "N/A", "mc02": "N/A"
 }
+
+# Invert scores: 1->5, 2->4, 3->3, 4->2, 5->1
+for spk in SPEAKER_SCORES:
+    if SPEAKER_SCORES[spk] != "N/A":
+        old_score = int(SPEAKER_SCORES[spk])
+        new_score = 6 - old_score
+        SPEAKER_SCORES[spk] = str(new_score)
 
 OFFICIAL_TRANSCRIPTS = [
     "Aggiungi ai preferiti", "Aggiungi", "Apri rubrica", "Apri",
@@ -40,10 +47,24 @@ OFFICIAL_TRANSCRIPTS = [
 # ==========================================
 
 def normalize_text(text):
+    """
+    Standard normalization for lookup keys: lowercase, no spaces, no punctuation.
+    """
     t = text.lower()
     t = t.replace("’", "").replace("'", "")
     t = t.replace(" ", "").replace("_", "")
     return t.strip()
+
+def clean_filename_stem(stem):
+    """
+    Removes repetition suffixes like '_1', '_2' or just '1', '2' from the end of the filename.
+    Example: 'Apri_rubrica_1' -> 'Apri_rubrica'
+    """
+    # Regex to remove trailing underscore + digits (e.g. _1, _02)
+    s = re.sub(r'_\d+$', '', stem)
+    # Also handle trailing digits without underscore if necessary (careful not to kill '5' if word is 5)
+    # But EasyCall repetition usually follows underscore.
+    return s
 
 def build_lookup_table(official_list):
     table = {}
@@ -71,7 +92,7 @@ def scan_easycall(dataset_root):
     for wav_path in all_wavs:
         filename = os.path.basename(wav_path)
         
-        # Expecting: m05_01_apri.wav
+        # Expecting format: m05_01_apri.wav
         if filename.count("_") < 2: continue
 
         try:
@@ -80,18 +101,32 @@ def scan_easycall(dataset_root):
             session_id = parts[1]
             raw_text_part = parts[2]
             
+            is_control = "c" in speaker_id
+            
             # Filter Check
-            if speaker_id not in SPEAKER_SCORES: continue
+            if (speaker_id not in SPEAKER_SCORES) and (not is_control): 
+                continue
 
+            # --- CLEANING LOGIC ---
             raw_text_no_ext = os.path.splitext(raw_text_part)[0]
             
-            # Lookup Transcript
-            file_key = normalize_text(raw_text_no_ext)
+            # 1. Strip repetition markers (Apri_rubrica_1 -> Apri_rubrica)
+            cleaned_text = clean_filename_stem(raw_text_no_ext)
+            
+            # 2. Normalize for lookup (Apri_rubrica -> aprirubrica)
+            file_key = normalize_text(cleaned_text)
+            
+            # 3. Lookup
             official_transcript = lookup_table.get(file_key)
+            if not official_transcript: 
+                # Fallback: try looking up without the cleaning (edge cases)
+                file_key_raw = normalize_text(raw_text_no_ext)
+                official_transcript = lookup_table.get(file_key_raw)
+                
             if not official_transcript: continue
 
             # Determine Group
-            if "c" in speaker_id:
+            if is_control:
                 group = "control"
             else:
                 group = "pathological"
@@ -102,18 +137,26 @@ def scan_easycall(dataset_root):
             else:
                 dtype = "word"
 
-            utt_id = f"{speaker_id}_{session_id}_{file_key}"
+            utt_id = f"{speaker_id}_{session_id}_{file_key}" # Keep unique ID robust
+            # Add suffix back to ID if it was stripped, to ensure uniqueness of repeated files?
+            # Actually, we rely on the filename being unique on disk. 
+            # If we map 'Apri_rubrica' and 'Apri_rubrica_1' to the same utt_id, Kaldi will complain.
+            # Let's make utt_id unique by including the RAW filename stem part.
+            unique_suffix = normalize_text(raw_text_no_ext)
+            utt_id = f"{speaker_id}_{session_id}_{unique_suffix}"
+            
+            score = SPEAKER_SCORES.get(speaker_id, "N/A")
             
             all_entries.append({
                 "utt_id": utt_id,
                 "wav_path": os.path.abspath(wav_path),
                 "transcript": official_transcript,
-                "norm_text": file_key, 
+                "norm_text": file_key, # Use the CLEANED key for intersection logic
                 "speaker": speaker_id,
                 "gender": get_gender(speaker_id),
                 "group": group,
                 "dtype": dtype,
-                "score": SPEAKER_SCORES[speaker_id]
+                "score": score
             })
 
         except Exception: pass
@@ -125,9 +168,6 @@ def scan_easycall(dataset_root):
 # ==========================================
 
 def get_intersection_texts(entries, group_filter="pathological", dtype_filter="word"):
-    """
-    Returns normalized texts spoken by ALL speakers in the target group.
-    """
     filtered = [e for e in entries if e["group"] == group_filter and e["dtype"] == dtype_filter]
     
     text_to_spk = defaultdict(set)
@@ -145,9 +185,6 @@ def get_intersection_texts(entries, group_filter="pathological", dtype_filter="w
     return intersection, all_spk
 
 def get_valid_texts_by_gender_count(entries, dtype_filter, min_per_gender=2):
-    """
-    Returns texts spoken by >= min Males AND >= min Females (Controls).
-    """
     control_entries = [e for e in entries if e["group"] == "control" and e["dtype"] == dtype_filter]
     
     text_stats = defaultdict(lambda: {'m': set(), 'f': set()})
@@ -170,6 +207,11 @@ def get_valid_texts_by_gender_count(entries, dtype_filter, min_per_gender=2):
 def write_kaldi_subset(entries, out_dir):
     os.makedirs(out_dir, exist_ok=True)
     
+    entries = sorted(entries, key=lambda x: x['utt_id'])
+    
+    spk2utt_map = defaultdict(list)
+    spk_map = {} 
+
     with open(os.path.join(out_dir, "wav.scp"), "w") as f_wav, \
          open(os.path.join(out_dir, "text"), "w") as f_text, \
          open(os.path.join(out_dir, "utt2spk"), "w") as f_u2s, \
@@ -178,23 +220,36 @@ def write_kaldi_subset(entries, out_dir):
         f_lang.write("it\n")
          
         for e in entries:
-            f_wav.write(f"{e['utt_id']} {e['wav_path']}\n")
-            f_text.write(f"{e['utt_id']} {e['transcript']}\n")
-            f_u2s.write(f"{e['utt_id']} {e['speaker']}\n")
+            utt_id = e['utt_id']
+            spk_id = e['speaker']
+            
+            f_wav.write(f"{utt_id} {e['wav_path']}\n")
+            f_text.write(f"{utt_id} {e['transcript']}\n")
+            f_u2s.write(f"{utt_id} {spk_id}\n")
+            
+            spk2utt_map[spk_id].append(utt_id)
+            spk_map[spk_id] = {'score': e['score'], 'gender': e['gender']}
 
-    spk_map = {e['speaker']: e['score'] for e in entries}
-    
+    with open(os.path.join(out_dir, "spk2utt"), "w") as f_s2u, \
+         open(os.path.join(out_dir, "spk2uttnum"), "w") as f_s2un:
+         
+        for spk in sorted(spk2utt_map.keys()):
+            utts_str = " ".join(spk2utt_map[spk])
+            count = len(spk2utt_map[spk])
+            
+            f_s2u.write(f"{spk} {utts_str}\n")
+            f_s2un.write(f"{spk} {count}\n")
+
     with open(os.path.join(out_dir, "spk2score"), "w") as f_s2sc, \
          open(os.path.join(out_dir, "spk2gender"), "w") as f_s2gen:
          
         for spk in sorted(spk_map.keys()):
-            f_s2sc.write(f"{spk} {spk_map[spk]}\n")
-            f_s2gen.write(f"{spk} {get_gender(spk)}\n")
+            f_s2sc.write(f"{spk} {spk_map[spk]['score']}\n")
+            f_s2gen.write(f"{spk} {spk_map[spk]['gender']}\n")
 
-    return len(spk_map) # Return number of unique speakers
+    return len(spk_map)
 
 def process_easycall(dataset_root, output_dir):
-    # 1. Scan
     entries = scan_easycall(dataset_root)
     print(f"Total utterances found: {len(entries)}")
     
@@ -204,21 +259,17 @@ def process_easycall(dataset_root, output_dir):
     for dtype in dtypes:
         print(f"\n=== Processing {dtype.upper()} ===")
         
-        # A. Strict Control Validation (Used for Balanced/Unbalanced only)
         valid_control_texts = get_valid_texts_by_gender_count(entries, dtype, 2)
         print(f"  Valid Control Texts (>=2M & >=2F): {len(valid_control_texts)}")
 
-        # B. Pathological Intersection
         raw_bal_texts, pd_spks = get_intersection_texts(entries, "pathological", dtype)
         
-        # C. Target Texts for Balanced/Unbalanced (Intersection + Valid Controls)
         final_balanced_texts = raw_bal_texts.intersection(valid_control_texts)
         print(f"  Final Balanced Texts (Intersection + Control Valid): {len(final_balanced_texts)}")
         
         for group in groups:
             subset_entries = [e for e in entries if e["group"] == group and e["dtype"] == dtype]
             
-            # --- 1. Balanced (Intersection + Valid Control + Deduplication) ---
             balanced_set = []
             seen_bal = set()
             for e in subset_entries:
@@ -228,26 +279,22 @@ def process_easycall(dataset_root, output_dir):
                         balanced_set.append(e)
                         seen_bal.add(key)
             
-            # --- 2. Unbalanced (Same texts as Balanced + All Recordings) ---
+            balanced_speakers = set(e["speaker"] for e in balanced_set)
+
             unbalanced_set = []
             for e in subset_entries:
-                if e["norm_text"] in final_balanced_texts:
-                    unbalanced_set.append(e)
+                if e["speaker"] in balanced_speakers:
+                    if e["norm_text"] in valid_control_texts:
+                        unbalanced_set.append(e)
 
-            # --- 3. All (No Text Filtering) ---
-            all_set = subset_entries
-
-            # Write Outputs
             base_p = os.path.join(output_dir, "easycall", group, dtype)
             
             n_bal = write_kaldi_subset(balanced_set, os.path.join(base_p, "balanced"))
             n_unbal = write_kaldi_subset(unbalanced_set, os.path.join(base_p, "unbalanced"))
-            n_all = write_kaldi_subset(all_set, os.path.join(base_p, "all"))
             
             print(f"  [{group.upper()}]")
             print(f"    Balanced:   {len(balanced_set)} utts ({n_bal} spks)")
             print(f"    Unbalanced: {len(unbalanced_set)} utts ({n_unbal} spks)")
-            print(f"    All:        {len(all_set)} utts ({n_all} spks)")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

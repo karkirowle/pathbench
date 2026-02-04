@@ -21,9 +21,6 @@ RAW_PD_WHITELIST = """
 TARGET_PD_IDS = set(RAW_PD_WHITELIST.split())
 
 def normalize_id(id_str):
-    """
-    Helper to normalize IDs for comparison (e.g. 004 -> 4 -> 0004).
-    """
     try:
         return int(id_str)
     except ValueError:
@@ -53,32 +50,17 @@ def get_converted_score(raw_val):
     return CONVERSION_MAP.get(key, raw_val)
 
 def normalize_gender(val):
-    """
-    Normalizes gender to 'm' or 'f' for Kaldi compatibility.
-    """
-    #if not isinstance(val, str):
-    #    print(f"warning", val)
-    if val == "m":
-        return 'm'
-    val = float(val.lower().strip())
-    
-    if val == 1:
-        return 'm'
-    elif val == 0:
-        return 'f'
-    else:
-        return "N/A"
-    
+    if val == "m": return 'm'
+    try:
+        val_float = float(val)
+        if val_float == 1: return 'm'
+        elif val_float == 0: return 'f'
+    except: pass
+    return "N/A"
 
 def load_metadata(csv_path):
-    """
-    Loads Age and Sex from a CSV file.
-    Expects columns roughly matching 'ID', 'Age', 'Sex'.
-    Returns: dict { normalized_id : {'age': ..., 'sex': ...} }
-    """
     print(f"Loading metadata from: {csv_path}")
     if not csv_path or not os.path.exists(csv_path):
-        print(f"WARNING: Metadata file not found: {csv_path}")
         return {}
 
     try:
@@ -87,32 +69,23 @@ def load_metadata(csv_path):
         print(f"ERROR reading CSV {csv_path}: {e}")
         return {}
 
-    # Normalize headers to upper case for easier search
     df.columns = [str(c).upper().strip() for c in df.columns]
 
-    # fuzzy column matching
     id_col = next((c for c in df.columns if 'ID' in c or 'COD' in c or 'PARTICIPANT' in c), None)
     age_col = next((c for c in df.columns if 'AGE' in c or 'EDAD' in c), None)
     sex_col = next((c for c in df.columns if 'SEX' in c or 'GEN' in c), None)
 
-    if not id_col:
-        print(f"WARNING: Could not identify ID column in {csv_path}. Columns found: {df.columns}")
-        return {}
+    if not id_col: return {}
     
     meta_map = {}
     for _, row in df.iterrows():
         raw_id = row[id_col]
         norm_id = normalize_id(raw_id)
-        
         age = row[age_col] if age_col and pd.notna(row[age_col]) else "N/A"
         raw_sex = row[sex_col] if sex_col and pd.notna(row[sex_col]) else "m"
-        
         sex = normalize_gender(str(raw_sex))
         
-        meta_map[norm_id] = {
-            "age": age,
-            "sex": sex
-        }
+        meta_map[norm_id] = {"age": age, "sex": sex}
         
     return meta_map
 
@@ -123,9 +96,8 @@ def load_intelligibility_scores(grbas_root):
 
     df_list = []
     for filename in all_files:
-        try:
-            df_list.append(pd.read_csv(filename))
-        except Exception: pass
+        try: df_list.append(pd.read_csv(filename))
+        except: pass
 
     if not df_list: return {}
 
@@ -143,7 +115,7 @@ def load_intelligibility_scores(grbas_root):
         fname = os.path.splitext(fname)[0]
         score_map[fname] = get_converted_score(row[score_col])
         
-        # Heuristic mapping for HC/PD prefixes
+        # Heuristic mapping
         corresponding_audio = glob.glob(os.path.join(grbas_root, "..", "audios", f"*{fname}*.wav"), recursive=True)
         if any("HC_" in os.path.basename(p).upper() for p in corresponding_audio):
             score_map["HC_" + fname] = score_map[fname]
@@ -159,7 +131,7 @@ def is_valid_score(score):
     return True
 
 # ==========================================
-# 2. SCANNING & BALANCING LOGIC
+# 2. SCANNING
 # ==========================================
 
 def get_sentence_id(parts):
@@ -174,10 +146,6 @@ def scan_dataset(dataset_root, utt_score_map, combined_metadata):
     all_wavs = glob.glob(os.path.join(dataset_root, "**", "*.wav"), recursive=True)
     valid_entries = []
     
-    stats = {
-        "exclusion": 0, "nan_score": 0, "pd_not_in_whitelist": 0, "missing_meta": 0
-    }
-    
     exclusion_patterns = ["A1", "A2", "A3", "I2", "E1", "E2", "E3", "PATAKA", 
                           "U2", "U1", "U3", "FREE", "O2", "I1", "I3", "O1", "O3"]
 
@@ -186,9 +154,7 @@ def scan_dataset(dataset_root, utt_score_map, combined_metadata):
         file_root = os.path.splitext(filename)[0]
         
         # 1. Exclusion Patterns
-        if any(ex in file_root for ex in exclusion_patterns):
-            stats["exclusion"] += 1
-            continue
+        if any(ex in file_root for ex in exclusion_patterns): continue
             
         parts = file_root.split("_")
         if len(parts) < 3: continue
@@ -202,24 +168,18 @@ def scan_dataset(dataset_root, utt_score_map, combined_metadata):
             group = "control"
         elif "PD" in type_str.upper():
             group = "pathological"
-            if normalize_id(raw_speaker_id) not in TARGET_PD_IDS_NORM:
-                stats["pd_not_in_whitelist"] += 1
-                continue
+            if normalize_id(raw_speaker_id) not in TARGET_PD_IDS_NORM: continue
         else:
             continue
 
         # 3. Score Validation
         final_score = utt_score_map.get(file_root, "N/A")
-        if not is_valid_score(final_score):
-            stats["nan_score"] += 1
-            continue
+        if not is_valid_score(final_score): continue
 
         # 4. Transcript
         txt_path = os.path.splitext(wav_path.replace("audios", "transcriptions"))[0] + ".txt"
-        # Always use same speaker because sometimes different speakers have different transcriptions, I noticed
-
-        txt_path = txt_path.replace(raw_speaker_id, "0030")  # Use a fixed speaker for transcript lookup
-        txt_path = txt_path.replace("HC_", "PD_")  # Use HC prefix for transcript lookup
+        txt_path = txt_path.replace(raw_speaker_id, "0030")  # Fixed speaker lookup
+        txt_path = txt_path.replace("HC_", "PD_")  # Use PD prefix lookup
         transcript = "<UNK>"
         if os.path.exists(txt_path):
             with open(txt_path, "r", encoding="utf-8", errors='ignore') as f:
@@ -235,192 +195,206 @@ def scan_dataset(dataset_root, utt_score_map, combined_metadata):
             "wav_path": os.path.abspath(wav_path),
             "transcript": transcript,
             "speaker_id": raw_speaker_id,
-            "sentence_id": sentence_id,
+            "sentence_id": sentence_id, # This acts as our "norm_text" / "key"
             "score": final_score,
             "group": group,
             "age": spk_meta["age"],
             "sex": spk_meta["sex"]
         })
 
-    print(f"Scanned {len(valid_entries)} valid utterances.")
-    print(f"Skipped {stats['pd_not_in_whitelist']} PD utterances (not in whitelist).")
-    print(f"Skipped {stats['exclusion']} excluded patterns.")
-    print(f"Skipped {stats['nan_score']} missing scores.")
-    
     return valid_entries
 
-def get_balanced_target_sentences(valid_entries):
-    """
-    1. Looks ONLY at the 'pathological' group.
-    2. Finds the intersection of sentences spoken by ALL whitelisted pathological speakers.
-    3. Returns this list of Sentence IDs.
-    """
-    pd_entries = [e for e in valid_entries if e["group"] == "pathological"]
-    
-    sent_to_speakers = defaultdict(set)
-    all_pd_speakers = set()
-
-    for entry in pd_entries:
-        sent_to_speakers[entry["sentence_id"]].add(entry["speaker_id"])
-        all_pd_speakers.add(entry["speaker_id"])
-
-    # Debug print for specific sentence if needed
-    # for sent_id, speakers in sent_to_speakers.items():
-    #    if sent_id == "BARBAS":
-    #        print(f" [{sent_id}]: {sorted(list(speakers))}")
-
-    balanced_ids = []
-    # Find sentences spoken by EVERY Pathological speaker
-    for sent_id, speakers in sent_to_speakers.items():
-        if speakers == all_pd_speakers:
-            balanced_ids.append(sent_id)
-            
-    return set(balanced_ids), all_pd_speakers
-
 # ==========================================
-# 3. OUTPUT GENERATION
+# 3. BALANCING LOGIC
 # ==========================================
 
-def write_kaldi_files(entries, output_dir, version_name):
-    target_dir = os.path.join(output_dir, version_name)
-    groups = ["pathological", "control"]
+def get_intersection_sentences(entries, group_filter="pathological"):
+    """Sentences spoken by ALL speakers in group."""
+    filtered = [e for e in entries if e["group"] == group_filter]
+    sent_to_spk = defaultdict(set)
+    all_spk = set()
     
-    handles = {}
-    for g in groups:
-        g_dir = os.path.join(target_dir, g)
-        os.makedirs(g_dir, exist_ok=True)
-        handles[g] = {
-            "wav_scp": open(os.path.join(g_dir, "wav.scp"), "w", encoding="utf-8"),
-            "text": open(os.path.join(g_dir, "text"), "w", encoding="utf-8"),
-            "utt2spk": open(os.path.join(g_dir, "utt2spk"), "w", encoding="utf-8"),
-            "utt2score": open(os.path.join(g_dir, "utt2score"), "w", encoding="utf-8"),
-            "utt2age": open(os.path.join(g_dir, "utt2age"), "w", encoding="utf-8"),
-            "utt2gender": open(os.path.join(g_dir, "utt2gender"), "w", encoding="utf-8"),
-            
-            "spk2score": open(os.path.join(g_dir, "spk2score"), "w", encoding="utf-8"),
-            "spk2age": open(os.path.join(g_dir, "spk2age"), "w", encoding="utf-8"),
-            "spk2gender": open(os.path.join(g_dir, "spk2gender"), "w", encoding="utf-8"),
-            
-            "scores_acc": defaultdict(list),
-            "meta_acc": {} # To store speaker level age/sex to write to spk2* later
-        }
+    for e in filtered:
+        sent_to_spk[e["sentence_id"]].add(e["speaker_id"])
+        all_spk.add(e["speaker_id"])
+        
+    intersection = set()
+    for sent, speakers in sent_to_spk.items():
+        if speakers == all_spk:
+            intersection.add(sent)
+    return intersection, all_spk
 
+def get_valid_sentences_by_gender_count(entries, min_per_gender=2):
+    """Sentences spoken by >=2 Male and >=2 Female Control speakers."""
+    control_entries = [e for e in entries if e["group"] == "control"]
+    sent_stats = defaultdict(lambda: {'m': set(), 'f': set()})
+    
+    for e in control_entries:
+        g = e['sex']
+        if g not in ['m', 'f']: continue 
+        sent_stats[e["sentence_id"]][g].add(e["speaker_id"])
+    
+    valid = set()
+    for sent, stats in sent_stats.items():
+        if len(stats['m']) >= min_per_gender and len(stats['f']) >= min_per_gender:
+            valid.add(sent)
+    return valid
+
+# ==========================================
+# 4. WRITING
+# ==========================================
+
+def write_kaldi_files(entries, output_dir):
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Sort entries by utterance ID for consistent ordering
+    entries = sorted(entries, key=lambda x: x['utt_id'])
+    
+    files = {
+        "wav": open(os.path.join(output_dir, "wav.scp"), "w", encoding="utf-8"),
+        "text": open(os.path.join(output_dir, "text"), "w", encoding="utf-8"),
+        "utt2spk": open(os.path.join(output_dir, "utt2spk"), "w", encoding="utf-8"),
+        "utt2score": open(os.path.join(output_dir, "utt2score"), "w", encoding="utf-8"),
+        "utt2age": open(os.path.join(output_dir, "utt2age"), "w", encoding="utf-8"),
+        "utt2gender": open(os.path.join(output_dir, "utt2gender"), "w", encoding="utf-8"),
+        "spk2score": open(os.path.join(output_dir, "spk2score"), "w", encoding="utf-8"),
+        "spk2age": open(os.path.join(output_dir, "spk2age"), "w", encoding="utf-8"),
+        "spk2gender": open(os.path.join(output_dir, "spk2gender"), "w", encoding="utf-8"),
+        "spk2utt": open(os.path.join(output_dir, "spk2utt"), "w", encoding="utf-8"), # NEW
+        "spk2uttnum": open(os.path.join(output_dir, "spk2uttnum"), "w", encoding="utf-8"), # NEW
+        "lang": open(os.path.join(output_dir, "language"), "w", encoding="utf-8")
+    }
+
+    files["lang"].write("es\n") 
+
+    scores_acc = defaultdict(list)
+    meta_acc = {}
+    spk2utt_map = defaultdict(list) # NEW: Aggregate utterance IDs
     count = 0
-    unique_sents = set()
-    
+
     for e in entries:
-        g = e["group"]
-        h = handles[g]
+        spk_id = e['speaker_id']
+        utt_id = e['utt_id']
         
-        # Write utterance level files
-        h["wav_scp"].write(f"{e['utt_id']} {e['wav_path']}\n")
-        h["text"].write(f"{e['utt_id']} {e['transcript']}\n")
-        h["utt2spk"].write(f"{e['utt_id']} {e['speaker_id']}\n")
-        h["utt2score"].write(f"{e['utt_id']} {e['score']}\n")
-        h["utt2age"].write(f"{e['utt_id']} {e['age']}\n")
-        h["utt2gender"].write(f"{e['utt_id']} {e['sex']}\n")
+        files["wav"].write(f"{utt_id} {e['wav_path']}\n")
+        files["text"].write(f"{utt_id} {e['transcript']}\n")
+        files["utt2spk"].write(f"{utt_id} {spk_id}\n")
+        files["utt2score"].write(f"{utt_id} {e['score']}\n")
+        files["utt2age"].write(f"{utt_id} {e['age']}\n")
+        files["utt2gender"].write(f"{utt_id} {e['sex']}\n")
         
-        # Accumulate for speaker level files
-        try:
-            h["scores_acc"][e['speaker_id']].append(float(e['score']))
-        except ValueError: pass
+        # Accumulate Data
+        spk2utt_map[spk_id].append(utt_id)
+        try: scores_acc[spk_id].append(float(e['score']))
+        except: pass
+        meta_acc[spk_id] = {"age": e['age'], "sex": e['sex']}
         
-        # Store metadata for speaker (last seen valid value overwrites)
-        h["meta_acc"][e['speaker_id']] = {"age": e['age'], "sex": e['sex']}
-            
-        unique_sents.add(e["sentence_id"])
         count += 1
 
-    # Write speaker level files
-    for g in groups:
-        h = handles[g]
-        
+    # Write Speaker Files
+    # Sort by speaker ID for consistency
+    sorted_speakers = sorted(meta_acc.keys())
+    
+    for spk in sorted_speakers:
         # spk2score (Average)
-        for spk, scores in sorted(h["scores_acc"].items()):
-            if scores:
-                avg = sum(scores) / len(scores)
-                h["spk2score"].write(f"{spk} {avg}\n")
+        if spk in scores_acc and scores_acc[spk]:
+            avg = sum(scores_acc[spk]) / len(scores_acc[spk])
+            files["spk2score"].write(f"{spk} {avg}\n")
         
-        # spk2age and spk2gender
-        for spk, meta in sorted(h["meta_acc"].items()):
-            h["spk2age"].write(f"{spk} {meta['age']}\n")
-            h["spk2gender"].write(f"{spk} {meta['sex']}\n")
+        # spk2age / spk2gender
+        meta = meta_acc[spk]
+        files["spk2age"].write(f"{spk} {meta['age']}\n")
+        files["spk2gender"].write(f"{spk} {meta['sex']}\n")
         
-        # Close all handles
-        for k, v in h.items():
-            if hasattr(v, 'close'):
-                v.close()
+        # spk2utt
+        utts_str = " ".join(spk2utt_map[spk])
+        files["spk2utt"].write(f"{spk} {utts_str}\n")
+        
+        # spk2uttnum
+        utt_count = len(spk2utt_map[spk])
+        files["spk2uttnum"].write(f"{spk} {utt_count}\n")
+        
+    for f in files.values():
+        f.close()
 
-    print(f"[{version_name}] Written {count} utterances.")
-    return unique_sents
-
-# ==========================================
-# 4. MAIN
-# ==========================================
+    return len(meta_acc)
 
 def process_neurovoz(dataset_root, grbas_root, hc_csv, pd_csv, output_dir):
-    
-    # 1. Load Metadata
+    # 1. Load Data
     print("--- Loading Metadata ---")
     hc_meta = load_metadata(hc_csv)
     pd_meta = load_metadata(pd_csv)
-    # Combine (if ID collision, PD overwrites HC, though unlikely to overlap)
     combined_metadata = {**hc_meta, **pd_meta}
-    print(f"Loaded metadata for {len(combined_metadata)} unique speakers.")
-
-    # 2. Load Scores
     utt_score_map = load_intelligibility_scores(grbas_root)
     
-    # 3. Scan (Apply PD Whitelist Only, Keep All Controls, Integrate Metadata)
-    all_entries = scan_dataset(dataset_root, utt_score_map, combined_metadata)
-    if not all_entries: return
+    entries = scan_dataset(dataset_root, utt_score_map, combined_metadata)
+    print(f"Total valid entries found: {len(entries)}")
 
-    # 4. Determine "Balanced Sentences" based on Pathological Intersection
-    target_sentences, pd_speakers = get_balanced_target_sentences(all_entries)
+    # 2. Get Constraints
+    # A. Pathological Intersection
+    raw_bal_sents, pd_speakers = get_intersection_sentences(entries, "pathological")
+    print(f"PD Intersection Sentences: {len(raw_bal_sents)}")
     
-    # 5. Filter for Balanced Version
-    balanced_entries = [
-        e for e in all_entries 
-        if e["sentence_id"] in target_sentences
-    ]
+    # B. Valid Controls (>=2M, >=2F)
+    valid_control_sents = get_valid_sentences_by_gender_count(entries, 2)
+    print(f"Valid Control Sentences (>=2M & >=2F): {len(valid_control_sents)}")
+    
+    # C. Final Balanced Set
+    final_bal_sents = raw_bal_sents.intersection(valid_control_sents)
+    print(f"Final Balanced Sentences: {len(final_bal_sents)}")
 
-    # 6. Write
-    print("\n--- Generating 'neurovoz_all' (Whitelisted PDs + All Controls) ---")
-    write_kaldi_files(all_entries, output_dir, "neurovoz_all")
-    
-    print("\n--- Generating 'neurovoz_balanced' (Strict Sentence Intersection) ---")
-    final_sents = write_kaldi_files(balanced_entries, output_dir, "neurovoz_balanced")
-    
-    # 7. Stats
-    print("\n" + "="*40)
-    print("BALANCED DATASET STATISTICS")
-    print("="*40)
-    print(f"Pathological Speakers (Intersection Base): {len(pd_speakers)}")
-    print(f"Sentences in intersection: {len(target_sentences)}")
-    
-    if not target_sentences:
-        print("WARNING: The selected Pathological speakers have NO common sentences.")
-    else:
-        print("-" * 20)
-        id_to_trans = {e['sentence_id']: e['transcript'] for e in balanced_entries}
-        print("Final Common Sentences (Sample):")
-        for sid in sorted(list(final_sents))[:10]: # Print first 10
-            print(f" [{sid}]: {id_to_trans.get(sid, '')}")
+    # 3. Partition
+    groups = ["pathological", "control"]
+    dtype = "utterances" 
 
-    print("="*40)
+    for group in groups:
+        subset = [e for e in entries if e["group"] == group]
+        
+        # --- Balanced (Intersection + Valid Control + Dedup) ---
+        balanced_data = []
+        seen_bal = set()
+        for e in subset:
+            if e["sentence_id"] in final_bal_sents:
+                if group == "pathological" and e["speaker_id"] not in pd_speakers:
+                    continue
+                    
+                key = (e["speaker_id"], e["sentence_id"])
+                if key not in seen_bal:
+                    balanced_data.append(e)
+                    seen_bal.add(key)
+        
+        # Identify Balanced Speakers
+        balanced_speakers = set(e["speaker_id"] for e in balanced_data)
+
+        # --- Unbalanced (Same Speakers + Valid Control Sents) ---
+        unbalanced_data = []
+        for e in subset:
+            if e["speaker_id"] in balanced_speakers:
+                if e["sentence_id"] in valid_control_sents:
+                    unbalanced_data.append(e)
+
+        # --- All (All Speakers, No Text Constraint) ---
+        all_data = subset
+
+        # Write
+        base_p = os.path.join(output_dir, "neurovoz", group, dtype)
+        
+        n_bal = write_kaldi_files(balanced_data, os.path.join(base_p, "balanced"))
+        n_unbal = write_kaldi_files(unbalanced_data, os.path.join(base_p, "unbalanced"))
+        #n_all = write_kaldi_files(all_data, os.path.join(base_p, "all"))
+        
+        print(f"[{group.upper()}]")
+        print(f"    Balanced:   {len(balanced_data)} utts ({n_bal} spks)")
+        print(f"    Unbalanced: {len(unbalanced_data)} utts ({n_unbal} spks)")
+        #print(f"    All:        {len(all_data)} utts ({n_all} spks)")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--neurovoz_root", default="/data/group1/z40484r/datasets/neurovoz_v3/data/audios", 
-                        help="Path to Neurovoz WAV directory")
-    parser.add_argument("--grbas_root", default="/data/group1/z40484r/datasets/neurovoz_v3/data/grbas", 
-                        help="Path to directory containing GRBAS CSV files")
-    parser.add_argument("--hc_metadata", default="/data/group1/z40484r/datasets/neurovoz_v3/data/metadata/metadata_hc.csv", 
-                        help="Path to HC metadata CSV (columns: ID, Age")
-    parser.add_argument("--pd_metadata", default="/data/group1/z40484r/datasets/neurovoz_v3/data/metadata/metadata_pd.csv",
-                        help="Path to PD metadata CSV (columns: ID, Age, Sex)")
-    parser.add_argument("--output_dir", default="datasets", 
-                        help="Base output directory")
+    parser.add_argument("--neurovoz_root", default="/data/group1/z40484r/datasets/neurovoz_v3/data/audios")
+    parser.add_argument("--grbas_root", default="/data/group1/z40484r/datasets/neurovoz_v3/data/grbas")
+    parser.add_argument("--hc_metadata", default="/data/group1/z40484r/datasets/neurovoz_v3/data/metadata/metadata_hc.csv")
+    parser.add_argument("--pd_metadata", default="/data/group1/z40484r/datasets/neurovoz_v3/data/metadata/metadata_pd.csv")
+    parser.add_argument("--output_dir", default="datasets")
     args = parser.parse_args()
     
     process_neurovoz(args.neurovoz_root, args.grbas_root, args.hc_metadata, args.pd_metadata, args.output_dir)

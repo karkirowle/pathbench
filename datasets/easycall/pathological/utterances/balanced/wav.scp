@@ -1,551 +1,600 @@
-f02_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Chiudi applicazione.wav
-f02_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Attiva vivavoce.wav
+f01_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Aggiungi ai preferiti.wav
+f01_03_aprirubrica /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Apri rubrica.wav
+f01_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Attiva vivavoce.wav
+f01_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Cancella contatto.wav
+f01_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Cancella tutto.wav
+f01_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Chiama emergenza.wav
+f01_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Chiama ultimo numero.wav
+f01_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Chiudi applicazione.wav
+f01_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Chiudi rubrica.wav
+f01_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Disattiva vivavoce.wav
+f01_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Fai una telefonata.wav
+f01_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Nuovo contatto.wav
+f01_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Scorri verso il basso.wav
+f01_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Scorri verso l’alto.wav
+f01_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Termina chiamata.wav
+f01_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Vai alla pagina principale.wav
+f01_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Vai alla tastiera.wav
+f01_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Vai nei preferiti.wav
+f01_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Vai nella rubrica.wav
+f01_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Vai nel registro chiamate.wav
 f02_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Aggiungi ai preferiti.wav
+f02_03_aprirubrica /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Apri rubrica.wav
+f02_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Attiva vivavoce.wav
+f02_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Cancella contatto.wav
 f02_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Cancella tutto.wav
-f02_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Scorri verso l’alto.wav
-f02_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Scorri verso il basso.wav
-f02_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Vai nei preferiti.wav
-f02_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Vai alla tastiera.wav
-f02_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Chiudi rubrica.wav
 f02_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Chiama emergenza.wav
 f02_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Chiama ultimo numero.wav
-f02_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Cancella contatto.wav
-f02_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Vai alla pagina principale.wav
-f02_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Nuovo contatto.wav
+f02_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Chiudi applicazione.wav
+f02_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Chiudi rubrica.wav
 f02_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Disattiva vivavoce.wav
+f02_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Fai una telefonata.wav
+f02_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Nuovo contatto.wav
+f02_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Scorri verso il basso.wav
+f02_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Scorri verso l’alto.wav
 f02_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Termina chiamata.wav
+f02_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Vai alla pagina principale.wav
+f02_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Vai alla tastiera.wav
+f02_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Vai nei preferiti.wav
 f02_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Vai nella rubrica.wav
 f02_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Vai nel registro chiamate.wav
-f02_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f02/Sessione_03/f02_03_Fai una telefonata.wav
-m04_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Vai alla pagina principale.wav
-m04_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Aggiungi ai preferiti.wav
-m04_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Cancella contatto.wav
-m04_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Disattiva vivavoce.wav
-m04_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Attiva vivavoce.wav
-m04_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Vai alla tastiera.wav
-m04_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Chiama ultimo numero.wav
-m04_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Vai nella rubrica.wav
-m04_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Vai nei preferiti.wav
-m04_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Cancella tutto.wav
-m04_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Chiama emergenza.wav
-m04_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Termina chiamata.wav
-m04_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Nuovo contatto.wav
-m04_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Scorri verso l’alto.wav
-m04_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Scorri verso il basso.wav
-m04_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Vai nel registro chiamate.wav
-m04_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Fai una telefonata.wav
-m04_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Chiudi applicazione.wav
-m04_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Chiudi rubrica.wav
-f10_02_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Vai_nei_preferiti.wav
-f10_02_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Vai_alla_pagina_principale.wav
-f10_02_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Chiama_ultimo_numero.wav
-f10_02_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Vai_alla_tastiera.wav
-f10_02_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Disattiva_vivavoce.wav
-f10_02_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Chiudi_rubrica.wav
-f10_02_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Chiudi_applicazione.wav
-f10_02_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Fai_una_telefonata.wav
-f10_02_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Vai_nel_registro_chiamate.wav
-f10_02_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Scorri_verso_l_alto.wav
-f10_02_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Chiama_emergenza.wav
-f10_02_cancellatutto /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Cancella_tutto.wav
-f10_02_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Attiva_vivavoce.wav
-f10_02_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Vai_nella_rubrica.wav
-f10_02_terminachiamata /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Termina_chiamata.wav
-f10_02_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Cancella_contatto.wav
-f10_02_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Nuovo_contatto.wav
-f10_02_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Scorri_verso_il_basso.wav
-f10_02_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Aggiungi_ai_preferiti.wav
-m06_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Cancella tutto.wav
-m06_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Vai alla tastiera.wav
-m06_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Vai alla pagina principale.wav
-m06_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Disattiva vivavoce.wav
-m06_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Chiama emergenza.wav
-m06_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Scorri verso l’alto.wav
-m06_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Termina chiamata.wav
-m06_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Nuovo contatto.wav
-m06_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Chiama ultimo numero.wav
-m06_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Chiudi rubrica.wav
-m06_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Vai nel registro chiamate.wav
-m06_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Vai nei preferiti.wav
-m06_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Vai nella rubrica.wav
-m06_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Chiudi applicazione.wav
-m06_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Aggiungi ai preferiti.wav
-m06_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Scorri verso il basso.wav
-m06_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Attiva vivavoce.wav
-m06_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Fai una telefonata.wav
-m06_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Cancella contatto.wav
-m09_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Chiudi rubrica.wav
-m09_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Cancella tutto.wav
-m09_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Vai alla pagina principale.wav
-m09_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Disattiva vivavoce.wav
-m09_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Attiva vivavoce.wav
-m09_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Vai nel registro chiamate.wav
-m09_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Vai alla tastiera.wav
-m09_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Vai nella rubrica.wav
-m09_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Aggiungi ai preferiti.wav
-m09_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Chiudi applicazione.wav
-m09_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Scorri verso il basso.wav
-m09_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Nuovo contatto.wav
-m09_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Scorri verso l’alto.wav
-m09_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Chiama emergenza.wav
-m09_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Chiama ultimo numero.wav
-m09_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Cancella contatto.wav
-m09_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Fai una telefonata.wav
-m09_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Termina chiamata.wav
-m09_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Vai nei preferiti.wav
-f01_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Disattiva vivavoce.wav
-f01_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Vai alla tastiera.wav
-f01_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Termina chiamata.wav
-f01_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Vai nel registro chiamate.wav
-f01_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Vai nei preferiti.wav
-f01_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Chiama emergenza.wav
-f01_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Attiva vivavoce.wav
-f01_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Vai nella rubrica.wav
-f01_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Vai alla pagina principale.wav
-f01_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Chiama ultimo numero.wav
-f01_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Nuovo contatto.wav
-f01_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Scorri verso l’alto.wav
-f01_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Cancella contatto.wav
-f01_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Chiudi rubrica.wav
-f01_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Aggiungi ai preferiti.wav
-f01_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Chiudi applicazione.wav
-f01_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Cancella tutto.wav
-f01_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Scorri verso il basso.wav
-f01_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f01/Sessione_03/f01_03_Fai una telefonata.wav
-m02_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Aggiungi ai preferiti.wav
-m02_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Vai nel registro chiamate.wav
-m02_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Fai una telefonata.wav
-m02_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Cancella tutto.wav
-m02_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Vai alla tastiera.wav
-m02_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Chiama ultimo numero.wav
-m02_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Vai nella rubrica.wav
-m02_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Scorri verso l’alto.wav
-m02_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Scorri verso il basso.wav
-m02_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Nuovo contatto.wav
-m02_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Termina chiamata.wav
-m02_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Vai nei preferiti.wav
-m02_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Cancella contatto.wav
-m02_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Chiudi rubrica.wav
-m02_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Attiva vivavoce.wav
-m02_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Chiudi applicazione.wav
-m02_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Disattiva vivavoce.wav
-m02_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Chiama emergenza.wav
-m02_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Vai alla pagina principale.wav
-f09_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Vai_nel_registro_chiamate.wav
-f09_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Attiva_vivavoce.wav
-f09_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Termina_chiamata.wav
-f09_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Cancella_tutto.wav
-f09_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Vai_alla_tastiera.wav
-f09_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Chiudi_rubrica.wav
-f09_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Vai_nella_rubrica.wav
-f09_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Chiama_ultimo_numero.wav
-f09_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Chiama_emergenza.wav
-f09_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Scorri_verso_il_basso.wav
-f09_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Vai_alla_pagina_principale.wav
-f09_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Vai_nei_preferiti.wav
-f09_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Fai_una_telefonata.wav
-f09_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Aggiungi_ai_preferiti.wav
-f09_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Scorri_verso_l_alto.wav
-f09_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Chiudi_applicazione.wav
-f09_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Cancella_contatto.wav
-f09_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Disattiva_vivavoce.wav
-f09_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Nuovo_contatto.wav
-m16_02_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Vai_nel_registro_chiamate.wav
-m16_02_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Disattiva_vivavoce.wav
-m16_02_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Chiama_ultimo_numero.wav
-m16_02_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Scorri_verso_l_alto.wav
-m16_02_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Aggiungi_ai_preferiti.wav
-m16_02_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Vai_alla_tastiera.wav
-m16_02_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Attiva_vivavoce.wav
-m16_02_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Chiudi_rubrica.wav
-m16_02_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Chiudi_applicazione.wav
-m16_02_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Cancella_contatto.wav
-m16_02_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Nuovo_contatto.wav
-m16_02_terminachiamata /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Termina_chiamata.wav
-m16_02_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Chiama_emergenza.wav
-m16_02_cancellatutto /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Cancella_tutto.wav
-m16_02_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Vai_nella_rubrica.wav
-m16_02_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Vai_nei_preferiti.wav
-m16_02_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Vai_alla_pagina_principale.wav
-m16_02_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Fai_una_telefonata.wav
-m16_02_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Scorri_verso_il_basso.wav
-m01_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Cancella tutto.wav
-m01_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Attiva vivavoce.wav
-m01_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Chiama ultimo numero.wav
-m01_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Vai nel registro chiamate.wav
-m01_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Nuovo contatto.wav
-m01_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Chiama emergenza.wav
-m01_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Aggiungi ai preferiti.wav
-m01_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Chiudi rubrica.wav
-m01_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Vai alla pagina principale.wav
-m01_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Fai una telefonata.wav
-m01_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Disattiva vivavoce.wav
-m01_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Vai nei preferiti.wav
-m01_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Termina chiamata.wav
-m01_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Scorri verso il basso.wav
-m01_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Scorri verso l’alto.wav
-m01_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Cancella contatto.wav
-m01_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Chiudi applicazione.wav
-m01_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Vai alla tastiera.wav
-m01_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Vai nella rubrica.wav
-f05_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Nuovo_contatto.wav
-f05_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Cancella_contatto.wav
-f05_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Vai_nella_rubrica.wav
-f05_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Cancella_tutto.wav
-f05_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Chiama_ultimo_numero.wav
-f05_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Vai_nei_preferiti.wav
-f05_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Scorri_verso_l_alto.wav
-f05_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Chiudi_rubrica.wav
-f05_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Termina_chiamata.wav
+f03_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Aggiungi ai preferiti.wav
+f03_03_aprirubrica /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Apri rubrica.wav
+f03_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Attiva vivavoce.wav
+f03_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Cancella contatto.wav
+f03_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Cancella tutto.wav
+f03_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Chiama emergenza.wav
+f03_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Chiama ultimo numero.wav
+f03_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Chiudi applicazione.wav
+f03_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Chiudi rubrica.wav
+f03_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Disattiva vivavoce.wav
+f03_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Fai una telefonata.wav
+f03_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Nuovo contatto.wav
+f03_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Scorri verso il basso.wav
+f03_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Scorri verso l’alto.wav
+f03_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Termina chiamata.wav
+f03_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Vai alla pagina principale.wav
+f03_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Vai alla tastiera.wav
+f03_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Vai nei preferiti.wav
+f03_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Vai nella rubrica.wav
+f03_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Vai nel registro chiamate.wav
 f05_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Aggiungi_ai_preferiti.wav
-f05_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Vai_nel_registro_chiamate.wav
-f05_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Fai_una_telefonata.wav
+f05_03_aprirubrica1 /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Apri_rubrica_1.wav
 f05_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Attiva_vivavoce.wav
-f05_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Disattiva_vivavoce.wav
-f05_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Scorri_verso_il_basso.wav
-f05_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Vai_alla_tastiera.wav
-f05_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Chiudi_applicazione.wav
+f05_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Cancella_contatto.wav
+f05_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Cancella_tutto.wav
 f05_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Chiama_emergenza.wav
+f05_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Chiama_ultimo_numero.wav
+f05_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Chiudi_applicazione.wav
+f05_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Chiudi_rubrica.wav
+f05_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Disattiva_vivavoce.wav
+f05_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Fai_una_telefonata.wav
+f05_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Nuovo_contatto.wav
+f05_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Scorri_verso_il_basso.wav
+f05_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Scorri_verso_l_alto.wav
+f05_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Termina_chiamata.wav
 f05_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Vai_alla_pagina_principale.wav
-f11_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Chiama_ultimo_numero.wav
-f11_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Scorri_verso_il_basso.wav
-f11_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Vai_nella_rubrica.wav
-f11_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Nuovo_contatto.wav
-f11_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Vai_nel_registro_chiamate.wav
-f11_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Fai_una_telefonata.wav
-f11_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Scorri_verso_l_alto.wav
-f11_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Vai_nei_preferiti.wav
-f11_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Disattiva_vivavoce.wav
-f11_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Attiva_vivavoce.wav
-f11_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Vai_alla_tastiera.wav
-f11_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Chiama_emergenza.wav
-f11_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Aggiungi_ai_preferiti.wav
-f11_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Vai_alla_pagina_principale.wav
-f11_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Cancella_contatto.wav
-f11_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Chiudi_applicazione.wav
-f11_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Cancella_tutto.wav
-f11_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Chiudi_rubrica.wav
-f11_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Termina_chiamata.wav
-m11_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Cancella_contatto.wav
-m11_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Chiama_ultimo_numero.wav
-m11_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Scorri_verso_l_alto.wav
-m11_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Vai_alla_tastiera.wav
-m11_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Attiva_vivavoce.wav
-m11_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Cancella_tutto.wav
-m11_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Vai_nei_preferiti.wav
-m11_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Chiudi_rubrica.wav
-m11_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Chiudi_applicazione.wav
-m11_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Fai_una_telefonata.wav
-m11_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Vai_nella_rubrica.wav
-m11_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Vai_nel_registro_chiamate.wav
-m11_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Vai_alla_pagina_principale.wav
-m11_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Scorri_verso_il_basso.wav
-m11_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Termina_chiamata.wav
-m11_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Aggiungi_ai_preferiti.wav
-m11_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Nuovo_contatto.wav
-m11_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Chiama_emergenza.wav
-m11_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Disattiva_vivavoce.wav
-m15_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Vai_alla_pagina_principale.wav
-m15_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Chiama_ultimo_numero.wav
-m15_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Scorri_verso_l_alto.wav
-m15_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Aggiungi_ai_preferiti.wav
-m15_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Termina_chiamata.wav
-m15_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Nuovo_contatto.wav
-m15_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Fai_una_telefonata.wav
-m15_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Vai_alla_tastiera.wav
-m15_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Chiama_emergenza.wav
-m15_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Attiva_vivavoce.wav
-m15_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Chiudi_rubrica.wav
-m15_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Cancella_tutto.wav
-m15_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Vai_nei_preferiti.wav
-m15_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Scorri_verso_il_basso.wav
-m15_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Cancella_contatto.wav
-m15_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Vai_nella_rubrica.wav
-m15_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Disattiva_vivavoce.wav
-m15_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Chiudi_applicazione.wav
-m15_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Vai_nel_registro_chiamate.wav
-m05_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Aggiungi ai preferiti.wav
-m05_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Nuovo contatto.wav
-m05_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Vai alla tastiera.wav
-m05_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Cancella contatto.wav
-m05_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Vai alla pagina principale.wav
-m05_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Fai una telefonata.wav
-m05_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Scorri verso l’alto.wav
-m05_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Vai nella rubrica.wav
-m05_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Chiama emergenza.wav
-m05_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Cancella tutto.wav
-m05_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Attiva vivavoce.wav
-m05_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Vai nei preferiti.wav
-m05_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Scorri verso il basso.wav
-m05_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Vai nel registro chiamate.wav
-m05_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Chiudi applicazione.wav
-m05_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Chiama ultimo numero.wav
-m05_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Disattiva vivavoce.wav
-m05_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Termina chiamata.wav
-m05_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Chiudi rubrica.wav
-m14_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m14/Sessione_03/m14_03_Nuovo_contatto.wav
-m14_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m14/Sessione_03/m14_03_Aggiungi_ai_preferiti.wav
-m14_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m14/Sessione_03/m14_03_Chiama_emergenza.wav
-m14_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m14/Sessione_03/m14_03_Attiva_vivavoce.wav
-m14_04_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Vai_nei_preferiti.wav
-m14_04_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Vai_nel_registro_chiamate.wav
-m14_04_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Cancella_contatto.wav
-m14_04_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Chiama_ultimo_numero.wav
-m14_04_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Vai_alla_pagina_principale.wav
-m14_04_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Chiudi_rubrica.wav
-m14_02_terminachiamata /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Termina_chiamata.wav
-m14_02_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Fai_una_telefonata.wav
-m14_02_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Vai_nella_rubrica.wav
-m14_02_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Scorri_verso_il_basso.wav
-m14_02_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Vai_alla_tastiera.wav
-m14_02_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Disattiva_vivavoce.wav
-m14_02_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Scorri_verso_l_alto.wav
-m14_02_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Chiudi_applicazione.wav
-m14_02_cancellatutto /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Cancella_tutto.wav
-f08_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Fai_una_telefonata.wav
-f08_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Chiudi_applicazione.wav
-f08_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Scorri_verso_il_basso.wav
-f08_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Scorri_verso_l_alto.wav
-f08_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Attiva_vivavoce.wav
-f08_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Vai_nella_rubrica.wav
+f05_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Vai_alla_tastiera.wav
+f05_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Vai_nei_preferiti.wav
+f05_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Vai_nella_rubrica.wav
+f05_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f05/Sessione_03/f05_03_Vai_nel_registro_chiamate.wav
+f06_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Aggiungi_ai_preferiti.wav
+f06_03_aprirubrica1 /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Apri_rubrica_1.wav
+f06_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Attiva_vivavoce.wav
+f06_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Cancella_contatto.wav
+f06_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Cancella_tutto.wav
+f06_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Chiama_emergenza.wav
+f06_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Chiama_ultimo_numero.wav
+f06_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Chiudi_applicazione.wav
+f06_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Chiudi_rubrica.wav
+f06_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Disattiva_vivavoce.wav
+f06_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Fai_una_telefonata.wav
+f06_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Nuovo_contatto.wav
+f06_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Scorri_verso_il_basso.wav
+f06_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Scorri_verso_l_alto.wav
+f06_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Termina_chiamata.wav
+f06_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Vai_alla_pagina_principale.wav
+f06_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Vai_alla_tastiera.wav
+f06_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Vai_nei_preferiti.wav
+f06_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Vai_nella_rubrica.wav
+f06_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Vai_nel_registro_chiamate.wav
+f07_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Aggiungi_ai_preferiti.wav
+f07_03_aprirubrica1 /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Apri_rubrica_1.wav
+f07_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Attiva_vivavoce.wav
+f07_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Cancella_contatto.wav
+f07_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Cancella_tutto.wav
+f07_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Chiama_emergenza.wav
+f07_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Chiama_ultimo_numero.wav
+f07_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Chiudi_applicazione.wav
+f07_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Chiudi_rubrica.wav
+f07_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Disattiva_vivavoce.wav
+f07_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Fai_una_telefonata.wav
+f07_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Nuovo_contatto.wav
+f07_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Scorri_verso_il_basso.wav
+f07_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Scorri_verso_l_alto.wav
+f07_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Termina_chiamata.wav
+f07_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Vai_alla_pagina_principale.wav
+f07_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Vai_alla_tastiera.wav
+f07_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Vai_nei_preferiti.wav
+f07_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Vai_nella_rubrica.wav
+f07_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Vai_nel_registro_chiamate.wav
 f08_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Aggiungi_ai_preferiti.wav
+f08_03_aprirubrica1 /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Apri_rubrica_1.wav
+f08_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Attiva_vivavoce.wav
+f08_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Cancella_contatto.wav
+f08_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Cancella_tutto.wav
+f08_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Chiama_emergenza.wav
 f08_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Chiama_ultimo_numero.wav
-f08_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Vai_nel_registro_chiamate.wav
-f08_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Vai_nei_preferiti.wav
-f08_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Nuovo_contatto.wav
+f08_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Chiudi_applicazione.wav
 f08_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Chiudi_rubrica.wav
 f08_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Disattiva_vivavoce.wav
-f08_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Vai_alla_tastiera.wav
-f08_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Chiama_emergenza.wav
+f08_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Fai_una_telefonata.wav
+f08_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Nuovo_contatto.wav
+f08_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Scorri_verso_il_basso.wav
+f08_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Scorri_verso_l_alto.wav
 f08_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Termina_chiamata.wav
-f08_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Cancella_contatto.wav
 f08_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Vai_alla_pagina_principale.wav
-f08_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Cancella_tutto.wav
-f06_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Fai_una_telefonata.wav
-f06_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Vai_nella_rubrica.wav
-f06_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Scorri_verso_il_basso.wav
-f06_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Attiva_vivavoce.wav
-f06_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Vai_nei_preferiti.wav
-f06_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Vai_alla_pagina_principale.wav
-f06_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Cancella_contatto.wav
-f06_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Termina_chiamata.wav
-f06_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Disattiva_vivavoce.wav
-f06_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Vai_nel_registro_chiamate.wav
-f06_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Scorri_verso_l_alto.wav
-f06_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Chiama_emergenza.wav
-f06_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Nuovo_contatto.wav
-f06_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Vai_alla_tastiera.wav
-f06_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Chiudi_rubrica.wav
-f06_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Chiudi_applicazione.wav
-f06_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Cancella_tutto.wav
-f06_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Aggiungi_ai_preferiti.wav
-f06_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f06/Sessione_03/f06_03_Chiama_ultimo_numero.wav
-f07_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Cancella_tutto.wav
-f07_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Scorri_verso_l_alto.wav
-f07_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Scorri_verso_il_basso.wav
-f07_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Nuovo_contatto.wav
-f07_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Chiama_emergenza.wav
-f07_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Chiudi_applicazione.wav
-f07_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Disattiva_vivavoce.wav
-f07_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Vai_nei_preferiti.wav
-f07_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Chiudi_rubrica.wav
-f07_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Vai_alla_pagina_principale.wav
-f07_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Fai_una_telefonata.wav
-f07_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Vai_nel_registro_chiamate.wav
-f07_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Vai_alla_tastiera.wav
-f07_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Chiama_ultimo_numero.wav
-f07_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Termina_chiamata.wav
-f07_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Vai_nella_rubrica.wav
-f07_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Aggiungi_ai_preferiti.wav
-f07_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Cancella_contatto.wav
-f07_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f07/Sessione_03/f07_03_Attiva_vivavoce.wav
-m07_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Aggiungi ai preferiti.wav
-m07_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Scorri verso il basso.wav
-m07_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Vai alla pagina principale.wav
-m07_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Chiama ultimo numero.wav
-m07_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Cancella tutto.wav
-m07_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Vai nel registro chiamate.wav
-m07_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Nuovo contatto.wav
-m07_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Scorri verso l’alto.wav
-m07_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Attiva vivavoce.wav
-m07_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Disattiva vivavoce.wav
-m07_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Chiama emergenza.wav
-m07_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Chiudi rubrica.wav
-m07_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Vai alla tastiera.wav
-m07_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Vai nei preferiti.wav
-m07_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Termina chiamata.wav
-m07_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Chiudi applicazione.wav
-m07_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Cancella contatto.wav
-m07_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Vai nella rubrica.wav
-m07_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Fai una telefonata.wav
-m03_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Chiudi rubrica.wav
+f08_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Vai_alla_tastiera.wav
+f08_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Vai_nei_preferiti.wav
+f08_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Vai_nella_rubrica.wav
+f08_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f08/Sessione_03/f08_03_Vai_nel_registro_chiamate.wav
+f09_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Aggiungi_ai_preferiti.wav
+f09_03_aprirubrica3 /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Apri_rubrica_3.wav
+f09_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Attiva_vivavoce.wav
+f09_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Cancella_contatto.wav
+f09_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Cancella_tutto.wav
+f09_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Chiama_emergenza.wav
+f09_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Chiama_ultimo_numero.wav
+f09_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Chiudi_applicazione.wav
+f09_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Chiudi_rubrica.wav
+f09_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Disattiva_vivavoce.wav
+f09_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Fai_una_telefonata.wav
+f09_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Nuovo_contatto.wav
+f09_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Scorri_verso_il_basso.wav
+f09_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Scorri_verso_l_alto.wav
+f09_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Termina_chiamata.wav
+f09_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Vai_alla_pagina_principale.wav
+f09_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Vai_alla_tastiera.wav
+f09_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Vai_nei_preferiti.wav
+f09_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Vai_nella_rubrica.wav
+f09_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f09/Sessione_03/f09_03_Vai_nel_registro_chiamate.wav
+f10_02_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Aggiungi_ai_preferiti.wav
+f10_02_aprirubrica1 /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Apri_rubrica_1.wav
+f10_02_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Attiva_vivavoce.wav
+f10_02_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Cancella_contatto.wav
+f10_02_cancellatutto /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Cancella_tutto.wav
+f10_02_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Chiama_emergenza.wav
+f10_02_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Chiama_ultimo_numero.wav
+f10_02_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Chiudi_applicazione.wav
+f10_02_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Chiudi_rubrica.wav
+f10_02_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Disattiva_vivavoce.wav
+f10_02_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Fai_una_telefonata.wav
+f10_02_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Nuovo_contatto.wav
+f10_02_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Scorri_verso_il_basso.wav
+f10_02_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Scorri_verso_l_alto.wav
+f10_02_terminachiamata /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Termina_chiamata.wav
+f10_02_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Vai_alla_pagina_principale.wav
+f10_02_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Vai_alla_tastiera.wav
+f10_02_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Vai_nei_preferiti.wav
+f10_02_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Vai_nella_rubrica.wav
+f10_02_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f10/Sessione_02/f10_02_Vai_nel_registro_chiamate.wav
+f11_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Aggiungi_ai_preferiti.wav
+f11_03_aprirubrica1 /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Apri_rubrica_1.wav
+f11_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Attiva_vivavoce.wav
+f11_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Cancella_contatto.wav
+f11_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Cancella_tutto.wav
+f11_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Chiama_emergenza.wav
+f11_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Chiama_ultimo_numero.wav
+f11_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Chiudi_applicazione.wav
+f11_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Chiudi_rubrica.wav
+f11_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Disattiva_vivavoce.wav
+f11_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Fai_una_telefonata.wav
+f11_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Nuovo_contatto.wav
+f11_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Scorri_verso_il_basso.wav
+f11_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Scorri_verso_l_alto.wav
+f11_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Termina_chiamata.wav
+f11_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Vai_alla_pagina_principale.wav
+f11_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Vai_alla_tastiera.wav
+f11_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Vai_nei_preferiti.wav
+f11_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Vai_nella_rubrica.wav
+f11_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f11/Sessione_03/f11_03_Vai_nel_registro_chiamate.wav
+m01_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Aggiungi ai preferiti.wav
+m01_03_aprirubrica /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Apri rubrica.wav
+m01_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Attiva vivavoce.wav
+m01_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Cancella contatto.wav
+m01_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Cancella tutto.wav
+m01_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Chiama emergenza.wav
+m01_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Chiama ultimo numero.wav
+m01_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Chiudi applicazione.wav
+m01_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Chiudi rubrica.wav
+m01_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Disattiva vivavoce.wav
+m01_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Fai una telefonata.wav
+m01_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Nuovo contatto.wav
+m01_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Scorri verso il basso.wav
+m01_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Scorri verso l’alto.wav
+m01_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Termina chiamata.wav
+m01_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Vai alla pagina principale.wav
+m01_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Vai alla tastiera.wav
+m01_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Vai nei preferiti.wav
+m01_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Vai nella rubrica.wav
+m01_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m01/Sessione_03/m01_03_Vai nel registro chiamate.wav
+m02_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Aggiungi ai preferiti.wav
+m02_03_aprirubrica /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Apri rubrica.wav
+m02_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Attiva vivavoce.wav
+m02_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Cancella contatto.wav
+m02_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Cancella tutto.wav
+m02_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Chiama emergenza.wav
+m02_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Chiama ultimo numero.wav
+m02_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Chiudi applicazione.wav
+m02_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Chiudi rubrica.wav
+m02_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Disattiva vivavoce.wav
+m02_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Fai una telefonata.wav
+m02_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Nuovo contatto.wav
+m02_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Scorri verso il basso.wav
+m02_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Scorri verso l’alto.wav
+m02_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Termina chiamata.wav
+m02_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Vai alla pagina principale.wav
+m02_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Vai alla tastiera.wav
+m02_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Vai nei preferiti.wav
+m02_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Vai nella rubrica.wav
+m02_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m02/Sessione_03/m02_03_Vai nel registro chiamate.wav
+m03_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Aggiungi ai preferiti.wav
+m03_03_aprirubrica /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Apri rubrica.wav
+m03_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Attiva vivavoce.wav
+m03_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Cancella contatto.wav
 m03_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Cancella tutto.wav
-m03_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Fai una telefonata.wav
-m03_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Vai nei preferiti.wav
-m03_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Vai alla pagina principale.wav
+m03_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Chiama emergenza.wav
 m03_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Chiama ultimo numero.wav
+m03_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Chiudi applicazione.wav
+m03_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Chiudi rubrica.wav
+m03_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Disattiva vivavoce.wav
+m03_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Fai una telefonata.wav
+m03_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Nuovo contatto.wav
+m03_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Scorri verso il basso.wav
 m03_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Scorri verso l’alto.wav
 m03_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Termina chiamata.wav
-m03_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Chiama emergenza.wav
-m03_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Aggiungi ai preferiti.wav
-m03_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Attiva vivavoce.wav
-m03_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Scorri verso il basso.wav
-m03_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Disattiva vivavoce.wav
-m03_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Vai nel registro chiamate.wav
-m03_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Cancella contatto.wav
-m03_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Chiudi applicazione.wav
+m03_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Vai alla pagina principale.wav
 m03_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Vai alla tastiera.wav
-m03_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Nuovo contatto.wav
+m03_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Vai nei preferiti.wav
 m03_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Vai nella rubrica.wav
-m12_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Aggiungi_ai_preferiti.wav
-m12_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Cancella_tutto.wav
-m12_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Disattiva_vivavoce.wav
-m12_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Chiama_ultimo_numero.wav
-m12_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Vai_alla_tastiera.wav
-m12_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Vai_nei_preferiti.wav
-m12_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Scorri_verso_il_basso.wav
-m12_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Vai_nel_registro_chiamate.wav
-m12_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Chiudi_rubrica.wav
-m12_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Vai_alla_pagina_principale.wav
-m12_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Scorri_verso_l_alto.wav
-m12_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Attiva_vivavoce.wav
-m12_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Termina_chiamata.wav
-m12_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Chiudi_applicazione.wav
-m12_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Cancella_contatto.wav
-m12_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Chiama_emergenza.wav
-m12_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Vai_nella_rubrica.wav
-m12_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Nuovo_contatto.wav
-m12_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Fai_una_telefonata.wav
-m10_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Nuovo_contatto.wav
-m10_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Vai_alla_pagina_principale.wav
-m10_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Cancella_contatto.wav
-m10_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Chiudi_rubrica.wav
-m10_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Vai_alla_tastiera.wav
-m10_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Chiudi_applicazione.wav
-m10_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Termina_chiamata.wav
-m10_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Vai_nel_registro_chiamate.wav
+m03_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m03/Sessione_03/m03_03_Vai nel registro chiamate.wav
+m04_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Aggiungi ai preferiti.wav
+m04_03_aprirubrica /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Apri rubrica.wav
+m04_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Attiva vivavoce.wav
+m04_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Cancella contatto.wav
+m04_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Cancella tutto.wav
+m04_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Chiama emergenza.wav
+m04_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Chiama ultimo numero.wav
+m04_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Chiudi applicazione.wav
+m04_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Chiudi rubrica.wav
+m04_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Disattiva vivavoce.wav
+m04_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Fai una telefonata.wav
+m04_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Nuovo contatto.wav
+m04_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Scorri verso il basso.wav
+m04_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Scorri verso l’alto.wav
+m04_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Termina chiamata.wav
+m04_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Vai alla pagina principale.wav
+m04_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Vai alla tastiera.wav
+m04_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Vai nei preferiti.wav
+m04_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Vai nella rubrica.wav
+m04_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m04/Sessione_03/m04_03_Vai nel registro chiamate.wav
+m05_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Aggiungi ai preferiti.wav
+m05_03_aprirubrica /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Apri rubrica.wav
+m05_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Attiva vivavoce.wav
+m05_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Cancella contatto.wav
+m05_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Cancella tutto.wav
+m05_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Chiama emergenza.wav
+m05_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Chiama ultimo numero.wav
+m05_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Chiudi applicazione.wav
+m05_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Chiudi rubrica.wav
+m05_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Disattiva vivavoce.wav
+m05_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Fai una telefonata.wav
+m05_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Nuovo contatto.wav
+m05_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Scorri verso il basso.wav
+m05_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Scorri verso l’alto.wav
+m05_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Termina chiamata.wav
+m05_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Vai alla pagina principale.wav
+m05_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Vai alla tastiera.wav
+m05_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Vai nei preferiti.wav
+m05_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Vai nella rubrica.wav
+m05_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m05/Sessione_03/m05_03_Vai nel registro chiamate.wav
+m06_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Aggiungi ai preferiti.wav
+m06_03_aprirubrica /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Apri rubrica.wav
+m06_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Attiva vivavoce.wav
+m06_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Cancella contatto.wav
+m06_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Cancella tutto.wav
+m06_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Chiama emergenza.wav
+m06_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Chiama ultimo numero.wav
+m06_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Chiudi applicazione.wav
+m06_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Chiudi rubrica.wav
+m06_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Disattiva vivavoce.wav
+m06_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Fai una telefonata.wav
+m06_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Nuovo contatto.wav
+m06_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Scorri verso il basso.wav
+m06_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Scorri verso l’alto.wav
+m06_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Termina chiamata.wav
+m06_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Vai alla pagina principale.wav
+m06_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Vai alla tastiera.wav
+m06_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Vai nei preferiti.wav
+m06_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Vai nella rubrica.wav
+m06_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m06/Sessione_03/m06_03_Vai nel registro chiamate.wav
+m07_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Aggiungi ai preferiti.wav
+m07_03_aprirubrica /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Apri rubrica.wav
+m07_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Attiva vivavoce.wav
+m07_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Cancella contatto.wav
+m07_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Cancella tutto.wav
+m07_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Chiama emergenza.wav
+m07_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Chiama ultimo numero.wav
+m07_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Chiudi applicazione.wav
+m07_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Chiudi rubrica.wav
+m07_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Disattiva vivavoce.wav
+m07_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Fai una telefonata.wav
+m07_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Nuovo contatto.wav
+m07_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Scorri verso il basso.wav
+m07_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Scorri verso l’alto.wav
+m07_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Termina chiamata.wav
+m07_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Vai alla pagina principale.wav
+m07_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Vai alla tastiera.wav
+m07_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Vai nei preferiti.wav
+m07_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Vai nella rubrica.wav
+m07_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m07/Sessione_03/m07_03_Vai nel registro chiamate.wav
+m08_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Aggiungi ai preferiti.wav
+m08_03_aprirubrica /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Apri rubrica.wav
+m08_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Attiva vivavoce.wav
+m08_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Cancella contatto.wav
+m08_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Cancella tutto.wav
+m08_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Chiama emergenza.wav
+m08_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Chiama ultimo numero.wav
+m08_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Chiudi applicazione.wav
+m08_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Chiudi rubrica.wav
+m08_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Disattiva vivavoce.wav
+m08_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Fai una telefonata.wav
+m08_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Nuovo contatto.wav
+m08_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Scorri verso il basso.wav
+m08_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Scorri verso l’alto.wav
+m08_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Termina chiamata.wav
+m08_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Vai alla pagina principale.wav
+m08_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Vai alla tastiera.wav
+m08_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Vai nei preferiti.wav
+m08_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Vai nella rubrica.wav
+m08_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Vai nel registro chiamate.wav
+m09_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Aggiungi ai preferiti.wav
+m09_03_aprirubrica /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Apri rubrica.wav
+m09_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Attiva vivavoce.wav
+m09_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Cancella contatto.wav
+m09_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Cancella tutto.wav
+m09_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Chiama emergenza.wav
+m09_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Chiama ultimo numero.wav
+m09_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Chiudi applicazione.wav
+m09_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Chiudi rubrica.wav
+m09_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Disattiva vivavoce.wav
+m09_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Fai una telefonata.wav
+m09_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Nuovo contatto.wav
+m09_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Scorri verso il basso.wav
+m09_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Scorri verso l’alto.wav
+m09_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Termina chiamata.wav
+m09_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Vai alla pagina principale.wav
+m09_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Vai alla tastiera.wav
+m09_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Vai nei preferiti.wav
+m09_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Vai nella rubrica.wav
+m09_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m09/Sessione_03/m09_03_Vai nel registro chiamate.wav
+m10_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Aggiungi_ai_preferiti.wav
+m10_03_aprirubrica2 /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Apri_rubrica_2.wav
 m10_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Attiva_vivavoce.wav
+m10_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Cancella_contatto.wav
 m10_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Cancella_tutto.wav
-m10_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Vai_nella_rubrica.wav
+m10_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Chiama_emergenza.wav
+m10_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Chiama_ultimo_numero.wav
+m10_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Chiudi_applicazione.wav
+m10_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Chiudi_rubrica.wav
+m10_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Disattiva_vivavoce.wav
+m10_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Fai_una_telefonata.wav
+m10_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Nuovo_contatto.wav
 m10_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Scorri_verso_il_basso.wav
 m10_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Scorri_verso_l_alto.wav
-m10_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Disattiva_vivavoce.wav
-m10_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Chiama_ultimo_numero.wav
-m10_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Aggiungi_ai_preferiti.wav
+m10_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Termina_chiamata.wav
+m10_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Vai_alla_pagina_principale.wav
+m10_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Vai_alla_tastiera.wav
 m10_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Vai_nei_preferiti.wav
-m10_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Chiama_emergenza.wav
-m10_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Fai_una_telefonata.wav
-m08_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Vai alla tastiera.wav
-m08_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Vai nella rubrica.wav
-m08_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Fai una telefonata.wav
-m08_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Chiama emergenza.wav
-m08_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Cancella contatto.wav
-m08_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Disattiva vivavoce.wav
-m08_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Termina chiamata.wav
-m08_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Aggiungi ai preferiti.wav
-m08_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Cancella tutto.wav
-m08_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Chiudi rubrica.wav
-m08_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Vai nei preferiti.wav
-m08_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Chiama ultimo numero.wav
-m08_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Scorri verso il basso.wav
-m08_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Attiva vivavoce.wav
-m08_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Scorri verso l’alto.wav
-m08_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Nuovo contatto.wav
-m08_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Vai nel registro chiamate.wav
-m08_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Vai alla pagina principale.wav
-m08_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m08/Sessione_03/m08_03_Chiudi applicazione.wav
-m19_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Attiva_vivavoce.wav
-m19_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Vai_nel_registro_chiamate.wav
-m19_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Vai_alla_pagina_principale.wav
-m19_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Nuovo_contatto.wav
-m19_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Vai_nei_preferiti.wav
-m19_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Scorri_verso_il_basso.wav
-m19_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Chiudi_rubrica.wav
-m19_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Chiudi_applicazione.wav
-m19_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Cancella_contatto.wav
-m19_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Disattiva_vivavoce.wav
-m19_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Vai_alla_tastiera.wav
-m19_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Fai_una_telefonata.wav
-m19_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Cancella_tutto.wav
-m19_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Chiama_ultimo_numero.wav
-m19_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Aggiungi_ai_preferiti.wav
-m19_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Termina_chiamata.wav
-m19_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Scorri_verso_l_alto.wav
-m19_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Vai_nella_rubrica.wav
-m19_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Chiama_emergenza.wav
-m20_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Fai_una_telefonata.wav
-m20_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Aggiungi_ai_preferiti.wav
-m20_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Vai_alla_pagina_principale.wav
-m20_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Chiudi_applicazione.wav
-m20_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Vai_nel_registro_chiamate.wav
-m20_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Vai_nella_rubrica.wav
-m20_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Vai_alla_tastiera.wav
-m20_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Scorri_verso_l_alto.wav
-m20_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Chiudi_rubrica.wav
-m20_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Attiva_vivavoce.wav
-m20_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Chiama_emergenza.wav
-m20_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Cancella_contatto.wav
-m20_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Disattiva_vivavoce.wav
-m20_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Chiama_ultimo_numero.wav
-m20_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Scorri_verso_il_basso.wav
-m20_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Nuovo_contatto.wav
-m20_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Vai_nei_preferiti.wav
-m20_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Termina_chiamata.wav
-m20_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Cancella_tutto.wav
-m17_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Chiudi_applicazione.wav
-m17_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Chiama_ultimo_numero.wav
-m17_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Fai_una_telefonata.wav
-m17_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Vai_nella_rubrica.wav
-m17_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Nuovo_contatto.wav
-m17_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Chiama_emergenza.wav
-m17_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Scorri_verso_il_basso.wav
-m17_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Cancella_contatto.wav
+m10_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Vai_nella_rubrica.wav
+m10_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m10/Sessione_03/m10_03_Vai_nel_registro_chiamate.wav
+m11_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Aggiungi_ai_preferiti.wav
+m11_03_aprirubrica3 /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Apri_rubrica_3.wav
+m11_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Attiva_vivavoce.wav
+m11_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Cancella_contatto.wav
+m11_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Cancella_tutto.wav
+m11_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Chiama_emergenza.wav
+m11_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Chiama_ultimo_numero.wav
+m11_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Chiudi_applicazione.wav
+m11_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Chiudi_rubrica.wav
+m11_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Disattiva_vivavoce.wav
+m11_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Fai_una_telefonata.wav
+m11_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Nuovo_contatto.wav
+m11_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Scorri_verso_il_basso.wav
+m11_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Scorri_verso_l_alto.wav
+m11_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Termina_chiamata.wav
+m11_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Vai_alla_pagina_principale.wav
+m11_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Vai_alla_tastiera.wav
+m11_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Vai_nei_preferiti.wav
+m11_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Vai_nella_rubrica.wav
+m11_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m11/Sessione_03/m11_03_Vai_nel_registro_chiamate.wav
+m12_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Aggiungi_ai_preferiti.wav
+m12_03_aprirubrica2 /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Apri_rubrica_2.wav
+m12_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Attiva_vivavoce.wav
+m12_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Cancella_contatto.wav
+m12_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Cancella_tutto.wav
+m12_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Chiama_emergenza.wav
+m12_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Chiama_ultimo_numero.wav
+m12_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Chiudi_applicazione.wav
+m12_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Chiudi_rubrica.wav
+m12_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Disattiva_vivavoce.wav
+m12_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Fai_una_telefonata.wav
+m12_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Nuovo_contatto.wav
+m12_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Scorri_verso_il_basso.wav
+m12_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Scorri_verso_l_alto.wav
+m12_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Termina_chiamata.wav
+m12_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Vai_alla_pagina_principale.wav
+m12_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Vai_alla_tastiera.wav
+m12_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Vai_nei_preferiti.wav
+m12_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Vai_nella_rubrica.wav
+m12_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m12/Sessione_03/m12_03_Vai_nel_registro_chiamate.wav
+m13_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Aggiungi_ai_preferiti.wav
+m13_03_aprirubrica2 /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Apri_rubrica_2.wav
+m13_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Attiva_vivavoce.wav
+m13_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Cancella_contatto.wav
+m13_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Cancella_tutto.wav
+m13_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Chiama_emergenza.wav
+m13_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Chiama_ultimo_numero.wav
+m13_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Chiudi_applicazione.wav
+m13_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Chiudi_rubrica.wav
+m13_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Disattiva_vivavoce.wav
+m13_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Fai_una_telefonata.wav
+m13_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Nuovo_contatto.wav
+m13_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Scorri_verso_il_basso.wav
+m13_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Scorri_verso_l_alto.wav
+m13_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Termina_chiamata.wav
+m13_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Vai_alla_pagina_principale.wav
+m13_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Vai_alla_tastiera.wav
+m13_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Vai_nei_preferiti.wav
+m13_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Vai_nella_rubrica.wav
+m13_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m13/Sessione_03/m13_03_Vai_nel_registro_chiamate.wav
+m14_02_cancellatutto /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Cancella_tutto.wav
+m14_02_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Chiudi_applicazione.wav
+m14_02_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Disattiva_vivavoce.wav
+m14_02_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Fai_una_telefonata.wav
+m14_02_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Scorri_verso_il_basso.wav
+m14_02_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Scorri_verso_l_alto.wav
+m14_02_terminachiamata /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Termina_chiamata.wav
+m14_02_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Vai_alla_tastiera.wav
+m14_02_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m14/Sessione_02/m14_02_Vai_nella_rubrica.wav
+m14_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m14/Sessione_03/m14_03_Aggiungi_ai_preferiti.wav
+m14_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m14/Sessione_03/m14_03_Attiva_vivavoce.wav
+m14_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m14/Sessione_03/m14_03_Chiama_emergenza.wav
+m14_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m14/Sessione_03/m14_03_Nuovo_contatto.wav
+m14_04_aprirubrica1 /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Apri_rubrica_1.wav
+m14_04_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Cancella_contatto.wav
+m14_04_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Chiama_ultimo_numero.wav
+m14_04_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Chiudi_rubrica.wav
+m14_04_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Vai_alla_pagina_principale.wav
+m14_04_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Vai_nei_preferiti.wav
+m14_04_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m14/Sessione_04/m14_04_Vai_nel_registro_chiamate.wav
+m15_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Aggiungi_ai_preferiti.wav
+m15_03_aprirubrica3 /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Apri_rubrica_3.wav
+m15_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Attiva_vivavoce.wav
+m15_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Cancella_contatto.wav
+m15_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Cancella_tutto.wav
+m15_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Chiama_emergenza.wav
+m15_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Chiama_ultimo_numero.wav
+m15_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Chiudi_applicazione.wav
+m15_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Chiudi_rubrica.wav
+m15_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Disattiva_vivavoce.wav
+m15_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Fai_una_telefonata.wav
+m15_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Nuovo_contatto.wav
+m15_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Scorri_verso_il_basso.wav
+m15_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Scorri_verso_l_alto.wav
+m15_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Termina_chiamata.wav
+m15_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Vai_alla_pagina_principale.wav
+m15_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Vai_alla_tastiera.wav
+m15_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Vai_nei_preferiti.wav
+m15_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Vai_nella_rubrica.wav
+m15_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m15/Sessione_03/m15_03_Vai_nel_registro_chiamate.wav
+m16_02_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Aggiungi_ai_preferiti.wav
+m16_02_aprirubrica2 /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Apri_rubrica_2.wav
+m16_02_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Attiva_vivavoce.wav
+m16_02_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Cancella_contatto.wav
+m16_02_cancellatutto /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Cancella_tutto.wav
+m16_02_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Chiama_emergenza.wav
+m16_02_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Chiama_ultimo_numero.wav
+m16_02_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Chiudi_applicazione.wav
+m16_02_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Chiudi_rubrica.wav
+m16_02_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Disattiva_vivavoce.wav
+m16_02_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Fai_una_telefonata.wav
+m16_02_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Nuovo_contatto.wav
+m16_02_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Scorri_verso_il_basso.wav
+m16_02_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Scorri_verso_l_alto.wav
+m16_02_terminachiamata /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Termina_chiamata.wav
+m16_02_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Vai_alla_pagina_principale.wav
+m16_02_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Vai_alla_tastiera.wav
+m16_02_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Vai_nei_preferiti.wav
+m16_02_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Vai_nella_rubrica.wav
+m16_02_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m16/Sessione_02/m16_02_Vai_nel_registro_chiamate.wav
+m17_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Aggiungi_ai_preferiti.wav
+m17_03_aprirubrica2 /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Apri_rubrica_2.wav
 m17_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Attiva_vivavoce.wav
+m17_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Cancella_contatto.wav
+m17_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Cancella_tutto.wav
+m17_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Chiama_emergenza.wav
+m17_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Chiama_ultimo_numero.wav
+m17_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Chiudi_applicazione.wav
 m17_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Chiudi_rubrica.wav
+m17_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Disattiva_vivavoce.wav
+m17_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Fai_una_telefonata.wav
+m17_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Nuovo_contatto.wav
+m17_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Scorri_verso_il_basso.wav
+m17_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Scorri_verso_l_alto.wav
 m17_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Termina_chiamata.wav
 m17_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Vai_alla_pagina_principale.wav
 m17_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Vai_alla_tastiera.wav
-m17_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Scorri_verso_l_alto.wav
-m17_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Disattiva_vivavoce.wav
-m17_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Aggiungi_ai_preferiti.wav
-m17_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Cancella_tutto.wav
 m17_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Vai_nei_preferiti.wav
+m17_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Vai_nella_rubrica.wav
 m17_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m17/Sessione_03/m17_03_Vai_nel_registro_chiamate.wav
-f03_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Nuovo contatto.wav
-f03_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Vai nei preferiti.wav
-f03_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Fai una telefonata.wav
-f03_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Scorri verso il basso.wav
-f03_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Vai nella rubrica.wav
-f03_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Vai alla tastiera.wav
-f03_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Disattiva vivavoce.wav
-f03_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Chiama emergenza.wav
-f03_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Cancella tutto.wav
-f03_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Termina chiamata.wav
-f03_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Scorri verso l’alto.wav
-f03_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Chiudi applicazione.wav
-f03_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Vai alla pagina principale.wav
-f03_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Aggiungi ai preferiti.wav
-f03_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Chiudi rubrica.wav
-f03_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Attiva vivavoce.wav
-f03_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Vai nel registro chiamate.wav
-f03_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Chiama ultimo numero.wav
-f03_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/f03/Sessione_03/f03_03_Cancella contatto.wav
-m18_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Vai_nel_registro_chiamate.wav
-m18_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Disattiva_vivavoce.wav
-m18_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Scorri_verso_l_alto.wav
-m18_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Vai_nei_preferiti.wav
+m18_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Aggiungi_ai_preferiti.wav
+m18_03_aprirubrica2 /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Apri_rubrica_2.wav
+m18_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Attiva_vivavoce.wav
+m18_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Cancella_contatto.wav
+m18_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Cancella_tutto.wav
 m18_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Chiama_emergenza.wav
 m18_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Chiama_ultimo_numero.wav
-m18_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Termina_chiamata.wav
-m18_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Cancella_tutto.wav
-m18_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Attiva_vivavoce.wav
-m18_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Scorri_verso_il_basso.wav
-m18_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Vai_nella_rubrica.wav
-m18_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Nuovo_contatto.wav
-m18_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Vai_alla_tastiera.wav
-m18_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Vai_alla_pagina_principale.wav
-m18_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Fai_una_telefonata.wav
 m18_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Chiudi_applicazione.wav
-m18_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Cancella_contatto.wav
-m18_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Aggiungi_ai_preferiti.wav
 m18_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Chiudi_rubrica.wav
+m18_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Disattiva_vivavoce.wav
+m18_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Fai_una_telefonata.wav
+m18_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Nuovo_contatto.wav
+m18_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Scorri_verso_il_basso.wav
+m18_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Scorri_verso_l_alto.wav
+m18_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Termina_chiamata.wav
+m18_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Vai_alla_pagina_principale.wav
+m18_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Vai_alla_tastiera.wav
+m18_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Vai_nei_preferiti.wav
+m18_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Vai_nella_rubrica.wav
+m18_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m18/Sessione_03/m18_03_Vai_nel_registro_chiamate.wav
+m19_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Aggiungi_ai_preferiti.wav
+m19_03_aprirubrica2 /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Apri_rubrica_2.wav
+m19_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Attiva_vivavoce.wav
+m19_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Cancella_contatto.wav
+m19_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Cancella_tutto.wav
+m19_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Chiama_emergenza.wav
+m19_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Chiama_ultimo_numero.wav
+m19_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Chiudi_applicazione.wav
+m19_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Chiudi_rubrica.wav
+m19_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Disattiva_vivavoce.wav
+m19_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Fai_una_telefonata.wav
+m19_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Nuovo_contatto.wav
+m19_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Scorri_verso_il_basso.wav
+m19_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Scorri_verso_l_alto.wav
+m19_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Termina_chiamata.wav
+m19_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Vai_alla_pagina_principale.wav
+m19_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Vai_alla_tastiera.wav
+m19_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Vai_nei_preferiti.wav
+m19_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Vai_nella_rubrica.wav
+m19_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m19/Sessione_03/m19_03_Vai_nel_registro_chiamate.wav
+m20_03_aggiungiaipreferiti /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Aggiungi_ai_preferiti.wav
+m20_03_aprirubrica3 /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Apri_rubrica_3.wav
+m20_03_attivavivavoce /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Attiva_vivavoce.wav
+m20_03_cancellacontatto /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Cancella_contatto.wav
+m20_03_cancellatutto /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Cancella_tutto.wav
+m20_03_chiamaemergenza /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Chiama_emergenza.wav
+m20_03_chiamaultimonumero /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Chiama_ultimo_numero.wav
+m20_03_chiudiapplicazione /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Chiudi_applicazione.wav
+m20_03_chiudirubrica /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Chiudi_rubrica.wav
+m20_03_disattivavivavoce /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Disattiva_vivavoce.wav
+m20_03_faiunatelefonata /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Fai_una_telefonata.wav
+m20_03_nuovocontatto /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Nuovo_contatto.wav
+m20_03_scorriversoilbasso /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Scorri_verso_il_basso.wav
+m20_03_scorriversolalto /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Scorri_verso_l_alto.wav
+m20_03_terminachiamata /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Termina_chiamata.wav
+m20_03_vaiallapaginaprincipale /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Vai_alla_pagina_principale.wav
+m20_03_vaiallatastiera /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Vai_alla_tastiera.wav
+m20_03_vaineipreferiti /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Vai_nei_preferiti.wav
+m20_03_vainellarubrica /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Vai_nella_rubrica.wav
+m20_03_vainelregistrochiamate /data/group1/z40484r/datasets/EasyCall/m20/Sessione_03/m20_03_Vai_nel_registro_chiamate.wav

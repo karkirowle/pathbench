@@ -15,11 +15,11 @@ def map_letter_to_score(letter):
     """
     key = letter.lower().replace(" ", "").strip()
     mapping = {
-        "a": "1", "a/b": "1.5",
-        "b": "2", "b/c": "2.5",
-        "c": "3", "c/d": "3.5",
-        "d": "4", "d/e": "4.5",
-        "e": "5"
+        "a": "5", "a/b": "4.5",
+        "b": "4", "b/c": "3.5",
+        "c": "3", "c/d": "2.5",
+        "d": "2", "d/e": "1.5",
+        "e": "1"
     }
     return mapping.get(key, letter)
 
@@ -254,8 +254,19 @@ def process_torgo(torgo_root, output_dir):
     entries = scan_torgo(torgo_root)
     print(f"Total utterances found: {len(entries)}")
     
+    # --- NEW: Control Speaker Statistics ---
+    control_speakers = set(e['speaker'] for e in entries if e['group'] == 'control')
+    n_controls = len(control_speakers)
+    n_male_ctrl = len([s for s in control_speakers if get_gender(s) == 'm'])
+    n_female_ctrl = len([s for s in control_speakers if get_gender(s) == 'f'])
+    
+    print("-" * 40)
+    print(f"CONTROL SPEAKER STATISTICS")
+    print(f"Total Controls: {n_controls}")
+    print(f"  Male:   {n_male_ctrl}")
+    print(f"  Female: {n_female_ctrl}")
+    
     # 2. Determine "Valid Texts" (Strict Control Coverage)
-    # These texts have sufficient gender coverage in the Control group.
     valid_word_texts = get_valid_texts_by_gender_count(entries, "word", 2)
     valid_utt_texts = get_valid_texts_by_gender_count(entries, "utterances", 2)
     
@@ -266,8 +277,6 @@ def process_torgo(torgo_root, output_dir):
     print("-" * 40)
     
     # 3. Determine Balanced Texts (Intersection of PD speakers)
-    # We must intersect the "PD Intersection" with the "Valid Control Texts"
-    # because Balanced is a subset of valid data.
     raw_bal_word_texts, pd_word_spks = get_intersection_texts(entries, "pathological", "word")
     raw_bal_utt_texts, pd_utt_spks = get_intersection_texts(entries, "pathological", "utterances")
     

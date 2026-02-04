@@ -69,6 +69,8 @@ class ForcedAlignmentPESTOIEvaluator(ReferenceEvaluator):
         phonemized_reference = re.sub(r"\s+", " ", phonemized_reference.replace("|", " ")).strip()
         if not phonemized_reference:
             print(f"Warning: Could not phonemize reference transcription for {audio_path}.")
+            print(f"Unphonemized transcription: '{transcription}'")
+            print(f"Updated transcription after cleaning: '{clean_text(transcription)}'")
             return None
 
         # 2. Get the mapping from phonemes to model vocab indices.
@@ -115,30 +117,33 @@ class ForcedAlignmentPESTOIEvaluator(ReferenceEvaluator):
         # The model output rate is roughly 50 Hz (1000ms / 20ms).
         # So the ratio is 16000 / 50 = 320.
         
-        # Find the index of first non-zero in aligned path
-        for i, x in enumerate(aligned_path[0]):
-            if x != 0:
-                start_idx = i
-                break
-        
-        # Find the index of last non-zero in aligned path
-        for i, x in enumerate(reversed(aligned_path[0])):
-            if x != 0:
-                end_idx = len(aligned_path[0]) - i
-                break
+        try:
+            # Find the index of first non-zero in aligned path
+            for i, x in enumerate(aligned_path[0]):
+                if x != 0:
+                    start_idx = i
+                    break
+            
+            # Find the index of last non-zero in aligned path
+            for i, x in enumerate(reversed(aligned_path[0])):
+                if x != 0:
+                    end_idx = len(aligned_path[0]) - i
+                    break
+            
+            ratio = speech.shape[0] / emissions.shape[1]
+            #print("ratio", ratio)
+            #print("start_idx", start_idx)
+            #print("end_idx", end_idx)   
+            start_frame = int(start_idx * ratio)
+            end_frame = int((end_idx+1) * ratio)
 
-  
-        ratio = speech.shape[0] / emissions.shape[1]
-        #print("ratio", ratio)
-        #print("start_idx", start_idx)
-        #print("end_idx", end_idx)   
-        start_frame = int(start_idx * ratio)
-        end_frame = int((end_idx+1) * ratio)
-
-        trimmed_audio = speech[start_frame:end_frame]
-        print("trimmed_audio_length", trimmed_audio.shape)
-        self.cache[cache_key] = trimmed_audio
-        return trimmed_audio
+            trimmed_audio = speech[start_frame:end_frame]
+            print("trimmed_audio_length", trimmed_audio.shape)
+            self.cache[cache_key] = trimmed_audio
+            return trimmed_audio
+        except UnboundLocalError:
+            print(f"Warning: Could not find start or end of speech in {audio_path}. Returning None.")
+            return None
 
 
     def score(
@@ -155,7 +160,18 @@ class ForcedAlignmentPESTOIEvaluator(ReferenceEvaluator):
         """
         Computes the P-ESTOI score after trimming silence.
         """
-        trimmed_audio = self._trim_audio(audio_path, transcription, language, start_time, end_time)
+        use_segments = start_time != 0.0 or end_time != -1.0
+
+        if use_segments:
+            duration = end_time - start_time if end_time != -1 else None
+            try:
+                trimmed_audio, _ = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration, dtype=np.float64)
+            except Exception as e:
+                print(f"Error reading audio file {audio_path}: {e}")
+                trimmed_audio = None
+        else:
+            trimmed_audio = self._trim_audio(audio_path, transcription, language, start_time, end_time)
+
 
         # Check if test_audio is full silence
         if trimmed_audio is None or np.all(trimmed_audio == 0):
@@ -165,7 +181,17 @@ class ForcedAlignmentPESTOIEvaluator(ReferenceEvaluator):
         reference_audios_data = []
         if reference_audios:
             for ref_path, ref_start, ref_end in reference_audios:
-                ref_audio = self._trim_audio(ref_path, transcription, language, ref_start, ref_end)
+                ref_use_segments = ref_start != 0.0 or ref_end != -1.0
+                if ref_use_segments:
+                    duration = ref_end - ref_start if ref_end != -1 else None
+                    try:
+                        ref_audio, _ = librosa.load(ref_path, sr=16000, offset=ref_start, duration=duration, dtype=np.float64)
+                    except Exception as e:
+                        print(f"Error reading audio file {ref_path}: {e}")
+                        ref_audio = None
+                else:
+                    ref_audio = self._trim_audio(ref_path, transcription, language, ref_start, ref_end)
+                
                 if ref_audio is not None:
                     reference_audios_data.append(ref_audio)
 

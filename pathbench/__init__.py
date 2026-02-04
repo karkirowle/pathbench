@@ -1,2 +1,3 @@
 from .cpp_evaluator import CPPEvaluator
 from .f0_range_evaluator import F0RangeEvaluator
+from .artp_double_asr_evaluator import ArtPDoubleASREvaluator
