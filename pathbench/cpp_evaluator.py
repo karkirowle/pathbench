@@ -7,6 +7,7 @@ import soundfile as sf
 import librosa
 
 from pathbench.evaluator import Evaluator
+from pathbench.vad import FATrimmer
 
 eps = np.finfo(float).eps
 
@@ -105,9 +106,10 @@ def cpp_func(x, fs, normOpt, dBScaleOpt):
 class CPPEvaluator(Evaluator):
     """An evaluator that computes the Cepstral Peak Prominence (CPP)."""
 
-    def __init__(self, normOpt: str = 'line', dBScaleOpt: bool = True):
+    def __init__(self, normOpt: str = 'line', dBScaleOpt: bool = True, trimmer: Optional[FATrimmer] = None):
         self.normOpt = normOpt
         self.dBScaleOpt = dBScaleOpt
+        self.trimmer = trimmer
 
     def score(
         self,
@@ -120,10 +122,35 @@ class CPPEvaluator(Evaluator):
         """
         Computes the CPP for the given audio file.
         """
-        try:
-            audio, fs = librosa.load(audio_path, sr=16000, mono=True)
-        except Exception as e:
-            print(f"Error reading audio file {audio_path}: {e}")
+        audio = None
+        fs = None
+
+        start_time = kwargs.get('start_time', 0.0)
+        end_time = kwargs.get('end_time', -1.0)
+        use_segment = start_time != 0.0 or end_time != -1.0
+
+        if use_segment:
+            try:
+                duration = end_time - start_time if end_time != -1.0 else None
+                audio, fs = librosa.load(audio_path, sr=16000, mono=True, offset=start_time, duration=duration)
+            except Exception as e:
+                print(f"Error reading audio file segment for {audio_path}: {e}")
+                return None
+        elif self.trimmer:
+            trimmed_data = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
+            if trimmed_data is None:
+                print(f"Warning: Trimming failed for {audio_path}. Skipping CPP calculation.")
+                return None
+            audio, fs = trimmed_data
+        else:
+            try:
+                audio, fs = librosa.load(audio_path, sr=16000, mono=True)
+            except Exception as e:
+                print(f"Error reading audio file {audio_path}: {e}")
+                return None
+        
+        if audio is None or len(audio) == 0:
+            print(f"Warning: Audio for {audio_path} is empty. Skipping CPP calculation.")
             return None
 
         cpp, _ = cpp_func(audio, fs, self.normOpt, self.dBScaleOpt)

@@ -10,6 +10,7 @@ from sklearn.cluster import KMeans
 from sklearn.mixture import GaussianMixture
 
 from pathbench.evaluator import SpeakerEvaluator
+from pathbench.vad import FATrimmer
 
 
 class VSAEvaluator(SpeakerEvaluator):
@@ -30,7 +31,7 @@ class VSAEvaluator(SpeakerEvaluator):
 
     """
 
-    def __init__(self, gender: Optional[str] = None, language: str = 'en', **kwargs):
+    def __init__(self, gender: Optional[str] = None, language: str = 'en', trimmer: Optional[FATrimmer] = None, **kwargs):
         """
         Initializes the VSA evaluator.
         Args:
@@ -39,6 +40,7 @@ class VSAEvaluator(SpeakerEvaluator):
         """
         self.gender = gender
         self.language = language
+        self.trimmer = trimmer
 
         # English (Hillenbrand 1995) - 12 vowels (Bence: I haven't checked this data myself)
         hillenbrand_female = np.array([
@@ -100,6 +102,8 @@ class VSAEvaluator(SpeakerEvaluator):
     def score(
         self,
         audio_files: List[Tuple[str, float, float]],
+        transcriptions: List[str],
+        language: str,
         **kwargs,
     ) -> Optional[float]:
         if not audio_files:
@@ -110,10 +114,20 @@ class VSAEvaluator(SpeakerEvaluator):
         gender = self.gender
         if gender is None:
             pitches = []
-            for audio_path, start_time, end_time in audio_files:
+            for (audio_path, start_time, end_time), transcription in zip(audio_files, transcriptions):
                 try:
-                    duration = end_time - start_time if end_time != -1 else None
-                    speech, sample_rate = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
+                    speech, sample_rate = None, 16000
+                    if self.trimmer:
+                        trimmed_data = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
+                        if trimmed_data:
+                            speech, sample_rate = trimmed_data
+                        else:
+                            duration = end_time - start_time if end_time != -1 else None
+                            speech, sample_rate = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
+                    else:
+                        duration = end_time - start_time if end_time != -1 else None
+                        speech, sample_rate = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
+                    
                     sound = parselmouth.Sound(speech, sampling_frequency=sample_rate)
                     
                     pitch = sound.to_pitch()
@@ -135,10 +149,20 @@ class VSAEvaluator(SpeakerEvaluator):
         max_formant = 5500 if gender == 'f' else 5000
         init_clusters = self.init_vowels_female if gender == 'f' else self.init_vowels_male
 
-        for audio_path, start_time, end_time in audio_files:
+        for (audio_path, start_time, end_time), transcription in zip(audio_files, transcriptions):
             try:
-                duration = end_time - start_time if end_time != -1 else None
-                speech, sample_rate = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
+                speech, sample_rate = None, 16000
+                if self.trimmer:
+                    trimmed_data = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
+                    if trimmed_data:
+                        speech, sample_rate = trimmed_data
+                    else:
+                        duration = end_time - start_time if end_time != -1 else None
+                        speech, sample_rate = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
+                else:
+                    duration = end_time - start_time if end_time != -1 else None
+                    speech, sample_rate = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
+                
                 sound = parselmouth.Sound(speech, sampling_frequency=sample_rate)
 
                 pitch = sound.to_pitch()

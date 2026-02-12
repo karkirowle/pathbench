@@ -7,6 +7,7 @@ from transformers import Wav2Vec2Model
 import librosa
 
 from pathbench.reference_evaluator import ReferenceEvaluator
+from pathbench.vad import FATrimmer
 
 
 def load_wav2vec2_featurizer(model_name, layer):
@@ -15,10 +16,8 @@ def load_wav2vec2_featurizer(model_name, layer):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model.to(device)
 
-    def _featurize(path, start_time=0.0, end_time=-1.0):
-        duration = end_time - start_time if end_time != -1 else None
-        input_values, _ = librosa.load(path, sr=16000, mono=True, offset=start_time, duration=duration)
-        input_values = torch.from_numpy(input_values).unsqueeze(0).to(device)
+    def _featurize(audio_data):
+        input_values = torch.from_numpy(audio_data).unsqueeze(0).to(device)
         with torch.no_grad():
             hidden_states = model(input_values, output_hidden_states=True).hidden_states
         return hidden_states[layer].squeeze(0).cpu().numpy()
@@ -32,9 +31,10 @@ class NADEvaluator(ReferenceEvaluator):
     on wav2vec2 features. Based on the script measure_distance_bence.py.
     """
 
-    def __init__(self, model_id="facebook/wav2vec2-base", layer=9, **kwargs):
+    def __init__(self, model_id="facebook/wav2vec2-base", layer=9, trimmer: Optional[FATrimmer] = None, **kwargs):
         super().__init__(**kwargs)
         self.featurizer = load_wav2vec2_featurizer(model_id, layer)
+        self.trimmer = trimmer
 
     def score(
         self,
@@ -51,7 +51,26 @@ class NADEvaluator(ReferenceEvaluator):
         Computes the average DTW distance between the test audio and reference audios.
         """
         try:
-            test_feats = self.featurizer(audio_path, start_time, end_time)
+            use_segment = start_time != 0.0 or end_time != -1.0
+            y, sr = None, 16000
+            if use_segment:
+                duration = end_time - start_time if end_time != -1.0 else None
+                y, sr = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
+            elif self.trimmer:
+                trimmed_data = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
+                if trimmed_data:
+                    y, sr = trimmed_data
+                    if y is not None:
+                        y = y.astype(np.float32)
+                else:
+                    y, sr = librosa.load(audio_path, sr=16000)
+            else:
+                y, sr = librosa.load(audio_path, sr=16000)
+            
+            if y is None:
+                return None
+
+            test_feats = self.featurizer(y)
         except Exception as e:
             print(f"Error featurizing test audio {audio_path}: {e}")
             return None
@@ -62,7 +81,28 @@ class NADEvaluator(ReferenceEvaluator):
         distances = []
         for ref_path, ref_start, ref_end in reference_audios:
             try:
-                ref_feats = self.featurizer(ref_path, ref_start, ref_end)
+                ref_use_segment = ref_start != 0.0 or ref_end != -1.0
+                ref_y, ref_sr = None, 16000
+                if ref_use_segment:
+                    duration = ref_end - ref_start if ref_end != -1.0 else None
+                    ref_y, ref_sr = librosa.load(ref_path, sr=16000, offset=ref_start, duration=duration)
+                elif self.trimmer:
+                    trimmed_data = self.trimmer.trim(ref_path, transcription, language, ref_start, ref_end)
+                    if trimmed_data:
+                        ref_y, ref_sr = trimmed_data
+                        if ref_y is not None:
+                            ref_y = ref_y.astype(np.float32)
+                    else:
+                        ref_y, ref_sr = librosa.load(ref_path, sr=16000)
+                else:
+                    ref_y, ref_sr = librosa.load(ref_path, sr=16000)
+
+                if ref_y is None:
+                    distances.append(np.nan)
+                    continue
+                
+                ref_feats = self.featurizer(ref_y)
+
             except Exception as e:
                 print(f"Error featurizing reference audio {ref_path}: {e}")
                 distances.append(np.nan)

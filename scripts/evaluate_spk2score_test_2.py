@@ -12,7 +12,7 @@ from pathbench.f0_range_evaluator import F0RangeEvaluator, StdPitchEvaluator
 from pathbench.reference_evaluator import ESTOIEvaluator
 from pathbench.nad_evaluator import NADEvaluator
 from pathbench.articulatory_precision_evaluator import ArticulatoryPrecisionEvaluator, ArticulatoryPrecisionEvaluatorOld
-from pathbench.speech_rate import WpmEvaluator
+from pathbench.speech_rate import WpmEvaluator, PraatSpeechRateEvaluator
 from pathbench.dataset import Dataset
 from pathbench.p_estoi_evaluator import ForcedAlignmentPESTOIEvaluator
 from pathbench.cpp_evaluator import CPPEvaluator
@@ -20,6 +20,7 @@ from pathbench.wada_snr import WadaSnrEvaluator
 from pathbench.age_evaluator import Spk2AgeEvaluator
 from pathbench.artp_double_asr_evaluator import ArtPDoubleASREvaluator
 from pathbench.vsa_evaluator import VSAEvaluator
+from pathbench.vad import FATrimmer
 
 def get_class_hash(instance):
     """Gets the SHA256 hash of the source code of an object's class."""
@@ -36,7 +37,7 @@ def main():
 
     dataset_name = args.dataset_dirs[0].replace('/', '_')
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    output_filename = f"results_5/{dataset_name}_{timestamp}.txt"
+    output_filename = f"results_7/{dataset_name}_{timestamp}.txt"
 
     with open(output_filename, "w") as output_file:
         output_file.write(f"Evaluation run on: {timestamp}\n\n")
@@ -64,7 +65,10 @@ def main():
             "p_estoi_control", "p_estoi_all",
             "p_estoi_fa_control", "p_estoi_fa_all",
             "nad_control", "nad_all",
-            "f0_range", "wada_snr", "spk2age", "vsa", "std_pitch"
+            "f0_range", "wada_snr", "spk2age", "vsa", "std_pitch",
+            "speech_rate_fa", "cpp_fa", "nad_fa_control", "nad_fa_all",
+            "f0_range_fa", "vsa_fa", "std_pitch_fa",
+            "praat_speech_rate", "praat_speech_rate_fa"
         ]
         for metric in metrics:
             row = f"| PCC (spk2score vs {metric}) |"
@@ -94,6 +98,8 @@ def evaluate_dataset(dataset_dir, output_file):
         )
         return None
 
+    trimmer = FATrimmer()
+
     utt_evaluators = {
         "spk2score": Spk2ScoreEvaluator(base_dataset.spk2score, base_dataset.utt2spk),
         "speech_rate": WpmEvaluator(),
@@ -113,6 +119,12 @@ def evaluate_dataset(dataset_dir, output_file):
         "nad": NADEvaluator(),
         "wada_snr": WadaSnrEvaluator(),
         "std_pitch": StdPitchEvaluator(),
+        "speech_rate_fa": WpmEvaluator(trimmer=trimmer),
+        "cpp_fa": CPPEvaluator(trimmer=trimmer),
+        "nad_fa": NADEvaluator(trimmer=trimmer),
+        "std_pitch_fa": StdPitchEvaluator(trimmer=trimmer),
+        "praat_speech_rate": PraatSpeechRateEvaluator(),
+        "praat_speech_rate_fa": PraatSpeechRateEvaluator(trimmer=trimmer),
     }
     if base_dataset.spk2age:
         utt_evaluators["spk2age"] = Spk2AgeEvaluator(base_dataset.spk2age, base_dataset.utt2spk)
@@ -120,6 +132,8 @@ def evaluate_dataset(dataset_dir, output_file):
     spk_evaluators = {
         "f0_range": F0RangeEvaluator(),
         "vsa": VSAEvaluator(),
+        "f0_range_fa": F0RangeEvaluator(trimmer=trimmer),
+        "vsa_fa": VSAEvaluator(trimmer=trimmer),
     }
 
     all_evaluators = {**utt_evaluators, **spk_evaluators}
@@ -221,15 +235,19 @@ def evaluate_dataset(dataset_dir, output_file):
     # --- 3.5 Run Speaker-level Evaluation ---
     output_file.write("\nRunning speaker-level evaluation...\n")
     spk_audio_files = defaultdict(list)
-    for utt_id, audio_path, _, _, start_time, end_time in base_dataset:
+    spk_transcriptions = defaultdict(list)
+    for utt_id, audio_path, transcription, _, start_time, end_time in base_dataset:
         speaker_id = base_dataset.utt2spk.get(utt_id)
         if speaker_id:
             spk_audio_files[speaker_id].append((audio_path, start_time, end_time))
+            spk_transcriptions[speaker_id].append(transcription)
 
     for spk_id in tqdm(spk_audio_files.keys(), desc="Evaluating speakers"):
         for name, evaluator in spk_evaluators.items():
             score = evaluator.score(
-                audio_files=spk_audio_files[spk_id]
+                audio_files=spk_audio_files[spk_id],
+                transcriptions=spk_transcriptions[spk_id],
+                language=base_dataset.language,
             )
             if score is not None:
                 spk_utt_scores[spk_id][name] = [score]
