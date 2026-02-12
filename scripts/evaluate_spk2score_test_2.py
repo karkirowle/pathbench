@@ -145,7 +145,7 @@ def evaluate_dataset(dataset_dir, output_file):
     # --- 3. Run Evaluation & Collect Utterance Scores ---
     spk_utt_scores = defaultdict(lambda: defaultdict(list))
     
-    ref_evaluator_names = ["p_estoi", "p_estoi_fa", "nad"]
+    ref_evaluator_names = ["p_estoi", "p_estoi_fa", "nad", "nad_fa"]
     non_ref_evaluators = {k: v for k, v in utt_evaluators.items() if k not in ref_evaluator_names}
 
     # Run non-reference based utterance evaluators
