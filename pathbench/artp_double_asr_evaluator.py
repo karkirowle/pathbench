@@ -58,6 +58,13 @@ class ArtPDoubleASREvaluator(Evaluator):
             lm_lang = 'en' # Default to 'en' if no specific LM
         
         lm_path = lm_paths.get(lm_lang)
+
+        if lm_path and lm_path.endswith('.arpa'):
+            bin_path = lm_path + '.bin'
+            if os.path.exists(bin_path):
+                print(f"Found binary LM file: {bin_path}, using it.")
+                lm_path = bin_path
+
         self.decoder = None
         if lm_path and os.path.exists(lm_path):
             vocab_dict = self.processor.tokenizer.get_vocab()

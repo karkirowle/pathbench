@@ -102,16 +102,8 @@ class StdPitchEvaluator(Evaluator):
                 print(f"Warning: Not enough voiced frames to calculate std of pitch for {audio_path}. Returning 0.")
                 return 0.0
 
-            mean_pitch = np.mean(pitch_values)
-            std_pitch = np.std(pitch_values)
-            
-            if mean_pitch == 0:
-                # This case should not be reached if pitch_values has positive values.
-                print(f"Warning: Mean pitch is 0 for {audio_path}. Returning 0.")
-                return 0.0
-
-            semitone = 39.86 * np.log10((mean_pitch + std_pitch) / mean_pitch)
-            return semitone
+            pitch_semitones = 39.86 * np.log10(pitch_values)
+            return np.std(pitch_semitones)
         except Exception as e:
             print(f"Error processing audio file {audio_path}: {e}")
             return None

@@ -1,7 +1,7 @@
 #!/bin/bash
 #PJM -L rscgrp=cx-share
 #PJM -L gpu=1
-#PJM -L elapse=24:00:00
+#PJM -L elapse=48:00:00
 #PJM -L jobenv=singularity
 
 # --- User Configuration ---

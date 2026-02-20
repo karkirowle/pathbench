@@ -12,21 +12,21 @@ ALL_DATASETS=(
     "datasets/copas/pathological/utterances/all"
     "datasets/easycall/pathological/word/balanced"
     "datasets/easycall/pathological/word/unbalanced"
-    "datasets/easycall/pathological/word/all"
+#    "datasets/easycall/pathological/word/all"  # MISSING
     "datasets/easycall/pathological/utterances/balanced"
     "datasets/easycall/pathological/utterances/unbalanced"
-   "datasets/easycall/pathological/utterances/all"
+#    "datasets/easycall/pathological/utterances/all"  # MISSING
     "datasets/neurovoz/pathological/utterances/balanced"
     "datasets/neurovoz/pathological/utterances/unbalanced"
-    "datasets/neurovoz/pathological/utterances/all"
+#    "datasets/neurovoz/pathological/utterances/all"  # MISSING
     "datasets/uaspeech/pathological/word/balanced"
     "datasets/uaspeech/pathological/word/unbalanced"
-    "datasets/uaspeech/pathological/word/all"
-     "datasets/torgo/pathological/utterances/balanced"
-     "datasets/torgo/pathological/utterances/unbalanced"
-     "datasets/torgo/pathological/word/balanced"
-     "datasets/torgo/pathological/word/unbalanced"
-     "datasets/youtube/"
+#    "datasets/uaspeech/pathological/word/all"  # MISSING
+    "datasets/torgo/pathological/utterances/balanced"
+    "datasets/torgo/pathological/utterances/unbalanced"
+    "datasets/torgo/pathological/word/balanced"
+    "datasets/torgo/pathological/word/unbalanced"
+    "datasets/youtube/"
 )
 
 # Path to the script to be modified

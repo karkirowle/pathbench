@@ -6,7 +6,7 @@ import re
 from scipy.stats import wilcoxon
 
 # --- CONFIGURATION ---
-FILE_PATTERN = "results_6/*.txt"
+FILE_PATTERN = "results_7/*.txt"
 OUTPUT_TEX_FILE = "complex_evaluation_summary.tex"
 
 # --- METRIC DEFINITIONS ---
@@ -42,14 +42,8 @@ METRIC_ROW_MAP = {
 
 # Added Praat metrics here so they are considered for "Best Reference-Free" (underlining)
 REF_FREE_KEYS = [
-    'speech_rate', 'speech_rate_fa',
-    'praat_speech_rate', 'praat_speech_rate_fa',
-    'cpp', 'cpp_fa',
-    'f0_range', 
-    'std_pitch', 'std_pitch_fa',
-    'wada_snr', 
-    'vsa', 'vsa_fa',
-    'double_asr', 'artp_double_asr', 'artp_old', 'age', 'spk2age'
+    'praat_speech_rate_fa', 'cpp_fa', 'std_pitch_fa', 'vsa', 'double_asr', 
+    'artp_double_asr', 'artp_old'
 ]
 
 # --- STATISTICAL GROUPS ---
@@ -63,7 +57,7 @@ GROUPS = {
     ], 
     'Reference-Free (Model)': ['double_asr', 'artp_double_asr', 'artp_old'], 
     'Reference-Text': ['per', 'dper', 'artp'],
-    'Reference-Audio': ['p_estoi_control', 'p_estoi_all', 'nad_control', 'nad_all']
+    'Reference-Audio': ['p_estoi_fa_all', 'nad_fa_all']
 }
 
 def parse_txt_file(filepath):
@@ -152,11 +146,14 @@ def align_signs(df):
         if m in ['per', 'dper', 'nad_control', 'nad_all', 'nad_fa_control', 'nad_fa_all']: 
             mask = df['MetricKey'] == m
             df.loc[mask, 'Value'] = df.loc[mask, 'Value'].abs()
-            
-        m_data = df[df['MetricKey'] == m]['Value'].dropna()
-        if len(m_data) > 0 and (m_data < 0).all():
-             mask = df['MetricKey'] == m
-             df.loc[mask, 'Value'] = df.loc[mask, 'Value'] * -1
+        elif m == 'double_asr':
+            mask = df['MetricKey'] == m
+            df.loc[mask, 'Value'] = df.loc[mask, 'Value'] * -1
+        else:
+            m_data = df[df['MetricKey'] == m]['Value'].dropna()
+            if len(m_data) > 0 and (m_data < 0).all():
+                 mask = df['MetricKey'] == m
+                 df.loc[mask, 'Value'] = df.loc[mask, 'Value'] * -1
     return df
 
 def run_bidirectional_wilcoxon(x, y, name, label_x="X", label_y="Y"):
@@ -190,8 +187,15 @@ def perform_rq2_test(df):
     print("   RQ2: PB vs PU (Balance Effect)")
     print("="*50)
     
+    displayed_metrics = [
+        'praat_speech_rate_fa', 'cpp_fa', 'std_pitch_fa', 'vsa', 
+        'double_asr', 'artp_double_asr', 'artp_old', 'per', 'dper', 'artp', 
+        'p_estoi_fa_all', 'nad_fa_all'
+    ]
+
     # Pivot
     df_stat = df[df['Condition'].isin(['PB', 'PU'])].copy()
+    df_stat = df_stat[df_stat['MetricKey'].isin(displayed_metrics)]
     pivot = df_stat.pivot_table(
         index=['MetricKey', 'Dataset', 'Type'],
         columns='Condition',
@@ -215,6 +219,12 @@ def perform_rq3_test(df):
     print("   RQ3: Word vs Utterance (Task Effect)")
     print("="*50)
     
+    displayed_metrics = [
+        'praat_speech_rate_fa', 'cpp_fa', 'std_pitch_fa', 'vsa', 
+        'double_asr', 'artp_double_asr', 'artp_old', 'per', 'dper', 'artp', 
+        'p_estoi_fa_all', 'nad_fa_all'
+    ]
+
     # --- 1. Identify Intersection Datasets ---
     datasets_word = set(df[df['Type'] == 'Word']['Dataset'].unique())
     datasets_utt = set(df[df['Type'] == 'Utterance']['Dataset'].unique())
@@ -224,6 +234,7 @@ def perform_rq3_test(df):
     
     # Filter DataFrame
     df_stat = df[df['Dataset'].isin(common_datasets)].copy()
+    df_stat = df_stat[df_stat['MetricKey'].isin(displayed_metrics)]
     
     # --- 2. Pivot ---
     pivot = df_stat.pivot_table(
@@ -284,22 +295,16 @@ def generate_latex(df):
     # --- UPDATED TABLE GROUPS TO INCLUDE PRAAT METRICS ---
     groups = [
         ("Reference-Free (Signal)", [
-            'speech_rate', 'speech_rate_fa', 
-            'praat_speech_rate', 'praat_speech_rate_fa',
-            'cpp', 'cpp_fa',
-            'f0_range', 
-            'std_pitch', 'std_pitch_fa', 
-            'wada_snr', 
-            'age'
-        ]), 
-        ("Reference-Free (Speaker)", ['vsa', 'vsa_fa']),
+            'praat_speech_rate_fa',
+            'cpp_fa',
+            'std_pitch_fa',
+        ]),
+        ("Reference-Free (Speaker)", ['vsa']),
         ("Reference-Free (Model)", ['double_asr', 'artp_double_asr', 'artp_old']),
         ("Reference-Text", ['per', 'dper', 'artp']),
         ("Reference-Audio (Parallel)", [
-            'p_estoi_control', 'p_estoi_all', 
-            'p_estoi_fa_control', 'p_estoi_fa_all', 
-            'nad_control', 'nad_all',
-            'nad_fa_control', 'nad_fa_all'
+            'p_estoi_fa_all',
+            'nad_fa_all'
         ])
     ]
     
@@ -308,15 +313,6 @@ def generate_latex(df):
         
         for m_key in metrics:
             display_name = METRIC_ROW_MAP.get(m_key, m_key)
-            
-            # --- Logic to handle indented Control/All rows ---
-            if m_key in ['p_estoi_control', 'nad_control', 'p_estoi_fa_control', 'nad_fa_control']:
-                # Clean name: "P-ESTOI Control" -> "P-ESTOI", "P-ESTOI FA Control" -> "P-ESTOI FA"
-                base_name = display_name.replace(" Control", "").replace(" FA", " FA")
-                latex_rows.append(f"        {base_name} &&&&&&&&&&&&&&&&&&& \\\\")
-                display_name = "\\hspace{3mm} \\textit{Control}"
-            elif m_key in ['p_estoi_all', 'nad_all', 'p_estoi_fa_all', 'nad_fa_all']:
-                display_name = "\\hspace{3mm} \\textit{All}"
             
             row_str = f"        {display_name}"
             for col_def in target_tuples:
@@ -333,7 +329,7 @@ def generate_latex(df):
                 row_str += f" & {cell_tex}"
             row_str += " \\\\"
             latex_rows.append(row_str)
-
+ 
     header = r"""\begin{table*}[t]
     \centering
     \caption{Speaker-level Pearson Correlation Coefficient (PCC). \textbf{PB}: Phonetically Balanced, \textbf{PU}: Phonetically Unbalanced, \textbf{ALL}: Combined (COPAS only). \textbf{Bold}: Best overall. \underline{Underline}: Best Reference-Free.}

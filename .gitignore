@@ -26,3 +26,4 @@ scripts/force_align_utterance.py
 scripts/plot_artp_vs_subjective.py
 *.sh
 *.png
+*.tex

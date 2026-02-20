@@ -12,13 +12,15 @@ from pathbench.evaluator import (
 )
 from pathbench.reference_evaluator import ESTOIEvaluator
 from pathbench.nad_evaluator import NADEvaluator
-from pathbench.articulatory_precision_evaluator import ArticulatoryPrecisionEvaluator
-from pathbench.speech_rate import WpmEvaluator
+from pathbench.articulatory_precision_evaluator import ArticulatoryPrecisionEvaluator, ArticulatoryPrecisionEvaluatorOld
+from pathbench.speech_rate import PraatSpeechRateEvaluator
 from pathbench.artp_double_asr_evaluator import ArtPDoubleASREvaluator
 from pathbench.p_estoi_evaluator import ForcedAlignmentPESTOIEvaluator
-from pathbench.cpp_evaluator import CPPEvaluator
+from pathbench.cpp_evaluator import CPPEvaluator, CPPDoubleLogEvaluator, PraatCPPEvaluator
 from pathbench.wada_snr import WadaSnrEvaluator
 from pathbench.dataset import Dataset
+from pathbench.f0_range_evaluator import StdPitchEvaluator
+from pathbench.vad import FATrimmer
 
 
 def main():
@@ -102,18 +104,25 @@ def evaluate_dataset(dataset_dir, reference_type="control"):
         )
         return None
 
+    fa_trimmer = FATrimmer()
     evaluators = {
         "utt2score": Utt2ScoreEvaluator(dataset.utt2score),
         "per": PEREvaluator(language=dataset.language),
         "wer": ASREvaluator("facebook/wav2vec2-base-960h"),
-        "speech_rate": WpmEvaluator(),
         "cpp": CPPEvaluator(),
-        # Dper and double asr are not swappe
+        "cpp_double_log": CPPDoubleLogEvaluator(),
+        "cpp_praat": PraatCPPEvaluator(),
+        # Dper and double asr are not swapped
         "dper": DirectPEREvaluator(),
         "double_asr": DoubleASREvaluator(language=dataset.language),
         "artp": ArticulatoryPrecisionEvaluator(),
+        "artp_old": ArticulatoryPrecisionEvaluatorOld(),
         "artp_dasr": ArtPDoubleASREvaluator(language=dataset.language),
         "wada_snr": WadaSnrEvaluator(),
+        "std_pitch": StdPitchEvaluator(),
+        "std_pitch_fa": StdPitchEvaluator(trimmer=fa_trimmer),
+        "praat_speech_rate": PraatSpeechRateEvaluator(),
+        "praat_speech_rate_fa": PraatSpeechRateEvaluator(trimmer=fa_trimmer),
     }
 
     if use_reference:
@@ -122,6 +131,7 @@ def evaluate_dataset(dataset_dir, reference_type="control"):
         )
         evaluators["p_estoi_fa"] = ForcedAlignmentPESTOIEvaluator()
         evaluators["nad"] = NADEvaluator()
+        evaluators["nad_fa"] = NADEvaluator(trimmer=fa_trimmer)
         # all settings for p-estoi
     # --- 3. Run Evaluation ---
     print("\nRunning evaluation...")

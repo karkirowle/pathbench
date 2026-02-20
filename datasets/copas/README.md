@@ -2,6 +2,8 @@
 
 We processed the dataset to create standardized subsets for analysis, focusing primarily on two evaluation formats: **Word** and **Sentence** tasks. To systematically evaluate performance, the data was further partitioned into **balanced**, **unbalanced**, and **all-inclusive** configurations.
 
+**Note on balanced vs unbalanced:** The difference between these partitions lies primarily in the number of control speakers included. From a linguistic perspective, speakers with incomplete data (e.g., missing one of the two sentences) are excluded from analysis.
+
 #### Word Task
 
 The Word Task is derived from the *DIA* (Dutch Intelligibility Assessment) subset. Annotations were extracted from the provided TextGrids, which contain both intended and perceived transcriptions. To align with our experimental requirements, we utilized the intended transcriptions. All text was normalized to lowercase and stripped of punctuation to ensure consistency across the control and pathological groups.

@@ -218,7 +218,7 @@ class VSAEvaluator(SpeakerEvaluator):
         # D. Convex hull/area calculation
         try:
             hull = ConvexHull(Kp)
-            vsa = hull.area
+            vsa = hull.volume
         except Exception as e:
             print(f"Error calculating convex hull: {e}")
             return 0.0

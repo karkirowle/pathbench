@@ -7,12 +7,12 @@ import datetime
 import inspect
 import hashlib
 
-from pathbench.evaluator import Spk2ScoreEvaluator, PEREvaluator, ASREvaluator, DirectPEREvaluator, SpeakerEvaluator, DoubleASREvaluator
-from pathbench.f0_range_evaluator import F0RangeEvaluator, StdPitchEvaluator
+from pathbench.evaluator import Spk2ScoreEvaluator, PEREvaluator, DirectPEREvaluator, SpeakerEvaluator, DoubleASREvaluator
+from pathbench.f0_range_evaluator import StdPitchEvaluator
 from pathbench.reference_evaluator import ESTOIEvaluator
 from pathbench.nad_evaluator import NADEvaluator
 from pathbench.articulatory_precision_evaluator import ArticulatoryPrecisionEvaluator, ArticulatoryPrecisionEvaluatorOld
-from pathbench.speech_rate import WpmEvaluator, PraatSpeechRateEvaluator
+from pathbench.speech_rate import PraatSpeechRateEvaluator
 from pathbench.dataset import Dataset
 from pathbench.p_estoi_evaluator import ForcedAlignmentPESTOIEvaluator
 from pathbench.cpp_evaluator import CPPEvaluator
@@ -37,7 +37,7 @@ def main():
 
     dataset_name = args.dataset_dirs[0].replace('/', '_')
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    output_filename = f"results_7/{dataset_name}_{timestamp}.txt"
+    output_filename = f"results_9/{dataset_name}_{timestamp}.txt"
 
     with open(output_filename, "w") as output_file:
         output_file.write(f"Evaluation run on: {timestamp}\n\n")
@@ -61,13 +61,13 @@ def main():
         output_file.write("|" + "---|" * (len(datasets) + 1) + "\n")
 
         metrics = [
-            "speech_rate", "cpp", "per", "dper", "artp", "artp_old", "artp_double_asr", "double_asr",
+            "cpp", "per", "dper", "artp", "artp_old", "artp_double_asr", "double_asr",
             "p_estoi_control", "p_estoi_all",
             "p_estoi_fa_control", "p_estoi_fa_all",
             "nad_control", "nad_all",
-            "f0_range", "wada_snr", "spk2age", "vsa", "std_pitch",
-            "speech_rate_fa", "cpp_fa", "nad_fa_control", "nad_fa_all",
-            "f0_range_fa", "vsa_fa", "std_pitch_fa",
+            "wada_snr", "spk2age", "vsa", "std_pitch",
+            "cpp_fa", "nad_fa_control", "nad_fa_all",
+            "vsa_fa", "std_pitch_fa",
             "praat_speech_rate", "praat_speech_rate_fa"
         ]
         for metric in metrics:
@@ -102,10 +102,9 @@ def evaluate_dataset(dataset_dir, output_file):
 
     utt_evaluators = {
         "spk2score": Spk2ScoreEvaluator(base_dataset.spk2score, base_dataset.utt2spk),
-        "speech_rate": WpmEvaluator(),
         "cpp": CPPEvaluator(),
         "per": PEREvaluator(language=base_dataset.language),
-        "dper" : DirectPEREvaluator(),
+        "dper": DirectPEREvaluator(),
         "artp": ArticulatoryPrecisionEvaluator(),
         "artp_old": ArticulatoryPrecisionEvaluatorOld(),
         "artp_double_asr": ArtPDoubleASREvaluator(language=base_dataset.language),
@@ -119,7 +118,6 @@ def evaluate_dataset(dataset_dir, output_file):
         "nad": NADEvaluator(),
         "wada_snr": WadaSnrEvaluator(),
         "std_pitch": StdPitchEvaluator(),
-        "speech_rate_fa": WpmEvaluator(trimmer=trimmer),
         "cpp_fa": CPPEvaluator(trimmer=trimmer),
         "nad_fa": NADEvaluator(trimmer=trimmer),
         "std_pitch_fa": StdPitchEvaluator(trimmer=trimmer),
@@ -130,9 +128,7 @@ def evaluate_dataset(dataset_dir, output_file):
         utt_evaluators["spk2age"] = Spk2AgeEvaluator(base_dataset.spk2age, base_dataset.utt2spk)
 
     spk_evaluators = {
-        "f0_range": F0RangeEvaluator(),
         "vsa": VSAEvaluator(),
-        "f0_range_fa": F0RangeEvaluator(trimmer=trimmer),
         "vsa_fa": VSAEvaluator(trimmer=trimmer),
     }
 
