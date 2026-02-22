@@ -1,7 +1,7 @@
 from typing import Optional
 import numpy as np
 import librosa
-from pathbench.evaluator import Evaluator
+from pathbench.evaluator import ReferenceFreeEvaluator
 
 
 def wada_snr(wav: np.float32) -> np.float32:
@@ -77,25 +77,34 @@ def wada_snr(wav: np.float32) -> np.float32:
     return snr
 
 
-class WadaSnrEvaluator(Evaluator):
+class WadaSnrEvaluator(ReferenceFreeEvaluator):
     """An evaluator that scores based on the WADA SNR of the audio."""
 
     def score(
         self,
         utterance_id: str,
         audio_path: str,
-        transcription: str,
-        language: str,
-        **kwargs,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
     ) -> Optional[float]:
         """
         Returns the WADA SNR of the audio file.
         """
         try:
-            audio, sr = librosa.load(audio_path, sr=None, mono=True)
-            if sr != 16000:
-                audio = librosa.resample(y=audio, orig_sr=sr, target_sr=16000)
-            return wada_snr(audio.astype(np.float32))
+            duration = end_time - start_time if end_time != -1.0 else None
+            audio, sr = librosa.load(
+                audio_path, sr=None, mono=True, offset=start_time, duration=duration
+            )
         except Exception as e:
             print(f"Error processing file {audio_path}: {e}")
+            return None
+        return self._score_audio(audio, sr)
+
+    def _score_audio(self, audio: np.ndarray, fs: int) -> Optional[float]:
+        try:
+            if fs != 16000:
+                audio = librosa.resample(y=audio, orig_sr=fs, target_sr=16000)
+            return wada_snr(audio.astype(np.float32))
+        except Exception as e:
+            print(f"Error computing WADA SNR: {e}")
             return None

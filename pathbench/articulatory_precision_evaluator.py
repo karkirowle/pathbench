@@ -8,12 +8,14 @@ from phonemizer.phonemize import phonemize
 from phonemizer.separator import Separator
 import re
 
-from pathbench.evaluator import Evaluator
+import numpy as np
+from pathbench.evaluator import Evaluator, ReferenceFreeEvaluator, ReferenceTxtEvaluator
 from pathbench.string_clean import clean_text
 
 
-class ArticulatoryPrecisionEvaluatorOld(Evaluator):
-    """An evaluator that uses a wav2vec 2.0 model to compute articulatory precision."""
+class PhoneticConfidenceEvaluator(ReferenceFreeEvaluator):
+    """An evaluator that scores based on the model's average confidence in its own
+    greedy-decoded phoneme sequence (no reference text used)."""
 
     def __init__(self, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft"):
         self.processor = Wav2Vec2Processor.from_pretrained(model_id)
@@ -26,15 +28,17 @@ class ArticulatoryPrecisionEvaluatorOld(Evaluator):
         self,
         utterance_id: str,
         audio_path: str,
-        transcription: str,
-        language: str,
-        **kwargs,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
     ) -> Optional[float]:
         """
-        Computes the articulatory precision score.
+        Computes the phonetic confidence score.
         """
         try:
-            speech, sample_rate = librosa.load(audio_path, sr=16000)
+            duration = end_time - start_time if end_time != -1.0 else None
+            speech, sample_rate = librosa.load(
+                audio_path, sr=16000, offset=start_time, duration=duration
+            )
         except Exception as e:
             print(f"Error reading audio file {audio_path}: {e}")
             return None
@@ -43,31 +47,18 @@ class ArticulatoryPrecisionEvaluatorOld(Evaluator):
             print(f"Warning: Skipping audio file {audio_path} because it is too short ({len(speech)} samples).")
             return None
 
+        return self._score_audio(speech, sample_rate)
+
+    def _score_audio(self, audio: np.ndarray, fs: int) -> Optional[float]:
         # Process audio
         input_values = self.processor(
-            speech, sampling_rate=sample_rate, return_tensors="pt"
+            audio, sampling_rate=fs, return_tensors="pt"
         ).input_values
         input_values = input_values.to(self.device)
 
         # Get model outputs
         with torch.no_grad():
             logits = self.model(input_values).logits
-
-        # 1. Phonemize the ground truth transcription.
-        separator = Separator(phone=" ", word="|")
-        phonemized_reference = phonemize(
-            clean_text(transcription),
-            language=language,
-            backend="espeak",
-            strip=True,
-            preserve_punctuation=False,
-            separator=separator
-        )
-        phonemized_reference = re.sub(r"\s+", " ", phonemized_reference.replace("|", " ")).strip()
-        print(f"Phonemized reference for {utterance_id}: {phonemized_reference}")
-        if not phonemized_reference:
-            print(f"Warning: Could not phonemize reference transcription for {utterance_id}.")
-            return None
 
         # 2. Get the mapping from phonemes to model vocab indices.
         vocab = self.processor.tokenizer.get_vocab()
@@ -76,48 +67,12 @@ class ArticulatoryPrecisionEvaluatorOld(Evaluator):
 
         #print("vocab", vocab)
         #print("vocab_reverse", vocab_reverse)
-        
-        # The model seems to have different symbols than the phonemizer.
-        # For example, phonemizer might produce 'ə' but the model has 'ə'.
-        # Let's assume for now they are compatible.
-        target_phonemes = phonemized_reference.split()
-        print(target_phonemes)
-        
-        # ʲ phonemes are not in so remove
-        target_phonemes = [p.replace("ʲ", "") for p in target_phonemes]
-        target_phonemes = [p.replace("dz", "z") for p in target_phonemes]
-        
-        for p in target_phonemes:
-            if p not in vocab:
-                # Remove
-                print(f"Warning: Phoneme {p} not in model vocabulary for {audio_path}.")
-                target_phonemes.remove(p)
-        try:
-            target_ids = [vocab[p] for p in target_phonemes]
-        except KeyError as e:
-            print(f"Phoneme {e} not in model vocabulary.")
-            return None
 
-        # 3. Forced alignment
-        # Based on https://pytorch.org/audio/main/tutorials/forced_alignment_tutorial.html
-        
         emissions = torch.log_softmax(logits, dim=-1)
         emissions = torch.exp(emissions)
-        
+
         # torchaudio.functional.forced_align requires CPU tensors
         emissions = emissions.cpu()
-        targets = torch.tensor(target_ids, dtype=torch.int32).unsqueeze(0)
-
-        print(emissions.shape)
-        print(targets.shape)
-        print(targets)
-        try:
-            aligned_path, scores = torchaudio.functional.forced_align(
-                emissions, targets, blank=vocab.get(self.processor.tokenizer.pad_token, 0)
-            )
-        except Exception as e:
-            print(f"Forced alignment failed for {utterance_id}: {e}")
-            return None
 
         # 4. Calculate Articulatory Precision
         # The following section first shows the segmentation of the raw model output
@@ -128,7 +83,7 @@ class ArticulatoryPrecisionEvaluatorOld(Evaluator):
         # Get the raw segmentation from argmax, which includes <pad> tokens
         print("\n--- Raw Model Output Segmentation (including <pad>) ---")
         best_path = torch.argmax(emissions, dim=-1)[0]
-        
+
         change_points_raw = (best_path.diff() != 0).nonzero(as_tuple=True)[0]
         segments_raw = torch.cat([
             torch.tensor([0], device=best_path.device),
@@ -139,7 +94,7 @@ class ArticulatoryPrecisionEvaluatorOld(Evaluator):
         probabilities = emissions[0]
 
         total_prob = 0
-        num_phonemes = 0 
+        num_phonemes = 0
         for i, (start, end) in enumerate(zip(segments_raw[:-1], segments_raw[1:])):
             token_id = best_path[start].item()
             avg_prob = probabilities[start:end, token_id].mean().item()
@@ -156,7 +111,7 @@ class ArticulatoryPrecisionEvaluatorOld(Evaluator):
             artp_score = total_prob / num_phonemes
         else:
             artp_score = 0.0 # Or handle as an error
-        
+
         #print(f"\n--- Final Score ---")
         #print(f"Utterance ID: {utterance_id}")
         #print(f"Transcription: {transcription}")
@@ -166,7 +121,7 @@ class ArticulatoryPrecisionEvaluatorOld(Evaluator):
 
         return artp_score
     
-class ArticulatoryPrecisionEvaluator(Evaluator):
+class ArticulatoryPrecisionEvaluator(ReferenceTxtEvaluator):
     """An evaluator that uses a wav2vec 2.0 model to compute articulatory precision."""
 
     def __init__(self, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft"):
@@ -182,13 +137,17 @@ class ArticulatoryPrecisionEvaluator(Evaluator):
         audio_path: str,
         transcription: str,
         language: str,
-        **kwargs,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
     ) -> Optional[float]:
         """
         Computes the articulatory precision score.
         """
         try:
-            speech, sample_rate = librosa.load(audio_path, sr=16000)
+            duration = end_time - start_time if end_time != -1.0 else None
+            speech, sample_rate = librosa.load(
+                audio_path, sr=16000, offset=start_time, duration=duration
+            )
         except Exception as e:
             print(f"Error reading audio file {audio_path}: {e}")
             return None

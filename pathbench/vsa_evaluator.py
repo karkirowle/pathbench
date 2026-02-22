@@ -2,23 +2,21 @@ from typing import List, Optional, Tuple
 import os
 import matplotlib.pyplot as plt
 
-import librosa
 import numpy as np
 import parselmouth
 from scipy.spatial import ConvexHull
 from sklearn.cluster import KMeans
 from sklearn.mixture import GaussianMixture
 
-from pathbench.evaluator import SpeakerEvaluator
-from pathbench.vad import FATrimmer
+from pathbench.evaluator import LanguageAwareSpeakerEvaluator
 
 
-class VSAEvaluator(SpeakerEvaluator):
+class VSAEvaluator(LanguageAwareSpeakerEvaluator):
     """
     An evaluator that computes the Vowel Space Area (VSA) for a speaker.
 
     The algorithm is based on:
-    - 
+    -
 
     The vowel formant data for initialization is from:
     - English: Hillenbrand, J., Getty, L. A., Clark, M. J., & Wheeler, K. (1995).
@@ -26,21 +24,19 @@ class VSAEvaluator(SpeakerEvaluator):
     - Dutch: Adank et al. We use souther Dutch formant values due to Belgian context.
 
     - Italian: Bertinetto, P. M. (?) "The sound pattern of Standard Italian, as compared
-    with the varieties spoken in Florence, Milan and Rome." 
+    with the varieties spoken in Florence, Milan and Rome."
     - Spanish: Bradlow: A comparative acoustic study of English and Spanish vowels
 
     """
 
-    def __init__(self, gender: Optional[str] = None, language: str = 'en', trimmer: Optional[FATrimmer] = None, **kwargs):
+    def __init__(self, gender: Optional[str] = None):
         """
         Initializes the VSA evaluator.
         Args:
-            gender: The gender of the speaker ('m' or 'f'). If not provided, it will be estimated from the pitch.
-            language: The language of the vowels to be used for initialization ('en', 'it', 'es', 'nl').
+            gender: The gender of the speaker ('m' or 'f'). If not provided, it will be
+                    estimated from the pitch at score time.
         """
         self.gender = gender
-        self.language = language
-        self.trimmer = trimmer
 
         # English (Hillenbrand 1995) - 12 vowels (Bence: I haven't checked this data myself)
         hillenbrand_female = np.array([
@@ -80,64 +76,40 @@ class VSAEvaluator(SpeakerEvaluator):
             [353, 1492], [265, 1825], [549, 1127], [545, 1779], [583, 1484]
         ])
 
-        if self.language == 'en':
-            self.n_clusters = 12
-            self.init_vowels_female = hillenbrand_female
-            self.init_vowels_male = hillenbrand_male
-        elif self.language == 'it':
-            self.n_clusters = 7
-            self.init_vowels_female = italian_female
-            self.init_vowels_male = italian_male
-        elif self.language == 'es':
-            self.n_clusters = 5
-            self.init_vowels_female = spanish_female
-            self.init_vowels_male = spanish_male
-        elif self.language == 'nl':
-            self.n_clusters = 15
-            self.init_vowels_female = dutch_female
-            self.init_vowels_male = dutch_male
-        else:
-            raise ValueError(f"Language '{self.language}' not supported. Supported languages are 'en', 'it', 'es', 'nl'.")
+        self._vowel_tables = {
+            'en': {'n_clusters': 12, 'female': hillenbrand_female, 'male': hillenbrand_male},
+            'it': {'n_clusters': 7,  'female': italian_female,     'male': italian_male},
+            'es': {'n_clusters': 5,  'female': spanish_female,     'male': spanish_male},
+            'nl': {'n_clusters': 15, 'female': dutch_female,       'male': dutch_male},
+        }
 
-    def score(
+    def _score_audio_list(
         self,
-        audio_files: List[Tuple[str, float, float]],
-        transcriptions: List[str],
+        audios: List[Tuple[np.ndarray, int]],
         language: str,
-        **kwargs,
+        speaker_id: str = "unknown_speaker",
     ) -> Optional[float]:
-        if not audio_files:
-            print("Warning: No audio files provided. Cannot calculate VSA.")
-            return 0.0
+        # Dataset.language uses phonemiser locale codes (e.g. 'en-us'); strip to base code.
+        language = language.split('-')[0]
+        tables = self._vowel_tables[language]
+        n_clusters = tables['n_clusters']
+
         all_formants = []
 
         gender = self.gender
         if gender is None:
             pitches = []
-            for (audio_path, start_time, end_time), transcription in zip(audio_files, transcriptions):
+            for speech, sample_rate in audios:
                 try:
-                    speech, sample_rate = None, 16000
-                    if self.trimmer:
-                        trimmed_data = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
-                        if trimmed_data:
-                            speech, sample_rate = trimmed_data
-                        else:
-                            duration = end_time - start_time if end_time != -1 else None
-                            speech, sample_rate = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
-                    else:
-                        duration = end_time - start_time if end_time != -1 else None
-                        speech, sample_rate = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
-                    
                     sound = parselmouth.Sound(speech, sampling_frequency=sample_rate)
-                    
                     pitch = sound.to_pitch()
                     pitch_values = pitch.selected_array['frequency']
                     voiced_pitches = pitch_values[pitch_values > 0]
                     if len(voiced_pitches) > 0:
                         pitches.append(np.mean(voiced_pitches))
                 except Exception as e:
-                    print(f"Could not process {audio_path} for pitch estimation: {e}")
-            
+                    print(f"Could not process audio for pitch estimation: {e}")
+
             if pitches:
                 avg_pitch = np.mean(pitches)
                 gender = 'f' if avg_pitch > 165 else 'm'
@@ -147,27 +119,19 @@ class VSAEvaluator(SpeakerEvaluator):
                 print("Could not determine pitch, defaulting to female.")
 
         max_formant = 5500 if gender == 'f' else 5000
-        init_clusters = self.init_vowels_female if gender == 'f' else self.init_vowels_male
+        init_clusters = tables['female'] if gender == 'f' else tables['male']
 
-        for (audio_path, start_time, end_time), transcription in zip(audio_files, transcriptions):
+        for speech, sample_rate in audios:
             try:
-                speech, sample_rate = None, 16000
-                if self.trimmer:
-                    trimmed_data = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
-                    if trimmed_data:
-                        speech, sample_rate = trimmed_data
-                    else:
-                        duration = end_time - start_time if end_time != -1 else None
-                        speech, sample_rate = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
-                else:
-                    duration = end_time - start_time if end_time != -1 else None
-                    speech, sample_rate = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
-                
                 sound = parselmouth.Sound(speech, sampling_frequency=sample_rate)
 
                 pitch = sound.to_pitch()
-                formants = sound.to_formant_burg(time_step=0.01, max_number_of_formants=5, maximum_formant=max_formant, window_length=0.05, pre_emphasis_from=50)
-                
+                formants = sound.to_formant_burg(
+                    time_step=0.01, max_number_of_formants=5,
+                    maximum_formant=max_formant, window_length=0.05,
+                    pre_emphasis_from=50
+                )
+
                 num_frames = pitch.get_number_of_frames()
                 for i in range(num_frames):
                     frame_time = pitch.get_time_from_frame_number(i + 1)
@@ -177,16 +141,16 @@ class VSAEvaluator(SpeakerEvaluator):
                         if not np.isnan(f1) and not np.isnan(f2):
                             all_formants.append([f1, f2])
             except Exception as e:
-                print(f"Error processing {audio_path}: {e}")
+                print(f"Error processing audio: {e}")
                 continue
-        
+
         if not all_formants:
             print("Warning: No formants extracted. Cannot calculate VSA.")
             return 0.0
 
         Fp = np.array(all_formants)
 
-        if Fp.shape[0] < 4: # n_components for GMM
+        if Fp.shape[0] < 4:  # n_components for GMM
             print("Warning: Not enough formant points to build GMM. Cannot calculate VSA.")
             return 0.0
 
@@ -197,19 +161,24 @@ class VSAEvaluator(SpeakerEvaluator):
             mean_ll = np.mean(log_likelihood)
             std_ll = np.std(log_likelihood)
             threshold = mean_ll - 2 * std_ll
-            
+
             Fp_filtered = Fp[log_likelihood >= threshold]
         except Exception as e:
             print(f"Error during GMM filtering: {e}")
             return 0.0
 
-        if len(Fp_filtered) < self.n_clusters:
-            print(f"Warning: Not enough data points ({len(Fp_filtered)}) after filtering for clustering. Cannot calculate VSA.")
+        if len(Fp_filtered) < n_clusters:
+            print(
+                f"Warning: Not enough data points ({len(Fp_filtered)}) after filtering "
+                f"for clustering. Cannot calculate VSA."
+            )
             return 0.0
 
         # C. Clustering
         try:
-            kmeans = KMeans(n_clusters=self.n_clusters, init=init_clusters, n_init=1, random_state=0).fit(Fp_filtered)
+            kmeans = KMeans(
+                n_clusters=n_clusters, init=init_clusters, n_init=1, random_state=0
+            ).fit(Fp_filtered)
             Kp = kmeans.cluster_centers_
         except Exception as e:
             print(f"Error during KMeans clustering: {e}")
@@ -218,28 +187,22 @@ class VSAEvaluator(SpeakerEvaluator):
         # D. Convex hull/area calculation
         try:
             hull = ConvexHull(Kp)
+            # Known naming trap in scipy: in 2D, .volume is the enclosed area and
+            # .area is the perimeter. hull.volume is intentionally correct here.
             vsa = hull.volume
         except Exception as e:
             print(f"Error calculating convex hull: {e}")
             return 0.0
-        
-        # Visualization
-        if "speaker_id" in kwargs:
-            speaker_id = kwargs["speaker_id"]
-        else:
-            try:
-                speaker_id = os.path.basename(os.path.dirname(audio_files[0][0]))
-            except (IndexError, AttributeError):
-                speaker_id = "unknown_speaker"
 
+        # Visualization
         fig_dir = "figure"
         os.makedirs(fig_dir, exist_ok=True)
 
         plt.figure(figsize=(8, 8))
-        
+
         # Plot filtered formants
         plt.scatter(Fp_filtered[:, 1], Fp_filtered[:, 0], alpha=0.2, label="Formants")
-        
+
         # Plot cluster centers
         plt.scatter(Kp[:, 1], Kp[:, 0], marker='x', s=100, c='r', label="Cluster Centers")
 
@@ -256,7 +219,7 @@ class VSAEvaluator(SpeakerEvaluator):
         plt.xlim(3000, 700)
         plt.ylim(1200, 200)
         plt.grid(True)
-        
+
         fig_path = os.path.join(fig_dir, f"{speaker_id}_vsa.png")
         plt.savefig(fig_path)
         plt.close()

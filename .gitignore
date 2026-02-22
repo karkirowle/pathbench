@@ -27,3 +27,4 @@ scripts/plot_artp_vs_subjective.py
 *.sh
 *.png
 *.tex
+tests/__pycache__/

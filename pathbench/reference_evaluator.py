@@ -15,7 +15,7 @@ from pathbench.utils import normalise_signal, moving_average_filtering
 from typing import List, Optional
 
 import librosa
-from pathbench.evaluator import Evaluator
+from pathbench.evaluator import ReferenceAudioEvaluator
 
 eps = np.finfo(float).eps
 
@@ -353,39 +353,26 @@ class STOI():
                 #print('error in:', self.test_words[subject_id])
                 #pass
 
-class ReferenceEvaluator(Evaluator):
-    """Abstract base class for reference-based evaluators."""
+class ReferenceEvaluator:
+    """Deprecated. Kept for backward compatibility. Use ReferenceAudioEvaluator instead."""
 
     def __init__(self, **kwargs):
         self.stoi_kwargs = kwargs
 
-    @abstractmethod
-    def score(
-        self,
-        utterance_id: str,
-        audio_path: str,
-        transcription: str,
-        language: str,
-        reference_audios: List[tuple[str, float, float]],
-        start_time: float,
-        end_time: float,
-        **kwargs,
-    ) -> Optional[float]:
-        pass
 
-class PSTOIEvaluator(ReferenceEvaluator):
+class PSTOIEvaluator(ReferenceAudioEvaluator):
     """An evaluator that uses PSTOI to compute a score."""
 
+    def __init__(self, **kwargs):
+        self.stoi_kwargs = kwargs
+
     def score(
         self,
         utterance_id: str,
         audio_path: str,
-        transcription: str,
-        language: str,
         reference_audios: List[tuple[str, float, float]],
-        start_time: float,
-        end_time: float,
-        **kwargs,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
     ) -> Optional[float]:
         """
         Computes the PSTOI score.
@@ -406,19 +393,19 @@ class PSTOIEvaluator(ReferenceEvaluator):
         )
         return stoi_object.stoi_val[0]
 
-class ESTOIEvaluator(ReferenceEvaluator):
+class ESTOIEvaluator(ReferenceAudioEvaluator):
     """An evaluator that uses P-ESTOI to compute a score."""
+
+    def __init__(self, **kwargs):
+        self.stoi_kwargs = kwargs
 
     def score(
         self,
         utterance_id: str,
         audio_path: str,
-        transcription: str,
-        language: str,
         reference_audios: List[tuple[str, float, float]],
-        start_time: float,
-        end_time: float,
-        **kwargs,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
     ) -> Optional[float]:
         """
         Computes the P-ESTOI score.

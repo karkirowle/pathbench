@@ -1,4 +1,4 @@
-from typing import Optional, Dict, List
+from typing import Optional
 
 import librosa
 import torch
@@ -8,15 +8,15 @@ from phonemizer.phonemize import phonemize
 from phonemizer.separator import Separator
 import re
 import os
-import jiwer
 from pyctcdecode import build_ctcdecoder
 
 
-from pathbench.evaluator import Evaluator
+import numpy as np
+from pathbench.evaluator import ReferenceFreeEvaluator
 from pathbench.string_clean import clean_text
 
 
-class ArtPDoubleASREvaluator(Evaluator):
+class ArtPDoubleASREvaluator(ReferenceFreeEvaluator):
     """An evaluator that uses a wav2vec 2.0 model to compute articulatory precision."""
 
     def __init__(self, language: str, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft"):
@@ -84,23 +84,21 @@ class ArtPDoubleASREvaluator(Evaluator):
         self,
         utterance_id: str,
         audio_path: str,
-        transcription: str,
-        language: str,
-        **kwargs,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
     ) -> Optional[float]:
         """
         Computes the articulatory precision score.
         """
-        if language != self.language:
-            print(f"Warning: ArtPDoubleASREvaluator was initialized for language '{self.language}' but received a request for '{language}'. Skipping.")
+        if not self.decoder:
+            print(f"Error: No decoder available for language '{self.language}'.")
             return None
 
-        if not self.decoder:
-            print(f"Error: No decoder available for language '{language}'.")
-            return None
-            
         try:
-            speech, sample_rate = librosa.load(audio_path, sr=16000)
+            duration = end_time - start_time if end_time != -1.0 else None
+            speech, sample_rate = librosa.load(
+                audio_path, sr=16000, offset=start_time, duration=duration
+            )
         except Exception as e:
             print(f"Error reading audio file {audio_path}: {e}")
             return None
@@ -109,22 +107,25 @@ class ArtPDoubleASREvaluator(Evaluator):
             print(f"Warning: Skipping audio file {audio_path} because it is too short ({len(speech)} samples).")
             return None
 
+        return self._score_audio(speech, sample_rate)
+
+    def _score_audio(self, audio: np.ndarray, fs: int) -> Optional[float]:
         # Get transcription from language-specific ASR with LM
         input_values_asr = self.processor(
-            speech, sampling_rate=sample_rate, return_tensors="pt"
+            audio, sampling_rate=fs, return_tensors="pt"
         ).input_values
         input_values_asr = input_values_asr.to(self.device)
 
         with torch.no_grad():
             logits_asr = self.model(input_values_asr).logits
-        
+
         logits_numpy = logits_asr.cpu().numpy()[0]
         lm_transcription = self.decoder.decode(logits_numpy)
 
 
         # Process audio with phonetic model
         input_values_phonetic = self.phonetic_processor(
-            speech, sampling_rate=sample_rate, return_tensors="pt"
+            audio, sampling_rate=fs, return_tensors="pt"
         ).input_values
         input_values_phonetic = input_values_phonetic.to(self.device)
 
@@ -136,31 +137,31 @@ class ArtPDoubleASREvaluator(Evaluator):
         separator = Separator(phone=" ", word="|")
         phonemized_reference = phonemize(
             clean_text(lm_transcription),
-            language=language,
+            language=self.language,
             backend="espeak",
             strip=True,
             preserve_punctuation=False,
             separator=separator
         )
         phonemized_reference = re.sub(r"\s+", " ", phonemized_reference.replace("|", " ")).strip()
-        print(f"Phonemized reference for {utterance_id}: {phonemized_reference}")
+        print(f"Phonemized reference: {phonemized_reference}")
         if not phonemized_reference:
-            print(f"Warning: Could not phonemize reference transcription for {utterance_id}.")
+            print(f"Warning: Could not phonemize ASR transcription.")
             return None
 
         # 2. Get the mapping from phonemes to model vocab indices.
         vocab = self.phonetic_processor.tokenizer.get_vocab()
-        
+
         target_phonemes = phonemized_reference.split()
-        
+
         # ʲ phonemes are not in so remove
         target_phonemes = [p.replace("ʲ", "") for p in target_phonemes]
         target_phonemes = [p.replace("dz", "z") for p in target_phonemes]
-        
+
         for p in target_phonemes:
             if p not in vocab:
                 # Remove
-                print(f"Warning: Phoneme {p} not in model vocabulary for {audio_path}.")
+                print(f"Warning: Phoneme {p} not in model vocabulary.")
                 target_phonemes.remove(p)
         try:
             target_ids = [vocab[p] for p in target_phonemes]
@@ -171,7 +172,7 @@ class ArtPDoubleASREvaluator(Evaluator):
         # 3. Forced alignment
         emissions = torch.log_softmax(logits, dim=-1)
         emissions = torch.exp(emissions)
-        
+
         emissions = emissions.cpu()
         targets = torch.tensor(target_ids, dtype=torch.int32).unsqueeze(0)
 
@@ -180,12 +181,12 @@ class ArtPDoubleASREvaluator(Evaluator):
                 emissions, targets, blank=vocab.get(self.phonetic_processor.tokenizer.pad_token, 0)
             )
         except Exception as e:
-            print(f"Forced alignment failed for {utterance_id}: {e}")
+            print(f"Forced alignment failed: {e}")
             return None
 
         # 4. Calculate Articulatory Precision
         best_path = aligned_path
-        
+
         total_prob = 0
         num_phonemes = 0
 
@@ -198,5 +199,5 @@ class ArtPDoubleASREvaluator(Evaluator):
             artp_score = float(total_prob / num_phonemes)
         else:
             artp_score = 0.0
-        
+
         return artp_score

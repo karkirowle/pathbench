@@ -1,79 +1,185 @@
 from abc import ABC, abstractmethod
-from typing import Dict, List, Optional
-import re
-import os
+from typing import Dict, List, Optional, Tuple
 
-import jiwer
-import soundfile as sf
-import torch
-from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
+import numpy as np
 import librosa
-from phonemizer.phonemize import phonemize
-from phonemizer.separator import Separator
-from pyctcdecode import build_ctcdecoder
 
-from pathbench.string_clean import clean_text
 
-class Evaluator(ABC):
-    """Abstract base class for evaluators."""
+# ---------------------------------------------------------------------------
+# Abstract base classes — utterance-level
+# ---------------------------------------------------------------------------
 
-    def score(
-        self,
-        utterance_id: str,
-        audio_path: str,
-        transcription: str,
-        language: str,
-        start_time: float,
-        end_time: float,
-        **kwargs,
-    ) -> Optional[float]:
-        """
-        Scores a given utterance.
+class LookupEvaluator(ABC):
+    """Evaluator that maps utterance/speaker IDs to pre-computed scores.
+    Needs only the utterance ID — no audio, transcription, or reference."""
 
-        Args:
-            utterance_id: The ID of the utterance.
-            audio_path: The path to the audio file.
-            transcription: The transcription of the utterance.
-            language: The language of the utterance.
-            **kwargs: Additional information that might be needed by the evaluator.
-
-        Returns:
-            A score, or None if a score cannot be computed.
-        """
+    @abstractmethod
+    def score(self, utterance_id: str) -> Optional[float]:
         pass
 
 
-class SpeakerEvaluator(ABC):
-    """Abstract base class for speaker-level evaluators."""
+class ReferenceFreeEvaluator(ABC):
+    """Utterance-level evaluator that needs only audio + segment bounds.
+    No transcription, no reference audio, no language."""
 
     @abstractmethod
     def score(
         self,
-        audio_files: List[tuple[str, float, float]],
-        transcriptions: List[str],
-        language: str,
-        **kwargs,
+        utterance_id: str,
+        audio_path: str,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
     ) -> Optional[float]:
-        """
-        Scores a given speaker based on all their utterances.
+        pass
 
-        Args:
-            audio_paths: A list of paths to the audio files for the speaker.
-            transcriptions: A list of transcriptions for the speaker.
-            language: The language of the utterances.
-            **kwargs: Additional information that might be needed by the evaluator.
-
-        Returns:
-            A score, or None if a score cannot be computed.
-        """
+    @abstractmethod
+    def _score_audio(self, audio: np.ndarray, fs: int) -> Optional[float]:
+        """Compute score from a pre-loaded audio array.
+        Used by TrimmedReferenceFreeEvaluator to inject trimmed audio."""
         pass
 
 
-class Utt2ScoreEvaluator(Evaluator):
-    """An evaluator that uses a pre-computed utt2score mapping."""
+class ReferenceTxtEvaluator(ABC):
+    """Utterance-level evaluator that needs transcription + language.
+    Used for ASR-based metrics and FA-trimming wrappers."""
 
-    def __init__(self, scores: Dict[str, float]):
-        self.scores = scores
+    @abstractmethod
+    def score(
+        self,
+        utterance_id: str,
+        audio_path: str,
+        transcription: str,
+        language: str,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
+    ) -> Optional[float]:
+        pass
+
+
+class ReferenceAudioEvaluator(ABC):
+    """Utterance-level evaluator that needs reference audio files.
+    No transcription or language required."""
+
+    @abstractmethod
+    def score(
+        self,
+        utterance_id: str,
+        audio_path: str,
+        reference_audios: List[Tuple[str, float, float]],
+        start_time: float = 0.0,
+        end_time: float = -1.0,
+    ) -> Optional[float]:
+        pass
+
+
+class ReferenceTxtAndAudioEvaluator(ABC):
+    """Utterance-level evaluator that needs both transcription (for FA trimming)
+    AND reference audio files (for distance computation).
+    Used for TrimmedNADEvaluator."""
+
+    @abstractmethod
+    def score(
+        self,
+        utterance_id: str,
+        audio_path: str,
+        transcription: str,
+        language: str,
+        reference_audios: List[Tuple[str, float, float]],
+        start_time: float = 0.0,
+        end_time: float = -1.0,
+    ) -> Optional[float]:
+        pass
+
+
+# ---------------------------------------------------------------------------
+# Abstract base classes — speaker-level
+# ---------------------------------------------------------------------------
+
+def load_audios(
+    audio_files: List[Tuple[str, float, float]],
+) -> List[Tuple[np.ndarray, int]]:
+    """Load a list of (path, start, end) tuples into (ndarray, fs) pairs with librosa.
+
+    Used by script-level dispatch before calling _score_audio_list() on plain
+    (non-trimmed) speaker evaluators.
+    """
+    audios = []
+    for audio_path, start_time, end_time in audio_files:
+        duration = end_time - start_time if end_time != -1.0 else None
+        try:
+            audio, fs = librosa.load(
+                audio_path, sr=16000, offset=start_time, duration=duration
+            )
+            if audio is not None and len(audio) > 0:
+                audios.append((audio, fs))
+        except Exception as e:
+            print(f"Error loading audio {audio_path}: {e}")
+    return audios
+
+class ReferenceFreeSpeakerEvaluator(ABC):
+    """Speaker-level evaluator that needs only audio files + segment bounds.
+    No transcription, no language.
+
+    Callers load audio with load_audios() and pass the result to _score_audio_list().
+    The trimmed wrapper (TrimmedReferenceFreeSpeakerEvaluator) does the same after
+    FA-trimming each utterance.
+    """
+
+    @abstractmethod
+    def _score_audio_list(
+        self, audios: List[Tuple[np.ndarray, int]]
+    ) -> Optional[float]:
+        """Compute score from a list of pre-loaded (audio, fs) tuples."""
+        pass
+
+
+class LanguageAwareSpeakerEvaluator(ABC):
+    """Speaker-level evaluator that needs audio + language.
+    Language is required for acoustic model parameters (e.g. vowel formant tables),
+    not only for FA trimming.
+
+    Callers load audio with load_audios() and pass the result to _score_audio_list().
+    The trimmed wrapper (TrimmedLanguageAwareSpeakerEvaluator) does the same after
+    FA-trimming each utterance.
+    """
+
+    @abstractmethod
+    def _score_audio_list(
+        self, audios: List[Tuple[np.ndarray, int]], language: str
+    ) -> Optional[float]:
+        """Compute score from pre-loaded audio list."""
+        pass
+
+
+# ---------------------------------------------------------------------------
+# Trimmer wrappers (decorator pattern)
+#
+# The FATrimmer requires transcription + language for forced alignment.
+# Rather than leaking this requirement into reference-free evaluators,
+# these wrappers encapsulate the trimming concern:
+#
+#   score(…, transcription, language, …)
+#     → trimmer.trim(…) → ndarray          [or librosa fallback]
+#     → inner._score_audio(audio, fs)      [inner sees only audio]
+# ---------------------------------------------------------------------------
+
+class TrimmedReferenceFreeEvaluator(ReferenceTxtEvaluator):
+    """Wraps a ReferenceFreeEvaluator with FA trimming.
+
+    The inner evaluator stays reference-free — it never sees transcription or
+    language. This wrapper is a ReferenceTxtEvaluator because the trimmer
+    needs transcription + language to perform forced alignment.
+
+    Delegation flow:
+      1. Receive (audio_path, transcription, language, start_time, end_time)
+      2. If no explicit segment: call trimmer.trim() → trimmed ndarray
+      3. Fallback to librosa.load() if trim fails or segment is specified
+      4. Call inner._score_audio(audio, fs)  ← inner knows nothing about text
+    """
+
+    def __init__(self, inner: ReferenceFreeEvaluator, trimmer):
+        self.inner = inner
+        self.trimmer = trimmer
 
     def score(
         self,
@@ -81,450 +187,164 @@ class Utt2ScoreEvaluator(Evaluator):
         audio_path: str,
         transcription: str,
         language: str,
-        start_time: float,
-        end_time: float,
-        **kwargs,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
     ) -> Optional[float]:
+        use_segment = start_time != 0.0 or end_time != -1.0
+        audio, fs = None, None
+
+        if not use_segment:
+            result = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
+            if result is not None:
+                audio, fs = result
+
+        if audio is None:
+            duration = end_time - start_time if end_time != -1.0 else None
+            try:
+                audio, fs = librosa.load(
+                    audio_path, sr=16000, mono=True, offset=start_time, duration=duration
+                )
+            except Exception as e:
+                print(f"Error loading audio {audio_path}: {e}")
+                return None
+
+        if audio is None or len(audio) == 0:
+            return None
+
+        return self.inner._score_audio(audio, fs)
+
+
+class TrimmedReferenceFreeSpeakerEvaluator:
+    """Wraps a ReferenceFreeSpeakerEvaluator with FA trimming.
+
+    Trims each utterance in the speaker's audio list, then delegates
+    to inner._score_audio_list() with the trimmed audio arrays.
+    """
+
+    def __init__(self, inner: ReferenceFreeSpeakerEvaluator, trimmer):
+        self.inner = inner
+        self.trimmer = trimmer
+
+    def score(
+        self,
+        audio_files: List[Tuple[str, float, float]],
+        transcriptions: List[str],
+        language: str,
+    ) -> Optional[float]:
+        audios = []
+        for (audio_path, start_time, end_time), transcription in zip(audio_files, transcriptions):
+            use_segment = start_time != 0.0 or end_time != -1.0
+            audio, fs = None, None
+
+            if not use_segment:
+                result = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
+                if result is not None:
+                    audio, fs = result
+
+            if audio is None:
+                duration = end_time - start_time if end_time != -1.0 else None
+                try:
+                    audio, fs = librosa.load(
+                        audio_path, sr=16000, offset=start_time, duration=duration
+                    )
+                except Exception as e:
+                    print(f"Error loading audio {audio_path}: {e}")
+                    continue
+
+            if audio is not None and len(audio) > 0:
+                audios.append((audio, fs))
+
+        if not audios:
+            return None
+        return self.inner._score_audio_list(audios)
+
+
+class TrimmedLanguageAwareSpeakerEvaluator:
+    """Wraps a LanguageAwareSpeakerEvaluator with FA trimming.
+
+    Same delegation as TrimmedReferenceFreeSpeakerEvaluator but passes
+    language through to inner._score_audio_list() since the inner evaluator
+    uses language for its own computation (e.g. VSA vowel formant tables).
+    """
+
+    def __init__(self, inner: LanguageAwareSpeakerEvaluator, trimmer):
+        self.inner = inner
+        self.trimmer = trimmer
+
+    def score(
+        self,
+        audio_files: List[Tuple[str, float, float]],
+        transcriptions: List[str],
+        language: str,
+    ) -> Optional[float]:
+        audios = []
+        for (audio_path, start_time, end_time), transcription in zip(audio_files, transcriptions):
+            use_segment = start_time != 0.0 or end_time != -1.0
+            audio, fs = None, None
+
+            if not use_segment:
+                result = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
+                if result is not None:
+                    audio, fs = result
+
+            if audio is None:
+                duration = end_time - start_time if end_time != -1.0 else None
+                try:
+                    audio, fs = librosa.load(
+                        audio_path, sr=16000, offset=start_time, duration=duration
+                    )
+                except Exception as e:
+                    print(f"Error loading audio {audio_path}: {e}")
+                    continue
+
+            if audio is not None and len(audio) > 0:
+                audios.append((audio, fs))
+
+        if not audios:
+            return None
+        return self.inner._score_audio_list(audios, language)
+
+
+# ---------------------------------------------------------------------------
+# Backward compatibility aliases
+# These keep non-refactored evaluators (ArticulatoryPrecision, WadaSNR, etc.)
+# importable while they are awaiting their own refactor.
+# ---------------------------------------------------------------------------
+
+class Evaluator:
+    """Deprecated. Kept for backward compatibility. Use the typed ABCs instead."""
+    pass
+
+
+class SpeakerEvaluator:
+    """Deprecated. Kept for backward compatibility. Use the typed ABCs instead."""
+    pass
+
+
+# ---------------------------------------------------------------------------
+# Lookup evaluators
+# ---------------------------------------------------------------------------
+
+class Utt2ScoreEvaluator(LookupEvaluator):
+    """Maps utterance IDs to pre-computed scores."""
+
+    def __init__(self, scores: Dict[str, float]):
+        self.scores = scores
+
+    def score(self, utterance_id: str) -> Optional[float]:
         return self.scores.get(utterance_id)
 
 
-class Spk2ScoreEvaluator(Evaluator):
-    """An evaluator that uses a pre-computed spk2score mapping."""
+class Spk2ScoreEvaluator(LookupEvaluator):
+    """Maps utterance IDs → speaker IDs → pre-computed speaker scores."""
 
     def __init__(self, spk2score: Dict[str, float], utt2spk: Dict[str, str]):
         self.spk2score = spk2score
         self.utt2spk = utt2spk
 
-    def score(
-        self,
-        utterance_id: str,
-        audio_path: str,
-        transcription: str,
-        language: str,
-        start_time: float,
-        end_time: float,
-        **kwargs,
-    ) -> Optional[float]:
+    def score(self, utterance_id: str) -> Optional[float]:
         speaker_id = self.utt2spk.get(utterance_id)
         if speaker_id:
             return self.spk2score.get(speaker_id)
         return None
 
-
-class ASREvaluator(Evaluator):
-    """An evaluator that uses an ASR model to compute a score based on WER."""
-
-    def __init__(self, model_id: str):
-        self.processor = Wav2Vec2Processor.from_pretrained(model_id)
-        self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model.to(self.device)
-        print(f"ASR model '{model_id}' loaded on {self.device}.")
-
-    def score(
-        self,
-        utterance_id: str,
-        audio_path: str,
-        transcription: str,
-        language: str,
-        start_time: float,
-        end_time: float,
-        **kwargs,
-    ) -> Optional[float]:
-        """
-        Performs ASR on the audio file and returns 1 - WER as the score.
-        """
-        try:
-            duration = end_time - start_time if end_time >= 0 else None
-            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True, offset=start_time, duration=duration)
-        except Exception as e:
-            print(f"Error reading audio file {audio_path}: {e}")
-            return None
-
-        if len(speech) < 400:
-            print(f"Warning: Skipping audio file {audio_path} because it is too short ({len(speech)} samples).")
-            return None
-
-        # Process audio
-        input_values = self.processor(
-            speech, sampling_rate=sample_rate, return_tensors="pt"
-        ).input_values
-        input_values = input_values.to(self.device)
-
-        # Get ASR prediction
-        with torch.no_grad():
-            logits = self.model(input_values).logits
-        predicted_ids = torch.argmax(logits, dim=-1)
-        predicted_transcription = self.processor.batch_decode(predicted_ids)[0]
-
-        print(f"Reference: {transcription}")
-        print(f"Predicted: {predicted_transcription}")
-
-        # Clean transcriptions
-        cleaned_reference = clean_text(transcription)
-        cleaned_prediction = clean_text(predicted_transcription)
-
-        print("Cleaned Reference:", cleaned_reference)
-        print("Cleaned Predicted:", cleaned_prediction)
-        # Calculate WER
-        wer = jiwer.wer(cleaned_reference, cleaned_prediction)
-
-        return wer
-
-
-class PEREvaluator(Evaluator):
-    """An evaluator that uses an ASR model to compute a score based on PER."""
-
-    def __init__(self, language: str):
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        model_ids = {
-            "en": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
-            "en-us": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
-            "es": "jonatasgrosman/wav2vec2-large-xlsr-53-spanish",
-            "nl": "jonatasgrosman/wav2vec2-large-xlsr-53-dutch",
-            "it": "jonatasgrosman/wav2vec2-large-xlsr-53-italian",
-        }
-        
-        if language not in model_ids:
-            raise ValueError(f"Language '{language}' is not supported for PEREvaluator.")
-
-        model_id = model_ids[language]
-        self.processor = Wav2Vec2Processor.from_pretrained(model_id)
-        self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
-        self.model.to(self.device)
-        print(f"ASR model '{model_id}' for language '{language}' loaded on {self.device}.")
-        self.language = language
-
-
-    def score(
-        self,
-        utterance_id: str,
-        audio_path: str,
-        transcription: str,
-        language: str,
-        start_time: float,
-        end_time: float,
-        **kwargs,
-    ) -> Optional[float]:
-        """
-        Performs ASR on the audio file and returns 1 - PER as the score.
-        """
-        if language != self.language:
-            print(f"Warning: PEREvaluator was initialized for language '{self.language}' but received a request for '{language}'. Skipping.")
-            return None
-
-        processor = self.processor
-        model = self.model
-
-        try:
-            duration = end_time - start_time if end_time >= 0 else None
-            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True, offset=start_time, duration=duration)
-        except Exception as e:
-            print(f"Error reading audio file {audio_path}: {e}")
-            return None
-
-        if len(speech) < 400:
-            print(f"Warning: Skipping audio file {audio_path} because it is too short ({len(speech)} samples).")
-            return None
-
-        # Process audio
-        input_values = processor(
-            speech, sampling_rate=sample_rate, return_tensors="pt", padding="longest"
-        ).input_values
-        input_values = input_values.to(self.device)
-
-        # Get ASR prediction
-        with torch.no_grad():
-            logits = model(input_values).logits
-        predicted_ids = torch.argmax(logits, dim=-1)
-        predicted_transcription = processor.batch_decode(predicted_ids)[0]
-
-        print(f"Reference: {transcription}")
-        espeak_language_map = {
-            "en": "en-us",
-            "en-us": "en-us",
-            "es": "es",
-            "nl": "nl",
-            "it": "it"
-        }
-        espeak_lang = espeak_language_map.get(language, language)
-
-        separator = Separator(phone = " ", word = "|")
-        # Phonemize transcriptions
-        phonemized_reference = phonemize(
-            clean_text(transcription),
-            language=espeak_lang,
-            backend="espeak",
-            strip=True,
-            preserve_punctuation=False,
-            separator=separator
-        )
-        phonemized_prediction = phonemize(
-            clean_text(predicted_transcription),
-            language=espeak_lang,
-            backend="espeak",
-            strip=True,
-            preserve_punctuation=False,
-            separator=separator
-        )
-        
-        print(f"Phonemized Reference: {phonemized_reference}")
-        print(f"Phonemized Predicted: {phonemized_prediction}")
-
-        cleaned_reference = phonemized_reference.replace("|", " ")
-        cleaned_prediction = phonemized_prediction.replace("|", " ")
-
-        cleaned_reference = re.sub(r"\s+", " ", cleaned_reference).strip()
-        cleaned_prediction = re.sub(r"\s+", " ", cleaned_prediction).strip()
-        print("Cleaned Phonemized Reference:", cleaned_reference)
-        print("Cleaned Phonemized Predicted:", cleaned_prediction)
-
-
-        # Calculate PER
-        per = jiwer.wer(cleaned_reference, cleaned_prediction)
-
-        # Return 1 - PER so that a higher score is better
-        return per
-
-class DirectPEREvaluator(Evaluator):
-    """An evaluator that uses an ASR model to compute a score based on PER."""
-
-    def __init__(self):
-        self.processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-xlsr-53-espeak-cv-ft")
-        self.model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-xlsr-53-espeak-cv-ft")
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model.to(self.device)
-
-
-    def score(
-        self,
-        utterance_id: str,
-        audio_path: str,
-        transcription: str,
-        language: str,
-        start_time: float,
-        end_time: float,
-        **kwargs,
-    ) -> Optional[float]:
-        """
-        Performs ASR on the audio file and returns 1 - PER as the score.
-        """
-        try:
-            duration = end_time - start_time if end_time >= 0 else None
-            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True, offset=start_time, duration=duration)
-        except Exception as e:
-            print(f"Error reading audio file {audio_path}: {e}")
-            return None
-
-        if len(speech) < 400:
-            print(f"Warning: Skipping audio file {audio_path} because it is too short ({len(speech)} samples).")
-            return None
-
-        # Process audio
-        input_values = self.processor(
-            speech, sampling_rate=sample_rate, return_tensors="pt", padding="longest"
-        ).input_values
-        input_values = input_values.to(self.device)
-
-        # Get ASR prediction
-        with torch.no_grad():
-            logits = self.model(input_values).logits
-        predicted_ids = torch.argmax(logits, dim=-1)
-        predicted_transcription = self.processor.batch_decode(predicted_ids)[0]
-
-        print(f"Reference: {transcription}")
-
-        separator = Separator(phone = " ", word = "|")
-        # Phonemize transcriptions
-        phonemized_reference = phonemize(
-            clean_text(transcription),
-            language=language,
-            backend="espeak",
-            strip=True,
-            preserve_punctuation=False,
-            separator=separator
-        )
-
-        phonemized_prediction = predicted_transcription
-        print(f"Phonemized Reference: {phonemized_reference}")
-        print(f"Phonemized Predicted: {phonemized_prediction}")
-
-        cleaned_reference = phonemized_reference.replace("|", " ")
-        cleaned_prediction = phonemized_prediction.replace("|", " ")
-
-        cleaned_reference = re.sub(r"\s+", " ", cleaned_reference).strip()
-        cleaned_prediction = re.sub(r"\s+", " ", cleaned_prediction).strip()
-        print("Cleaned Phonemized Reference:", cleaned_reference)
-        print("Cleaned Phonemized Predicted:", cleaned_prediction)
-
-
-        # Calculate PER
-        per = jiwer.wer(cleaned_reference, cleaned_prediction)
-
-        # Return 1 - PER so that a higher score is better
-        return per
-
-
-
-class DoubleASREvaluator(Evaluator):
-    """An evaluator that uses a CTC ASR model with a language model to compute a score based on PER.
-    
-    Note: This evaluator requires `pyctcdecode` and `kenlm`. 
-    You can install them with: pip install pyctcdecode kenlm
-    """
-
-    def __init__(self, language: str):
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        model_ids = {
-            "en": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
-            "en-us": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
-            "es": "jonatasgrosman/wav2vec2-large-xlsr-53-spanish",
-            "nl": "jonatasgrosman/wav2vec2-large-xlsr-53-dutch",
-            "it": "jonatasgrosman/wav2vec2-large-xlsr-53-italian",
-        }
-
-        if language not in model_ids:
-            raise ValueError(f"Language '{language}' is not supported for DoubleASREvaluator.")
-
-        model_id = model_ids[language]
-        self.processor = Wav2Vec2Processor.from_pretrained(model_id)
-        self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
-        self.model.to(self.device)
-        print(f"ASR model '{model_id}' for language '{language}' loaded on {self.device}.")
-        self.language = language
-
-        # Assuming the 'lms' directory is at the project root.
-        lms_dir = 'lms' 
-        lm_paths = {
-            "en": os.path.join(lms_dir, "wiki_en_token.arpa"),
-            "nl": os.path.join(lms_dir, "wiki_nl_token.arpa"),
-            "es": os.path.join(lms_dir, "wiki_es_token.arpa.bin"),
-            "it": os.path.join(lms_dir, "wiki_it_token.arpa.bin"),
-        }
-
-        lm_lang = language.split('-')[0]
-        if lm_lang not in lm_paths:
-            lm_lang = 'en' # Default to 'en' if no specific LM
-        
-        lm_path = lm_paths.get(lm_lang)
-
-        if lm_path and lm_path.endswith('.arpa'):
-            bin_path = lm_path + '.bin'
-            if os.path.exists(bin_path):
-                print(f"Found binary LM file: {bin_path}, using it.")
-                lm_path = bin_path
-
-        self.decoder = None
-        if lm_path and os.path.exists(lm_path):
-            vocab_dict = self.processor.tokenizer.get_vocab()
-            sorted_vocab_dict = {k: v for k, v in sorted(vocab_dict.items(), key=lambda item: item[1])}
-            labels = list(sorted_vocab_dict.keys())
-            
-            self.decoder = build_ctcdecoder(
-                labels,
-                kenlm_model_path=lm_path,
-            )
-            print(f"CTC decoder for '{language}' with LM '{lm_path}' built.")
-        else:
-            print(f"Warning: Language model for '{language}' not found at '{lm_path}'. No decoder built.")
-
-    def score(
-        self,
-        utterance_id: str,
-        audio_path: str,
-        transcription: str,
-        language: str,
-        start_time: float,
-        end_time: float,
-        **kwargs,
-    ) -> Optional[float]:
-        """
-        Performs ASR on the audio file and returns PER between greedy and LM-based decoding.
-        """
-        if language != self.language:
-            print(f"Warning: DoubleASREvaluator was initialized for language '{self.language}' but received a request for '{language}'. Skipping.")
-            return None
-
-        if not self.decoder:
-            print(f"Error: No decoder available for language '{language}'.")
-            return None
-
-        processor = self.processor
-        model = self.model
-        decoder = self.decoder
-
-        try:
-            duration = end_time - start_time if end_time >= 0 else None
-            speech, sample_rate = librosa.load(audio_path, sr=16000, mono=True, offset=start_time, duration=duration)
-        except Exception as e:
-            print(f"Error reading audio file {audio_path}: {e}")
-            return None
-
-        if len(speech) < 400:
-            print(f"Warning: Skipping audio file {audio_path} because it is too short ({len(speech)} samples).")
-            return None
-
-        # Process audio
-        input_values = processor(
-            speech, sampling_rate=sample_rate, return_tensors="pt"
-        ).input_values
-        input_values = input_values.to(self.device)
-
-        # Get ASR prediction
-        with torch.no_grad():
-            logits = model(input_values).logits
-        
-        # Greedy decoding
-        predicted_ids = torch.argmax(logits, dim=-1)
-        greedy_transcription = processor.batch_decode(predicted_ids)[0]
-
-        # LM-based decoding
-        logits_numpy = logits.cpu().numpy()[0]
-        lm_transcription = decoder.decode(logits_numpy)
-
-        print(f"Greedy: {greedy_transcription}")
-        print(f"With LM: {lm_transcription}")
-
-        # Phonemize transcriptions
-        separator = Separator(phone = " ", word = "|")
-        espeak_language_map = {
-            "en": "en-us",
-            "en-us": "en-us",
-            "es": "es",
-            "nl": "nl",
-            "it": "it"
-        }
-        espeak_lang = espeak_language_map.get(language, language)
-
-        phonemized_greedy = phonemize(
-            clean_text(greedy_transcription),
-            language=espeak_lang,
-            backend="espeak",
-            strip=True,
-            preserve_punctuation=False,
-            separator=separator
-        )
-        phonemized_lm = phonemize(
-            clean_text(lm_transcription),
-            language=espeak_lang,
-            backend="espeak",
-            strip=True,
-            preserve_punctuation=False,
-            separator=separator
-        )
-        
-        print(f"Phonemized Greedy: {phonemized_greedy}")
-        print(f"Phonemized With LM: {phonemized_lm}")
-
-        cleaned_greedy = phonemized_greedy.replace("|", " ")
-        cleaned_lm = phonemized_lm.replace("|", " ")
-
-        cleaned_greedy = re.sub(r"\s+", " ", cleaned_greedy).strip()
-        cleaned_lm = re.sub(r"\s+", " ", cleaned_lm).strip()
-        print("Cleaned Phonemized Greedy:", cleaned_greedy)
-        print("Cleaned Phonemized With LM:", cleaned_lm)
-
-        # Calculate PER
-        per = jiwer.wer(cleaned_greedy, cleaned_lm)
-
-        return per

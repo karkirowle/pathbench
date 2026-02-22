@@ -6,7 +6,7 @@ import torch
 from transformers import Wav2Vec2Model
 import librosa
 
-from pathbench.reference_evaluator import ReferenceEvaluator
+from pathbench.evaluator import ReferenceAudioEvaluator, ReferenceTxtAndAudioEvaluator
 from pathbench.vad import FATrimmer
 
 
@@ -28,15 +28,89 @@ def load_wav2vec2_featurizer(model_name, layer):
     return _featurize
 
 
-class NADEvaluator(ReferenceEvaluator):
+class NADEvaluator(ReferenceAudioEvaluator):
+    """
+    An evaluator that computes the Normalized Alignment Distance (NAD) using DTW
+    on wav2vec2 features.
+    """
+
+    def __init__(self, model_id="facebook/wav2vec2-large", layer=10):
+        self.featurizer = load_wav2vec2_featurizer(model_id, layer)
+        self.min_feature_len = 2 # DTW requires at least 2 feature vectors
+
+    def _get_features(self, audio_path, start_time, end_time):
+        """Helper to load and featurize an audio file."""
+        # 1. Load audio
+        audio = None
+        try:
+            duration = end_time - start_time if end_time != -1.0 else None
+            offset = start_time if start_time != 0.0 else 0
+            audio, _ = librosa.load(audio_path, sr=16000, offset=offset, duration=duration)
+
+            if audio is None or len(audio) == 0:
+                return None, f"Audio at {audio_path} could not be loaded or is empty."
+
+            # 2. Featurize
+            features = self.featurizer(audio)
+            if features.shape[0] < self.min_feature_len:
+                return None, f"Feature length for {audio_path} is {features.shape[0]}, which is less than minimum {self.min_feature_len}."
+
+            return features, None
+
+        except Exception as e:
+            return None, f"Failed to process {audio_path}: {e}"
+
+    def score(
+        self,
+        utterance_id: str,
+        audio_path: str,
+        reference_audios: List[tuple[str, float, float]],
+        start_time: float = 0.0,
+        end_time: float = -1.0,
+    ) -> Optional[float]:
+        """Computes the average DTW distance between test and reference audio."""
+        if not reference_audios:
+            return None
+
+        test_feats, err = self._get_features(audio_path, start_time, end_time)
+        if err:
+            print(f"Error: Failed to get features for test audio {utterance_id}: {err}")
+            return None
+
+        ref_feats = []
+        for ref_path, ref_start, ref_end in reference_audios:
+            r_feats, err = self._get_features(ref_path, ref_start, ref_end)
+            if err:
+                print(f"Warning: Failed to get features for ref {ref_path} in group {utterance_id}, skipping ref. Error: {err}")
+            else:
+                ref_feats.append(r_feats)
+
+        # --- Calculate DTW ---
+        if test_feats is None or not ref_feats:
+            print(f"Error: Could not obtain valid features for DTW calculation for group {utterance_id}.")
+            return None
+
+        distances = []
+        for r_feats in ref_feats:
+            try:
+                distance = dtw(test_feats, r_feats, distance_only=True).normalizedDistance
+                distances.append(distance)
+            except Exception as e:
+                # This can happen if, even after all checks, features are problematic (e.g., all zeros)
+                print(f"Error during DTW calculation for {utterance_id}: {e}")
+                distances.append(np.nan)
+
+        return np.nanmean(distances) if distances else None
+
+
+class TrimmedNADEvaluator(ReferenceTxtAndAudioEvaluator):
     """
     An evaluator that computes the Normalized Alignment Distance (NAD) using DTW
     on wav2vec2 features. Falls back to untrimmed audio for the whole group if
     trimming or featurization fails for any member of the group.
     """
 
-    def __init__(self, model_id="facebook/wav2vec2-large", layer=10, trimmer: Optional[FATrimmer] = None, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, model_id="facebook/wav2vec2-large", layer=10, trimmer: Optional[FATrimmer] = None):
         self.featurizer = load_wav2vec2_featurizer(model_id, layer)
         self.trimmer = trimmer
         self.min_feature_len = 2 # DTW requires at least 2 feature vectors
@@ -44,7 +118,7 @@ class NADEvaluator(ReferenceEvaluator):
     def _get_features(self, audio_path, transcription, language, start_time, end_time, use_trimming):
         """Helper to load, optionally trim, and featurize an audio file."""
         use_segment = start_time != 0.0 or end_time != -1.0
-        
+
         # 1. Load audio (either trimmed or from segment/file)
         audio = None
         try:
@@ -52,7 +126,7 @@ class NADEvaluator(ReferenceEvaluator):
                 trimmed_data = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
                 if trimmed_data and len(trimmed_data[0]) > 0:
                     audio, _ = trimmed_data
-            
+
             if audio is None: # Fallback for failed trim or if trimming is disabled
                 duration = end_time - start_time if end_time != -1.0 else None
                 offset = start_time if start_time != 0.0 else 0
@@ -65,7 +139,7 @@ class NADEvaluator(ReferenceEvaluator):
             features = self.featurizer(audio)
             if features.shape[0] < self.min_feature_len:
                 return None, f"Feature length for {audio_path} is {features.shape[0]}, which is less than minimum {self.min_feature_len}."
-            
+
             return features, None
 
         except Exception as e:
@@ -78,9 +152,8 @@ class NADEvaluator(ReferenceEvaluator):
         transcription: str,
         language: str,
         reference_audios: List[tuple[str, float, float]],
-        start_time: float,
-        end_time: float,
-        **kwargs,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
     ) -> Optional[float]:
         """
         Computes the average DTW distance. If trimming/featurizing fails for any audio

@@ -1,109 +1,90 @@
 import parselmouth
-from pathbench.evaluator import SpeakerEvaluator, Evaluator
+from pathbench.evaluator import ReferenceFreeEvaluator, ReferenceFreeSpeakerEvaluator
 from typing import List, Optional, Tuple
 import numpy as np
 import librosa
-from pathbench.vad import FATrimmer
 
-class F0RangeEvaluator(SpeakerEvaluator):
+
+class StdPitchEvaluator(ReferenceFreeEvaluator):
+    """An evaluator that computes the standard deviation of the pitch in semitones."""
+
+    def score(
+        self,
+        utterance_id: str,
+        audio_path: str,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
+    ) -> Optional[float]:
+        try:
+            duration = end_time - start_time if end_time != -1.0 else None
+            y, sr = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
+            return self._score_audio(y, sr)
+        except Exception as e:
+            print(f"Error processing audio file {audio_path}: {e}")
+            return None
+
+    def _score_audio(self, audio: np.ndarray, fs: int) -> Optional[float]:
+        try:
+            if audio is None or len(audio) == 0:
+                return 0.0
+
+            sound = parselmouth.Sound(audio, sampling_frequency=fs)
+            pitch = sound.to_pitch()
+            pitch_values = pitch.selected_array['frequency']
+
+            # Filter out unvoiced frames
+            pitch_values = pitch_values[pitch_values > 0]
+
+            if len(pitch_values) < 2:
+                print("Warning: Not enough voiced frames to calculate std of pitch. Returning 0.")
+                return 0.0
+
+            pitch_semitones = 39.86 * np.log10(pitch_values)
+            return np.std(pitch_semitones)
+        except Exception as e:
+            print(f"Error computing StdPitch: {e}")
+            return None
+
+
+class F0RangeEvaluator(ReferenceFreeSpeakerEvaluator):
     """An evaluator that computes the F0 range for a speaker."""
-    def __init__(self, trimmer: Optional[FATrimmer] = None):
-        self.trimmer = trimmer
 
     def score(
         self,
         audio_files: List[Tuple[str, float, float]],
-        transcriptions: List[str],
-        language: str,
-        **kwargs,
     ) -> Optional[float]:
-        """
-        Computes the F0 range for a speaker based on all their utterances.
-        """
-        f0_values = []
-        for (audio_path, start_time, end_time), transcription in zip(audio_files, transcriptions):
+        audios = []
+        for (audio_path, start_time, end_time) in audio_files:
             try:
-                y, sr = None, 16000
-                if self.trimmer:
-                    trimmed_data = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
-                    if trimmed_data:
-                        y, sr = trimmed_data
-                    else:
-                        duration = end_time - start_time if end_time != -1 else None
-                        y, sr = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
-                else:
-                    duration = end_time - start_time if end_time != -1 else None
-                    y, sr = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
+                duration = end_time - start_time if end_time != -1 else None
+                y, sr = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
+                if y is not None and len(y) > 0:
+                    audios.append((y, sr))
+            except Exception as e:
+                print(f"Error loading audio file {audio_path}: {e}")
 
+        if not audios:
+            return None
+        return self._score_audio_list(audios)
+
+    def _score_audio_list(
+        self, audios: List[Tuple[np.ndarray, int]]
+    ) -> Optional[float]:
+        f0_values = []
+        for y, sr in audios:
+            try:
                 if y is None or len(y) == 0:
                     continue
-
                 sound = parselmouth.Sound(y, sampling_frequency=sr)
                 pitch = sound.to_pitch()
                 f0 = pitch.selected_array['frequency']
                 f0_values.extend(f0[f0 > 0])
             except Exception as e:
-                print(f"Error processing audio file {audio_path}: {e}")
-        
+                print(f"Error processing audio: {e}")
+
         if not f0_values:
             print("No valid F0 values found. Returning 0.")
             return 0
 
         f0_range = np.max(f0_values) - np.min(f0_values)
         return f0_range
-
-class StdPitchEvaluator(Evaluator):
-    """An evaluator that computes the standard deviation of the pitch in semitones."""
-
-    def __init__(self, trimmer: Optional[FATrimmer] = None):
-        self.trimmer = trimmer
-
-    def score(
-        self,
-        utterance_id: str,
-        audio_path: str,
-        transcription: str,
-        language: str,
-        start_time: float,
-        end_time: float,
-        **kwargs,
-    ) -> Optional[float]:
-        """
-        Computes the standard deviation of the pitch for an utterance.
-        """
-        try:
-            use_segment = start_time != 0.0 or end_time != -1.0
-
-            y, sr = None, None
-
-            if use_segment:
-                duration = end_time - start_time if end_time != -1.0 else None
-                y, sr = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
-            elif self.trimmer:
-                trimmed_data = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
-                if trimmed_data:
-                    y, sr = trimmed_data
-                else:
-                    y, sr = librosa.load(audio_path, sr=16000)
-            else:
-                y, sr = librosa.load(audio_path, sr=16000)
-
-            if y is None or sr is None or len(y) == 0:
-                return 0.0
-
-            sound = parselmouth.Sound(y, sampling_frequency=sr)
-            pitch = sound.to_pitch()
-            pitch_values = pitch.selected_array['frequency']
-            
-            # Filter out unvoiced frames
-            pitch_values = pitch_values[pitch_values > 0]
-
-            if len(pitch_values) < 2:
-                print(f"Warning: Not enough voiced frames to calculate std of pitch for {audio_path}. Returning 0.")
-                return 0.0
-
-            pitch_semitones = 39.86 * np.log10(pitch_values)
-            return np.std(pitch_semitones)
-        except Exception as e:
-            print(f"Error processing audio file {audio_path}: {e}")
-            return None

@@ -1,20 +1,14 @@
 from typing import Optional
 import librosa
-from pathbench.evaluator import Evaluator
-from pathbench.vad import FATrimmer
+from pathbench.evaluator import ReferenceFreeEvaluator, ReferenceTxtEvaluator
 import math
 import parselmouth
 from parselmouth.praat import call
-import tempfile
-import soundfile as sf
 import numpy as np
 
 
-class WpmEvaluator(Evaluator):
+class WpmEvaluator(ReferenceTxtEvaluator):
     """An evaluator that scores based on the speech rate (words per minute)."""
-
-    def __init__(self, trimmer: Optional[FATrimmer] = None):
-        self.trimmer = trimmer
 
     def score(
         self,
@@ -22,32 +16,16 @@ class WpmEvaluator(Evaluator):
         audio_path: str,
         transcription: str,
         language: str,
-        **kwargs,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
     ) -> Optional[float]:
         """
         Returns the speech rate in words per minute (WPM).
         """
         try:
             duration_s = 0
-            start_time = kwargs.get('start_time', 0.0)
-            end_time = kwargs.get('end_time', -1.0)
-            use_segment = start_time != 0.0 or end_time != -1.0
-
-            audio = None
-            fs = None
-
-            if use_segment:
-                duration = end_time - start_time if end_time != -1.0 else None
-                audio, fs = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
-            elif self.trimmer:
-                trimmed_data = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
-                if trimmed_data is None:
-                    print(f"Warning: Trimming failed for {audio_path}. Using full audio for WPM calculation.")
-                    audio, fs = librosa.load(audio_path, sr=16000)
-                else:
-                    audio, fs = trimmed_data
-            else:
-                audio, fs = librosa.load(audio_path, sr=16000)
+            duration = end_time - start_time if end_time != -1.0 else None
+            audio, fs = librosa.load(audio_path, sr=16000, offset=start_time, duration=duration)
 
             if audio is None or fs is None or len(audio) == 0:
                 duration_s = 0
@@ -129,58 +107,37 @@ class WpmEvaluator(Evaluator):
 # Translated to Python in 2019 by David Feinberg
 # I changed all the variable names so they are human readable
 
-class PraatSpeechRateEvaluator(Evaluator):
+class PraatSpeechRateEvaluator(ReferenceFreeEvaluator):
     """
     An evaluator that scores based on the speech rate (syllables per second)
     using a Python translation of a Praat script by de Jong and Wempe.
     """
 
-    def __init__(self, trimmer: Optional[FATrimmer] = None):
-        self.trimmer = trimmer
-
     def score(
         self,
         utterance_id: str,
         audio_path: str,
-        transcription: str,
-        language: str,
-        **kwargs,
+        start_time: float = 0.0,
+        end_time: float = -1.0,
     ) -> Optional[float]:
         """
         Returns the speech rate in syllables per second.
         """
-        temp_wav = None
+        try:
+            duration = end_time - start_time if end_time != -1.0 else None
+            audio, fs = librosa.load(audio_path, sr=None, mono=True, offset=start_time, duration=duration)
+        except Exception as e:
+            print(f"Error loading audio {audio_path} with PraatSpeechRateEvaluator: {e}")
+            return None
+        return self._score_audio(audio, fs)
+
+    def _score_audio(self, audio: np.ndarray, fs: int) -> Optional[float]:
         try:
             silencedb = -25
             mindip = 2
             minpause = 0.3
-            
-            start_time = kwargs.get('start_time', 0.0)
-            end_time = kwargs.get('end_time', -1.0)
-            use_segment = start_time != 0.0 or end_time != -1.0
 
-            sound = None
-            
-            if use_segment:
-                sound = parselmouth.Sound(audio_path)
-                sound = sound.extract_part(from_time=start_time, to_time=end_time if end_time != -1.0 else 0, preserve_times=True)
-            elif self.trimmer:
-                trimmed_data = self.trimmer.trim(audio_path, transcription, language, start_time, end_time)
-                if trimmed_data:
-                    audio, fs = trimmed_data
-                    if len(audio) > 0 and fs > 0:
-                        temp_wav = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
-                        sf.write(temp_wav.name, audio, fs)
-                        sound = parselmouth.Sound(temp_wav.name)
-                    else:
-                        sound = parselmouth.Sound(audio_path)
-                else: # Trimming failed
-                    sound = parselmouth.Sound(audio_path)
-            else:
-                sound = parselmouth.Sound(audio_path)
-
-            if sound is None:
-                return 0.0
+            sound = parselmouth.Sound(audio, sampling_frequency=fs)
 
             originaldur = sound.get_total_duration()
             if originaldur == 0:
@@ -202,7 +159,7 @@ class PraatSpeechRateEvaluator(Evaluator):
 
             intensity_matrix = call(intensity, "Down to Matrix")
             sound_from_intensity_matrix = call(intensity_matrix, "To Sound (slice)", 1)
-            
+
             point_process = call(sound_from_intensity_matrix, "To PointProcess (extrema)", "Left", "yes", "no", "Sinc70")
             numpeaks = call(point_process, "Get number of points")
             t = [call(point_process, "Get time from index", i + 1) for i in range(numpeaks)]
@@ -246,14 +203,10 @@ class PraatSpeechRateEvaluator(Evaluator):
                 if not math.isnan(value):
                     if whichlabel == "sounding":
                         voicedcount += 1
-            
+
             speakingrate = voicedcount / originaldur
             return speakingrate
         except Exception as e:
             # Parselmouth can raise a generic "PraatError"
-            print(f"Error processing file {audio_path} with PraatSpeechRateEvaluator: {e}")
+            print(f"Error processing audio with PraatSpeechRateEvaluator: {e}")
             return None
-        finally:
-            if temp_wav:
-                import os
-                os.unlink(temp_wav.name)

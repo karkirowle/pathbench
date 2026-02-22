@@ -3,16 +3,11 @@ from collections import defaultdict
 import numpy as np
 from tqdm import tqdm
 
-from pathbench.evaluator import (
-    Utt2ScoreEvaluator,
-    PEREvaluator,
-    ASREvaluator,
-    DirectPEREvaluator,
-    DoubleASREvaluator,
-)
+from pathbench.evaluator import Utt2ScoreEvaluator
+from pathbench.asr_evaluators import ASREvaluator, PEREvaluator, DirectPEREvaluator, DoubleASREvaluator
 from pathbench.reference_evaluator import ESTOIEvaluator
 from pathbench.nad_evaluator import NADEvaluator
-from pathbench.articulatory_precision_evaluator import ArticulatoryPrecisionEvaluator, ArticulatoryPrecisionEvaluatorOld
+from pathbench.articulatory_precision_evaluator import ArticulatoryPrecisionEvaluator, PhoneticConfidenceEvaluator
 from pathbench.speech_rate import PraatSpeechRateEvaluator
 from pathbench.artp_double_asr_evaluator import ArtPDoubleASREvaluator
 from pathbench.p_estoi_evaluator import ForcedAlignmentPESTOIEvaluator
@@ -116,7 +111,7 @@ def evaluate_dataset(dataset_dir, reference_type="control"):
         "dper": DirectPEREvaluator(),
         "double_asr": DoubleASREvaluator(language=dataset.language),
         "artp": ArticulatoryPrecisionEvaluator(),
-        "artp_old": ArticulatoryPrecisionEvaluatorOld(),
+        "artp_old": PhoneticConfidenceEvaluator(),
         "artp_dasr": ArtPDoubleASREvaluator(language=dataset.language),
         "wada_snr": WadaSnrEvaluator(),
         "std_pitch": StdPitchEvaluator(),
