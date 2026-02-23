@@ -41,7 +41,7 @@ jobs:
         run: |
           pip install gdown
           mkdir -p lms
-          gdown 1rkcVsZ1lsbUxYj0yxnPcyIb_eMGGFoeS -O lms/wiki_en_token.arpa
+          gdown 1rkcVsZ1lsbUxYj0yxnPcyIb_eMGGFoeS -O lms/wiki_en_token.arpa.bin
 
       - name: Install Python dependencies
         run: |
