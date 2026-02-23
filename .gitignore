@@ -25,9 +25,9 @@ scripts/evaluate_spk2score_nad.py
 scripts/force_align_utterance.py
 scripts/plot_artp_vs_subjective.py
 *.sh
-*.png
 *.tex
 tests/__pycache__/
 DEPENDENCIES.md
+CLAUDE.md
 compare_results.py
 
