@@ -28,3 +28,6 @@ scripts/plot_artp_vs_subjective.py
 *.png
 *.tex
 tests/__pycache__/
+DEPENDENCIES.md
+compare_results.py
+

@@ -145,9 +145,6 @@ class ArtPDoubleASREvaluator(ReferenceFreeEvaluator):
         )
         phonemized_reference = re.sub(r"\s+", " ", phonemized_reference.replace("|", " ")).strip()
         print(f"Phonemized reference: {phonemized_reference}")
-        if not phonemized_reference:
-            print(f"Warning: Could not phonemize ASR transcription.")
-            return None
 
         # 2. Get the mapping from phonemes to model vocab indices.
         vocab = self.phonetic_processor.tokenizer.get_vocab()
@@ -158,16 +155,13 @@ class ArtPDoubleASREvaluator(ReferenceFreeEvaluator):
         target_phonemes = [p.replace("ʲ", "") for p in target_phonemes]
         target_phonemes = [p.replace("dz", "z") for p in target_phonemes]
 
-        for p in target_phonemes:
-            if p not in vocab:
-                # Remove
-                print(f"Warning: Phoneme {p} not in model vocabulary.")
-                target_phonemes.remove(p)
-        try:
-            target_ids = [vocab[p] for p in target_phonemes]
-        except KeyError as e:
-            print(f"Phoneme {e} not in model vocabulary.")
-            return None
+        target_phonemes = [p for p in target_phonemes if p in vocab]
+
+        if not target_phonemes:
+            print(f"Warning: No recognisable phonemes from ASR transcription. Falling back to 'a'.")
+            target_phonemes = ["a"]
+
+        target_ids = [vocab[p] for p in target_phonemes]
 
         # 3. Forced alignment
         emissions = torch.log_softmax(logits, dim=-1)

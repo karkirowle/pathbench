@@ -1,22 +1,11 @@
 from typing import Optional, List
 
-import soundfile as sf
-import torch
-import torchaudio
-from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
-from phonemizer.phonemize import phonemize
-from phonemizer.separator import Separator
-import re
 import numpy as np
 import librosa
 
 from pathbench.reference_evaluator import ReferenceEvaluator, STOI
 from pathbench.string_clean import clean_text
 from pathbench.vad import FATrimmer
-
-
-from pathbench.vad import FATrimmer
-
 
 class ForcedAlignmentPESTOIEvaluator(ReferenceEvaluator):
     """An evaluator that uses P-ESTOI to compute a score after trimming silence using forced alignment."""

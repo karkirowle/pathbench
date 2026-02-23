@@ -102,3 +102,9 @@ The following code shows how to evaluate a dataset and get the correlation of ea
 ## Installation
 
 To install the package, you can do the following:
+
+# Acknowledgements
+
+Many parts were shamelessly copied from others libraries or reproduced after consultation with those people.
+I would like to thank Martijn Bartelds and Parvaneh Janbakhshi.
+-  WADA-SNR: https://gist.github.com/johnmeade/d8d2c67b87cda95cd253f55c21387e75

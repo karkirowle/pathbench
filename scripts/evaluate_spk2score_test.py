@@ -175,13 +175,9 @@ def run_reference_evaluators(dataset_dir, utt_evaluators, spk_utt_scores):
     """Scores utterances with reference-based evaluators for each reference type.
 
     Updates spk_utt_scores in place.
-
-    Note: For the '/all' dataset variant, evaluation aborts on the first missing
-    reference audio (structural limitation — many speakers have no control counterpart).
-    For balanced/unbalanced datasets, utterances without references are simply skipped.
+    Utterances without reference audio are skipped.
     """
     reference_path = dataset_dir.replace("pathological", "control")
-    is_all_dataset = "/all" in dataset_dir
 
     for ref_type in ["control", "all"]:
         try:
@@ -195,24 +191,14 @@ def run_reference_evaluators(dataset_dir, utt_evaluators, spk_utt_scores):
             print(f"Could not load reference dataset (type={ref_type}): {e}", file=sys.stderr)
             continue
 
-        stop = False
         for utt_id, audio_path, transcription, reference_audios, start_time, end_time in tqdm(
             ref_dataset, desc=f"Reference evaluation (type={ref_type})"
         ):
-            if stop:
-                break
-
             speaker_id = ref_dataset.utt2spk.get(utt_id)
             if not speaker_id:
                 continue
 
             if not reference_audios:
-                if is_all_dataset:
-                    print(
-                        f"No reference audio for {utt_id} in 'all' dataset "
-                        f"(ref_type={ref_type}). Stopping reference evaluation."
-                    )
-                    stop = True
                 continue
 
             for name in REF_EVALUATOR_NAMES:
@@ -226,15 +212,7 @@ def run_reference_evaluators(dataset_dir, utt_evaluators, spk_utt_scores):
                     print(f"Evaluator '{name}' ({ref_type}) failed for {utt_id}: {e}")
                     score = None
 
-                if score is None:
-                    if is_all_dataset:
-                        print(
-                            f"Evaluator '{name}' ({ref_type}) returned None for {utt_id} "
-                            "in 'all' dataset. Stopping reference evaluation."
-                        )
-                        stop = True
-                        break
-                else:
+                if score is not None:
                     spk_utt_scores[speaker_id][f"{name}_{ref_type}"].append(score)
 
 
@@ -319,15 +297,17 @@ def aggregate_to_speaker_level(spk_utt_scores, all_evaluators):
 def compute_correlations(agg_spk_metrics, output_file):
     """Computes Pearson correlation between spk2score and each metric at speaker level.
 
+    All non-allowlisted metrics are evaluated on the same common speaker set:
+    the intersection of spk2score speakers and every non-allowlisted metric's
+    speakers. Allowlisted metrics (spk2age, wada_snr) use their own per-metric
+    intersection to avoid dragging down the common set.
+
     Args:
         agg_spk_metrics: metric_name -> speaker_id -> aggregated score
         output_file: file-like object for logging results
 
     Returns:
         results: {'pcc_<metric_name>': float}
-
-    Warns to stderr if a non-allowlisted metric covers fewer speakers than spk2score,
-    which would indicate unexpected speaker dropout.
     """
     results = {}
     ground_truth = agg_spk_metrics.get("spk2score", {})
@@ -335,40 +315,41 @@ def compute_correlations(agg_spk_metrics, output_file):
 
     output_file.write("\n--- Correlation Analysis (Speaker Level) ---\n")
 
+    # Build the common speaker set across all non-allowlisted metrics.
+    non_allowlist_metrics = [
+        m for m in agg_spk_metrics
+        if m != "spk2score" and _base_metric(m) not in PARTIAL_COVERAGE_ALLOWLIST
+    ]
+    common_speakers = set(ground_truth.keys())
+    for m in non_allowlist_metrics:
+        common_speakers &= agg_spk_metrics[m].keys()
+    common_speakers = sorted(common_speakers)
+
+    if len(common_speakers) < n_gt:
+        print(
+            f"Info: common speaker set across non-allowlisted metrics: "
+            f"{len(common_speakers)}/{n_gt} speakers.",
+            file=sys.stderr,
+        )
+
     for metric_name in sorted(m for m in agg_spk_metrics if m != "spk2score"):
-        metric_scores = agg_spk_metrics[metric_name]
-        common = sorted(ground_truth.keys() & metric_scores.keys())
+        if _base_metric(metric_name) in PARTIAL_COVERAGE_ALLOWLIST:
+            speakers = sorted(ground_truth.keys() & agg_spk_metrics[metric_name].keys())
+        else:
+            speakers = common_speakers
 
-        if len(common) < n_gt and _base_metric(metric_name) not in PARTIAL_COVERAGE_ALLOWLIST:
-            print(
-                f"Warning: '{metric_name}' covers {len(common)}/{n_gt} speakers. "
-                "Some speakers have no valid score.",
-                file=sys.stderr,
-            )
-
-        if len(common) < 2:
+        if len(speakers) < 2:
             output_file.write(
-                f"  {metric_name}: not enough common speakers ({len(common)}) — skipped.\n"
+                f"  {metric_name}: not enough common speakers ({len(speakers)}) — skipped.\n"
             )
             continue
 
-        gt_vals = np.array([ground_truth[s] for s in common])
-        metric_vals = np.array([metric_scores[s] for s in common])
-
-        # Safety net: with nanmean aggregation upstream, NaNs should not reach here.
-        # Uncomment if debugging unexpected NaN values in correlation inputs:
-        # valid = ~np.isnan(gt_vals) & ~np.isnan(metric_vals)
-        # gt_vals, metric_vals = gt_vals[valid], metric_vals[valid]
-
-        if len(gt_vals) < 2:
-            output_file.write(
-                f"  {metric_name}: not enough valid speakers after NaN removal — skipped.\n"
-            )
-            continue
+        gt_vals = np.array([ground_truth[s] for s in speakers])
+        metric_vals = np.array([agg_spk_metrics[metric_name][s] for s in speakers])
 
         pcc = np.corrcoef(gt_vals, metric_vals)[0, 1]
         output_file.write(
-            f"  PCC (spk2score vs {metric_name}): {pcc:.4f}  [{len(gt_vals)} speakers]\n"
+            f"  PCC (spk2score vs {metric_name}): {pcc:.4f}  [{len(speakers)} speakers]\n"
         )
         results[f"pcc_{metric_name}"] = pcc
 

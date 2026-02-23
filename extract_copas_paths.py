@@ -266,16 +266,27 @@ def get_valid_texts_by_gender_count(entries, dtype_filter, min_per_gender=2):
     """
     control_entries = [e for e in entries if e["group"] == "control" and e["dtype"] == dtype_filter]
     text_stats = defaultdict(lambda: {'m': set(), 'f': set()})
-    
+
     for e in control_entries:
         g = e['gender']
         text_stats[e["norm_text"]][g].add(e["speaker"])
-    
+
     valid_texts = set()
     for text, stats in text_stats.items():
         if len(stats['m']) >= min_per_gender and len(stats['f']) >= min_per_gender:
             valid_texts.add(text)
     return valid_texts
+
+def get_texts_with_min_controls(entries, dtype_filter, min_controls=1):
+    """
+    Returns texts spoken by at least min_controls distinct control speakers.
+    Used to ensure reference-based metrics (p_estoi, nad) can always find a match.
+    """
+    control_entries = [e for e in entries if e["group"] == "control" and e["dtype"] == dtype_filter]
+    text_control_speakers = defaultdict(set)
+    for e in control_entries:
+        text_control_speakers[e["norm_text"]].add(e["speaker"])
+    return {text for text, spks in text_control_speakers.items() if len(spks) >= min_controls}
 
 # ==========================================
 # 5. WRITING OUTPUTS
@@ -425,13 +436,16 @@ def process_copas(copas_root, metadata_path, age_path, gender_path, output_dir):
                         unbalanced_set.append(e_copy)
 
             # --- 3. All Partition ---
-            # Logic: All Speakers + All Data (No Control Text Requirement)
+            # Logic: All Speakers + Valid Control Text (ensures reference metrics find matches)
             all_set = []
             for e in subset_entries:
+                if e["norm_text"] not in valid_control_texts:
+                    continue
+
                 final_score = e["score"]
                 if dtype == "word" and e["is_a18"] and group == "pathological":
                     final_score = scores_std.get(e["speaker"], "N/A")
-                
+
                 e_copy = e.copy()
                 e_copy["score"] = final_score
                 all_set.append(e_copy)
@@ -446,7 +460,7 @@ def process_copas(copas_root, metadata_path, age_path, gender_path, output_dir):
             print(f"[{group.upper()} - {dtype.upper()}]")
             print(f"    Balanced:   {len(balanced_set)} utts ({n_bal} spks)")
             print(f"    Unbalanced: {len(unbalanced_set)} utts ({n_unbal} spks) [ValidCtrl]")
-            print(f"    All:        {len(all_set)} utts ({n_all} spks) [No Control Req]")
+            print(f"    All:        {len(all_set)} utts ({n_all} spks) [ValidCtrl]")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
