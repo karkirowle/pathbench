@@ -13,7 +13,6 @@ outs/
 *.err
 cache/
 .d*
-utils.py
 .tex
 results/
 results_*/
