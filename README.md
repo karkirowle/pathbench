@@ -1,5 +1,7 @@
 # PathBench
 
+[![Unit Tests](https://github.com/karkirowle/pathbench/actions/workflows/tests.yml/badge.svg)](https://github.com/karkirowle/pathbench/actions/workflows/tests.yml)
+
 PathBench is a benchmark designed to evaluate pathological speech assessment systems.
 
 ## PathBench
