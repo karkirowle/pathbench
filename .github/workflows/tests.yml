@@ -39,7 +39,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          pip install -U pip
+          pip install -U pip pytest
           pip install numpy
           pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
           pip install transformers matplotlib librosa tqdm jiwer praat-parselmouth
@@ -47,4 +47,4 @@ jobs:
           pip install -e .
 
       - name: Run unit tests
-        run: python -m unittest tests.test_evaluators -v
+        run: python -m pytest tests/test_evaluators.py -v
