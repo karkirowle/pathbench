@@ -37,6 +37,12 @@ jobs:
           path: ~/.cache/huggingface
           key: ${{ runner.os }}-hf-models-v1
 
+      - name: Download language model
+        run: |
+          pip install gdown
+          mkdir -p lms
+          gdown 1rkcVsZ1lsbUxYj0yxnPcyIb_eMGGFoeS -O lms/wiki_en_token.arpa
+
       - name: Install Python dependencies
         run: |
           pip install -U pip pytest
