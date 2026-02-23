@@ -41,7 +41,7 @@ jobs:
         run: |
           pip install -U pip pytest
           pip install numpy
-          pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+          pip install torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu
           pip install transformers matplotlib librosa tqdm jiwer praat-parselmouth
           pip install git+https://github.com/thewh1teagle/phonemizer-fork.git
           pip install -e .
