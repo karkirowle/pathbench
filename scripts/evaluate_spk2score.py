@@ -418,8 +418,8 @@ def main():
 
     dataset_name = args.dataset_dirs[0].replace("/", "_")
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    output_filename = f"results_10/{dataset_name}_{timestamp}.txt"
-    os.makedirs("results_10", exist_ok=True)
+    output_filename = f"results_11/{dataset_name}_{timestamp}.txt"
+    os.makedirs("results_11", exist_ok=True)
 
     git_hash = get_git_hash()
     print(f"Git commit: {git_hash}")

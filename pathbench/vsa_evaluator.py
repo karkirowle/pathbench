@@ -146,13 +146,13 @@ class VSAEvaluator(LanguageAwareSpeakerEvaluator):
 
         if not all_formants:
             print("Warning: No formants extracted. Cannot calculate VSA.")
-            return None
+            return 0.0
 
         Fp = np.array(all_formants)
 
         if Fp.shape[0] < 4:  # n_components for GMM
             print("Warning: Not enough formant points to build GMM. Cannot calculate VSA.")
-            return None
+            return 0.0
 
         # B. Filtering
         try:
@@ -165,14 +165,14 @@ class VSAEvaluator(LanguageAwareSpeakerEvaluator):
             Fp_filtered = Fp[log_likelihood >= threshold]
         except Exception as e:
             print(f"Error during GMM filtering: {e}")
-            return None
+            return 0.0
 
         if len(Fp_filtered) < n_clusters:
             print(
                 f"Warning: Not enough data points ({len(Fp_filtered)}) after filtering "
                 f"for clustering. Cannot calculate VSA."
             )
-            return None
+            return 0.0
 
         # C. Clustering
         try:
@@ -182,7 +182,7 @@ class VSAEvaluator(LanguageAwareSpeakerEvaluator):
             Kp = kmeans.cluster_centers_
         except Exception as e:
             print(f"Error during KMeans clustering: {e}")
-            return None
+            return 0.0
 
         # D. Convex hull/area calculation
         try:
@@ -192,7 +192,7 @@ class VSAEvaluator(LanguageAwareSpeakerEvaluator):
             vsa = hull.volume
         except Exception as e:
             print(f"Error calculating convex hull: {e}")
-            return None
+            return 0.0
 
         # Visualization
         fig_dir = "figure"
