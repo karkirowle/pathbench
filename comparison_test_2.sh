@@ -16,10 +16,10 @@
 # DATASET_PATHS=("datasets/copas/pathological/utterances/unbalanced") # run done
 # DATASET_PATHS=("datasets/copas/pathological/utterances/all") # run done
 # DATASET_PATHS=("datasets/easycall/pathological/word/balanced") # run done
-DATASET_PATHS=("datasets/copas/pathological/word/all")
+DATASET_PATHS=("datasets/youtube/")
 # DATASET_PATHS=("datasets/easycall/pathological/word/all") # run done
 # DATASET_PATHS=("datasets/easycall/pathological/utterances/balanced") # run done
-DATASET_PATHS=("datasets/copas/pathological/word/all")
+DATASET_PATHS=("datasets/youtube/")
 # DATASET_PATHS=("datasets/easycall/pathological/utterances/all") # run done 
 # DATASET_PATHS=("datasets/neurovoz/pathological/utterances/balanced") # run done
 # DATASET_PATHS=("datasets/neurovoz/pathological/utterances/unbalanced") # run done
@@ -52,5 +52,5 @@ singularity exec \
     export TMPDIR=/data/group1/z40484r/projects/pathbench/tmp
     echo ${DATASET_PATHS[@]}
     # The dataset paths are passed as arguments to the python script
-    PHONEMIZER_ESPEAK_LIBRARY=/data/group1/z40484r/projects/vowel_space_area/tools/espeak-ng/.local/lib/libespeak-ng.so python -u /data/group1/z40484r/projects/pathbench/scripts/evaluate_spk2score_test.py "$@"
+    PHONEMIZER_ESPEAK_LIBRARY=/data/group1/z40484r/projects/vowel_space_area/tools/espeak-ng/.local/lib/libespeak-ng.so python -u /data/group1/z40484r/projects/pathbench/scripts/evaluate_spk2score.py "$@"
     ' -- "${DATASET_PATHS[@]}"

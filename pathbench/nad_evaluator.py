@@ -37,9 +37,14 @@ class NADEvaluator(ReferenceAudioEvaluator):
     def __init__(self, model_id="facebook/wav2vec2-large", layer=10):
         self.featurizer = load_wav2vec2_featurizer(model_id, layer)
         self.min_feature_len = 2 # DTW requires at least 2 feature vectors
+        self._feature_cache = {}  # (audio_path, start_time, end_time) -> (features, err)
 
     def _get_features(self, audio_path, start_time, end_time):
-        """Helper to load and featurize an audio file."""
+        """Helper to load and featurize an audio file. Results are cached."""
+        cache_key = (audio_path, start_time, end_time)
+        if cache_key in self._feature_cache:
+            return self._feature_cache[cache_key]
+
         # 1. Load audio
         audio = None
         try:
@@ -48,17 +53,25 @@ class NADEvaluator(ReferenceAudioEvaluator):
             audio, _ = librosa.load(audio_path, sr=16000, offset=offset, duration=duration)
 
             if audio is None or len(audio) == 0:
-                return None, f"Audio at {audio_path} could not be loaded or is empty."
+                result = (None, f"Audio at {audio_path} could not be loaded or is empty.")
+                self._feature_cache[cache_key] = result
+                return result
 
             # 2. Featurize
             features = self.featurizer(audio)
             if features.shape[0] < self.min_feature_len:
-                return None, f"Feature length for {audio_path} is {features.shape[0]}, which is less than minimum {self.min_feature_len}."
+                result = (None, f"Feature length for {audio_path} is {features.shape[0]}, which is less than minimum {self.min_feature_len}.")
+                self._feature_cache[cache_key] = result
+                return result
 
-            return features, None
+            result = (features, None)
+            self._feature_cache[cache_key] = result
+            return result
 
         except Exception as e:
-            return None, f"Failed to process {audio_path}: {e}"
+            result = (None, f"Failed to process {audio_path}: {e}")
+            self._feature_cache[cache_key] = result
+            return result
 
     def score(
         self,
@@ -114,9 +127,14 @@ class TrimmedNADEvaluator(ReferenceTxtAndAudioEvaluator):
         self.featurizer = load_wav2vec2_featurizer(model_id, layer)
         self.trimmer = trimmer
         self.min_feature_len = 2 # DTW requires at least 2 feature vectors
+        self._feature_cache = {}  # (audio_path, start_time, end_time, use_trimming) -> (features, err)
 
     def _get_features(self, audio_path, transcription, language, start_time, end_time, use_trimming):
-        """Helper to load, optionally trim, and featurize an audio file."""
+        """Helper to load, optionally trim, and featurize an audio file. Results are cached."""
+        cache_key = (audio_path, start_time, end_time, use_trimming)
+        if cache_key in self._feature_cache:
+            return self._feature_cache[cache_key]
+
         use_segment = start_time != 0.0 or end_time != -1.0
 
         # 1. Load audio (either trimmed or from segment/file)
@@ -133,17 +151,25 @@ class TrimmedNADEvaluator(ReferenceTxtAndAudioEvaluator):
                 audio, _ = librosa.load(audio_path, sr=16000, offset=offset, duration=duration)
 
             if audio is None or len(audio) == 0:
-                return None, f"Audio at {audio_path} could not be loaded or is empty."
+                result = (None, f"Audio at {audio_path} could not be loaded or is empty.")
+                self._feature_cache[cache_key] = result
+                return result
 
             # 2. Featurize
             features = self.featurizer(audio)
             if features.shape[0] < self.min_feature_len:
-                return None, f"Feature length for {audio_path} is {features.shape[0]}, which is less than minimum {self.min_feature_len}."
+                result = (None, f"Feature length for {audio_path} is {features.shape[0]}, which is less than minimum {self.min_feature_len}.")
+                self._feature_cache[cache_key] = result
+                return result
 
-            return features, None
+            result = (features, None)
+            self._feature_cache[cache_key] = result
+            return result
 
         except Exception as e:
-            return None, f"Failed to process {audio_path}: {e}"
+            result = (None, f"Failed to process {audio_path}: {e}")
+            self._feature_cache[cache_key] = result
+            return result
 
     def score(
         self,

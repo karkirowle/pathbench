@@ -289,6 +289,10 @@ class TestEvaluatorMethods(unittest.TestCase):
         score = ArticulatoryPrecisionEvaluator().score("test", BLUE_ACCENTED, "blue", "en-us")
         self._assert_score("ArticulatoryPrecision", score, EXPECTED_ARTICULATORY_PRECISION, places=4)
 
+    @unittest.skipUnless(
+        os.path.exists("lms/wiki_en_token.arpa.bin") or os.path.exists("lms/wiki_en_token.arpa"),
+        "Language model not available"
+    )
     def test_artp_double_asr(self):
         """ArtPDoubleASREvaluator (articulatory precision via double-pass ASR) on accented BLUE recording."""
         from pathbench.artp_double_asr_evaluator import ArtPDoubleASREvaluator
