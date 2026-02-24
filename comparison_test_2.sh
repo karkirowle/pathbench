@@ -16,10 +16,10 @@
 # DATASET_PATHS=("datasets/copas/pathological/utterances/unbalanced") # run done
 # DATASET_PATHS=("datasets/copas/pathological/utterances/all") # run done
 # DATASET_PATHS=("datasets/easycall/pathological/word/balanced") # run done
-DATASET_PATHS=("datasets/copas/pathological/word/balanced")
+DATASET_PATHS=("datasets/youtube/")
 # DATASET_PATHS=("datasets/easycall/pathological/word/all") # run done
 # DATASET_PATHS=("datasets/easycall/pathological/utterances/balanced") # run done
-DATASET_PATHS=("datasets/copas/pathological/word/balanced")
+DATASET_PATHS=("datasets/youtube/")
 # DATASET_PATHS=("datasets/easycall/pathological/utterances/all") # run done 
 # DATASET_PATHS=("datasets/neurovoz/pathological/utterances/balanced") # run done
 # DATASET_PATHS=("datasets/neurovoz/pathological/utterances/unbalanced") # run done
