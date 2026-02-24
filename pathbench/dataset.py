@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Dict, Iterator, Any, Optional, List
+from typing import Dict, Iterator, Any, Optional, List, Tuple
 import numpy as np
 from pathbench.string_clean import clean_text
 
@@ -92,7 +92,7 @@ class Dataset:
                         scores[key] = float(score)
         return scores
 
-    def __iter__(self) -> Iterator[tuple[str, str, str, Optional[List[str]], float, float]]:
+    def __iter__(self) -> Iterator[tuple[str, str, str, Optional[List[Tuple[str, float, float]]], float, float]]:
         """
         Iterates over utterances, yielding utterance ID, audio path, transcription,
         a list of reference audio paths, start time, and end time.
@@ -201,8 +201,9 @@ class Dataset:
     @staticmethod
     def _find_matching_references_in_dataset(dataset, transcription: str, current_speaker: str) -> List[tuple[str, float, float]]:
         paths = []
+        cleaned_transcription = clean_text(transcription)
         for utt_id, trans in dataset.text.items():
-            if trans == transcription:
+            if clean_text(trans) == cleaned_transcription:
                 speaker = dataset.utt2spk.get(utt_id)
                 # The speaker check should be against the original utterance speaker
                 if speaker != current_speaker:

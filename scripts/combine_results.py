@@ -8,36 +8,65 @@ from scipy.stats import wilcoxon
 # --- CONFIGURATION ---
 FILE_PATTERN = "results_10/*.txt"
 OUTPUT_TEX_FILE = "complex_evaluation_summary_2.tex"
+DATASETS_ROOT = "datasets"
+
+DATASET_DIR_MAP = {
+    'UASpeech': 'uaspeech',
+    'NeuroVoz': 'neurovoz',
+    'EasyCall': 'easycall',
+    'COPAS': 'copas',
+    'TORGO': 'torgo',
+    'YT': 'youtube',
+}
+TYPE_DIR_MAP = {'Word': 'word', 'Utterance': 'utterances'}
+COND_DIR_MAP = {'PB': 'balanced', 'PU': 'unbalanced', 'ALL': 'all'}
 
 # --- METRIC DEFINITIONS ---
 METRIC_ROW_MAP = {
     'speech_rate': 'Speech Rate',
     'speech_rate_fa': 'Speech Rate (FA)',
     'praat_speech_rate': 'Praat Speech Rate',
-    'praat_speech_rate_fa': 'Praat Speech Rate (FA)',
+    'praat_speech_rate_fa': 'Speech Rate',
     'cpp': 'CPP',
-    'cpp_fa': 'CPP (FA)',
+    'cpp_fa': 'CPP',
     'std_pitch': 'Std Pitch',
-    'std_pitch_fa': 'Std Pitch (FA)',
+    'std_pitch_fa': 'Std Pitch',
     'wada_snr': 'WADA SNR',
-    'artp_old': 'Entropy',
+    'artp_old': 'Confidence',
     'age': 'Age',
     'spk2age': 'Age',
     'vsa': 'VSA',
     'vsa_fa': 'VSA (FA)',
     'double_asr': 'Double ASR',
-    'artp_double_asr': 'ArtP (DASR)',
-    'per': 'PER',
-    'dper': 'DPER',
+    'artp_double_asr': 'DArtP',
+    'per': 'PER (SEM)',
+    'dper': 'PER (Phone)',
     'artp': 'ArtP',
     'p_estoi_control': 'P-ESTOI Control',
     'p_estoi_all': 'P-ESTOI All',
     'p_estoi_fa_control': 'P-ESTOI FA Control',
-    'p_estoi_fa_all': 'P-ESTOI FA All',
+    'p_estoi_fa_all': 'P-ESTOI',
     'nad_control': 'NAD Control',
     'nad_all': 'NAD All',
     'nad_fa_control': 'NAD FA Control',
-    'nad_fa_all': 'NAD FA All'
+    'nad_fa_all': 'NAD'
+}
+
+# Multi-lingual support, Explainability columns per metric key
+# \cmark* = limited/requires adaptation
+METRIC_MULTI_EXPL = {
+    'praat_speech_rate_fa': (r'\cmark',  r'\cmark'),
+    'cpp_fa':               (r'\cmark',  r'\cmark'),
+    'std_pitch_fa':         (r'\cmark',  r'\cmark'),
+    'vsa':                  (r'\cmark*', r'\cmark'),
+    'double_asr':           (r'\xmark',  r'\cmark'),
+    'artp_double_asr':      (r'\xmark',  r'\cmark'),
+    'artp_old':             (r'\xmark',  r'\cmark'),
+    'per':                  (r'\xmark',  r'\cmark'),
+    'dper':                 (r'\cmark*', r'\cmark'),
+    'artp':                 (r'\cmark*', r'\cmark'),
+    'p_estoi_fa_all':       (r'\cmark',  r'\xmark'),
+    'nad_fa_all':           (r'\cmark',  r'\xmark'),
 }
 
 # Added Praat metrics here so they are considered for "Best Reference-Free" (underlining)
@@ -59,6 +88,39 @@ GROUPS = {
     'Reference-Text': ['per', 'dper', 'artp'],
     'Reference-Audio': ['p_estoi_fa_all', 'nad_fa_all']
 }
+
+def count_lines(filepath):
+    try:
+        with open(filepath) as f:
+            return sum(1 for line in f if line.strip())
+    except FileNotFoundError:
+        return None
+
+
+def get_dataset_stats(datasets_root):
+    """Return dict (dataset, type, cond, split) -> {'spk': int|None, 'utt': int|None}."""
+    stats = {}
+    for col_def in get_table_column_order():
+        dataset, dtype, cond = col_def
+        if dataset == 'YT':
+            base = os.path.join(datasets_root, 'youtube')
+            stats[(dataset, dtype, cond, 'pathological')] = {
+                'spk': count_lines(os.path.join(base, 'spk2score')),
+                'utt': count_lines(os.path.join(base, 'text')),
+            }
+            stats[(dataset, dtype, cond, 'control')] = {'spk': None, 'utt': None}
+            continue
+        d_dir = DATASET_DIR_MAP[dataset]
+        t_dir = TYPE_DIR_MAP[dtype]
+        c_dir = COND_DIR_MAP[cond]
+        for split in ('pathological', 'control'):
+            base = os.path.join(datasets_root, d_dir, split, t_dir, c_dir)
+            stats[(dataset, dtype, cond, split)] = {
+                'spk': count_lines(os.path.join(base, 'spk2score')),
+                'utt': count_lines(os.path.join(base, 'text')),
+            }
+    return stats
+
 
 def parse_txt_file(filepath):
     filename = os.path.basename(filepath).lower()
@@ -268,84 +330,139 @@ def get_table_column_order():
         ('YT', 'Utterance', 'ALL')
     ]
 
-def generate_latex(df):
+def generate_latex(df, datasets_root=DATASETS_ROOT):
     target_tuples = get_table_column_order()
-    
+    stats = get_dataset_stats(datasets_root)
+
     pivot = df.pivot_table(
-        index='MetricKey', 
-        columns=['Dataset', 'Type', 'Condition'], 
-        values='Value', 
+        index='MetricKey',
+        columns=['Dataset', 'Type', 'Condition'],
+        values='Value',
         aggfunc='first'
     )
-
     target_index = pd.MultiIndex.from_tuples(target_tuples, names=['Dataset', 'Type', 'Condition'])
     pivot = pivot.reindex(columns=target_index)
 
-    col_max_global = {} 
-    col_max_rf = {}     
+    col_max_global = {}
+    col_max_rf = {}
     for col_def in target_tuples:
-        col_series = pivot[col_def]
-        valid_vals = col_series.dropna()
-        col_max_global[col_def] = valid_vals.max() if not valid_vals.empty else -999
-        rf_series = col_series[col_series.index.isin(REF_FREE_KEYS)].dropna()
+        col_series = pivot[col_def].dropna().round(2)
+        col_max_global[col_def] = col_series.max() if not col_series.empty else -999
+        rf_series = col_series[col_series.index.isin(REF_FREE_KEYS)]
         col_max_rf[col_def] = rf_series.max() if not rf_series.empty else -999
 
+    # Metric + Multi + Expl + data cols + Avg
+    N_COLS = 1 + 2 + len(target_tuples) + 1
+
+    def fmt_stat(val):
+        return '--' if val is None else str(val)
+
+    def stat_row(label, split, key):
+        cells = ' & '.join(fmt_stat(stats.get((d, t, c, split), {}).get(key)) for d, t, c in target_tuples)
+        return f"        {label} & & & {cells} & \\\\"
+
     latex_rows = []
-    
-    # --- UPDATED TABLE GROUPS TO INCLUDE PRAAT METRICS ---
+
+    # --- Dataset Information ---
+    latex_rows.append(f"        \\multicolumn{{{N_COLS}}}{{l}}{{\\textit{{Dataset Information}}}} \\\\")
+    latex_rows.append(
+        r"        Language & & & \multicolumn{2}{c|}{English} & \multicolumn{2}{c|}{Spanish}"
+        r" & \multicolumn{4}{c|}{Italian} & \multicolumn{6}{c|}{Dutch}"
+        r" & \multicolumn{4}{c|}{English} & English & \\"
+    )
+    latex_rows.append(
+        r"        Disorder & & & \multicolumn{2}{c|}{Dysarthria} & \multicolumn{2}{c|}{Parkinson's}"
+        r" & \multicolumn{4}{c|}{Dysarthria} & \multicolumn{6}{c|}{Variety of pathologies}"
+        r" & \multicolumn{4}{c|}{Dysarthria} & OC & \\"
+    )
+    latex_rows.append(r"        \midrule")
+
+    # --- Pathological Statistics ---
+    latex_rows.append(f"        \\multicolumn{{{N_COLS}}}{{l}}{{\\textit{{Statistics: Pathological}}}} \\\\")
+    latex_rows.append(stat_row(r"\# Spk", 'pathological', 'spk'))
+    latex_rows.append(stat_row(r"\# Utt", 'pathological', 'utt'))
+    latex_rows.append(r"        \midrule")
+
+    # --- Control Statistics ---
+    latex_rows.append(f"        \\multicolumn{{{N_COLS}}}{{l}}{{\\textit{{Statistics: Control}}}} \\\\")
+    latex_rows.append(stat_row(r"\# Spk", 'control', 'spk'))
+    latex_rows.append(stat_row(r"\# Utt", 'control', 'utt'))
+    latex_rows.append(r"        \midrule")
+    latex_rows.append(r"        \midrule")
+
+    # --- Metric Groups ---
     groups = [
-        ("Reference-Free (Signal)", [
-            'praat_speech_rate_fa',
-            'cpp_fa',
-            'std_pitch_fa',
-        ]),
+        ("Reference-Free (Signal)", ['praat_speech_rate_fa', 'cpp_fa', 'std_pitch_fa']),
         ("Reference-Free (Speaker)", ['vsa']),
         ("Reference-Free (Model)", ['double_asr', 'artp_double_asr', 'artp_old']),
         ("Reference-Text", ['per', 'dper', 'artp']),
-        ("Reference-Audio (Parallel)", [
-            'p_estoi_fa_all',
-            'nad_fa_all'
-        ])
+        ("Reference-Audio (Parallel)", ['p_estoi_fa_all', 'nad_fa_all']),
     ]
-    
-    for group_name, metrics in groups:
-        latex_rows.append(f"        \\multicolumn{{21}}{{l}}{{\\textit{{{group_name}}}}} \\\\")
 
+    all_metrics = [m for _, metrics in groups for m in metrics]
+
+    # Pass 1: compute per-metric averages (rounded)
+    metric_avg = {}
+    for m_key in all_metrics:
+        if m_key not in pivot.index:
+            metric_avg[m_key] = np.nan
+            continue
+        vals = [round(pivot.loc[m_key, c], 2) for c in target_tuples if not pd.isna(pivot.loc[m_key, c])]
+        metric_avg[m_key] = round(np.mean(vals), 2) if vals else np.nan
+
+    avg_max_global = max((v for v in metric_avg.values() if not np.isnan(v)), default=-999)
+    avg_max_rf = max((v for k, v in metric_avg.items() if k in REF_FREE_KEYS and not np.isnan(v)), default=-999)
+
+    def fmt_cell(cell_tex, is_global_best, is_rf_best):
+        if is_global_best and is_rf_best:
+            return f"\\textbf{{\\underline{{{cell_tex}}}}}"
+        if is_global_best:
+            return f"\\textbf{{{cell_tex}}}"
+        if is_rf_best:
+            return f"\\underline{{{cell_tex}}}"
+        return cell_tex
+
+    for group_name, metrics in groups:
+        latex_rows.append(f"        \\multicolumn{{{N_COLS}}}{{l}}{{\\textit{{{group_name}}}}} \\\\")
         for m_key in metrics:
             display_name = METRIC_ROW_MAP.get(m_key, m_key)
-
-            row_str = f"        {display_name}"
-            row_vals = []
+            multi, expl = METRIC_MULTI_EXPL.get(m_key, ('', ''))
+            row_str = f"        {display_name} & {multi} & {expl}"
             for col_def in target_tuples:
                 val = pivot.loc[m_key, col_def] if m_key in pivot.index else np.nan
                 cell_tex = "--"
                 if not pd.isna(val):
-                    row_vals.append(val)
-                    cell_tex = f"{val:.2f}"
-                    # Bold global max
-                    if val == col_max_global[col_def] and val != -999:
-                        cell_tex = f"\\textbf{{{cell_tex}}}"
-                    # Underline ref-free max
-                    elif (m_key in REF_FREE_KEYS) and (val == col_max_rf[col_def]) and (val != -999):
-                        cell_tex = f"\\underline{{{cell_tex}}}"
+                    rounded = round(val, 2)
+                    cell_tex = fmt_cell(
+                        f"{val:.2f}",
+                        rounded == col_max_global[col_def] and col_max_global[col_def] != -999,
+                        m_key in REF_FREE_KEYS and rounded == col_max_rf[col_def] and col_max_rf[col_def] != -999,
+                    )
                 row_str += f" & {cell_tex}"
-            # Avg column
-            avg_tex = f"{np.mean(row_vals):.2f}" if row_vals else "--"
-            row_str += f" & {avg_tex}"
-            row_str += " \\\\"
+            avg = metric_avg[m_key]
+            if np.isnan(avg):
+                avg_tex = "--"
+            else:
+                avg_tex = fmt_cell(
+                    f"{avg:.2f}",
+                    avg == avg_max_global and avg_max_global != -999,
+                    m_key in REF_FREE_KEYS and avg == avg_max_rf and avg_max_rf != -999,
+                )
+            row_str += f" & {avg_tex} \\\\"
             latex_rows.append(row_str)
- 
+        latex_rows.append(r"        \midrule")
+
     header = r"""\begin{table*}[t]
     \centering
-    \caption{Speaker-level Pearson Correlation Coefficient (PCC). \textbf{PB}: Phonetically Balanced, \textbf{PU}: Phonetically Unbalanced, \textbf{ALL}: Combined (COPAS only). \textbf{Bold}: Best overall. \underline{Underline}: Best Reference-Free.}
+    \caption{Speaker-level Pearson Correlation Coefficient (PCC). \textbf{Multi}: Multilingual Support (\cmark*: Limited/Requires adaptation), \textbf{Expl}: Explainable/Interpretable. \textbf{MC}: Matched Content, \textbf{EX}: Extended, \textbf{Full}: Combined (COPAS only). \textbf{Bold}: Best overall. \underline{Underline}: Best Reference-Free. \textbf{OC}: Oral Cancer. Spk: number of speakers. Utt: number of utterances.}
     \label{tab:main_results}
     \resizebox{\textwidth}{!}{%
-    \begin{tabular}{l|cc|cc|cc|cc|ccc|ccc|cc|cc|c|c}
+    \begin{tabular}{l|cc|cc|cc|cc|cc|ccc|ccc|cc|cc|c|c}
         \toprule
-        & \multicolumn{2}{c|}{\textbf{UASpeech}} & \multicolumn{2}{c|}{\textbf{NeuroVoz}} & \multicolumn{2}{c|}{\textbf{EasyCall}} & \multicolumn{2}{c|}{\textbf{EasyCall}} & \multicolumn{3}{c|}{\textbf{COPAS}} & \multicolumn{3}{c|}{\textbf{COPAS}} & \multicolumn{2}{c|}{\textbf{TORGO}} & \multicolumn{2}{c|}{\textbf{TORGO}} & \textbf{YT} & \\
-        & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Utterance}} & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Utterance}} & \multicolumn{3}{c|}{\textit{Word}} & \multicolumn{3}{c|}{\textit{Utterance}} & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Utterance}} & \textit{Utt} & \\
-        \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-12} \cmidrule(lr){13-15} \cmidrule(lr){16-17} \cmidrule(lr){18-19} \cmidrule(lr){20-20}
-        \textbf{Metric} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{ALL} & \textbf{PB} & \textbf{PU} & \textbf{ALL} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{ALL} & \textbf{Avg} \\
+        & & & \multicolumn{2}{c|}{\textbf{UASpeech \cite{kim08c_interspeech}}} & \multicolumn{2}{c|}{\textbf{NeuroVoz \cite{mendes2024neurovoz}}} & \multicolumn{2}{c|}{\textbf{EasyCall \cite{turrisi21_interspeech}}} & \multicolumn{2}{c|}{\textbf{EasyCall \cite{turrisi21_interspeech}}} & \multicolumn{3}{c|}{\textbf{COPAS \cite{van2009dutch}}} & \multicolumn{3}{c|}{\textbf{COPAS \cite{van2009dutch}}} & \multicolumn{2}{c|}{\textbf{TORGO \cite{rudzicz2012torgo}}} & \multicolumn{2}{c|}{\textbf{TORGO \cite{rudzicz2012torgo}}} & \textbf{YT \cite{halpern25_interspeech}} & \\
+        & & & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Sentence}} & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Sentence}} & \multicolumn{3}{c|}{\textit{Word}} & \multicolumn{3}{c|}{\textit{Sentence}} & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Sentence}} & \textit{Sent} & \\
+        \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11} \cmidrule(lr){12-14} \cmidrule(lr){15-17} \cmidrule(lr){18-19} \cmidrule(lr){20-21} \cmidrule(lr){22-22}
+        \textbf{Metric} & \textbf{Multi} & \textbf{Expl} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{Full} & \textbf{MC} & \textbf{EX} & \textbf{Full} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{Full} & \textbf{Avg} \\
         \midrule"""
     footer = r"""        \bottomrule
     \end{tabular}%
@@ -353,15 +470,54 @@ def generate_latex(df):
 \end{table*}"""
 
     with open(OUTPUT_TEX_FILE, 'w') as f:
-        f.write(header + "\n" + "\n".join(latex_rows) + footer)
+        f.write(header + "\n" + "\n".join(latex_rows) + "\n" + footer)
     print(f"LaTeX table saved to {OUTPUT_TEX_FILE}")
+
+def print_wada_snr_results(df):
+    """Print WADA-SNR PCC results as a simple protocol/value table."""
+    target_tuples = get_table_column_order()
+
+    snr_df = df[df['MetricKey'] == 'wada_snr'].copy()
+    if snr_df.empty:
+        print("\nNo WADA-SNR data found.")
+        return
+
+    pivot = snr_df.pivot_table(
+        index='MetricKey',
+        columns=['Dataset', 'Type', 'Condition'],
+        values='Value',
+        aggfunc='first'
+    )
+    target_index = pd.MultiIndex.from_tuples(target_tuples, names=['Dataset', 'Type', 'Condition'])
+    pivot = pivot.reindex(columns=target_index)
+
+    print("\n" + "="*40)
+    print("   WADA-SNR (PCC)")
+    print("="*40)
+    print(f"  {'Protocol':<28}  {'PCC':>6}")
+    print("-" * 40)
+
+    vals = []
+    for d, t, c in target_tuples:
+        protocol = f"{d} {t} {c}"
+        v = pivot.loc['wada_snr', (d, t, c)] if 'wada_snr' in pivot.index else np.nan
+        if pd.isna(v):
+            print(f"  {protocol:<28}  {'--':>6}")
+        else:
+            vals.append(round(v, 2))
+            print(f"  {protocol:<28}  {v:>6.2f}")
+
+    print("-" * 40)
+    avg = round(np.mean(vals), 2) if vals else float('nan')
+    print(f"  {'Average':<28}  {avg:>6.2f}")
+
 
 def main():
     files = glob.glob(FILE_PATTERN)
     if not files:
         print(f"No files found matching: {FILE_PATTERN}")
         return
-    
+
     print(f"Found {len(files)} files. Parsing...")
     all_data = []
     for f in files:
@@ -373,14 +529,17 @@ def main():
 
     df = pd.DataFrame(all_data)
     df = align_signs(df)
-    
+
     # 1. Generate Latex
     generate_latex(df)
-    
-    # 2. Run RQ2
+
+    # 2. Print WADA-SNR separately
+    print_wada_snr_results(df)
+
+    # 3. Run RQ2
     perform_rq2_test(df)
 
-    # 3. Run RQ3 (Filtered to common datasets)
+    # 4. Run RQ3 (Filtered to common datasets)
     perform_rq3_test(df)
 
 if __name__ == "__main__":

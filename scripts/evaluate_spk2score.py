@@ -1,4 +1,6 @@
+import os
 import sys
+import subprocess
 from collections import defaultdict
 import numpy as np
 from tqdm import tqdm
@@ -55,6 +57,16 @@ SUMMARY_METRICS = [
     "cpp_fa", "nad_fa_control", "nad_fa_all", "vsa_fa", "std_pitch_fa",
     "praat_speech_rate", "praat_speech_rate_fa",
 ]
+
+
+def get_git_hash() -> str:
+    """Returns the current git commit hash, or 'unknown' if not in a git repo."""
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], stderr=subprocess.DEVNULL
+        ).decode().strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return "unknown"
 
 
 def _base_metric(metric_name: str) -> str:
@@ -407,9 +419,14 @@ def main():
     dataset_name = args.dataset_dirs[0].replace("/", "_")
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     output_filename = f"results_10/{dataset_name}_{timestamp}.txt"
+    os.makedirs("results_10", exist_ok=True)
+
+    git_hash = get_git_hash()
+    print(f"Git commit: {git_hash}")
 
     with open(output_filename, "w") as output_file:
-        output_file.write(f"Evaluation run: {timestamp}\n\n")
+        output_file.write(f"Evaluation run: {timestamp}\n")
+        output_file.write(f"Git commit: {git_hash}\n\n")
 
         all_results = {}
         for dataset_dir in args.dataset_dirs:

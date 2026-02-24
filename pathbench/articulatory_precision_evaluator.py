@@ -17,11 +17,12 @@ class PhoneticConfidenceEvaluator(ReferenceFreeEvaluator):
     """An evaluator that scores based on the model's average confidence in its own
     greedy-decoded phoneme sequence (no reference text used)."""
 
-    def __init__(self, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft"):
+    def __init__(self, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft", use_exp: bool = False):
         self.processor = Wav2Vec2Processor.from_pretrained(model_id)
         self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model.to(self.device)
+        self.use_exp = use_exp
         print(f"Phonetic model '{model_id}' loaded on {self.device}.")
 
     def score(
@@ -200,23 +201,22 @@ class ArticulatoryPrecisionEvaluator(ReferenceTxtEvaluator):
         target_phonemes = [p.replace("ʲ", "") for p in target_phonemes]
         target_phonemes = [p.replace("dz", "z") for p in target_phonemes]
         
-        for p in target_phonemes:
-            if p not in vocab:
-                # Remove
-                print(f"Warning: Phoneme {p} not in model vocabulary for {audio_path}.")
-                target_phonemes.remove(p)
-        try:
-            target_ids = [vocab[p] for p in target_phonemes]
-        except KeyError as e:
-            print(f"Phoneme {e} not in model vocabulary.")
+        original_count = len(target_phonemes)
+        target_phonemes = [p for p in target_phonemes if p in vocab]
+        if len(target_phonemes) < original_count:
+            print(f"Warning: Some phonemes not in model vocabulary for {audio_path}.")
+
+        if not target_phonemes:
+            print(f"Warning: No phonemes in model vocabulary for {audio_path}.")
             return None
+
+        target_ids = [vocab[p] for p in target_phonemes]
 
         # 3. Forced alignment
         # Based on https://pytorch.org/audio/main/tutorials/forced_alignment_tutorial.html
         
         emissions = torch.log_softmax(logits, dim=-1)
-        emissions = torch.exp(emissions)
-        
+
         # torchaudio.functional.forced_align requires CPU tensors
         emissions = emissions.cpu()
         targets = torch.tensor(target_ids, dtype=torch.int32).unsqueeze(0)
@@ -257,8 +257,11 @@ class ArticulatoryPrecisionEvaluator(ReferenceTxtEvaluator):
         total_prob = 0
         num_phonemes = 0
 
+        # Convert alignment scores from log-probabilities to probabilities
+        # so the final score is an average probability, not log probability.
+        prob_scores = torch.exp(scores)
 
-        for i, (token, score) in enumerate(zip(best_path[0,:], scores[0,:])):
+        for i, (token, score) in enumerate(zip(best_path[0,:], prob_scores[0,:])):
             #print(f"  Frame {i}: token_id={token}, score={score}")
 
             # If <pad>, skip from calculation

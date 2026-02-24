@@ -165,7 +165,6 @@ class ArtPDoubleASREvaluator(ReferenceFreeEvaluator):
 
         # 3. Forced alignment
         emissions = torch.log_softmax(logits, dim=-1)
-        emissions = torch.exp(emissions)
 
         emissions = emissions.cpu()
         targets = torch.tensor(target_ids, dtype=torch.int32).unsqueeze(0)
@@ -184,7 +183,11 @@ class ArtPDoubleASREvaluator(ReferenceFreeEvaluator):
         total_prob = 0
         num_phonemes = 0
 
-        for i, (token, score) in enumerate(zip(best_path[0,:], scores[0,:])):
+        # Convert alignment scores from log-probabilities to probabilities
+        # so the final score is an average probability, not log probability.
+        prob_scores = torch.exp(scores)
+
+        for i, (token, score) in enumerate(zip(best_path[0,:], prob_scores[0,:])):
             if not token == vocab.get(self.phonetic_processor.tokenizer.pad_token, 0):
                 num_phonemes += 1
                 total_prob += score

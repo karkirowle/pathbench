@@ -41,9 +41,20 @@ vice versa. A mismatch causes the script to exit with an error.
 import argparse
 import csv
 import os
+import subprocess
 import sys
 
 import numpy as np
+
+
+def get_git_hash() -> str:
+    """Returns the current git commit hash, or 'unknown' if not in a git repo."""
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], stderr=subprocess.DEVNULL
+        ).decode().strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return "unknown"
 
 
 # ---------------------------------------------------------------------------
@@ -282,6 +293,8 @@ def main():
                         help="Print per-speaker comparison table")
 
     args = parser.parse_args()
+
+    print(f"Git commit: {get_git_hash()}")
 
     if args.results_dir:
         if not args.datasets_root:

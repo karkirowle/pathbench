@@ -12,14 +12,14 @@ def normalise_signal(x, method):
     assert method in ['RMS', 'zero_mean'], 'normalisation method should be RMS or zero_mean'
     if method == 'RMS':
         max_abs = np.max(np.abs(x))
-        #if max_abs == 0:
-        #    return x
+        if max_abs == 0:
+            return x
         x = 0.8 * (x / max_abs)
         return x
     elif method == 'zero_mean':
         std = np.std(x)
-        #if std == 0:
-        #    return x
+        if std == 0:
+            return x
         x = (x - np.mean(x)) / std
         return x
     else:

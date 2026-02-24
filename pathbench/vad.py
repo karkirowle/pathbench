@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from typing import Optional, Tuple
 
 import torch
@@ -15,13 +16,21 @@ from pathbench.string_clean import clean_text
 class FATrimmer:
     """A class to trim silence from audio using forced alignment."""
 
-    def __init__(self, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft"):
+    MAX_CACHE_SIZE = 10000
+
+    def __init__(self, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft", use_exp: bool = False):
         self.processor = Wav2Vec2Processor.from_pretrained(model_id)
         self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model.to(self.device)
-        self.cache = {}
+        self.use_exp = use_exp
+        self.cache = OrderedDict()
         print(f"Phonetic model '{model_id}' loaded on {self.device}.")
+
+    def _cache_put(self, key, value):
+        self.cache[key] = value
+        if len(self.cache) > self.MAX_CACHE_SIZE:
+            self.cache.popitem(last=False)
 
     def trim(self, audio_path: str, transcription: str, language: str, start_time: float = 0.0, end_time: float = -1.0) -> Optional[Tuple[np.ndarray, int]]:
         """
@@ -30,6 +39,7 @@ class FATrimmer:
         """
         cache_key = (audio_path, transcription, language, start_time, end_time)
         if cache_key in self.cache:
+            self.cache.move_to_end(cache_key)
             return self.cache[cache_key]
 
         try:
@@ -96,7 +106,8 @@ class FATrimmer:
 
         # 3. Forced alignment
         emissions = torch.log_softmax(logits, dim=-1)
-        emissions = torch.exp(emissions)
+        if self.use_exp:
+            emissions = torch.exp(emissions)
         emissions = emissions.cpu()
         targets = torch.tensor(target_ids, dtype=torch.int32).unsqueeze(0)
 
@@ -118,7 +129,7 @@ class FATrimmer:
             
             if start_idx == -1:
                 print(f"Warning: Could not find start of speech in {audio_path}. Returning full audio.")
-                self.cache[cache_key] = (speech, sample_rate)
+                self._cache_put(cache_key, (speech, sample_rate))
                 return speech, sample_rate
 
             end_idx = -1
@@ -129,7 +140,7 @@ class FATrimmer:
             
             if end_idx == -1:
                 print(f"Warning: Could not find end of speech in {audio_path}. Returning full audio.")
-                self.cache[cache_key] = (speech, sample_rate)
+                self._cache_put(cache_key, (speech, sample_rate))
                 return speech, sample_rate
 
             ratio = speech.shape[0] / emissions.shape[1]
@@ -137,7 +148,7 @@ class FATrimmer:
             end_frame = int((end_idx + 1) * ratio)
 
             trimmed_audio = speech[start_frame:end_frame]
-            self.cache[cache_key] = (trimmed_audio, sample_rate)
+            self._cache_put(cache_key, (trimmed_audio, sample_rate))
             return trimmed_audio, sample_rate
         except Exception as e:
             print(f"Error during trimming of {audio_path}: {e}")
