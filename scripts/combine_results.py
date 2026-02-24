@@ -6,8 +6,8 @@ import re
 from scipy.stats import wilcoxon
 
 # --- CONFIGURATION ---
-FILE_PATTERN = "results_7/*.txt"
-OUTPUT_TEX_FILE = "complex_evaluation_summary.tex"
+FILE_PATTERN = "results_10/*.txt"
+OUTPUT_TEX_FILE = "complex_evaluation_summary_2.tex"
 
 # --- METRIC DEFINITIONS ---
 METRIC_ROW_MAP = {
@@ -309,16 +309,18 @@ def generate_latex(df):
     ]
     
     for group_name, metrics in groups:
-        latex_rows.append(f"        \\multicolumn{{20}}{{l}}{{\\textit{{{group_name}}}}} \\\\")
-        
+        latex_rows.append(f"        \\multicolumn{{21}}{{l}}{{\\textit{{{group_name}}}}} \\\\")
+
         for m_key in metrics:
             display_name = METRIC_ROW_MAP.get(m_key, m_key)
-            
+
             row_str = f"        {display_name}"
+            row_vals = []
             for col_def in target_tuples:
                 val = pivot.loc[m_key, col_def] if m_key in pivot.index else np.nan
                 cell_tex = "--"
                 if not pd.isna(val):
+                    row_vals.append(val)
                     cell_tex = f"{val:.2f}"
                     # Bold global max
                     if val == col_max_global[col_def] and val != -999:
@@ -327,6 +329,9 @@ def generate_latex(df):
                     elif (m_key in REF_FREE_KEYS) and (val == col_max_rf[col_def]) and (val != -999):
                         cell_tex = f"\\underline{{{cell_tex}}}"
                 row_str += f" & {cell_tex}"
+            # Avg column
+            avg_tex = f"{np.mean(row_vals):.2f}" if row_vals else "--"
+            row_str += f" & {avg_tex}"
             row_str += " \\\\"
             latex_rows.append(row_str)
  
@@ -335,12 +340,12 @@ def generate_latex(df):
     \caption{Speaker-level Pearson Correlation Coefficient (PCC). \textbf{PB}: Phonetically Balanced, \textbf{PU}: Phonetically Unbalanced, \textbf{ALL}: Combined (COPAS only). \textbf{Bold}: Best overall. \underline{Underline}: Best Reference-Free.}
     \label{tab:main_results}
     \resizebox{\textwidth}{!}{%
-    \begin{tabular}{l|cc|cc|cc|cc|ccc|ccc|cc|cc|c}
+    \begin{tabular}{l|cc|cc|cc|cc|ccc|ccc|cc|cc|c|c}
         \toprule
-        & \multicolumn{2}{c|}{\textbf{UASpeech}} & \multicolumn{2}{c|}{\textbf{NeuroVoz}} & \multicolumn{2}{c|}{\textbf{EasyCall}} & \multicolumn{2}{c|}{\textbf{EasyCall}} & \multicolumn{3}{c|}{\textbf{COPAS}} & \multicolumn{3}{c|}{\textbf{COPAS}} & \multicolumn{2}{c|}{\textbf{TORGO}} & \multicolumn{2}{c|}{\textbf{TORGO}} & \textbf{YT} \\
-        & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Utterance}} & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Utterance}} & \multicolumn{3}{c|}{\textit{Word}} & \multicolumn{3}{c|}{\textit{Utterance}} & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Utterance}} & \textit{Utt} \\
+        & \multicolumn{2}{c|}{\textbf{UASpeech}} & \multicolumn{2}{c|}{\textbf{NeuroVoz}} & \multicolumn{2}{c|}{\textbf{EasyCall}} & \multicolumn{2}{c|}{\textbf{EasyCall}} & \multicolumn{3}{c|}{\textbf{COPAS}} & \multicolumn{3}{c|}{\textbf{COPAS}} & \multicolumn{2}{c|}{\textbf{TORGO}} & \multicolumn{2}{c|}{\textbf{TORGO}} & \textbf{YT} & \\
+        & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Utterance}} & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Utterance}} & \multicolumn{3}{c|}{\textit{Word}} & \multicolumn{3}{c|}{\textit{Utterance}} & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Utterance}} & \textit{Utt} & \\
         \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-12} \cmidrule(lr){13-15} \cmidrule(lr){16-17} \cmidrule(lr){18-19} \cmidrule(lr){20-20}
-        \textbf{Metric} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{ALL} & \textbf{PB} & \textbf{PU} & \textbf{ALL} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{ALL} \\
+        \textbf{Metric} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{ALL} & \textbf{PB} & \textbf{PU} & \textbf{ALL} & \textbf{PB} & \textbf{PU} & \textbf{PB} & \textbf{PU} & \textbf{ALL} & \textbf{Avg} \\
         \midrule"""
     footer = r"""        \bottomrule
     \end{tabular}%
