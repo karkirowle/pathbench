@@ -6,8 +6,8 @@ import re
 from scipy.stats import wilcoxon
 
 # --- CONFIGURATION ---
-FILE_PATTERN = "results_10/*.txt"
-OUTPUT_TEX_FILE = "complex_evaluation_summary_2.tex"
+FILE_PATTERN = "results_11/*.txt"
+OUTPUT_TEX_FILE = "complex_evaluation_summary_3.tex"
 DATASETS_ROOT = "datasets"
 
 DATASET_DIR_MAP = {

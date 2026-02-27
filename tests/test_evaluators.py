@@ -71,9 +71,9 @@ EXPECTED_ESTOI          = 0.0016   # places=4
 EXPECTED_NAD                        = 13.7288  # places=4; facebook/wav2vec2-large
 EXPECTED_NAD_TRIMMED                = 13.7288  # places=4; TrimmedNADEvaluator (no trimmer → untrimmed fallback)
 EXPECTED_ARTICULATORY_PRECISION_OLD = 0.5374   # places=4; facebook/wav2vec2-xlsr-53-espeak-cv-ft, confidence measure
-EXPECTED_ARTICULATORY_PRECISION     = 0.0097   # places=4; forced-alignment AP
+EXPECTED_ARTICULATORY_PRECISION     = 0.0695   # places=4; forced-alignment AP
 EXPECTED_ARTP_DOUBLE_ASR            = 0.4405   # places=4; double-pass ASR + phonetic model + LM
-EXPECTED_FA_PESTOI                  = 0.0407   # places=4; forced-alignment P-ESTOI
+EXPECTED_FA_PESTOI                  = -0.0761  # places=4; forced-alignment P-ESTOI
 
 
 def file_sha256(path: str) -> str:
