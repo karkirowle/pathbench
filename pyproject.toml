@@ -1,3 +1,85 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77.0"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "pathbench"
+version = "0.1.0"
+description = "A benchmarking framework for evaluating pathological speech assessment systems"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+license-files = ["LICENSE"]
+# TODO: fill in your real name and email address
+authors = [
+    {name = "PathBench Authors", email = "you@example.com"},
+]
+keywords = [
+    "speech",
+    "pathology",
+    "benchmark",
+    "evaluation",
+    "acoustic",
+    "dysarthria",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+# Core dependencies required by the pathbench package itself.
+# NOTE: torch and torchaudio are listed with loose constraints.
+# For GPU / specific CUDA support install them first following
+# https://pytorch.org/get-started/locally/ before running pip install pathbench.
+#
+# NOTE: phonemizer works best with the upstream release, but the Makefile
+# historically used a fork (https://github.com/thewh1teagle/phonemizer-fork.git)
+# to work around a caching bug.  If you hit caching problems, install that fork
+# manually after installing this package.
+#
+# System dependency (not pip-installable): espeak-ng shared library.
+# Install via your OS package manager, e.g.: apt install espeak-ng
+dependencies = [
+    "numpy",
+    "scipy",
+    "librosa",
+    "soundfile",
+    "torch>=2.0",
+    "torchaudio>=2.0",
+    "transformers",
+    "dtw-python",
+    "ltfatpy",
+    "jiwer",
+    "phonemizer",
+    "pyctcdecode",
+    "praat-parselmouth",
+    "scikit-learn",
+]
+
+[project.optional-dependencies]
+# Extra dependencies used only by the scripts/ directory
+scripts = [
+    "matplotlib",
+    "pandas",
+    "tqdm",
+]
+# Convenience meta-extra that pulls in everything
+all = [
+    "pathbench[scripts]",
+]
+
+[tool.setuptools.packages.find]
+# Only include the pathbench package; ignore results_*, datasets/, scripts/, etc.
+include = ["pathbench*"]
+
+[project.urls]
+Homepage = "https://github.com/karkirowle/pathbench"
+Repository = "https://github.com/karkirowle/pathbench"
+"Bug Tracker" = "https://github.com/karkirowle/pathbench/issues"

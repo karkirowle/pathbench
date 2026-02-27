@@ -13,6 +13,7 @@ outs/
 *.err
 cache/
 .d*
+dist/
 .tex
 results/
 results_*/

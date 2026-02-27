@@ -1,5 +1,7 @@
 # PathBench
 
+<p align="center"><img src="leonberger_transparent.png" width="250" /></p>
+
 [![Unit Tests](https://github.com/karkirowle/pathbench/actions/workflows/tests.yml/badge.svg)](https://github.com/karkirowle/pathbench/actions/workflows/tests.yml)
 
 PathBench is a benchmark designed to evaluate pathological speech assessment systems.
@@ -51,9 +53,7 @@ You have to install the framework but not download the stuff (datasets).
 
 ### I want to contribute a new predictor to this repository, how do I do that?
 
-Please first look at the flow-chart below to decide where the model lies in this taxonomy. If you feel that your model doesn't fit this taxonomy, please open an issue, and we can discuss.
-
-![Taxonomy](taxonomy.png)
+See [CONTRIBUTING.md](CONTRIBUTING.md) for a step-by-step guide covering bug fixes, new evaluator development, unit test conventions, and coding conventions.
 
 ### I want to reproduce your research
 
