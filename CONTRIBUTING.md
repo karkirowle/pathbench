@@ -42,7 +42,7 @@ PHONEMIZER_ESPEAK_LIBRARY=/path/to/libespeak-ng.so pytest tests/test_evaluators.
 
 Use the flow-chart below to decide where your evaluator fits. If it does not fit, open an issue to discuss.
 
-![Taxonomy](taxonomy.png)
+![Taxonomy](assets/taxonomy.png)
 
 ### Step 1 — Study the reference
 

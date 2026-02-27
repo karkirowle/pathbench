@@ -1,6 +1,6 @@
 # PathBench
 
-<p align="center"><img src="leonberger_transparent.png" width="250" /></p>
+<p align="center"><img src="assets/leonberger_transparent.png" width="250" /></p>
 
 [![Unit Tests](https://github.com/karkirowle/pathbench/actions/workflows/tests.yml/badge.svg)](https://github.com/karkirowle/pathbench/actions/workflows/tests.yml)
 
@@ -103,10 +103,32 @@ The following code shows how to evaluate a dataset and get the correlation of ea
 
 ## Installation
 
-To install the package, you can do the following:
+### Python dependencies
+
+```bash
+cd tools && make
+source tools/venv/bin/activate
+```
+
+### System dependencies
+
+PathBench requires [`espeak-ng`](https://github.com/espeak-ng/espeak-ng) for forced alignment via phonemizer.
+
+**With sudo access:**
+```bash
+sudo apt-get install espeak-ng
+```
+
+**Without sudo access:** A containerised environment such as Docker is recommended.
 
 # Acknowledgements
 
 Many parts were shamelessly copied from others libraries or reproduced after consultation with those people.
-I would like to thank Martijn Bartelds and Parvaneh Janbakhshi.
+I would like to especially say thanks to  Martijn Bartelds and Parvaneh Janbakhshi.
 -  WADA-SNR: https://gist.github.com/johnmeade/d8d2c67b87cda95cd253f55c21387e75
+-  NAD: https://github.com/Bartelds/neural-acoustic-distance
+-  CPP: https://github.com/satvik-dixit/CPP
+
+## Author
+
+Bence Mark Halpern, Nagoya University
