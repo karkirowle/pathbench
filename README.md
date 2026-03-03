@@ -121,6 +121,10 @@ sudo apt-get install espeak-ng
 
 **Without sudo access:** A containerised environment such as Docker is recommended.
 
+# Funding
+
+This project was sponsored by the NWO Rubicon grant.
+
 # Acknowledgements
 
 Many parts were shamelessly copied from others libraries or reproduced after consultation with those people.
@@ -132,3 +136,4 @@ I would like to especially say thanks to  Martijn Bartelds and Parvaneh Janbakhs
 ## Author
 
 Bence Mark Halpern, Nagoya University
+
