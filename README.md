@@ -91,7 +91,8 @@ We are not allowed to share these datasets ourselves, however, all of them are r
 
 * [UASpeech](https://speechtechnology.web.illinois.edu/uaspeech/)
 
-* Oral Cancer - YouTube
+* [Oral Cancer - YouTube](https://zenodo.org/records/18738598)
+** This download also includes the n-grams for DArtP and ArtP
 
 ## Setup
 
