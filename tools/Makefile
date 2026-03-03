@@ -20,11 +20,11 @@ virtualenv.done: show_variables
 
 pytorch.done: virtualenv.done
 ifeq ($(CUDA_VERSION),)
-	. venv/bin/activate; pip install torch==$(PYTORCH_VERSION) torchaudio==$(PYTORCH_VERSION) \
-		--index-url https://download.pytorch.org/whl/cpu
+	. venv/bin/activate; pip install torch==$(PYTORCH_VERSION) \
+		-f https://download.pytorch.org/whl/cpu/stable.html
 else
-	. venv/bin/activate; pip install torch==$(PYTORCH_VERSION) torchaudio==$(PYTORCH_VERSION) \
-		--index-url https://download.pytorch.org/whl/cu$(subst $(DOT),,$(CUDA_VERSION))
+	. venv/bin/activate; pip install torch==$(PYTORCH_VERSION) \
+		-f https://download.pytorch.org/whl/cu$(subst $(DOT),,$(CUDA_VERSION))/torch_stable.html
 endif
 	touch pytorch.done
 
