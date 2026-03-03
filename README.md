@@ -12,13 +12,13 @@ PathBench is a benchmark designed to evaluate pathological speech assessment sys
 
 There are several use cases for PathBench:
 
-* [I want to evaluate my newly developed predictor](https://www.google.com/search?q=%23i-want-to-evaluate-my-newly-developed-predictor)
+* [I want to evaluate my newly developed predictor](#i-want-to-evaluate-my-newly-developed-predictor)
 
-* [I want to use the predictors developed by you](https://www.google.com/search?q=%23i-want-to-use-the-predictors-developed-by-you)
+* [I want to use the predictors developed by you](#i-want-to-use-the-predictors-developed-by-you)
 
-* [I want to contribute a new predictor to this repository, how do I do that?](https://www.google.com/search?q=%23i-want-to-contribute-a-new-predictor-to-this-repository-how-do-i-do-that)
+* [I want to contribute a new predictor to this repository, how do I do that?](#i-want-to-contribute-a-new-predictor-to-this-repository-how-do-i-do-that)
 
-* [I want to reproduce your research](https://www.google.com/search?q=%23i-want-to-reproduce-your-research)
+* [I want to reproduce your research](#i-want-to-reproduce-your-research)
 
 ### I want to evaluate my newly developed predictor
 
@@ -57,9 +57,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for a step-by-step guide covering bug fix
 
 ### I want to reproduce your research
 
-Follow the steps in the Installation section.
+Follow the steps in the [Installation](#installation) section.
 
-Follow the steps in the Downloads section.
+Follow the steps in the [Downloads](#how-do-i-download-the-required-datasets) section.
 
 After running the benchmark, verify that your evaluator implementations and datasets match the reference before comparing results.
 
@@ -93,7 +93,13 @@ We are not allowed to share these datasets ourselves, however, all of them are r
 
 ## Setup
 
-Please route all wav.scp-s to your root.
+After downloading the datasets, repoint the `wav.scp` files to your local dataset root:
+
+```bash
+python scripts/setup_paths.py /path/to/your/datasets
+```
+
+This automatically detects the current path prefix in all `wav.scp` files under `datasets/` and replaces it with the path you provide.
 
 ## Quick start
 
@@ -103,9 +109,7 @@ The following code shows how to evaluate a dataset and get the correlation of ea
 
 ### Python dependencies
 
-PathBench cannot be published to PyPI because it depends on Git-hosted forks of `phonemizer` and `pyctcdecode`:
-- **phonemizer**: uses [phonemizer-fork](https://github.com/thewh1teagle/phonemizer-fork) to fix caching issues in the upstream package
-- **pyctcdecode**: uses [kensho-technologies/pyctcdecode@main](https://github.com/kensho-technologies/pyctcdecode) which removes the overly restrictive `numpy<2.0` constraint
+PathBench cannot be published to PyPI because it depends on Git-hosted forks of `phonemizer` and `pyctcdecode`.
 
 ```bash
 cd tools && make
