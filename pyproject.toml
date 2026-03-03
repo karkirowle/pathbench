@@ -7,12 +7,12 @@ name = "pathbench"
 version = "0.1.0"
 description = "A benchmarking framework for evaluating pathological speech assessment systems"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 license = "MIT"
 license-files = ["LICENSE"]
 # TODO: fill in your real name and email address
 authors = [
-    {name = "PathBench Authors", email = "you@example.com"},
+    {name = "Bence Mark Halpern", email = "halpernbence@gmail.com"},
 ]
 keywords = [
     "speech",
@@ -28,10 +28,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Scientific/Engineering :: Medical Science Apps.",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 
 # Core dependencies required by the pathbench package itself.
@@ -59,7 +56,7 @@ dependencies = [
     "jiwer",
     "phonemizer",
     "pyctcdecode",
-    "praat-parselmouth",
+    "praat-parselmouth>=0.4.4",
     "scikit-learn",
 ]
 
