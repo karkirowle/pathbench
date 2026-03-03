@@ -1,6 +1,6 @@
 # PathBench
 
-<p align="center"><img src="assets/leonberger_transparent.png" width="250" /></p>
+<p align="center"><img src="assets/leonberger_transparent.png" width="150" /></p>
 
 [![Unit Tests](https://github.com/karkirowle/pathbench/actions/workflows/tests.yml/badge.svg)](https://github.com/karkirowle/pathbench/actions/workflows/tests.yml)
 
