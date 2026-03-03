@@ -57,15 +57,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for a step-by-step guide covering bug fix
 
 ### I want to reproduce your research
 
-Install and download everything.
+Follow the steps in the Installation section.
+
+Follow the steps in the Downloads section.
 
 After running the benchmark, verify that your evaluator implementations and datasets match the reference before comparing results.
 
-**Check evaluator implementations:**
-```bash
-source tools/venv/bin/activate
-python -m unittest tests.test_evaluators -v
-```
 
 All tests should pass. If all evaluator tests fail simultaneously, the reference audio file in `tests/data/test_audio.wav` may be corrupted — the `test_audio_integrity` test will confirm this.
 
@@ -106,8 +103,13 @@ The following code shows how to evaluate a dataset and get the correlation of ea
 
 ### Python dependencies
 
+PathBench cannot be published to PyPI because it depends on Git-hosted forks of `phonemizer` and `pyctcdecode`:
+- **phonemizer**: uses [phonemizer-fork](https://github.com/thewh1teagle/phonemizer-fork) to fix caching issues in the upstream package
+- **pyctcdecode**: uses [kensho-technologies/pyctcdecode@main](https://github.com/kensho-technologies/pyctcdecode) which removes the overly restrictive `numpy<2.0` constraint
+
 ```bash
 cd tools && make
+cd ..
 source tools/venv/bin/activate
 ```
 
@@ -121,6 +123,17 @@ sudo apt-get install espeak-ng
 ```
 
 **Without sudo access:** A containerised environment such as Docker is recommended.
+
+### Testing installation
+
+It is recommended that after this setup you run the unit tests below. If these pass you can be reasonably sure about installation integrity.
+
+**Check evaluator implementations:**
+```bash
+source tools/venv/bin/activate
+python -m unittest tests.test_evaluators -v
+```
+
 
 # Funding
 

@@ -36,11 +36,6 @@ classifiers = [
 # For GPU / specific CUDA support install them first following
 # https://pytorch.org/get-started/locally/ before running pip install pathbench.
 #
-# NOTE: phonemizer works best with the upstream release, but the Makefile
-# historically used a fork (https://github.com/thewh1teagle/phonemizer-fork.git)
-# to work around a caching bug.  If you hit caching problems, install that fork
-# manually after installing this package.
-#
 # System dependency (not pip-installable): espeak-ng shared library.
 # Install via your OS package manager, e.g.: apt install espeak-ng
 dependencies = [
@@ -54,8 +49,8 @@ dependencies = [
     "dtw-python",
     "ltfatpy",
     "jiwer",
-    "phonemizer",
-    "pyctcdecode",
+    "phonemizer-fork @ git+https://github.com/thewh1teagle/phonemizer-fork.git",
+    "pyctcdecode @ git+https://github.com/kensho-technologies/pyctcdecode.git",
     "praat-parselmouth>=0.4.4",
     "scikit-learn",
 ]
