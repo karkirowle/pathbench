@@ -93,13 +93,11 @@ We are not allowed to share these datasets ourselves, however, all of them are r
 
 ## Setup
 
-After downloading the datasets, repoint the `wav.scp` files to your local dataset root:
+After downloading the datasets, repoint the `wav.scp` files to your local dataset root. We do not provide a script for this, but you can use a regex replacement such as:
 
 ```bash
-python scripts/setup_paths.py /path/to/your/datasets
+find datasets/ -name "wav.scp" -exec sed -i 's|/data/group1/z40484r/datasets|/path/to/your/datasets|g' {} +
 ```
-
-This automatically detects the current path prefix in all `wav.scp` files under `datasets/` and replaces it with the path you provide.
 
 ## Quick start
 
@@ -157,6 +155,7 @@ I would like to especially say thanks to  Martijn Bartelds and Parvaneh Janbakhs
 -  WADA-SNR: https://gist.github.com/johnmeade/d8d2c67b87cda95cd253f55c21387e75
 -  NAD: https://github.com/Bartelds/neural-acoustic-distance
 -  CPP: https://github.com/satvik-dixit/CPP
+-  Unit test audio from the [Speech Accent Archive](https://accent.gmu.edu/)
 
 # Funding
 
