@@ -117,26 +117,19 @@ The following code shows how to evaluate a dataset and get the correlation of ea
 
 ## Installation
 
-### Python dependencies
+### Package installation
 
 PathBench cannot be published to PyPI because it depends on Git-hosted forks of `phonemizer` and `pyctcdecode`.
+
+### Make installation
 
 The `make` installation route assumes the default setup of a standard Ubuntu 22.04 image (`ubuntu-2204-jammy`).
 
 ```bash
-sudo apt install python3 python3-pip python3-venv build-essential -y
+sudo apt install python3 python3-pip python3-venv build-essential cmake espeak-ng -y
 cd tools && make
 cd ..
 source tools/venv/bin/activate
-```
-
-### System dependencies
-
-PathBench requires [`espeak-ng`](https://github.com/espeak-ng/espeak-ng) for forced alignment via phonemizer.
-
-**With sudo access:**
-```bash
-sudo apt-get install espeak-ng
 ```
 
 **Without sudo access:** A containerised environment such as Docker is recommended.
