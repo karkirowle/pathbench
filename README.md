@@ -158,7 +158,7 @@ I would like to especially say thanks to  Martijn Bartelds and Parvaneh Janbakhs
 
 # Funding
 
-This project was sponsored by the NWO Rubicon grant.
+This work is partly financed by the Dutch Research Council (NWO) under project number 019.232SG.011, and partly supported by JST CREST JPMJCR19A3, Japan.
 
 ## Author
 
