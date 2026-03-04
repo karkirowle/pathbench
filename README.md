@@ -67,14 +67,14 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for a step-by-step guide covering bug fix
 
 ### I want to reproduce your research
 
-Follow the steps in the [Installation](#installation) section.
-
-Follow the steps in the [Downloads](#how-do-i-download-the-required-datasets) section.
-
-Follow the steps in the [Testing](#testing-installation) section.
+1. Follow the steps in the [Installation](#installation) section.
+2. Follow the steps in the [Downloads](#downloads) section.
+3. Follow the steps in the [Testing](#testing-installation) section.
 
 
-## How do I download the required datasets?
+## Downloads
+
+### Datasets
 
 We are not allowed to share these datasets ourselves, however, all of them are relatively easily accesible. Please get your copy.
 
@@ -89,15 +89,16 @@ We are not allowed to share these datasets ourselves, however, all of them are r
 * [UASpeech](https://speechtechnology.web.illinois.edu/uaspeech/)
 
 * [Oral Cancer - YouTube](https://zenodo.org/records/18738598)
-** This download also includes the n-grams for DArtP and ArtP
-
-## Setup
 
 After downloading the datasets, repoint the `wav.scp` files to your local dataset root. We do not provide a script for this, but you can use a regex replacement such as:
 
 ```bash
 find datasets/ -name "wav.scp" -exec sed -i 's|/data/group1/z40484r/datasets|/path/to/your/datasets|g' {} +
 ```
+
+### N-gram models
+
+The n-gram models required for DArtP and ArtP are included in the [Oral Cancer - YouTube](https://zenodo.org/records/18738598) download.
 
 ## Quick start
 
