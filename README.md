@@ -6,8 +6,6 @@
 
 PathBench is a benchmark designed to evaluate pathological speech assessment systems.
 
-## PathBench
-
 ## Usage guide
 
 There are several use cases for PathBench:
@@ -126,6 +124,7 @@ PathBench cannot be published to PyPI because it depends on Git-hosted forks of 
 The `make` installation route assumes the default setup of a standard Ubuntu 22.04 image (`ubuntu-2204-jammy`).
 
 ```bash
+sudo apt install python3 python3-pip python3-venv build-essential -y
 cd tools && make
 cd ..
 source tools/venv/bin/activate
