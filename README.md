@@ -83,8 +83,10 @@ PathBench cannot be published to PyPI because it depends on Git-hosted forks of 
 The `make` installation route assumes the default setup of a standard Ubuntu 22.04 image (`ubuntu-2204-jammy`).
 
 ```bash
-sudo apt install python3 python3-pip python3-venv build-essential cmake espeak-ng -y
-cd tools && make
+sudo apt-get update -qq
+sudo apt install python3 python3-pip python3-venv build-essential cmake espeak-ng libfftw3-dev liblapack-dev -y
+git clone git@github.com:karkirowle/pathbench.git
+cd pathbench/tools && make
 cd ..
 source tools/venv/bin/activate
 ```

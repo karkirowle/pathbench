@@ -375,6 +375,60 @@ class TestDatasetIntegrity(unittest.TestCase):
                     f"  Actual:   {actual[fname]}",
                 )
 
+    def test_audio_file_hashes(self):
+        """Verify audio files match the SHA256 hashes stored in wav_hash.scp.
+
+        Finds all wav_hash.scp files under datasets/ and re-hashes the
+        corresponding audio files from wav.scp to check for changes.
+
+        Generate wav_hash.scp files with:
+            python scripts/generate_wav_hashes.py
+        """
+        datasets_root = os.path.join(os.path.dirname(os.path.dirname(__file__)), "datasets")
+        hash_scps = []
+        for dirpath, _, filenames in os.walk(datasets_root):
+            if "wav_hash.scp" in filenames:
+                hash_scps.append(dirpath)
+        hash_scps.sort()
+
+        if not hash_scps:
+            self.skipTest("No wav_hash.scp files found — run scripts/generate_wav_hashes.py first")
+
+        for dataset_dir in hash_scps:
+            rel = os.path.relpath(dataset_dir, datasets_root)
+
+            # Load wav.scp: utt_id -> audio_path
+            wav_scp = {}
+            with open(os.path.join(dataset_dir, "wav.scp")) as f:
+                for line in f:
+                    parts = line.strip().split(None, 1)
+                    if len(parts) == 2:
+                        wav_scp[parts[0]] = parts[1]
+
+            # Load wav_hash.scp: utt_id -> expected_hash
+            expected = {}
+            with open(os.path.join(dataset_dir, "wav_hash.scp")) as f:
+                for line in f:
+                    parts = line.strip().split(None, 1)
+                    if len(parts) == 2:
+                        expected[parts[0]] = parts[1]
+
+            for utt_id, expected_hash in expected.items():
+                with self.subTest(dataset=rel, utt_id=utt_id):
+                    self.assertIn(utt_id, wav_scp,
+                                  f"{utt_id} in wav_hash.scp but not in wav.scp")
+                    audio_path = wav_scp[utt_id]
+                    self.assertTrue(os.path.isfile(audio_path),
+                                    f"Audio file missing: {audio_path}")
+                    actual_hash = file_sha256(audio_path)
+                    self.assertEqual(
+                        actual_hash, expected_hash,
+                        f"Audio hash mismatch for {utt_id} in {rel}\n"
+                        f"  File:     {audio_path}\n"
+                        f"  Expected: {expected_hash}\n"
+                        f"  Actual:   {actual_hash}",
+                    )
+
 
 # ---------------------------------------------------------------------------
 # CLI helpers
