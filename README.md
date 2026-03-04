@@ -69,8 +69,27 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for a step-by-step guide covering bug fix
 
 1. Follow the steps in the [Installation](#installation) section.
 2. Follow the steps in the [Downloads](#downloads) section.
-3. Follow the steps in the [Testing](#testing-installation) section.
+3. Follow the steps in the [Testing](#testing) section.
 
+
+## Installation
+
+### Package installation
+
+PathBench cannot be published to PyPI because it depends on Git-hosted forks of `phonemizer` and `pyctcdecode`.
+
+### Make installation
+
+The `make` installation route assumes the default setup of a standard Ubuntu 22.04 image (`ubuntu-2204-jammy`).
+
+```bash
+sudo apt install python3 python3-pip python3-venv build-essential cmake espeak-ng -y
+cd tools && make
+cd ..
+source tools/venv/bin/activate
+```
+
+**Without sudo access:** A containerised environment such as Docker is recommended.
 
 ## Downloads
 
@@ -100,32 +119,9 @@ find datasets/ -name "wav.scp" -exec sed -i 's|/data/group1/z40484r/datasets|/pa
 
 The n-gram models required for DArtP and ArtP are included in the [Oral Cancer - YouTube](https://zenodo.org/records/18738598) download.
 
-## Quick start
+## Testing
 
-The following code shows how to evaluate a dataset and get the correlation of each metric with the ground truth scores.
-
-## Installation
-
-### Package installation
-
-PathBench cannot be published to PyPI because it depends on Git-hosted forks of `phonemizer` and `pyctcdecode`.
-
-### Make installation
-
-The `make` installation route assumes the default setup of a standard Ubuntu 22.04 image (`ubuntu-2204-jammy`).
-
-```bash
-sudo apt install python3 python3-pip python3-venv build-essential cmake espeak-ng -y
-cd tools && make
-cd ..
-source tools/venv/bin/activate
-```
-
-**Without sudo access:** A containerised environment such as Docker is recommended.
-
-### Testing installation
-
-#### Installation integrity
+### Installation integrity
 
 It is recommended that after this setup you run the unit tests below. If these pass you can be reasonably sure about installation integrity.
 
@@ -138,7 +134,7 @@ All tests should pass. If all evaluator tests fail simultaneously, the reference
 
 > **Note:** During the NAD evaluator tests you will see a `Wav2Vec2Model LOAD REPORT` table listing several keys (e.g. `project_q`, `quantizer`) as **UNEXPECTED**. These warnings are harmless — the keys belong to pre-training heads that are not needed for feature extraction and can be safely ignored.
 
-#### Dataset integrity
+### Dataset integrity
 
 ```bash
 # Print SHA256 hashes of your dataset files
