@@ -25,41 +25,41 @@ No install needed beyond numpy. Provide a CSV of predicted speaker scores and co
 **Single dataset:**
 ```bash
 python scripts/evaluate_from_csv.py \
-    --predictions my_scores.csv \
+    --predictions results/datasets/copas/pathological/word/balanced/dummy_scores.csv \
     --ground-truth datasets/copas/pathological/word/balanced/spk2score
 ```
 
-**Full benchmark** — evaluate one evaluator across all datasets. Place your CSVs in a results directory that mirrors the dataset structure, with each CSV named `<evaluator>.csv`:
+**Full benchmark** — evaluate one evaluator across all datasets. Place your CSVs in a results directory that mirrors the dataset structure, with each CSV named `<evaluator>.csv`. Dummy score files are provided as a worked example:
 
 ```
-results/
-  copas/pathological/word/balanced/my_metric.csv
-  torgo/pathological/utterances/balanced/my_metric.csv
-  youtube/my_metric.csv
+results/datasets/
+  copas/pathological/word/balanced/dummy_scores.csv
+  torgo/pathological/utterances/balanced/dummy_scores.csv
+  youtube/dummy_scores.csv
 ```
 
 Then run:
 ```bash
 python scripts/evaluate_from_csv.py \
-    --results-dir results/ \
+    --results-dir results/datasets/ \
     --datasets-root datasets/ \
-    --evaluator my_metric
+    --evaluator dummy_scores
 ```
 
 This prints a table with the Pearson correlation for each dataset and the mean across all datasets.
 
-Expected CSV format:
+Expected CSV format (speaker IDs must match the ground truth exactly):
 ```
 speaker_id,score
-F01,2.5
-M03,4.0
+C16,15.61
+C17,16.74
 ```
 
 All speaker IDs in the CSV must match the ground truth exactly — the script exits with an error if any are missing from either side.
 
 ### I want to use the predictors developed by you
 
-You have to install the framework but not download the stuff (datasets).
+Follow the steps in the [Installation](#installation) section.
 
 ### I want to contribute a new predictor to this repository, how do I do that?
 
@@ -71,18 +71,8 @@ Follow the steps in the [Installation](#installation) section.
 
 Follow the steps in the [Downloads](#how-do-i-download-the-required-datasets) section.
 
-After running the benchmark, verify that your evaluator implementations and datasets match the reference before comparing results.
+Follow the steps in the [Testing](#testing-installation) section.
 
-
-All tests should pass. If all evaluator tests fail simultaneously, the reference audio file in `tests/data/test_audio.wav` may be corrupted — the `test_audio_integrity` test will confirm this.
-
-**Check dataset integrity:**
-```bash
-# Print SHA256 hashes of your dataset files
-python tests/test_evaluators.py --hash datasets/copas/pathological/word/balanced
-```
-
-Share these hashes alongside your results so others can verify they are using the same data.
 
 ## How do I download the required datasets?
 
@@ -136,18 +126,29 @@ source tools/venv/bin/activate
 
 ### Testing installation
 
+#### Installation integrity
+
 It is recommended that after this setup you run the unit tests below. If these pass you can be reasonably sure about installation integrity.
 
-**Check evaluator implementations:**
 ```bash
 source tools/venv/bin/activate
 python -m unittest tests.test_evaluators -v
 ```
 
+All tests should pass. If all evaluator tests fail simultaneously, the reference audio file in `tests/data/test_audio.wav` may be corrupted — the `test_audio_integrity` test will confirm this.
 
-# Funding
+> **Note:** During the NAD evaluator tests you will see a `Wav2Vec2Model LOAD REPORT` table listing several keys (e.g. `project_q`, `quantizer`) as **UNEXPECTED**. These warnings are harmless — the keys belong to pre-training heads that are not needed for feature extraction and can be safely ignored.
 
-This project was sponsored by the NWO Rubicon grant.
+#### Dataset integrity
+
+```bash
+# Print SHA256 hashes of your dataset files
+python tests/test_evaluators.py --hash datasets/copas/pathological/word/balanced
+```
+
+Share these hashes alongside your results so others can verify they are using the same data.
+
+
 
 # Acknowledgements
 
@@ -156,6 +157,10 @@ I would like to especially say thanks to  Martijn Bartelds and Parvaneh Janbakhs
 -  WADA-SNR: https://gist.github.com/johnmeade/d8d2c67b87cda95cd253f55c21387e75
 -  NAD: https://github.com/Bartelds/neural-acoustic-distance
 -  CPP: https://github.com/satvik-dixit/CPP
+
+# Funding
+
+This project was sponsored by the NWO Rubicon grant.
 
 ## Author
 
