@@ -1,3 +1,4 @@
+import csv
 import os
 import sys
 import subprocess
@@ -368,7 +369,26 @@ def compute_correlations(agg_spk_metrics, output_file):
     return results
 
 
-def evaluate_dataset(dataset_dir, output_file):
+def write_score_csvs(score_dir, agg_spk_metrics, output_file):
+    """Writes a CSV per evaluator into *score_dir*.
+
+    Each CSV has columns (speaker_id, score) and is named <metric>.csv.
+    Skips spk2score to avoid overwriting the ground-truth file.
+    """
+    os.makedirs(score_dir, exist_ok=True)
+    for metric_name, spk_scores in sorted(agg_spk_metrics.items()):
+        if metric_name in ("spk2score", "spk2age"):
+            continue
+        csv_path = os.path.join(score_dir, f"{metric_name}.csv")
+        with open(csv_path, "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["speaker_id", "score"])
+            for spk_id, score in sorted(spk_scores.items()):
+                writer.writerow([spk_id, f"{score:.6f}"])
+        output_file.write(f"  Wrote {csv_path} ({len(spk_scores)} speakers)\n")
+
+
+def evaluate_dataset(dataset_dir, output_file, results_dir=None):
     """Runs the full evaluation pipeline for a single dataset directory."""
     output_file.write(f"Loading dataset: {dataset_dir}\n")
     try:
@@ -406,6 +426,10 @@ def evaluate_dataset(dataset_dir, output_file):
     output_file.write("\nAggregating utterance scores to speaker level...\n")
     agg_spk_metrics = aggregate_to_speaker_level(spk_utt_scores, all_evaluators)
 
+    if results_dir is not None:
+        score_dir = os.path.join(results_dir, dataset_dir)
+        write_score_csvs(score_dir, agg_spk_metrics, output_file)
+
     return compute_correlations(agg_spk_metrics, output_file)
 
 
@@ -414,6 +438,8 @@ def main():
         description="Evaluate speaker intelligibility metrics against spk2score ground truth."
     )
     parser.add_argument("dataset_dirs", nargs="+", help="Dataset directories to evaluate.")
+    parser.add_argument("--results-dir", metavar="DIR", default=None,
+                        help="Directory to write per-evaluator score CSVs (mirrors dataset structure).")
     args = parser.parse_args()
 
     dataset_name = args.dataset_dirs[0].replace("/", "_")
@@ -432,7 +458,7 @@ def main():
         for dataset_dir in args.dataset_dirs:
             output_file.write(f"\n--- Dataset: {dataset_dir} ---\n")
             try:
-                result = evaluate_dataset(dataset_dir, output_file)
+                result = evaluate_dataset(dataset_dir, output_file, results_dir=args.results_dir)
                 if result:
                     all_results[dataset_dir] = result
             except FileNotFoundError as e:

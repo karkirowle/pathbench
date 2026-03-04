@@ -31,14 +31,26 @@ python scripts/evaluate_from_csv.py \
     --ground-truth datasets/copas/pathological/word/balanced/spk2score
 ```
 
-**Full benchmark** (results directory must mirror the dataset directory structure):
+**Full benchmark** — evaluate one evaluator across all datasets. Place your CSVs in a results directory that mirrors the dataset structure, with each CSV named `<evaluator>.csv`:
+
+```
+results/
+  copas/pathological/word/balanced/my_metric.csv
+  torgo/pathological/utterances/balanced/my_metric.csv
+  youtube/my_metric.csv
+```
+
+Then run:
 ```bash
 python scripts/evaluate_from_csv.py \
     --results-dir results/ \
-    --datasets-root datasets/
+    --datasets-root datasets/ \
+    --evaluator my_metric
 ```
 
-Expected CSV format (`my_scores.csv`):
+This prints a table with the Pearson correlation for each dataset and the mean across all datasets.
+
+Expected CSV format:
 ```
 speaker_id,score
 F01,2.5
@@ -110,6 +122,8 @@ The following code shows how to evaluate a dataset and get the correlation of ea
 ### Python dependencies
 
 PathBench cannot be published to PyPI because it depends on Git-hosted forks of `phonemizer` and `pyctcdecode`.
+
+The `make` installation route assumes the default setup of a standard Ubuntu 22.04 image (`ubuntu-2204-jammy`).
 
 ```bash
 cd tools && make

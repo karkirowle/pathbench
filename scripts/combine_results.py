@@ -75,6 +75,45 @@ REF_FREE_KEYS = [
     'artp_double_asr', 'artp_old'
 ]
 
+# --- EXPECTED SIGN OF PCC ---
+# +1: higher metric value = healthier speech (expect positive PCC with spk2score)
+# -1: higher metric value = more pathological (expect negative PCC with spk2score)
+# None: ambiguous — resolved at runtime via majority vote across datasets
+EXPECTED_SIGN = {
+    # Signal-level (reference-free)
+    'speech_rate':           None,   # unknown direction
+    'speech_rate_fa':        None,
+    'praat_speech_rate':     None,
+    'praat_speech_rate_fa':  None,
+    'cpp':                   +1,     # higher CPP = clearer voice = healthier
+    'cpp_fa':                +1,
+    'std_pitch':             +1,     # higher pitch variation = healthier
+    'std_pitch_fa':          +1,
+    'wada_snr':              None,   # higher SNR = cleaner, but not directly pathology
+    'vsa':                   +1,     # larger vowel space = better articulation
+    'vsa_fa':                +1,
+    # Model-based (reference-free)
+    'double_asr':            -1,     # higher disagreement = worse
+    'artp_double_asr':       +1,     # higher precision = healthier
+    'artp_old':              +1,     # higher confidence = healthier
+    # Reference-text
+    'per':                   -1,     # higher error rate = worse
+    'dper':                  -1,     # higher error rate = worse
+    'artp':                  +1,     # higher precision = healthier
+    # Reference-audio
+    'p_estoi_control':       +1,     # more similar to control = healthier
+    'p_estoi_all':           +1,
+    'p_estoi_fa_control':    +1,
+    'p_estoi_fa_all':        +1,
+    'nad_control':           -1,     # more distant from control = worse
+    'nad_all':               -1,
+    'nad_fa_control':        -1,
+    'nad_fa_all':            -1,
+    # Metadata
+    'age':                   None,   # age has no inherent quality direction
+    'spk2age':               None,
+}
+
 # --- STATISTICAL GROUPS ---
 GROUPS = {
     'Reference-Free (Signal)': [
@@ -202,20 +241,50 @@ def parse_txt_file(filepath):
     return data
 
 def align_signs(df):
-    if df.empty: return df
-    metrics = df['MetricKey'].unique()
-    for m in metrics:
-        if m in ['per', 'dper', 'nad_control', 'nad_all', 'nad_fa_control', 'nad_fa_all']: 
-            mask = df['MetricKey'] == m
-            df.loc[mask, 'Value'] = df.loc[mask, 'Value'].abs()
-        elif m == 'double_asr':
+    """Align PCC signs so that positive always means 'better / as expected'.
+
+    For metrics with a known expected sign (EXPECTED_SIGN = +1 or -1),
+    multiply the raw PCC by that sign.  This means:
+      - A metric with EXPECTED_SIGN = -1 (e.g. PER) that produced PCC = -0.7
+        becomes +0.7 (behaving as expected).
+      - The same metric producing PCC = +0.3 becomes -0.3 (anomalous).
+
+    For metrics with EXPECTED_SIGN = None (ambiguous), the sign is resolved
+    via majority vote: count positive vs negative values across datasets and
+    pick the majority as the expected direction.  Ties default to +1.
+    """
+    if df.empty:
+        return df
+
+    resolved_signs = {}
+
+    for m in df['MetricKey'].unique():
+        expected = EXPECTED_SIGN.get(m)
+
+        if expected is not None:
+            resolved_signs[m] = expected
+        else:
+            # Majority vote for ambiguous metrics
+            m_data = df.loc[df['MetricKey'] == m, 'Value'].dropna()
+            if len(m_data) == 0:
+                resolved_signs[m] = +1  # no data, default positive
+            else:
+                n_pos = (m_data > 0).sum()
+                n_neg = (m_data < 0).sum()
+                if n_neg > n_pos:
+                    resolved_signs[m] = -1
+                    print(f"  align_signs: '{m}' majority negative ({n_neg} neg, {n_pos} pos) → flipping")
+                else:
+                    resolved_signs[m] = +1
+                    if n_neg > 0:
+                        print(f"  align_signs: '{m}' majority positive ({n_pos} pos, {n_neg} neg) → keeping")
+
+    # Apply resolved signs
+    for m, sign in resolved_signs.items():
+        if sign == -1:
             mask = df['MetricKey'] == m
             df.loc[mask, 'Value'] = df.loc[mask, 'Value'] * -1
-        else:
-            m_data = df[df['MetricKey'] == m]['Value'].dropna()
-            if len(m_data) > 0 and (m_data < 0).all():
-                 mask = df['MetricKey'] == m
-                 df.loc[mask, 'Value'] = df.loc[mask, 'Value'] * -1
+
     return df
 
 def run_bidirectional_wilcoxon(x, y, name, label_x="X", label_y="Y"):

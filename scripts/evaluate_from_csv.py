@@ -183,20 +183,20 @@ def evaluate(predictions: dict, ground_truth: dict, label: str, verbose: bool) -
 # Batch mode: walk results directory, match against datasets root
 # ---------------------------------------------------------------------------
 
-def run_batch(results_dir: str, datasets_root: str, id_col: str, score_col: str,
-              verbose: bool):
+def run_batch(results_dir: str, datasets_root: str, evaluator: str,
+              id_col: str, score_col: str, verbose: bool):
+    csv_name = f"{evaluator}.csv"
     results = []  # (label, n, pcc)
     all_pred = []
     all_gt   = []
 
     csv_files = []
     for dirpath, _, filenames in os.walk(results_dir):
-        for fname in filenames:
-            if fname.endswith(".csv"):
-                csv_files.append(os.path.join(dirpath, fname))
+        if csv_name in filenames:
+            csv_files.append(os.path.join(dirpath, csv_name))
 
     if not csv_files:
-        print(f"No CSV files found under: {results_dir}", file=sys.stderr)
+        print(f"No '{csv_name}' files found under: {results_dir}", file=sys.stderr)
         sys.exit(1)
 
     csv_files.sort()
@@ -229,16 +229,18 @@ def run_batch(results_dir: str, datasets_root: str, id_col: str, score_col: str,
     col = max(len(r[0]) for r in results)
     col = max(col, len("Dataset"))
 
-    header = f"{'Dataset':<{col}}  {'N':>6}  {'PCC':>8}"
+    print(f"\nEvaluator: {evaluator}")
+    num_w = len(str(len(results)))
+    header = f"{'#':>{num_w}}  {'Dataset':<{col}}  {'N':>6}  {'PCC':>8}"
     print(header)
     print("-" * len(header))
-    for label, n, pcc in results:
-        print(f"{label:<{col}}  {n:>6}  {pcc:>8.4f}")
+    for idx, (label, n, pcc) in enumerate(results, 1):
+        print(f"{idx:>{num_w}}  {label:<{col}}  {n:>6}  {pcc:>8.2f}")
 
     if len(results) > 1:
-        overall_pcc = float(np.corrcoef(all_pred, all_gt)[0, 1])
+        mean_pcc = np.mean([r[2] for r in results])
         print("-" * len(header))
-        print(f"{'Overall (pooled)':<{col}}  {len(all_pred):>6}  {overall_pcc:>8.4f}")
+        print(f"{'':>{num_w}}  {'Mean':<{col}}  {'':>6}  {mean_pcc:>8.2f}")
 
 
 # ---------------------------------------------------------------------------
@@ -261,7 +263,7 @@ def run_single(csv_path: str, spk2score_path: str, id_col: str, score_col: str,
     pcc   = evaluate(predictions, ground_truth, label, verbose)
 
     print(f"N:   {len(predictions)}")
-    print(f"PCC: {pcc:.4f}")
+    print(f"PCC: {pcc:.2f}")
 
 
 # ---------------------------------------------------------------------------
@@ -283,6 +285,8 @@ def main():
 
     parser.add_argument("--datasets-root", metavar="DIR",
                         help="Root datasets directory (required with --results-dir)")
+    parser.add_argument("--evaluator", metavar="NAME",
+                        help="Evaluator name, e.g. 'dper' (looks for <name>.csv; required with --results-dir)")
     parser.add_argument("--ground-truth", metavar="FILE",
                         help="Kaldi spk2score file (required with --predictions)")
     parser.add_argument("--id-column",    default="speaker_id", metavar="NAME",
@@ -299,7 +303,9 @@ def main():
     if args.results_dir:
         if not args.datasets_root:
             parser.error("--datasets-root is required with --results-dir")
-        run_batch(args.results_dir, args.datasets_root,
+        if not args.evaluator:
+            parser.error("--evaluator is required with --results-dir")
+        run_batch(args.results_dir, args.datasets_root, args.evaluator,
                   args.id_column, args.score_column, args.verbose)
     else:
         if not args.ground_truth:
