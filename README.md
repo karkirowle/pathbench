@@ -139,8 +139,7 @@ All tests should pass. If all evaluator tests fail simultaneously, the reference
 ### Dataset integrity
 
 ```bash
-# Print SHA256 hashes of your dataset files
-python tests/test_evaluators.py --hash datasets/copas/pathological/word/balanced
+python -m pytest tests/test_evaluators.py::TestDatasetIntegrity::test_audio_file_hashes -v
 ```
 
 Share these hashes alongside your results so others can verify they are using the same data.

@@ -64,9 +64,16 @@ scripts = [
     "pandas",
     "tqdm",
 ]
+# Sphinx documentation generation
+docs = [
+    "sphinx",
+    "sphinx-autodoc-typehints",
+    "furo",
+]
 # Convenience meta-extra that pulls in everything
 all = [
     "pathbench[scripts]",
+    "pathbench[docs]",
 ]
 
 [tool.setuptools.packages.find]

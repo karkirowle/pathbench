@@ -29,4 +29,6 @@ tests/__pycache__/
 DEPENDENCIES.md
 CLAUDE.md
 compare_results.py
+docs/_build/
+pathbench/handcrafted/
 
