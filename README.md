@@ -78,6 +78,25 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for a step-by-step guide covering bug fix
 
 PathBench cannot be published to PyPI because it depends on Git-hosted forks of `phonemizer` and `pyctcdecode`.
 
+**System dependencies** (not installable via pip — must be installed separately):
+- `espeak-ng` — required by the phonemizer for forced alignment
+- PyTorch with CUDA support — install following [pytorch.org](https://pytorch.org/get-started/locally/) *before* installing pathbench
+
+**Option A — Install from a GitHub Release:**
+```bash
+pip install https://github.com/karkirowle/pathbench/releases/download/v0.1.0/pathbench-0.1.0-py3-none-any.whl
+```
+
+**Option B — Install directly from the repository:**
+```bash
+pip install git+https://github.com/karkirowle/pathbench.git
+```
+
+With optional dependencies (scripts, docs):
+```bash
+pip install "pathbench[scripts] @ git+https://github.com/karkirowle/pathbench.git"
+```
+
 ### Make installation
 
 The `make` installation route assumes the default setup of a standard Ubuntu 22.04 image (`ubuntu-2204-jammy`).
