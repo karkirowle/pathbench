@@ -144,6 +144,8 @@ python -m pytest tests/test_evaluators.py::TestDatasetIntegrity::test_audio_file
 
 Share these hashes alongside your results so others can verify they are using the same data.
 
+> **Note:** Different versions of UASpeech exist. A denoising step was applied to UASpeech in December 2020, so hashes will differ depending on whether you have the original or denoised version.
+
 
 
 # Acknowledgements
