@@ -117,6 +117,12 @@ After downloading the datasets, repoint the `wav.scp` files to your local datase
 find datasets/ -name "wav.scp" -exec sed -i 's|/data/group1/z40484r/datasets|/path/to/your/datasets|g' {} +
 ```
 
+**EasyCall fix:** Some EasyCall audio files have a stray space in their filename (`m13 _` instead of `m13_`). Rename them before running the benchmark:
+
+```bash
+find /path/to/your/datasets/easycall/EasyCall/m13 -name "m13 _*" -exec bash -c 'mv "$1" "${1//m13 _/m13_}"' _ {} \;
+```
+
 ### N-gram models
 
 The n-gram models required for DArtP and ArtP are included in the [Oral Cancer - YouTube](https://zenodo.org/records/18738598) download.
