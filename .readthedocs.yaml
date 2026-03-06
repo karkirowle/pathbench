@@ -4,17 +4,10 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.12"
-  apt_packages:
-    - espeak-ng
-    - libfftw3-dev
-    - liblapack-dev
 
 sphinx:
   configuration: docs/conf.py
 
 python:
   install:
-    - method: pip
-      path: .
-      extra_requirements:
-        - docs
+    - requirements: docs/requirements.txt

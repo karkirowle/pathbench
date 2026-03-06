@@ -30,6 +30,25 @@ html_theme = "furo"
 html_static_path = ["_static"]
 
 # -- autodoc settings --------------------------------------------------------
+# Mock all heavy / native dependencies so Sphinx can import pathbench modules
+# without requiring PyTorch, CUDA, espeak-ng, FFTW, etc.
+autodoc_mock_imports = [
+    "dtw",
+    "jiwer",
+    "librosa",
+    "ltfatpy",
+    "matplotlib",
+    "numpy",
+    "parselmouth",
+    "phonemizer",
+    "pyctcdecode",
+    "scipy",
+    "sklearn",
+    "soundfile",
+    "torch",
+    "torchaudio",
+    "transformers",
+]
 autodoc_member_order = "bysource"
 autodoc_default_options = {
     "members": True,
