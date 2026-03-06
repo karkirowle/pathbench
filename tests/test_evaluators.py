@@ -375,59 +375,88 @@ class TestDatasetIntegrity(unittest.TestCase):
                     f"  Actual:   {actual[fname]}",
                 )
 
-    def test_audio_file_hashes(self):
-        """Verify audio files match the SHA256 hashes stored in wav_hash.scp.
 
-        Finds all wav_hash.scp files under datasets/ and re-hashes the
-        corresponding audio files from wav.scp to check for changes.
+def _discover_dataset_dirs():
+    """Find all dataset directories that contain wav_hash.scp under datasets/."""
+    datasets_root = os.path.join(os.path.dirname(os.path.dirname(__file__)), "datasets")
+    result = []
+    if not os.path.isdir(datasets_root):
+        return result
+    for dirpath, _, filenames in os.walk(datasets_root):
+        if "wav_hash.scp" in filenames:
+            rel = os.path.relpath(dirpath, datasets_root)
+            result.append((rel, dirpath))
+    result.sort()
+    return result
 
-        Generate wav_hash.scp files with:
-            python scripts/generate_wav_hashes.py
-        """
-        datasets_root = os.path.join(os.path.dirname(os.path.dirname(__file__)), "datasets")
-        hash_scps = []
-        for dirpath, _, filenames in os.walk(datasets_root):
-            if "wav_hash.scp" in filenames:
-                hash_scps.append(dirpath)
-        hash_scps.sort()
 
-        if not hash_scps:
-            self.skipTest("No wav_hash.scp files found — run scripts/generate_wav_hashes.py first")
+def _check_audio_hashes_for_dataset(test_case, dataset_dir, rel):
+    """Verify audio files in a single dataset match wav_hash.scp."""
+    # Load wav.scp: utt_id -> audio_path
+    wav_scp = {}
+    with open(os.path.join(dataset_dir, "wav.scp")) as f:
+        for line in f:
+            parts = line.strip().split(None, 1)
+            if len(parts) == 2:
+                wav_scp[parts[0]] = parts[1]
 
-        for dataset_dir in hash_scps:
-            rel = os.path.relpath(dataset_dir, datasets_root)
+    # Load wav_hash.scp: utt_id -> expected_hash
+    expected = {}
+    with open(os.path.join(dataset_dir, "wav_hash.scp")) as f:
+        for line in f:
+            parts = line.strip().split(None, 1)
+            if len(parts) == 2:
+                expected[parts[0]] = parts[1]
 
-            # Load wav.scp: utt_id -> audio_path
-            wav_scp = {}
-            with open(os.path.join(dataset_dir, "wav.scp")) as f:
-                for line in f:
-                    parts = line.strip().split(None, 1)
-                    if len(parts) == 2:
-                        wav_scp[parts[0]] = parts[1]
+    for utt_id, expected_hash in expected.items():
+        with test_case.subTest(utt_id=utt_id):
+            test_case.assertIn(utt_id, wav_scp,
+                               f"{utt_id} in wav_hash.scp but not in wav.scp")
+            audio_path = wav_scp[utt_id]
+            test_case.assertTrue(os.path.isfile(audio_path),
+                                 f"Audio file missing: {audio_path}")
+            actual_hash = file_sha256(audio_path)
+            test_case.assertEqual(
+                actual_hash, expected_hash,
+                f"Audio hash mismatch for {utt_id} in {rel}\n"
+                f"  File:     {audio_path}\n"
+                f"  Expected: {expected_hash}\n"
+                f"  Actual:   {actual_hash}",
+            )
 
-            # Load wav_hash.scp: utt_id -> expected_hash
-            expected = {}
-            with open(os.path.join(dataset_dir, "wav_hash.scp")) as f:
-                for line in f:
-                    parts = line.strip().split(None, 1)
-                    if len(parts) == 2:
-                        expected[parts[0]] = parts[1]
 
-            for utt_id, expected_hash in expected.items():
-                with self.subTest(dataset=rel, utt_id=utt_id):
-                    self.assertIn(utt_id, wav_scp,
-                                  f"{utt_id} in wav_hash.scp but not in wav.scp")
-                    audio_path = wav_scp[utt_id]
-                    self.assertTrue(os.path.isfile(audio_path),
-                                    f"Audio file missing: {audio_path}")
-                    actual_hash = file_sha256(audio_path)
-                    self.assertEqual(
-                        actual_hash, expected_hash,
-                        f"Audio hash mismatch for {utt_id} in {rel}\n"
-                        f"  File:     {audio_path}\n"
-                        f"  Expected: {expected_hash}\n"
-                        f"  Actual:   {actual_hash}",
-                    )
+class TestAudioFileHashes(unittest.TestCase):
+    """Per-dataset audio file integrity tests.
+
+    Each dataset directory with a wav_hash.scp gets its own test method,
+    making it easy to spot which dataset has bad files:
+
+        # Run all dataset hash checks
+        python -m pytest tests/test_evaluators.py::TestAudioFileHashes -v
+
+        # Run only a specific dataset (use -k with any part of the path)
+        python -m pytest tests/test_evaluators.py::TestAudioFileHashes -k copas_pathological_word_balanced
+        python -m pytest tests/test_evaluators.py::TestAudioFileHashes -k torgo
+        python -m pytest tests/test_evaluators.py::TestAudioFileHashes -k easycall
+
+    Generate wav_hash.scp files with:
+        python scripts/generate_wav_hashes.py
+    """
+    pass
+
+
+# Dynamically generate one test method per dataset directory.
+for _rel, _abs_dir in _discover_dataset_dirs():
+    # Convert path separators to underscores for a valid method name.
+    _test_name = "test_" + _rel.replace(os.sep, "_").replace("-", "_").replace(".", "_")
+
+    def _make_test(dataset_dir, rel):
+        def test_method(self):
+            _check_audio_hashes_for_dataset(self, dataset_dir, rel)
+        test_method.__doc__ = f"Verify audio hashes for {rel}"
+        return test_method
+
+    setattr(TestAudioFileHashes, _test_name, _make_test(_abs_dir, _rel))
 
 
 # ---------------------------------------------------------------------------
