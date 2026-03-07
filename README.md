@@ -3,6 +3,8 @@
 <p align="center"><img src="assets/leonberger_transparent.png" width="150" /></p>
 
 [![Unit Tests](https://github.com/karkirowle/pathbench/actions/workflows/tests.yml/badge.svg)](https://github.com/karkirowle/pathbench/actions/workflows/tests.yml)
+[![Documentation Status](https://readthedocs.org/projects/path-benc/badge/?version=latest)](https://path-benc.readthedocs.io/en/latest/)
+![Python >= 3.10](https://img.shields.io/badge/python-%3E%3D3.10-blue)
 
 PathBench is a benchmark designed to evaluate pathological speech assessment systems.
 
@@ -180,6 +182,12 @@ Share these hashes alongside your results so others can verify they are using th
 > **Note:** Different versions of UASpeech exist. A denoising step was applied to UASpeech in December 2020, so hashes will differ depending on whether you have the original or denoised version.
 
 
+
+# License
+
+The PathBench repository code is released under the MIT License. However, some individual evaluators include or derive from code released under more restrictive licenses. In particular, the `PraatSpeechRateEvaluator` in `pathbench/speech_rate.py` is based on the Praat Script Syllable Nuclei by Nivja de Jong and Ton Wempe, which is licensed under the GNU General Public License v3 (GPL-3.0).
+
+We are not able to provide legal advice. If you believe there is a licensing concern with any component in this codebase, please [open an issue](https://github.com/karkirowle/pathbench/issues).
 
 # Acknowledgements
 
