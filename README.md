@@ -59,7 +59,15 @@ All speaker IDs in the CSV must match the ground truth exactly — the script ex
 
 ### I want to use the predictors developed by you
 
-Follow the steps in the [Installation](#installation) section.
+Follow the steps in the [Installation](#installation) section. Then you can run inference on individual audio files. For example, to score a single utterance with the ArtP (Articulatory Precision) evaluator:
+
+```python
+from pathbench import ArticulatoryPrecisionEvaluator
+
+evaluator = ArticulatoryPrecisionEvaluator()
+score = evaluator.score("utt1", "/path/to/audio.wav", transcription="the cat sat on the mat", language="en")
+print(f"ArtP score: {score}")
+```
 
 ### I want to contribute a new predictor to this repository, how do I do that?
 
