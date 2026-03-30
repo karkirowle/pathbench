@@ -164,7 +164,7 @@ It is recommended that after this setup you run the unit tests below. If these p
 
 ```bash
 source tools/venv/bin/activate
-python -m unittest tests.test_evaluators -v
+python -m pytest tests/test_evaluators.py::TestEvaluatorMethods -v
 ```
 
 All tests should pass. If all evaluator tests fail simultaneously, the reference audio file in `tests/data/test_audio.wav` may be corrupted — the `test_audio_integrity` test will confirm this.
