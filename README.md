@@ -84,6 +84,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for a step-by-step guide covering bug fix
 
 ## Installation
 
+We are continously trying to make the installation easier for your use case. 
+If you have the opportunity to start from a clean AWS/GCE instance, please do so and follow the make installation.
+If you are working on a highly restricted HPC cluster, I would recommend starting from the singularity container [provided](https://github.com/karkirowle/pathbench/releases/download/v0.1.0/pathbench.sif).
+
 ### Package installation
 
 PathBench cannot be published to PyPI because it depends on Git-hosted forks of `phonemizer` and `pyctcdecode`.
