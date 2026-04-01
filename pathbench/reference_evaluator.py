@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 from abc import abstractmethod
 from scipy.stats import pearsonr
-from scipy.signal import spectrogram, windows, convolve
+from scipy.signal import windows, convolve
 from scipy.ndimage import uniform_filter1d
 
 import numpy as np
 import soundfile as sf
 import os.path
-from ltfatpy import dgtreal # TF feature repesentation extraction
 from numpy.linalg import norm # distance calc in dtw
 from dtw import dtw #
 from pathbench.utils import normalise_signal, moving_average_filtering
@@ -18,6 +17,87 @@ import librosa
 from pathbench.evaluator import ReferenceAudioEvaluator
 
 eps = np.finfo(float).eps
+
+
+def _dgtreal(signal, wi, hop_size, nfft):
+    """Discrete Gabor Transform for real signals (replaces ltfatpy.dgtreal).
+
+    Computes the DGT using a canonical tight Hamming window, matching the
+    output of ``ltfatpy.dgtreal(signal, wi, hop_size, nfft)`` for the
+    window spec ``{'name': ('tight', 'hamming'), 'M': <window_length>}``.
+
+    Parameters
+    ----------
+    signal : array_like
+        Real-valued input signal.
+    wi : dict
+        Window spec, e.g. ``{'name': ('tight', 'hamming'), 'M': 512}``.
+    hop_size : int
+        Time shift in samples (LTFAT parameter *a*).
+    nfft : int
+        Number of frequency channels / FFT length (LTFAT parameter *M*).
+
+    Returns
+    -------
+    coeffs : ndarray, shape (nfft//2+1, num_frames)
+        Complex Gabor coefficients (positive frequencies only).
+    Ls : int
+        Original length of *signal*.
+    g_tight : ndarray
+        Canonical tight analysis window that was used.
+    """
+    M = nfft
+    a = hop_size
+    Ls = len(signal)
+    window_length = wi['M']
+
+    # --- Build the canonical tight window (LTFAT convention) ----------------
+    # 1. LTFAT Hamming: centered at index 0, circular/DFT-even sampling.
+    x = np.r_[0:0.5:1.0/window_length, -0.5:0:1.0/window_length]
+    g = 0.54 + 0.46 * np.cos(2 * np.pi * x)
+    g *= (np.abs(x) < 0.5).astype(float)          # zero the boundary sample
+
+    # 2. Energy-normalize (L2 norm = 1), matching LTFAT's firwin norm='energy'.
+    g /= np.linalg.norm(g)
+
+    # 3. Pad to signal length L using LTFAT's fir2long (HP centering):
+    #    first half → start, second half → end, zeros in the middle.
+    lcm_val = int(np.lcm(a, M))
+    L = max(int(np.ceil(Ls / lcm_val)) * lcm_val, lcm_val)
+    g_long = np.zeros(L)
+    half = window_length // 2
+    g_long[:half] = g[:half]
+    g_long[L - half:] = g[half:]
+
+    # 4. Frame-operator diagonal:  d = M * Σ_k |g_long[n + k·a]|²
+    N = L // a
+    glong2 = g_long ** 2
+    d_period = np.sum(glong2.reshape(N, a), axis=0) * M
+    d = np.tile(d_period, N)
+
+    # 5. Extract FIR-length diagonal (long2fir, HP centering for even length).
+    d_fir = np.concatenate([d[:half], d[L - half:]])
+
+    # 6. Canonical tight window.
+    g_tight = g / np.sqrt(d_fir)
+
+    # --- Compute the DGT ---------------------------------------------------
+    # Convert window from LTFAT circular convention (peak at 0) to standard
+    # symmetric form (peak at center) so we can use a centered STFT.
+    g_std = np.fft.fftshift(g_tight)
+
+    f = np.zeros(L)
+    f[:Ls] = signal
+
+    num_frames = L // a
+    num_bins = M // 2 + 1
+    coeffs = np.zeros((num_bins, num_frames), dtype=complex)
+    for n in range(num_frames):
+        centre = n * a
+        indices = (centre - half + np.arange(M)) % L
+        coeffs[:, n] = np.fft.rfft(f[indices] * g_std, M)
+
+    return coeffs, Ls, g_tight
 
 
 class STOI():
@@ -109,18 +189,6 @@ class STOI():
     def difference_oct(X, Y):
         return np.abs(np.log10((X)) - np.log10((Y)))
 
-    @staticmethod
-    def dgt_real_substitute(signal, wi, ns, nfft, nw):
-
-        # window = windows.hamming(window_length, sym=True)
-        window = windows.hamming(512, sym=True)
-        nfft = 512
-        n_overlap = nw - ns
-        _, _, D = spectrogram(signal, 16000, window=window, noverlap=n_overlap, nperseg=nw, nfft=nfft, mode='complex')
-        #D_real = np.abs(D)
-
-        return D
-
     def log_octave_transform_extractor(self, word_set):
 
         log_octave_transforms = [None] * len(word_set) # Storage?
@@ -139,8 +207,7 @@ class STOI():
             # Performs a discrete Gabor transform with a Hamming-window, and time shift of Ns, with Nfft modulations
             # Ls is length of input signal, G is gabor length
 
-            gabor_word_signal, Ls, g = dgtreal(word_signal, wi, self.Ns, self.nfft)
-            #gabor_word_signal_2 = self.dgt_real_substitute(word_signal, wi, self.Ns, self.nfft, self.Nw)
+            gabor_word_signal, Ls, g = _dgtreal(word_signal, wi, self.Ns, self.nfft)
 
             #print("gabor_word_signal shape", gabor_word_signal.shape)
             # Delete 0 columns

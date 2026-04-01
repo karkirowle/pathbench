@@ -36,7 +36,6 @@ autodoc_mock_imports = [
     "dtw",
     "jiwer",
     "librosa",
-    "ltfatpy",
     "matplotlib",
     "numpy",
     "parselmouth",

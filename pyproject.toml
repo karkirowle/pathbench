@@ -49,7 +49,6 @@ dependencies = [
     "torchaudio>=2.0",
     "transformers",
     "dtw-python",
-    "ltfatpy",
     "jiwer",
     "phonemizer-fork @ git+https://github.com/thewh1teagle/phonemizer-fork.git",
     "pyctcdecode @ git+https://github.com/kensho-technologies/pyctcdecode.git",
