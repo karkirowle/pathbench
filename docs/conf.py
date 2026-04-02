@@ -29,6 +29,20 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 html_theme = "furo"
 html_static_path = ["_static"]
 
+html_css_files = [
+    "https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css",
+    "https://cdn.datatables.net/buttons/3.2.1/css/buttons.dataTables.min.css",
+    "pb_datatable.css",
+]
+
+html_js_files = [
+    ("https://code.jquery.com/jquery-3.7.1.slim.min.js", {"defer": "defer"}),
+    ("https://cdn.datatables.net/2.2.2/js/dataTables.min.js", {"defer": "defer"}),
+    ("https://cdn.datatables.net/buttons/3.2.1/js/dataTables.buttons.min.js", {"defer": "defer"}),
+    ("https://cdn.datatables.net/buttons/3.2.1/js/buttons.colVis.min.js", {"defer": "defer"}),
+    ("pb_datatable.js", {"defer": "defer"}),
+]
+
 # -- autodoc settings --------------------------------------------------------
 # Mock all heavy / native dependencies so Sphinx can import pathbench modules
 # without requiring PyTorch, CUDA, espeak-ng, FFTW, etc.

@@ -1,0 +1,83 @@
+/* -- Metadata details block ------------------------------------------------ */
+.pb-meta-details {
+  margin-bottom: 1.5em;
+}
+.pb-meta-details summary {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 0.4em 0;
+}
+.pb-meta-table {
+  border-collapse: collapse;
+  font-size: 0.85em;
+  min-width: 100%;
+  margin-top: 0.5em;
+}
+.pb-meta-table th,
+.pb-meta-table td {
+  border: 1px solid #ddd;
+  padding: 4px 6px;
+  text-align: center;
+  white-space: nowrap;
+}
+.pb-meta-table th {
+  background: #f5f5f5;
+}
+.pb-meta-table td:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+
+/* -- DataTables main table ------------------------------------------------- */
+#pb-results-table {
+  font-size: 0.85em;
+}
+#pb-results-table .best-global {
+  font-weight: bold;
+}
+#pb-results-table .best-rf {
+  text-decoration: underline;
+}
+#pb-results-table .na {
+  color: #999;
+}
+#pb-results-table td:first-child {
+  text-align: left;
+  font-weight: 600;
+}
+#pb-results-table td:nth-child(2) {
+  font-style: italic;
+  color: #555;
+  font-size: 0.9em;
+}
+#pb-results-table thead th {
+  font-size: 0.82em;
+  white-space: nowrap;
+  padding: 4px 5px;
+}
+
+/* Horizontal scroll wrapper */
+.pb-table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* -- Furo dark-mode compatibility ------------------------------------------ */
+[data-theme="dark"] .pb-meta-table th {
+  background: #2a2a2a;
+  color: #ccc;
+}
+[data-theme="dark"] .pb-meta-table th,
+[data-theme="dark"] .pb-meta-table td {
+  border-color: #444;
+}
+[data-theme="dark"] #pb-results-table .na {
+  color: #777;
+}
+[data-theme="dark"] #pb-results-table td:nth-child(2) {
+  color: #aaa;
+}
+[data-theme="dark"] .pb-meta-details summary {
+  color: #ddd;
+}
