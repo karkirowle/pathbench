@@ -57,6 +57,14 @@
   padding: 4px 5px;
 }
 
+/* -- Quick-filter buttons -------------------------------------------------- */
+.dt-buttons {
+  margin-bottom: 0.5em;
+}
+.dt-buttons .dt-button {
+  margin-right: 0.4em;
+}
+
 /* Horizontal scroll wrapper */
 .pb-table-wrap {
   overflow-x: auto;
