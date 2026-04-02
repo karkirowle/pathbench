@@ -80,6 +80,28 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for a step-by-step guide covering bug fix
 1. Follow the steps in the [Installation](#installation) section.
 2. Follow the steps in the [Downloads](#downloads) section.
 3. Follow the steps in the [Testing](#testing) section.
+4. Run the evaluation script on the dataset(s) you want to evaluate. For example, to evaluate on the YouTube dataset:
+
+```bash
+python scripts/evaluate_spk2score.py datasets/youtube
+```
+
+To also write per-evaluator score CSVs, pass `--results-dir`:
+
+```bash
+python scripts/evaluate_spk2score.py datasets/youtube --results-dir results/datasets/
+```
+
+You can evaluate multiple datasets in a single run:
+
+```bash
+python scripts/evaluate_spk2score.py \
+    datasets/copas/pathological/word/balanced \
+    datasets/torgo/pathological/utterances/balanced \
+    datasets/youtube
+```
+
+Results are written to the `results_11/` directory as timestamped text files containing per-evaluator Pearson correlations and a summary table.
 
 
 ## Installation
