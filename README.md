@@ -209,6 +209,22 @@ Share these hashes alongside your results so others can verify they are using th
 
 
 
+# Citation
+
+If you use PathBench in your research, please cite:
+
+```bibtex
+@misc{halpern2026pathbenchspeechintelligibilitybenchmark,
+      title={PathBench: Speech Intelligibility Benchmark for Automatic Pathological Speech Assessment},
+      author={Bence Mark Halpern and Thomas Tienkamp and Defne Abur and Tomoki Toda},
+      year={2026},
+      eprint={2603.08097},
+      archivePrefix={arXiv},
+      primaryClass={cs.SD},
+      url={https://arxiv.org/abs/2603.08097},
+}
+```
+
 # License
 
 The PathBench repository code is released under the MIT License. However, some individual evaluators include or derive from code released under more restrictive licenses. In particular, the `PraatSpeechRateEvaluator` in `pathbench/speech_rate.py` is based on the Praat Script Syllable Nuclei by Nivja de Jong and Ton Wempe, which is licensed under the GNU General Public License v3 (GPL-3.0).
