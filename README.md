@@ -187,7 +187,7 @@ We are not allowed to share these datasets ourselves, however, all of them are r
 
 * [Oral Cancer - YouTube](https://zenodo.org/records/18738598)
 
-* MDSC (Multilingual Dysarthric Speech Corpus)
+* [MDSC (Mandarin Dysarthric Speech Corpus)](https://www.aishelltech.com/AISHELL_6B)
 
 After downloading the datasets, repoint the `wav.scp` files to your local dataset root. We do not provide a script for this, but you can use a regex replacement such as:
 
