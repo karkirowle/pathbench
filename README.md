@@ -8,6 +8,15 @@
 
 PathBench is a benchmark designed to evaluate pathological speech assessment systems.
 
+## Results
+
+Speaker-level Pearson Correlation Coefficients (PCC) for every evaluator and dataset, sign-aligned so positive values indicate the expected (healthy) direction.
+
+* **CSV** (canonical, in this repo): [`results_table.csv`](results_table.csv)
+* **Interactive view** (search / sort / filter): _Google Sheet link — TBD_
+
+`results_table.csv` is the source of truth. The Google Sheet mirrors the same content for convenient browsing and is kept in sync by the project maintainers.
+
 ## Usage guide
 
 There are several use cases for PathBench:

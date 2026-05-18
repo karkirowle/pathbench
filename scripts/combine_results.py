@@ -8,7 +8,7 @@ from scipy.stats import wilcoxon
 # --- CONFIGURATION ---
 FILE_PATTERN = "results_13/*.txt"
 OUTPUT_TEX_FILE = os.environ.get("PB_OUTPUT_TEX", "complex_evaluation_summary_3.tex")
-OUTPUT_RST_FILE = os.environ.get("PB_OUTPUT_RST", "docs/results_table.rst")
+OUTPUT_CSV_FILE = os.environ.get("PB_OUTPUT_CSV", "results_table.csv")
 DATASETS_ROOT = "datasets"
 
 DATASET_DIR_MAP = {
@@ -543,38 +543,25 @@ def generate_latex(df, datasets_root=DATASETS_ROOT):
         f.write(header + "\n" + "\n".join(latex_rows) + "\n" + footer)
     print(f"LaTeX table saved to {OUTPUT_TEX_FILE}")
 
-def generate_rst(df, datasets_root=DATASETS_ROOT):
-    """Generate an RST file with an HTML results table for Sphinx docs."""
-    target_tuples = get_table_column_order()
-    stats = get_dataset_stats(datasets_root)
 
+def generate_csv(df):
+    """Write the results table as a wide CSV.
+
+    Rows = metrics (matching the LaTeX grouping order).
+    Columns = (Dataset, Type, Condition) tuples from get_table_column_order()
+    plus a final 'Avg' column. Cell values are sign-aligned PCCs rounded to
+    two decimals; missing cells are left empty.
+    """
+    target_tuples = get_table_column_order()
     pivot = df.pivot_table(
         index='MetricKey',
         columns=['Dataset', 'Type', 'Condition'],
         values='Value',
-        aggfunc='first'
+        aggfunc='first',
     )
     target_index = pd.MultiIndex.from_tuples(target_tuples, names=['Dataset', 'Type', 'Condition'])
     pivot = pivot.reindex(columns=target_index)
 
-    # Compute column-wise bests
-    col_max_global = {}
-    col_max_rf = {}
-    for col_def in target_tuples:
-        col_series = pivot[col_def].dropna().round(2)
-        displayed = [m for _, metrics in [
-            ("", ['praat_speech_rate_fa', 'cpp_fa', 'std_pitch_fa']),
-            ("", ['vsa']),
-            ("", ['double_asr', 'artp_double_asr', 'artp_old']),
-            ("", ['per', 'dper', 'artp']),
-            ("", ['p_estoi_fa_all', 'nad_fa_all']),
-        ] for m in metrics]
-        col_series = col_series[col_series.index.isin(displayed)]
-        col_max_global[col_def] = col_series.max() if not col_series.empty else -999
-        rf_series = col_series[col_series.index.isin(REF_FREE_KEYS)]
-        col_max_rf[col_def] = rf_series.max() if not rf_series.empty else -999
-
-    # Metric groups (same as in generate_latex)
     groups = [
         ("Reference-Free (Signal)", ['praat_speech_rate_fa', 'cpp_fa', 'std_pitch_fa']),
         ("Reference-Free (Speaker)", ['vsa']),
@@ -584,192 +571,27 @@ def generate_rst(df, datasets_root=DATASETS_ROOT):
     ]
     all_metrics = [m for _, metrics in groups for m in metrics]
 
-    # Per-metric averages
-    metric_avg = {}
-    for m_key in all_metrics:
-        if m_key not in pivot.index:
-            metric_avg[m_key] = np.nan
-            continue
-        vals = [round(pivot.loc[m_key, c], 2) for c in target_tuples if not pd.isna(pivot.loc[m_key, c])]
-        metric_avg[m_key] = round(np.mean(vals), 2) if vals else np.nan
-
-    avg_max_global = max((v for v in metric_avg.values() if not np.isnan(v)), default=-999)
-    avg_max_rf = max((v for k, v in metric_avg.items() if k in REF_FREE_KEYS and not np.isnan(v)), default=-999)
-
-    # --- Build multi-level header structure ---
-    # Level 1: dataset name with colspan
-    # Level 2: task type with colspan
-    # Level 3: condition labels (MC/EX/Full)
     COND_LABEL = {'PB': 'MC', 'PU': 'EX', 'ALL': 'Full'}
     TASK_LABEL = {'Word': 'Word', 'Utterance': 'Sentence'}
+    col_labels = [f"{d} {TASK_LABEL.get(t, t)} {COND_LABEL.get(c, c)}" for d, t, c in target_tuples]
 
-    # Dataset info
-    DATASET_INFO = {
-        'UASpeech': {'lang': 'English', 'disorder': 'Dysarthria'},
-        'NeuroVoz': {'lang': 'Spanish', 'disorder': "Parkinson's"},
-        'EasyCall': {'lang': 'Italian', 'disorder': 'Dysarthria'},
-        'COPAS': {'lang': 'Dutch', 'disorder': 'Mixed pathologies'},
-        'TORGO': {'lang': 'English', 'disorder': 'Dysarthria'},
-        'YT': {'lang': 'English', 'disorder': 'Oral Cancer'},
-    }
-
-    # Compute header spans
-    from collections import OrderedDict
-
-    # Dataset-level spans
-    dataset_spans = OrderedDict()
-    for d, t, c in target_tuples:
-        dataset_spans[d] = dataset_spans.get(d, 0) + 1
-
-    # Task-level spans (dataset, type) -> count
-    task_spans = OrderedDict()
-    for d, t, c in target_tuples:
-        key = (d, t)
-        task_spans[key] = task_spans.get(key, 0) + 1
-
-    def fmt_stat(val):
-        return '&ndash;' if val is None else str(val)
-
-    def fmt_cell(val, m_key, col_def):
-        if pd.isna(val):
-            return '<td class="na">&ndash;</td>'
-        rounded = round(val, 2)
-        is_global = rounded == col_max_global[col_def] and col_max_global[col_def] != -999
-        is_rf = m_key in REF_FREE_KEYS and rounded == col_max_rf[col_def] and col_max_rf[col_def] != -999
-        css = []
-        if is_global:
-            css.append('best-global')
-        if is_rf:
-            css.append('best-rf')
-        cls = f' class="{" ".join(css)}"' if css else ''
-        return f'<td{cls}>{val:.2f}</td>'
-
-    def fmt_avg(val, m_key):
-        if np.isnan(val):
-            return '<td class="na">&ndash;</td>'
-        is_global = val == avg_max_global and avg_max_global != -999
-        is_rf = m_key in REF_FREE_KEYS and val == avg_max_rf and avg_max_rf != -999
-        css = []
-        if is_global:
-            css.append('best-global')
-        if is_rf:
-            css.append('best-rf')
-        cls = f' class="{" ".join(css)}"' if css else ''
-        return f'<td{cls}>{val:.2f}</td>'
-
-    # --- Build HTML ---
-    html = []
-    html.append('<style>')
-    html.append('.pb-results { border-collapse: collapse; font-size: 0.85em; min-width: 100%; }')
-    html.append('.pb-results th, .pb-results td { border: 1px solid #ddd; padding: 4px 6px; text-align: center; white-space: nowrap; }')
-    html.append('.pb-results th { background: #f5f5f5; }')
-    html.append('.pb-results tr:hover td { background: #f0f7ff; }')
-    html.append('.pb-results .metric-name { text-align: left; font-weight: normal; }')
-    html.append('.pb-results .group-header td { background: #eee; font-style: italic; text-align: left; border-bottom: 2px solid #ccc; }')
-    html.append('.pb-results .best-global { font-weight: bold; }')
-    html.append('.pb-results .best-rf { text-decoration: underline; }')
-    html.append('.pb-results .na { color: #999; }')
-    html.append('.pb-results .stat-row td { font-size: 0.9em; color: #555; }')
-    html.append('.pb-results .section-sep td, .pb-results .section-sep th { border-bottom: 3px double #999; }')
-    html.append('.pb-table-wrap { overflow-x: auto; max-width: 100%; }')
-    html.append('</style>')
-
-    html.append('<div class="pb-table-wrap">')
-    html.append('<table class="pb-results">')
-
-    # Header row 1: dataset names
-    html.append('<thead>')
-    html.append(f'<tr><th rowspan="3">Metric</th>')
-    for d, span in dataset_spans.items():
-        html.append(f'<th colspan="{span}">{d}</th>')
-    html.append('<th rowspan="3">Avg</th></tr>')
-
-    # Header row 2: task types
-    html.append('<tr>')
-    for (d, t), span in task_spans.items():
-        html.append(f'<th colspan="{span}">{TASK_LABEL.get(t, t)}</th>')
-    html.append('</tr>')
-
-    # Header row 3: condition labels
-    html.append('<tr>')
-    for d, t, c in target_tuples:
-        html.append(f'<th>{COND_LABEL.get(c, c)}</th>')
-    html.append('</tr>')
-    html.append('</thead>')
-
-    html.append('<tbody>')
-
-    # --- Dataset info rows ---
-    html.append(f'<tr class="group-header"><td colspan="{len(target_tuples) + 2}">Dataset Information</td></tr>')
-
-    # Language row
-    html.append('<tr class="stat-row"><td class="metric-name">Language</td>')
-    for d, t, c in target_tuples:
-        html.append(f'<td>{DATASET_INFO[d]["lang"]}</td>')
-    html.append('<td></td></tr>')
-
-    # Disorder row
-    html.append('<tr class="stat-row section-sep"><td class="metric-name">Disorder</td>')
-    for d, t, c in target_tuples:
-        html.append(f'<td>{DATASET_INFO[d]["disorder"]}</td>')
-    html.append('<td></td></tr>')
-
-    # Pathological stats
-    html.append(f'<tr class="group-header"><td colspan="{len(target_tuples) + 2}">Statistics: Pathological</td></tr>')
-    for label, key in [('# Speakers', 'spk'), ('# Utterances', 'utt')]:
-        html.append(f'<tr class="stat-row"><td class="metric-name">{label}</td>')
-        for d, t, c in target_tuples:
-            val = stats.get((d, t, c, 'pathological'), {}).get(key)
-            html.append(f'<td>{fmt_stat(val)}</td>')
-        html.append('<td></td></tr>')
-
-    # Control stats
-    html.append(f'<tr class="group-header"><td colspan="{len(target_tuples) + 2}">Statistics: Control</td></tr>')
-    for label, key in [('# Speakers', 'spk'), ('# Utterances', 'utt')]:
-        row_cls = 'stat-row section-sep' if key == 'utt' else 'stat-row'
-        html.append(f'<tr class="{row_cls}"><td class="metric-name">{label}</td>')
-        for d, t, c in target_tuples:
-            val = stats.get((d, t, c, 'control'), {}).get(key)
-            html.append(f'<td>{fmt_stat(val)}</td>')
-        html.append('<td></td></tr>')
-
-    # --- Metric groups ---
+    rows = []
     for group_name, metrics in groups:
-        html.append(f'<tr class="group-header"><td colspan="{len(target_tuples) + 2}">{group_name}</td></tr>')
         for m_key in metrics:
-            display_name = METRIC_ROW_MAP.get(m_key, m_key)
-            html.append(f'<tr><td class="metric-name">{display_name}</td>')
-            for col_def in target_tuples:
+            label = METRIC_ROW_MAP.get(m_key, m_key)
+            row = {"Metric": label, "Category": group_name}
+            cells = []
+            for col_def, col_label in zip(target_tuples, col_labels):
                 val = pivot.loc[m_key, col_def] if m_key in pivot.index else np.nan
-                html.append(fmt_cell(val, m_key, col_def))
-            html.append(fmt_avg(metric_avg[m_key], m_key))
-            html.append('</tr>')
+                row[col_label] = "" if pd.isna(val) else f"{round(val, 2):.2f}"
+                if not pd.isna(val):
+                    cells.append(round(val, 2))
+            row["Avg"] = f"{round(np.mean(cells), 2):.2f}" if cells else ""
+            rows.append(row)
 
-    html.append('</tbody>')
-    html.append('</table>')
-    html.append('</div>')
-
-    # --- Write RST file ---
-    rst_content = """Results
-=======
-
-Speaker-level Pearson Correlation Coefficients (PCC) across all PathBench
-datasets and metrics. Signs are aligned so that positive values always
-indicate the expected (healthy) direction.
-
-- **Bold**: best overall per column
-- Underline: best reference-free per column
-- MC: Matched Content (balanced), EX: Extended (unbalanced), Full: all data
-
-.. raw:: html
-
-"""
-    # Indent each HTML line by 3 spaces (RST raw directive requirement)
-    rst_content += '\n'.join('   ' + line for line in html) + '\n'
-
-    with open(OUTPUT_RST_FILE, 'w') as f:
-        f.write(rst_content)
-    print(f"RST results table saved to {OUTPUT_RST_FILE}")
+    columns = ["Metric", "Category"] + col_labels + ["Avg"]
+    pd.DataFrame(rows, columns=columns).to_csv(OUTPUT_CSV_FILE, index=False)
+    print(f"CSV results table saved to {OUTPUT_CSV_FILE}")
 
 
 def print_wada_snr_results(df):
@@ -832,8 +654,8 @@ def main():
     # 1. Generate Latex
     generate_latex(df)
 
-    # 2. Generate RST for Sphinx docs
-    generate_rst(df)
+    # 2. Generate CSV (wide format, for the public results table / Google Sheet)
+    generate_csv(df)
 
     # 3. Print WADA-SNR separately
     print_wada_snr_results(df)

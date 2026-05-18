@@ -11,7 +11,6 @@ tools to compare predicted speaker scores against ground-truth datasets.
 
    installation
    architecture
-   results_table
    api/index
 
 Indices and tables
