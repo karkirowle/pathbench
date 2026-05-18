@@ -69,7 +69,7 @@ Each dataset directory uses Kaldi-style plain text files:
 - ``segments`` -- ``utt_id -> recording_id start_time end_time`` (optional)
 - ``spk2score`` -- ``speaker_id -> float`` (ground truth; ``N/A`` for unavailable)
 - ``spk2gender`` -- ``speaker_id -> m|f``
-- ``language`` -- single line, two-letter code (``en``, ``nl``, ``it``, ``es``)
+- ``language`` -- single line, two-letter code (``en``, ``nl``, ``it``, ``es``, ``cmn``)
 
 :class:`~pathbench.dataset.Dataset` loads these and iterates as
 ``(utt_id, audio_path, transcription, ref_audio_list, start_time, end_time)``.
