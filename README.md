@@ -115,7 +115,13 @@ If you are working on a highly restricted HPC cluster, I would recommend startin
 PathBench cannot be published to PyPI because it depends on Git-hosted forks of `phonemizer` and `pyctcdecode`.
 
 **System dependencies** (not installable via pip — must be installed separately):
-- `espeak-ng` — required by the phonemizer for forced alignment
+- `espeak-ng` at commit [`2ea41210`](https://github.com/espeak-ng/espeak-ng/commit/2ea41210) (post-1.52.0) — required by the phonemizer for grapheme-to-phoneme conversion. The exact commit matters: different espeak-ng versions produce different IPA symbols for some languages (e.g. Italian `ɾ` vs `r`), which affects phoneme-based metrics (PER, dPER, ArtP). Build from source:
+  ```bash
+  git clone https://github.com/espeak-ng/espeak-ng.git
+  cd espeak-ng && git checkout 2ea41210
+  cmake -B build -DUSE_ASYNC=OFF -DBUILD_SHARED_LIBS=ON
+  cmake --build build -j$(nproc) && sudo cmake --install build
+  ```
 - PyTorch with CUDA support — install following [pytorch.org](https://pytorch.org/get-started/locally/) *before* installing pathbench
 
 **Option A — Install from a GitHub Release:**
@@ -139,7 +145,13 @@ The `make` installation route assumes the default setup of a standard Ubuntu 22.
 
 ```bash
 sudo apt-get update -qq
-sudo apt install python3 python3-pip python3-venv build-essential cmake espeak-ng libfftw3-dev liblapack-dev -y
+sudo apt install python3 python3-pip python3-venv build-essential cmake libfftw3-dev liblapack-dev -y
+# Install espeak-ng from source (pinned commit for reproducible phonemization)
+git clone https://github.com/espeak-ng/espeak-ng.git /tmp/espeak-ng
+cd /tmp/espeak-ng && git checkout 2ea41210
+cmake -B build -DUSE_ASYNC=OFF -DBUILD_SHARED_LIBS=ON
+cmake --build build -j$(nproc) && sudo cmake --install build && sudo ldconfig
+cd -
 git clone git@github.com:karkirowle/pathbench.git
 cd pathbench/tools && make
 cd ..

@@ -5,25 +5,19 @@ import os
 import jiwer
 import librosa
 import torch
-from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
-from phonemizer.phonemize import phonemize
-from phonemizer.separator import Separator
 from pyctcdecode import build_ctcdecoder
 
 import numpy as np
 from pathbench.evaluator import ReferenceTxtEvaluator, ReferenceFreeEvaluator
-from pathbench.string_clean import clean_text
+from pathbench.string_clean import clean_text, cached_phonemize
 
 
 class ASREvaluator(ReferenceTxtEvaluator):
     """Computes WER using an ASR model."""
 
     def __init__(self, model_id: str):
-        self.processor = Wav2Vec2Processor.from_pretrained(model_id)
-        self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model.to(self.device)
-        print(f"ASR model '{model_id}' loaded on {self.device}.")
+        from pathbench.model_registry import get_ctc_model
+        self.processor, self.model, self.device = get_ctc_model(model_id)
 
     def score(
         self,
@@ -72,22 +66,20 @@ class PEREvaluator(ReferenceTxtEvaluator):
     """Computes PER using a language-specific ASR model."""
 
     def __init__(self, language: str):
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        from pathbench.model_registry import get_ctc_model
         model_ids = {
             "en":    "jonatasgrosman/wav2vec2-large-xlsr-53-english",
             "en-us": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
             "es":    "jonatasgrosman/wav2vec2-large-xlsr-53-spanish",
             "nl":    "jonatasgrosman/wav2vec2-large-xlsr-53-dutch",
             "it":    "jonatasgrosman/wav2vec2-large-xlsr-53-italian",
+            "cmn":   "jonatasgrosman/wav2vec2-large-xlsr-53-chinese-zh-cn",
         }
         if language not in model_ids:
             raise ValueError(f"Language '{language}' is not supported for PEREvaluator.")
 
         model_id = model_ids[language]
-        self.processor = Wav2Vec2Processor.from_pretrained(model_id)
-        self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
-        self.model.to(self.device)
-        print(f"ASR model '{model_id}' for language '{language}' loaded on {self.device}.")
+        self.processor, self.model, self.device = get_ctc_model(model_id)
         self.language = language
 
     def score(
@@ -131,19 +123,13 @@ class PEREvaluator(ReferenceTxtEvaluator):
         print(f"Reference: {transcription}")
 
         espeak_language_map = {
-            "en": "en-us", "en-us": "en-us", "es": "es", "nl": "nl", "it": "it"
+            "en": "en-us", "en-us": "en-us", "es": "es", "nl": "nl", "it": "it",
+            "cmn": "cmn",
         }
         espeak_lang = espeak_language_map.get(language, language)
-        separator = Separator(phone=" ", word="|")
 
-        phonemized_reference = phonemize(
-            clean_text(transcription), language=espeak_lang, backend="espeak",
-            strip=True, preserve_punctuation=False, separator=separator
-        )
-        phonemized_prediction = phonemize(
-            clean_text(predicted_transcription), language=espeak_lang, backend="espeak",
-            strip=True, preserve_punctuation=False, separator=separator
-        )
+        phonemized_reference = cached_phonemize(clean_text(transcription), espeak_lang)
+        phonemized_prediction = cached_phonemize(clean_text(predicted_transcription), espeak_lang)
 
         print(f"Phonemized Reference: {phonemized_reference}")
         print(f"Phonemized Predicted: {phonemized_prediction}")
@@ -161,14 +147,10 @@ class DirectPEREvaluator(ReferenceTxtEvaluator):
     """Computes PER using the espeak-cv-ft model directly."""
 
     def __init__(self):
-        self.processor = Wav2Vec2Processor.from_pretrained(
+        from pathbench.model_registry import get_ctc_model
+        self.processor, self.model, self.device = get_ctc_model(
             "facebook/wav2vec2-xlsr-53-espeak-cv-ft"
         )
-        self.model = Wav2Vec2ForCTC.from_pretrained(
-            "facebook/wav2vec2-xlsr-53-espeak-cv-ft"
-        )
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model.to(self.device)
 
     def score(
         self,
@@ -203,11 +185,7 @@ class DirectPEREvaluator(ReferenceTxtEvaluator):
 
         print(f"Reference: {transcription}")
 
-        separator = Separator(phone=" ", word="|")
-        phonemized_reference = phonemize(
-            clean_text(transcription), language=language, backend="espeak",
-            strip=True, preserve_punctuation=False, separator=separator
-        )
+        phonemized_reference = cached_phonemize(clean_text(transcription), language)
 
         print(f"Phonemized Reference: {phonemized_reference}")
         print(f"Phonemized Predicted: {predicted_transcription}")
@@ -229,22 +207,20 @@ class DoubleASREvaluator(ReferenceFreeEvaluator):
     """Computes PER between greedy and LM-based CTC decoding."""
 
     def __init__(self, language: str):
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        from pathbench.model_registry import get_ctc_model
         model_ids = {
             "en":    "jonatasgrosman/wav2vec2-large-xlsr-53-english",
             "en-us": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
             "es":    "jonatasgrosman/wav2vec2-large-xlsr-53-spanish",
             "nl":    "jonatasgrosman/wav2vec2-large-xlsr-53-dutch",
             "it":    "jonatasgrosman/wav2vec2-large-xlsr-53-italian",
+            "cmn":   "jonatasgrosman/wav2vec2-large-xlsr-53-chinese-zh-cn",
         }
         if language not in model_ids:
             raise ValueError(f"Language '{language}' is not supported for DoubleASREvaluator.")
 
         model_id = model_ids[language]
-        self.processor = Wav2Vec2Processor.from_pretrained(model_id)
-        self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
-        self.model.to(self.device)
-        print(f"ASR model '{model_id}' for language '{language}' loaded on {self.device}.")
+        self.processor, self.model, self.device = get_ctc_model(model_id)
         self.language = language
 
         lms_dir = 'lms'
@@ -253,6 +229,7 @@ class DoubleASREvaluator(ReferenceFreeEvaluator):
             "nl": os.path.join(lms_dir, "wiki_nl_token.arpa"),
             "es": os.path.join(lms_dir, "wiki_es_token.arpa.bin"),
             "it": os.path.join(lms_dir, "wiki_it_token.arpa.bin"),
+            "cmn": os.path.join(lms_dir, "wiki_zh_token.arpa"),
         }
 
         lm_lang = language.split('-')[0]
@@ -317,19 +294,13 @@ class DoubleASREvaluator(ReferenceFreeEvaluator):
         print(f"With LM: {lm_transcription}")
 
         espeak_language_map = {
-            "en": "en-us", "en-us": "en-us", "es": "es", "nl": "nl", "it": "it"
+            "en": "en-us", "en-us": "en-us", "es": "es", "nl": "nl", "it": "it",
+            "cmn": "cmn",
         }
         espeak_lang = espeak_language_map.get(self.language, self.language)
-        separator = Separator(phone=" ", word="|")
 
-        phonemized_greedy = phonemize(
-            clean_text(greedy_transcription), language=espeak_lang, backend="espeak",
-            strip=True, preserve_punctuation=False, separator=separator
-        )
-        phonemized_lm = phonemize(
-            clean_text(lm_transcription), language=espeak_lang, backend="espeak",
-            strip=True, preserve_punctuation=False, separator=separator
-        )
+        phonemized_greedy = cached_phonemize(clean_text(greedy_transcription), espeak_lang)
+        phonemized_lm = cached_phonemize(clean_text(lm_transcription), espeak_lang)
 
         print(f"Phonemized Greedy: {phonemized_greedy}")
         print(f"Phonemized With LM: {phonemized_lm}")

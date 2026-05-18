@@ -3,29 +3,11 @@ from typing import List, Optional
 import numpy as np
 from dtw import dtw
 import torch
-from transformers import Wav2Vec2Model
 import librosa
 
 from pathbench.evaluator import ReferenceAudioEvaluator, ReferenceTxtAndAudioEvaluator
 from pathbench.vad import FATrimmer
-
-
-def load_wav2vec2_featurizer(model_name, layer):
-    model = Wav2Vec2Model.from_pretrained(model_name)
-    model.eval()
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    model.to(device)
-
-    def _featurize(audio_data):
-        # Ensure audio_data is float32, not float64
-        if audio_data.dtype == np.float64:
-            audio_data = audio_data.astype(np.float32)
-        input_values = torch.from_numpy(audio_data).unsqueeze(0).to(device)
-        with torch.no_grad():
-            hidden_states = model(input_values, output_hidden_states=True).hidden_states
-        return hidden_states[layer].squeeze(0).cpu().numpy()
-
-    return _featurize
+from pathbench.model_registry import get_featurizer as load_wav2vec2_featurizer
 
 
 class NADEvaluator(ReferenceAudioEvaluator):

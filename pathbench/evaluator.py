@@ -95,25 +95,53 @@ class ReferenceTxtAndAudioEvaluator(ABC):
 # Abstract base classes — speaker-level
 # ---------------------------------------------------------------------------
 
+def load_audio(
+    audio_path: str,
+    start_time: float = 0.0,
+    end_time: float = -1.0,
+    cache: Optional[dict] = None,
+) -> Tuple[Optional[np.ndarray], Optional[int]]:
+    """Load a single audio file, optionally using a cache.
+
+    Returns (audio_ndarray, fs) or (None, None) on failure.
+    """
+    key = (audio_path, start_time, end_time)
+    if cache is not None and key in cache:
+        return cache[key]
+
+    duration = end_time - start_time if end_time != -1.0 else None
+    try:
+        audio, fs = librosa.load(
+            audio_path, sr=16000, offset=start_time, duration=duration
+        )
+        if audio is None or len(audio) == 0:
+            result = (None, None)
+        else:
+            result = (audio, fs)
+    except Exception as e:
+        print(f"Error loading audio {audio_path}: {e}")
+        result = (None, None)
+
+    if cache is not None:
+        cache[key] = result
+    return result
+
+
 def load_audios(
     audio_files: List[Tuple[str, float, float]],
+    cache: Optional[dict] = None,
 ) -> List[Tuple[np.ndarray, int]]:
-    """Load a list of (path, start, end) tuples into (ndarray, fs) pairs with librosa.
+    """Load a list of (path, start, end) tuples into (ndarray, fs) pairs.
 
     Used by script-level dispatch before calling _score_audio_list() on plain
-    (non-trimmed) speaker evaluators.
+    (non-trimmed) speaker evaluators.  If *cache* is provided, results are
+    looked up / stored there to avoid redundant disk reads.
     """
     audios = []
     for audio_path, start_time, end_time in audio_files:
-        duration = end_time - start_time if end_time != -1.0 else None
-        try:
-            audio, fs = librosa.load(
-                audio_path, sr=16000, offset=start_time, duration=duration
-            )
-            if audio is not None and len(audio) > 0:
-                audios.append((audio, fs))
-        except Exception as e:
-            print(f"Error loading audio {audio_path}: {e}")
+        audio, fs = load_audio(audio_path, start_time, end_time, cache=cache)
+        if audio is not None:
+            audios.append((audio, fs))
     return audios
 
 class ReferenceFreeSpeakerEvaluator(ABC):

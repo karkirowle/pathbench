@@ -20,6 +20,7 @@ PHONEMISER_LANG_MAPPING = {
     "nl": "nl",
     "it": "it",
     "es": "es",
+    "zh": "cmn",
 }
 
 

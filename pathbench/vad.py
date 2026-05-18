@@ -3,14 +3,11 @@ from typing import Optional, Tuple
 
 import torch
 import torchaudio
-from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
-from phonemizer.phonemize import phonemize
-from phonemizer.separator import Separator
 import re
 import numpy as np
 import librosa
 
-from pathbench.string_clean import clean_text
+from pathbench.string_clean import clean_text, cached_phonemize
 
 
 class FATrimmer:
@@ -19,13 +16,10 @@ class FATrimmer:
     MAX_CACHE_SIZE = 10000
 
     def __init__(self, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft", use_exp: bool = False):
-        self.processor = Wav2Vec2Processor.from_pretrained(model_id)
-        self.model = Wav2Vec2ForCTC.from_pretrained(model_id)
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model.to(self.device)
+        from pathbench.model_registry import get_ctc_model
+        self.processor, self.model, self.device = get_ctc_model(model_id)
         self.use_exp = use_exp
         self.cache = OrderedDict()
-        print(f"Phonetic model '{model_id}' loaded on {self.device}.")
 
     def _cache_put(self, key, value):
         self.cache[key] = value
@@ -64,15 +58,7 @@ class FATrimmer:
             logits = self.model(input_values).logits
 
         # 1. Phonemize the ground truth transcription.
-        separator = Separator(phone=" ", word="|")
-        phonemized_reference = phonemize(
-            clean_text(transcription),
-            language=language,
-            backend="espeak",
-            strip=True,
-            preserve_punctuation=False,
-            separator=separator
-        )
+        phonemized_reference = cached_phonemize(clean_text(transcription), language)
         phonemized_reference = re.sub(r"\s+", " ", phonemized_reference.replace("|", " ")).strip()
         if not phonemized_reference:
             print(f"Warning: Could not phonemize reference transcription for {audio_path}.")

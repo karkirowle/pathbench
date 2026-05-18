@@ -3,9 +3,6 @@ from typing import Optional
 import librosa
 import torch
 import torchaudio
-from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
-from phonemizer.phonemize import phonemize
-from phonemizer.separator import Separator
 import re
 import os
 from pyctcdecode import build_ctcdecoder
@@ -13,18 +10,15 @@ from pyctcdecode import build_ctcdecoder
 
 import numpy as np
 from pathbench.evaluator import ReferenceFreeEvaluator
-from pathbench.string_clean import clean_text
+from pathbench.string_clean import clean_text, cached_phonemize
 
 
 class ArtPDoubleASREvaluator(ReferenceFreeEvaluator):
     """An evaluator that uses a wav2vec 2.0 model to compute articulatory precision."""
 
     def __init__(self, language: str, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft"):
-        self.phonetic_processor = Wav2Vec2Processor.from_pretrained(model_id)
-        self.phonetic_model = Wav2Vec2ForCTC.from_pretrained(model_id)
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.phonetic_model.to(self.device)
-        print(f"Phonetic model '{model_id}' loaded on {self.device}.")
+        from pathbench.model_registry import get_ctc_model
+        self.phonetic_processor, self.phonetic_model, self.device = get_ctc_model(model_id)
 
         self.language = language
         model_ids = {
@@ -33,16 +27,14 @@ class ArtPDoubleASREvaluator(ReferenceFreeEvaluator):
             "es": "jonatasgrosman/wav2vec2-large-xlsr-53-spanish",
             "nl": "jonatasgrosman/wav2vec2-large-xlsr-53-dutch",
             "it": "jonatasgrosman/wav2vec2-large-xlsr-53-italian",
+            "cmn": "jonatasgrosman/wav2vec2-large-xlsr-53-chinese-zh-cn",
         }
 
         if language not in model_ids:
             raise ValueError(f"Language '{language}' is not supported for ArtPDoubleASREvaluator.")
 
         asr_model_id = model_ids[language]
-        self.processor = Wav2Vec2Processor.from_pretrained(asr_model_id)
-        self.model = Wav2Vec2ForCTC.from_pretrained(asr_model_id)
-        self.model.to(self.device)
-        print(f"ASR model '{asr_model_id}' for language '{language}' loaded on {self.device}.")
+        self.processor, self.model, _ = get_ctc_model(asr_model_id)
 
         # Assuming the 'lms' directory is at the project root.
         lms_dir = 'lms'
@@ -51,6 +43,7 @@ class ArtPDoubleASREvaluator(ReferenceFreeEvaluator):
             "nl": os.path.join(lms_dir, "wiki_nl_token.arpa"),
             "es": os.path.join(lms_dir, "wiki_es_token.arpa.bin"),
             "it": os.path.join(lms_dir, "wiki_it_token.arpa.bin"),
+            "cmn": os.path.join(lms_dir, "wiki_zh_token.arpa"),
         }
 
         lm_lang = language.split('-')[0]
@@ -134,15 +127,7 @@ class ArtPDoubleASREvaluator(ReferenceFreeEvaluator):
             logits = self.phonetic_model(input_values_phonetic).logits
 
         # 1. Phonemize the n-gram improved transcription.
-        separator = Separator(phone=" ", word="|")
-        phonemized_reference = phonemize(
-            clean_text(lm_transcription),
-            language=self.language,
-            backend="espeak",
-            strip=True,
-            preserve_punctuation=False,
-            separator=separator
-        )
+        phonemized_reference = cached_phonemize(clean_text(lm_transcription), self.language)
         phonemized_reference = re.sub(r"\s+", " ", phonemized_reference.replace("|", " ")).strip()
         print(f"Phonemized reference: {phonemized_reference}")
 

@@ -4,11 +4,19 @@ import sys
 import subprocess
 from collections import defaultdict
 import numpy as np
+import torch
 from tqdm import tqdm
 import argparse
 import datetime
 import inspect
 import hashlib
+
+# Deterministic GPU inference for reproducibility.
+torch.manual_seed(42)
+torch.cuda.manual_seed_all(42)
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+torch.use_deterministic_algorithms(True, warn_only=True)
 
 from pathbench.evaluator import (
     Spk2ScoreEvaluator,
@@ -16,7 +24,7 @@ from pathbench.evaluator import (
     ReferenceAudioEvaluator, ReferenceTxtAndAudioEvaluator,
     ReferenceFreeSpeakerEvaluator, LanguageAwareSpeakerEvaluator,
     TrimmedReferenceFreeEvaluator, TrimmedReferenceFreeSpeakerEvaluator,
-    TrimmedLanguageAwareSpeakerEvaluator, load_audios,
+    TrimmedLanguageAwareSpeakerEvaluator, load_audio, load_audios,
 )
 from pathbench.asr_evaluators import PEREvaluator, DirectPEREvaluator, DoubleASREvaluator
 from pathbench.f0_range_evaluator import StdPitchEvaluator
@@ -123,11 +131,13 @@ def build_evaluators(base_dataset, trimmer):
     return utt_evaluators, spk_evaluators
 
 
-def _dispatch_utt_score(evaluator, utt_id, audio_path, transcription, language, start_time, end_time):
+def _dispatch_utt_score(evaluator, utt_id, audio_path, transcription, language, start_time, end_time, preloaded_audio=None):
     """Routes an utterance score call to the correct evaluator method signature."""
     if isinstance(evaluator, LookupEvaluator):
         return evaluator.score(utt_id)
     elif isinstance(evaluator, ReferenceFreeEvaluator):
+        if preloaded_audio is not None and len(preloaded_audio) > 0:
+            return evaluator._score_audio(preloaded_audio, 16000)
         return evaluator.score(utt_id, audio_path, start_time, end_time)
     elif isinstance(evaluator, ReferenceTxtEvaluator):
         return evaluator.score(utt_id, audio_path, transcription, language, start_time, end_time)
@@ -153,7 +163,7 @@ def _dispatch_ref_score(evaluator, utt_id, audio_path, transcription, language, 
         )
 
 
-def run_utterance_evaluators(base_dataset, non_ref_evaluators):
+def run_utterance_evaluators(base_dataset, non_ref_evaluators, audio_cache=None):
     """Scores each utterance with all non-reference evaluators.
 
     Returns:
@@ -168,11 +178,15 @@ def run_utterance_evaluators(base_dataset, non_ref_evaluators):
         if not speaker_id:
             continue
 
+        # Pre-load audio once (cached for reuse in speaker-level loop)
+        preloaded_audio, _ = load_audio(audio_path, start_time, end_time, cache=audio_cache)
+
         for name, evaluator in non_ref_evaluators.items():
             try:
                 score = _dispatch_utt_score(
                     evaluator, utt_id, audio_path, transcription,
                     base_dataset.language, start_time, end_time,
+                    preloaded_audio=preloaded_audio,
                 )
             except Exception as e:
                 print(f"Evaluator '{name}' failed for {utt_id}: {e}")
@@ -229,7 +243,7 @@ def run_reference_evaluators(dataset_dir, utt_evaluators, spk_utt_scores):
                     spk_utt_scores[speaker_id][f"{name}_{ref_type}"].append(score)
 
 
-def run_speaker_evaluators(base_dataset, spk_evaluators, spk_utt_scores):
+def run_speaker_evaluators(base_dataset, spk_evaluators, spk_utt_scores, audio_cache=None):
     """Scores each speaker with speaker-level evaluators.
 
     Updates spk_utt_scores in place (score stored as a single-element list
@@ -248,7 +262,7 @@ def run_speaker_evaluators(base_dataset, spk_evaluators, spk_utt_scores):
             if isinstance(evaluator, (TrimmedReferenceFreeSpeakerEvaluator, TrimmedLanguageAwareSpeakerEvaluator)):
                 score = evaluator.score(spk_audio_files[spk_id], spk_transcriptions[spk_id], base_dataset.language)
             elif isinstance(evaluator, (ReferenceFreeSpeakerEvaluator, LanguageAwareSpeakerEvaluator)):
-                audios = load_audios(spk_audio_files[spk_id])
+                audios = load_audios(spk_audio_files[spk_id], cache=audio_cache)
                 if not audios:
                     score = None
                 elif isinstance(evaluator, LanguageAwareSpeakerEvaluator):
@@ -414,14 +428,16 @@ def evaluate_dataset(dataset_dir, output_file, results_dir=None):
 
     non_ref_evaluators = {k: v for k, v in utt_evaluators.items() if k not in REF_EVALUATOR_NAMES}
 
+    audio_cache = {}  # shared across utterance and speaker loops
+
     output_file.write("\nRunning non-reference utterance evaluation...\n")
-    spk_utt_scores = run_utterance_evaluators(base_dataset, non_ref_evaluators)
+    spk_utt_scores = run_utterance_evaluators(base_dataset, non_ref_evaluators, audio_cache=audio_cache)
 
     output_file.write("\nRunning reference-based utterance evaluation...\n")
     run_reference_evaluators(dataset_dir, utt_evaluators, spk_utt_scores)
 
     output_file.write("\nRunning speaker-level evaluation...\n")
-    run_speaker_evaluators(base_dataset, spk_evaluators, spk_utt_scores)
+    run_speaker_evaluators(base_dataset, spk_evaluators, spk_utt_scores, audio_cache=audio_cache)
 
     output_file.write("\nAggregating utterance scores to speaker level...\n")
     agg_spk_metrics = aggregate_to_speaker_level(spk_utt_scores, all_evaluators)
@@ -444,8 +460,8 @@ def main():
 
     dataset_name = args.dataset_dirs[0].replace("/", "_")
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    output_filename = f"results_11/{dataset_name}_{timestamp}.txt"
-    os.makedirs("results_11", exist_ok=True)
+    output_filename = f"results_13/{dataset_name}_{timestamp}.txt"
+    os.makedirs("results_13", exist_ok=True)
 
     git_hash = get_git_hash()
     print(f"Git commit: {git_hash}")
@@ -458,10 +474,14 @@ def main():
         for dataset_dir in args.dataset_dirs:
             output_file.write(f"\n--- Dataset: {dataset_dir} ---\n")
             try:
+                print(dataset_dir)
+                print(output_file)
+                print(args.results_dir)
                 result = evaluate_dataset(dataset_dir, output_file, results_dir=args.results_dir)
                 if result:
                     all_results[dataset_dir] = result
             except FileNotFoundError as e:
+                import traceback; traceback.print_exc()
                 print(f"Error: {e}", file=sys.stderr)
             output_file.write("\n")
 

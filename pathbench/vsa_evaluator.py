@@ -27,16 +27,21 @@ class VSAEvaluator(LanguageAwareSpeakerEvaluator):
     with the varieties spoken in Florence, Milan and Rome."
     - Spanish: Bradlow: A comparative acoustic study of English and Spanish vowels
 
+    - Mandarin: Yang: Vowel production by Mandarin speakers of English
+    When contributing new values please include the reference for the paper and cross-check.
+    A future method be perhaps using controls for formant initialisation.
     """
 
-    def __init__(self, gender: Optional[str] = None):
+    def __init__(self, gender: Optional[str] = None, visualize: bool = False):
         """
         Initializes the VSA evaluator.
         Args:
             gender: The gender of the speaker ('m' or 'f'). If not provided, it will be
                     estimated from the pitch at score time.
+            visualize: Whether to save vowel space plots to the 'figure/' directory.
         """
         self.gender = gender
+        self.visualize = visualize
 
         # English (Hillenbrand 1995) - 12 vowels (Bence: I haven't checked this data myself)
         hillenbrand_female = np.array([
@@ -57,6 +62,9 @@ class VSAEvaluator(LanguageAwareSpeakerEvaluator):
         italian_female = italian_male
 
         # Spanish (Bradlow) - 5 vowels
+        # TODO: Actually no female results are reported in Bradlow and male
+        # matches with female. This needs correction but I suspect initialisation
+        # has low impact
         spanish_female = np.array([
             [286, 2147], [458, 1814], [638, 1353], [460, 1019], [322, 992]
         ])
@@ -76,11 +84,25 @@ class VSAEvaluator(LanguageAwareSpeakerEvaluator):
             [353, 1492], [265, 1825], [549, 1127], [545, 1779], [583, 1484]
         ])
 
+        # Mandarin Chinese - 11 vowels
+        mandarin_male = np.array([
+            [328, 2206], [422, 2064], [368, 1028], [444,1111], [742, 1284],
+            [412, 2046], [606, 1823], [693, 1800], [728,1368], [377, 1054],
+            [633, 1094]
+        ])
+        mandarin_female = np.array([
+            [340, 2641], [458, 2465], [403, 1172], [496, 1157], [906, 1429],
+            [434, 2444], [762, 2078], [846, 1956], [807, 1534], [424, 1188],
+            [752, 1243]
+        ])
+
         self._vowel_tables = {
             'en': {'n_clusters': 12, 'female': hillenbrand_female, 'male': hillenbrand_male},
             'it': {'n_clusters': 7,  'female': italian_female,     'male': italian_male},
             'es': {'n_clusters': 5,  'female': spanish_female,     'male': spanish_male},
             'nl': {'n_clusters': 15, 'female': dutch_female,       'male': dutch_male},
+            'zh':  {'n_clusters': 11, 'female': mandarin_female,   'male': mandarin_male},
+            'cmn': {'n_clusters': 11, 'female': mandarin_female,   'male': mandarin_male},
         }
 
     def _score_audio_list(
@@ -91,6 +113,9 @@ class VSAEvaluator(LanguageAwareSpeakerEvaluator):
     ) -> Optional[float]:
         # Dataset.language uses phonemiser locale codes (e.g. 'en-us'); strip to base code.
         language = language.split('-')[0]
+        if language not in self._vowel_tables:
+            print(f"VSAEvaluator: no vowel table for language '{language}', skipping.")
+            return None
         tables = self._vowel_tables[language]
         n_clusters = tables['n_clusters']
 
@@ -194,34 +219,30 @@ class VSAEvaluator(LanguageAwareSpeakerEvaluator):
             print(f"Error calculating convex hull: {e}")
             return 0.0
 
-        # Visualization
-        fig_dir = "figure"
-        os.makedirs(fig_dir, exist_ok=True)
+        if self.visualize:
+            fig_dir = "figure"
+            os.makedirs(fig_dir, exist_ok=True)
 
-        plt.figure(figsize=(8, 8))
+            plt.figure(figsize=(8, 8))
 
-        # Plot filtered formants
-        plt.scatter(Fp_filtered[:, 1], Fp_filtered[:, 0], alpha=0.2, label="Formants")
+            plt.scatter(Fp_filtered[:, 1], Fp_filtered[:, 0], alpha=0.2, label="Formants")
+            plt.scatter(Kp[:, 1], Kp[:, 0], marker='x', s=100, c='r', label="Cluster Centers")
 
-        # Plot cluster centers
-        plt.scatter(Kp[:, 1], Kp[:, 0], marker='x', s=100, c='r', label="Cluster Centers")
+            for simplex in hull.simplices:
+                plt.plot(Kp[simplex, 1], Kp[simplex, 0], 'g-')
 
-        # Plot convex hull
-        for simplex in hull.simplices:
-            plt.plot(Kp[simplex, 1], Kp[simplex, 0], 'g-')
+            plt.xlabel("F2 (Hz)")
+            plt.ylabel("F1 (Hz)")
+            plt.title(f"Vowel Space Area for Speaker {speaker_id} (VSA: {vsa:.2f})")
+            plt.legend()
+            plt.gca().invert_xaxis()
+            plt.gca().invert_yaxis()
+            plt.xlim(3000, 700)
+            plt.ylim(1200, 200)
+            plt.grid(True)
 
-        plt.xlabel("F2 (Hz)")
-        plt.ylabel("F1 (Hz)")
-        plt.title(f"Vowel Space Area for Speaker {speaker_id} (VSA: {vsa:.2f})")
-        plt.legend()
-        plt.gca().invert_xaxis()
-        plt.gca().invert_yaxis()
-        plt.xlim(3000, 700)
-        plt.ylim(1200, 200)
-        plt.grid(True)
-
-        fig_path = os.path.join(fig_dir, f"{speaker_id}_vsa.png")
-        plt.savefig(fig_path)
-        plt.close()
+            fig_path = os.path.join(fig_dir, f"{speaker_id}_vsa.png")
+            plt.savefig(fig_path)
+            plt.close()
 
         return vsa
