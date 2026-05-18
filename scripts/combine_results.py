@@ -11,14 +11,6 @@ OUTPUT_TEX_FILE = os.environ.get("PB_OUTPUT_TEX", "complex_evaluation_summary_3.
 OUTPUT_RST_FILE = os.environ.get("PB_OUTPUT_RST", "docs/results_table.rst")
 DATASETS_ROOT = "datasets"
 
-# Canonical UASpeech variant. UASpeech files in results_13/ have suffixes like
-# `_noisereduce_`, `_normalized_`, `_original_`, or no suffix at all. To make
-# table generation deterministic and not glob-order dependent, only files
-# matching this variant are loaded for the UASpeech rows.
-#   - 'noisereduce' / 'normalized' / 'original': use that suffixed variant
-#   - 'plain': use only the non-suffixed (original cluster) files
-UASPEECH_VARIANT = 'noisereduce'
-
 DATASET_DIR_MAP = {
     'UASpeech': 'uaspeech',
     'NeuroVoz': 'neurovoz',
@@ -819,46 +811,11 @@ def print_wada_snr_results(df):
     print(f"  {'Average':<28}  {avg:>6.2f}")
 
 
-def _select_uaspeech_variant(files, variant):
-    """Filter glob results so only the chosen UASpeech variant is loaded.
-
-    Non-uaspeech files pass through unchanged. UASpeech files are kept iff
-    their filename contains `_<variant>_` (or, for 'plain', contains no
-    variant suffix at all).
-    """
-    suffixes = ('noisereduce', 'normalized', 'original')
-    kept = []
-    dropped = []
-    for f in files:
-        name = os.path.basename(f).lower()
-        if 'uaspeech' not in name:
-            kept.append(f)
-            continue
-        present = next((s for s in suffixes if f'_{s}_' in name), None)
-        if variant == 'plain':
-            if present is None:
-                kept.append(f)
-            else:
-                dropped.append(f)
-        else:
-            if present == variant:
-                kept.append(f)
-            else:
-                dropped.append(f)
-    if dropped:
-        print(f"UASpeech variant filter='{variant}': dropped {len(dropped)} non-matching files:")
-        for f in dropped:
-            print(f"  - {os.path.basename(f)}")
-    return kept
-
-
 def main():
     files = glob.glob(FILE_PATTERN)
     if not files:
         print(f"No files found matching: {FILE_PATTERN}")
         return
-
-    files = _select_uaspeech_variant(files, UASPEECH_VARIANT)
 
     print(f"Found {len(files)} files. Parsing...")
     all_data = []
