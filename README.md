@@ -10,12 +10,12 @@ PathBench is a benchmark designed to evaluate pathological speech assessment sys
 
 ## Results
 
-Speaker-level Pearson Correlation Coefficients (PCC) for every evaluator and dataset, sign-aligned so positive values indicate the expected (healthy) direction.
+Speaker-level Pearson Correlation Coefficients (PCC) results can be found below.
+Currently ArtP is the best reference-based, and DArtP is the best reference-free method.
 
 * **CSV** (canonical, in this repo): [`results_table.csv`](results_table.csv)
-* **Interactive view** (search / sort / filter): _Google Sheet link — TBD_
+* **Google docs** [Google Docs](https://docs.google.com/spreadsheets/d/1ri-y_bHPgED3jJLuonChuwpaSP_3ddrx/edit?usp=sharing&ouid=112094007551573667400&rtpof=true&sd=true)
 
-`results_table.csv` is the source of truth. The Google Sheet mirrors the same content for convenient browsing and is kept in sync by the project maintainers.
 
 ## Usage guide
 
@@ -32,6 +32,7 @@ There are several use cases for PathBench:
 ### I want to evaluate my newly developed predictor
 
 No install needed beyond numpy. Provide a CSV of predicted speaker scores and compare against the PathBench ground truth.
+
 
 **Single dataset:**
 ```bash
@@ -68,9 +69,12 @@ C17,16.74
 
 All speaker IDs in the CSV must match the ground truth exactly — the script exits with an error if any are missing from either side.
 
+If it works well, you might want to consider opening a pull request for your evaluator and incorporating into a codebase along the contribution
+guidelines, as this is the only way we can ensure that you are not "cheating", i.e., using resources that are not allowed for your evaluator.
+
 ### I want to use the predictors developed by you
 
-Follow the steps in the [Installation](#installation) section. Then you can run inference on individual audio files. For example, to score a single utterance with the ArtP (Articulatory Precision) evaluator:
+Follow the steps in the [Installation](#installation) section. Then you can run inference on individual audio files. For example, to score a single utterance with ArtP:
 
 ```python
 from pathbench import ArticulatoryPrecisionEvaluator
@@ -82,7 +86,8 @@ print(f"ArtP score: {score}")
 
 ### I want to contribute a new predictor to this repository, how do I do that?
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for a step-by-step guide covering bug fixes, new evaluator development, unit test conventions, and coding conventions.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for a step-by-step guide.
+
 
 ### I want to reproduce your research
 
@@ -116,8 +121,13 @@ Results are written to the `results_11/` directory as timestamped text files con
 ## Installation
 
 We are continously trying to make the installation easier for your use case. 
+
 If you have the opportunity to start from a clean AWS/GCE instance, please do so and follow the make installation.
+
 If you are working on a highly restricted HPC cluster, I would recommend starting from the singularity container [provided](https://github.com/karkirowle/pathbench/releases/download/v0.1.0/pathbench.sif).
+
+Package installation is the recommended pathway when you are trying to incorporate into your existing stuff. In this case, you are kind of your own figuring out
+dependency conflicts.
 
 ### Package installation
 
