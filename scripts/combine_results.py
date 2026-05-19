@@ -17,9 +17,10 @@ DATASET_DIR_MAP = {
     'EasyCall': 'easycall',
     'COPAS': 'copas',
     'TORGO': 'torgo',
+    'MDSC': 'mdsc',
     'YT': 'youtube',
 }
-TYPE_DIR_MAP = {'Word': 'word', 'Utterance': 'utterances'}
+TYPE_DIR_MAP = {'Word': 'word', 'Utterance': 'utterances', 'Command': 'command'}
 COND_DIR_MAP = {'PB': 'balanced', 'PU': 'unbalanced', 'ALL': 'all'}
 
 # --- METRIC DEFINITIONS ---
@@ -172,11 +173,14 @@ def parse_txt_file(filepath):
     elif 'easycall' in filename: dataset = 'EasyCall'
     elif 'copas' in filename: dataset = 'COPAS'
     elif 'torgo' in filename: dataset = 'TORGO'
+    elif 'mdsc' in filename: dataset = 'MDSC'
     elif 'youtube' in filename or 'yt' in filename: dataset = 'YT'
 
     dtype = 'Word'
     if 'utterance' in filename or 'sentence' in filename:
         dtype = 'Utterance'
+    elif 'command' in filename:
+        dtype = 'Command'
     
     # Condition Detection
     if 'unbalanced' in filename:
@@ -397,6 +401,7 @@ def get_table_column_order():
         ('COPAS', 'Utterance', 'PB'), ('COPAS', 'Utterance', 'PU'), ('COPAS', 'Utterance', 'ALL'),
         ('TORGO', 'Word', 'PB'), ('TORGO', 'Word', 'PU'),
         ('TORGO', 'Utterance', 'PB'), ('TORGO', 'Utterance', 'PU'),
+        ('MDSC', 'Command', 'PB'), ('MDSC', 'Command', 'PU'),
         ('YT', 'Utterance', 'ALL')
     ]
 
@@ -438,12 +443,12 @@ def generate_latex(df, datasets_root=DATASETS_ROOT):
     latex_rows.append(
         r"        Language & & & \multicolumn{2}{c|}{English} & \multicolumn{2}{c|}{Spanish}"
         r" & \multicolumn{4}{c|}{Italian} & \multicolumn{6}{c|}{Dutch}"
-        r" & \multicolumn{4}{c|}{English} & English & \\"
+        r" & \multicolumn{4}{c|}{English} & \multicolumn{2}{c|}{Mandarin} & English & \\"
     )
     latex_rows.append(
         r"        Disorder & & & \multicolumn{2}{c|}{Dysarthria} & \multicolumn{2}{c|}{Parkinson's}"
         r" & \multicolumn{4}{c|}{Dysarthria} & \multicolumn{6}{c|}{Variety of pathologies}"
-        r" & \multicolumn{4}{c|}{Dysarthria} & OC & \\"
+        r" & \multicolumn{4}{c|}{Dysarthria} & \multicolumn{2}{c|}{Dysarthria} & OC & \\"
     )
     latex_rows.append(r"        \midrule")
 
@@ -527,12 +532,12 @@ def generate_latex(df, datasets_root=DATASETS_ROOT):
     \caption{Speaker-level Pearson Correlation Coefficient (PCC). \textbf{Multi}: Multilingual Support (\cmark*: Limited/Requires adaptation), \textbf{Expl}: Explainable/Interpretable. \textbf{MC}: Matched Content, \textbf{EX}: Extended, \textbf{Full}: Combined (COPAS only). \textbf{Bold}: Best overall. \underline{Underline}: Best Reference-Free. \textbf{OC}: Oral Cancer. Spk: number of speakers. Utt: number of utterances.}
     \label{tab:main_results}
     \resizebox{\textwidth}{!}{%
-    \begin{tabular}{l|cc|cc|cc|cc|cc|ccc|ccc|cc|cc|c|c}
+    \begin{tabular}{l|cc|cc|cc|cc|cc|ccc|ccc|cc|cc|cc|c|c}
         \toprule
-        & & & \multicolumn{2}{c|}{\textbf{UASpeech \cite{kim08c_interspeech}}} & \multicolumn{2}{c|}{\textbf{NeuroVoz \cite{mendes2024neurovoz}}} & \multicolumn{2}{c|}{\textbf{EasyCall \cite{turrisi21_interspeech}}} & \multicolumn{2}{c|}{\textbf{EasyCall \cite{turrisi21_interspeech}}} & \multicolumn{3}{c|}{\textbf{COPAS \cite{van2009dutch}}} & \multicolumn{3}{c|}{\textbf{COPAS \cite{van2009dutch}}} & \multicolumn{2}{c|}{\textbf{TORGO \cite{rudzicz2012torgo}}} & \multicolumn{2}{c|}{\textbf{TORGO \cite{rudzicz2012torgo}}} & \textbf{YT \cite{halpern25_interspeech}} & \\
-        & & & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Sentence}} & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Sentence}} & \multicolumn{3}{c|}{\textit{Word}} & \multicolumn{3}{c|}{\textit{Sentence}} & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Sentence}} & \textit{Sent} & \\
-        \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11} \cmidrule(lr){12-14} \cmidrule(lr){15-17} \cmidrule(lr){18-19} \cmidrule(lr){20-21} \cmidrule(lr){22-22}
-        \textbf{Metric} & \textbf{Multi} & \textbf{Expl} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{Full} & \textbf{MC} & \textbf{EX} & \textbf{Full} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{Full} & \textbf{Avg} \\
+        & & & \multicolumn{2}{c|}{\textbf{UASpeech \cite{kim08c_interspeech}}} & \multicolumn{2}{c|}{\textbf{NeuroVoz \cite{mendes2024neurovoz}}} & \multicolumn{2}{c|}{\textbf{EasyCall \cite{turrisi21_interspeech}}} & \multicolumn{2}{c|}{\textbf{EasyCall \cite{turrisi21_interspeech}}} & \multicolumn{3}{c|}{\textbf{COPAS \cite{van2009dutch}}} & \multicolumn{3}{c|}{\textbf{COPAS \cite{van2009dutch}}} & \multicolumn{2}{c|}{\textbf{TORGO \cite{rudzicz2012torgo}}} & \multicolumn{2}{c|}{\textbf{TORGO \cite{rudzicz2012torgo}}} & \multicolumn{2}{c|}{\textbf{MDSC}} & \textbf{YT \cite{halpern25_interspeech}} & \\
+        & & & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Sentence}} & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Sentence}} & \multicolumn{3}{c|}{\textit{Word}} & \multicolumn{3}{c|}{\textit{Sentence}} & \multicolumn{2}{c|}{\textit{Word}} & \multicolumn{2}{c|}{\textit{Sentence}} & \multicolumn{2}{c|}{\textit{Command}} & \textit{Sent} & \\
+        \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11} \cmidrule(lr){12-14} \cmidrule(lr){15-17} \cmidrule(lr){18-19} \cmidrule(lr){20-21} \cmidrule(lr){22-23} \cmidrule(lr){24-24}
+        \textbf{Metric} & \textbf{Multi} & \textbf{Expl} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{Full} & \textbf{MC} & \textbf{EX} & \textbf{Full} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{MC} & \textbf{EX} & \textbf{Full} & \textbf{Avg} \\
         \midrule"""
     footer = r"""        \bottomrule
     \end{tabular}%

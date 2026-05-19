@@ -1,13 +1,13 @@
-Metric,Category,UASpeech Word MC,UASpeech Word EX,NeuroVoz Sentence MC,NeuroVoz Sentence EX,EasyCall Word MC,EasyCall Word EX,EasyCall Sentence MC,EasyCall Sentence EX,COPAS Word MC,COPAS Word EX,COPAS Word Full,COPAS Sentence MC,COPAS Sentence EX,COPAS Sentence Full,TORGO Word MC,TORGO Word EX,TORGO Sentence MC,TORGO Sentence EX,YT Sentence Full,Avg
-Speech Rate,Reference-Free (Signal),-0.78,-0.77,0.26,0.32,-0.12,-0.17,0.40,0.53,-0.26,0.14,0.12,0.28,0.28,0.22,-0.11,-0.10,0.72,0.81,0.29,0.11
-CPP,Reference-Free (Signal),-0.26,-0.21,0.17,0.19,0.16,0.13,0.16,0.08,-0.05,-0.39,0.11,0.07,0.07,0.08,-0.32,-0.34,-0.40,-0.31,-0.51,-0.08
-Std Pitch,Reference-Free (Signal),-0.36,-0.38,-0.30,-0.31,0.17,-0.08,0.25,-0.09,-0.35,0.16,0.08,-0.03,-0.03,-0.01,-0.23,-0.30,-0.36,-0.47,0.06,-0.14
-VSA,Reference-Free (Speaker),0.02,-0.08,0.01,0.05,0.27,0.19,0.15,0.28,-0.20,0.55,0.04,0.22,0.22,0.20,0.63,0.58,-0.45,-0.38,0.17,0.13
-Double ASR,Reference-Free (Model),0.97,0.98,0.86,0.86,0.54,0.72,0.48,0.70,-0.13,0.28,0.37,0.44,0.44,0.47,0.47,0.45,0.88,0.87,0.56,0.59
-DArtP,Reference-Free (Model),0.97,0.97,0.79,0.79,0.70,0.71,0.63,0.62,0.48,0.60,0.50,0.36,0.36,0.34,0.54,0.57,0.92,0.91,0.79,0.66
-Confidence,Reference-Free (Model),0.93,0.94,0.76,0.78,0.60,0.68,0.59,0.59,0.13,0.76,0.54,0.48,0.48,0.49,0.27,0.35,0.90,0.89,0.79,0.63
-PER (SEM),Reference-Text,0.84,0.85,0.83,0.85,0.42,0.64,0.61,0.67,0.30,0.54,0.49,0.28,0.28,0.28,0.48,0.47,0.93,0.91,0.66,0.60
-PER (Phone),Reference-Text,0.74,0.77,0.70,0.72,0.44,0.53,0.53,0.60,0.26,0.61,0.55,0.18,0.18,0.17,0.49,0.59,0.92,0.92,0.75,0.56
-ArtP,Reference-Text,0.98,0.98,0.77,0.78,0.71,0.74,0.69,0.68,0.40,0.78,0.61,0.57,0.57,0.56,0.56,0.61,0.92,0.92,0.78,0.72
-P-ESTOI,Reference-Audio (Parallel),0.96,0.95,0.40,0.53,0.58,0.70,0.71,0.80,0.23,0.40,0.39,0.42,0.41,0.42,0.43,0.40,0.76,0.86,,0.57
-NAD,Reference-Audio (Parallel),0.97,0.97,0.70,0.75,0.76,0.83,0.78,0.86,0.18,0.46,0.51,0.69,0.69,0.70,0.52,0.55,0.90,0.90,,0.71
+Metric,Category,UASpeech Word MC,UASpeech Word EX,NeuroVoz Sentence MC,NeuroVoz Sentence EX,EasyCall Word MC,EasyCall Word EX,EasyCall Sentence MC,EasyCall Sentence EX,COPAS Word MC,COPAS Word EX,COPAS Word Full,COPAS Sentence MC,COPAS Sentence EX,COPAS Sentence Full,TORGO Word MC,TORGO Word EX,TORGO Sentence MC,TORGO Sentence EX,MDSC Command MC,MDSC Command EX,YT Sentence Full,Avg
+Speech Rate,Reference-Free (Signal),-0.78,-0.77,0.26,0.32,-0.12,-0.17,0.40,0.53,-0.26,0.14,0.12,0.28,0.28,0.22,-0.11,-0.10,0.72,0.81,0.45,0.28,0.29,0.13
+CPP,Reference-Free (Signal),-0.26,-0.21,0.17,0.19,0.16,0.13,0.16,0.08,-0.05,-0.39,0.11,0.07,0.07,0.08,-0.32,-0.34,-0.40,-0.31,0.21,0.18,-0.51,-0.06
+Std Pitch,Reference-Free (Signal),-0.36,-0.38,-0.30,-0.31,0.17,-0.08,0.25,-0.09,-0.35,0.16,0.08,-0.03,-0.03,-0.01,-0.23,-0.30,-0.36,-0.47,0.50,0.30,0.06,-0.08
+VSA,Reference-Free (Speaker),0.02,-0.08,0.01,0.05,0.27,0.19,0.15,0.28,-0.20,0.55,0.04,0.22,0.22,0.20,0.63,0.58,-0.45,-0.38,0.39,0.38,0.17,0.15
+Double ASR,Reference-Free (Model),0.97,0.98,0.86,0.86,0.54,0.72,0.48,0.70,-0.13,0.28,0.37,0.44,0.44,0.47,0.47,0.45,0.88,0.87,0.42,0.47,0.56,0.58
+DArtP,Reference-Free (Model),0.97,0.97,0.79,0.79,0.70,0.71,0.63,0.62,0.48,0.60,0.50,0.36,0.36,0.34,0.54,0.57,0.92,0.91,0.55,0.53,0.79,0.65
+Confidence,Reference-Free (Model),0.93,0.94,0.76,0.78,0.60,0.68,0.59,0.59,0.13,0.76,0.54,0.48,0.48,0.49,0.27,0.35,0.90,0.89,0.49,0.54,0.79,0.62
+PER (SEM),Reference-Text,0.84,0.85,0.83,0.85,0.42,0.64,0.61,0.67,0.30,0.54,0.49,0.28,0.28,0.28,0.48,0.47,0.93,0.91,0.84,0.85,0.66,0.62
+PER (Phone),Reference-Text,0.74,0.77,0.70,0.72,0.44,0.53,0.53,0.60,0.26,0.61,0.55,0.18,0.18,0.17,0.49,0.59,0.92,0.92,0.69,0.69,0.75,0.57
+ArtP,Reference-Text,0.98,0.98,0.77,0.78,0.71,0.74,0.69,0.68,0.40,0.78,0.61,0.57,0.57,0.56,0.56,0.61,0.92,0.92,0.75,0.73,0.78,0.72
+P-ESTOI,Reference-Audio (Parallel),0.96,0.95,0.40,0.53,0.58,0.70,0.71,0.80,0.23,0.40,0.39,0.42,0.41,0.42,0.43,0.40,0.76,0.86,0.52,0.66,,0.58
+NAD,Reference-Audio (Parallel),0.97,0.97,0.70,0.75,0.76,0.83,0.78,0.86,0.18,0.46,0.51,0.69,0.69,0.70,0.52,0.55,0.90,0.90,0.71,0.71,,0.71
