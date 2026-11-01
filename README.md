@@ -5,249 +5,179 @@
 [![Unit Tests](https://github.com/karkirowle/pathbench/actions/workflows/tests.yml/badge.svg)](https://github.com/karkirowle/pathbench/actions/workflows/tests.yml)
 [![Documentation Status](https://readthedocs.org/projects/path-benc/badge/?version=latest)](https://path-benc.readthedocs.io/en/latest/)
 ![Python >= 3.10](https://img.shields.io/badge/python-%3E%3D3.10-blue)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/karkirowle/pathbench/blob/main/examples/dartp_colab.ipynb)
 
 PathBench is a benchmark designed to evaluate pathological speech assessment systems.
 
 ## Results
 
-Speaker-level Pearson Correlation Coefficients (PCC) results can be found below.
-Currently ArtP is the best reference-based, and DArtP is the best reference-free method.
+Speaker-level Pearson correlations (PCC). Currently ArtP is the best reference-based, and DArtP is the best reference-free method.
 
-* **CSV** (canonical, in this repo): [`results/results_table.csv`](results/results_table.csv) (RTX 3090) and [`results/results_table_2080ti.csv`](results/results_table_2080ti.csv) (RTX 2080 Ti). The two are the same benchmark on different GPUs; small differences (≤0.01) are due to GPU floating-point non-determinism.
-* **Google docs** [Google Docs](https://docs.google.com/spreadsheets/d/1ri-y_bHPgED3jJLuonChuwpaSP_3ddrx/edit?usp=sharing&ouid=112094007551573667400&rtpof=true&sd=true)
+| Table | GPU | Link |
+|---|---|---|
+| Canonical | RTX 3090 | [`results/results_table.csv`](results/results_table.csv) |
+| Same benchmark | RTX 2080 Ti | [`results/results_table_2080ti.csv`](results/results_table_2080ti.csv) |
+| Spreadsheet | | [Google Sheets](https://docs.google.com/spreadsheets/d/1ri-y_bHPgED3jJLuonChuwpaSP_3ddrx/edit?usp=sharing&ouid=112094007551573667400&rtpof=true&sd=true) |
 
+Some cells differ by 0.01 between the two GPUs.
+
+## Quick start
+
+Try DArtP in the [Colab notebook](examples/dartp_colab.ipynb), or in your own code:
+
+```python
+from pathbench import ArtPDoubleASREvaluator, ArticulatoryPrecisionEvaluator
+
+dartp = ArtPDoubleASREvaluator(language="en-us", lm_path="lms/wiki_en_token.arpa.bin")  # audio only
+print(dartp.score("utt1", "audio.wav"))
+
+artp = ArticulatoryPrecisionEvaluator()  # needs the transcript
+print(artp.score("utt1", "audio.wav", transcription="the cat sat on the mat", language="en-us"))
+```
+
+Languages use espeak-ng codes: `en-us` (not `en`), `es`, `nl`, `it`, `cmn`.
 
 ## Usage guide
 
-There are several use cases for PathBench:
-
 * [I want to evaluate my newly developed predictor](#i-want-to-evaluate-my-newly-developed-predictor)
-
 * [I want to use the predictors developed by you](#i-want-to-use-the-predictors-developed-by-you)
-
-* [I want to contribute a new predictor to this repository, how do I do that?](#i-want-to-contribute-a-new-predictor-to-this-repository-how-do-i-do-that)
-
 * [I want to reproduce your research](#i-want-to-reproduce-your-research)
+* [I want to contribute a new predictor](#i-want-to-contribute-a-new-predictor)
 
 ### I want to evaluate my newly developed predictor
 
-No install needed beyond numpy. Provide a CSV of predicted speaker scores and compare against the PathBench ground truth.
+You only need numpy and a clone of this repository. Compare a CSV of speaker scores against the ground truth:
 
-
-**Single dataset:**
 ```bash
 python scripts/evaluate_from_csv.py \
     --predictions results/datasets/copas/pathological/word/balanced/dummy_scores.csv \
     --ground-truth datasets/copas/pathological/word/balanced/spk2score
 ```
 
-**Full benchmark** — evaluate one evaluator across all datasets. Place your CSVs in a results directory that mirrors the dataset structure, with each CSV named `<evaluator>.csv`. Dummy score files are provided as a worked example:
+The CSV has one row per speaker; the IDs must match the ground truth exactly:
 
-```
-results/datasets/
-  copas/pathological/word/balanced/dummy_scores.csv
-  torgo/pathological/utterances/balanced/dummy_scores.csv
-  youtube/dummy_scores.csv
-```
-
-Then run:
-```bash
-python scripts/evaluate_from_csv.py \
-    --results-dir results/datasets/ \
-    --datasets-root datasets/ \
-    --evaluator dummy_scores
-```
-
-This prints a table with the Pearson correlation for each dataset and the mean across all datasets.
-
-Expected CSV format (speaker IDs must match the ground truth exactly):
 ```
 speaker_id,score
 C16,15.61
 C17,16.74
 ```
 
-All speaker IDs in the CSV must match the ground truth exactly — the script exits with an error if any are missing from either side.
+For the full benchmark, put one `<evaluator>.csv` per dataset in a directory that mirrors `datasets/` (see the dummy files in `results/datasets/`) and run:
 
-If it works well, you might want to consider opening a pull request for your evaluator and incorporating into a codebase along the contribution
-guidelines, as this is the only way we can ensure that you are not "cheating", i.e., using resources that are not allowed for your evaluator.
+```bash
+python scripts/evaluate_from_csv.py --results-dir results/datasets/ --datasets-root datasets/ --evaluator dummy_scores
+```
+
+If it works well, consider opening a pull request to add your evaluator along the [contribution guidelines](CONTRIBUTING.md), as this is the only way we can ensure that you are not "cheating", i.e., using resources that are not allowed for your evaluator.
 
 ### I want to use the predictors developed by you
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/karkirowle/pathbench/blob/main/examples/dartp_colab.ipynb) The [DArtP notebook](examples/dartp_colab.ipynb) installs PathBench, downloads the English language model and scores example and uploaded recordings with DArtP, the best reference-free metric. It runs on the free Colab tier.
-
-Follow the steps in the [Installation](#installation) section. Then you can run inference on individual audio files. For example, to score a single utterance with ArtP:
-
-```python
-from pathbench import ArticulatoryPrecisionEvaluator
-
-evaluator = ArticulatoryPrecisionEvaluator()
-score = evaluator.score("utt1", "/path/to/audio.wav", transcription="the cat sat on the mat", language="en-us")
-print(f"ArtP score: {score}")
+```bash
+sudo apt-get install espeak-ng
+pip install "pathbench[lm] @ git+https://github.com/karkirowle/pathbench.git"
 ```
 
-### I want to contribute a new predictor to this repository, how do I do that?
+`[lm]` adds `kenlm` (compiled from source; needs `cmake`) for DArtP and Double ASR. These two also need a KenLM language model from `lms.zip` in the [Zenodo record](https://zenodo.org/records/18738598); the notebook's `download_zip_member` fetches a single language without the whole 35 GB.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for a step-by-step guide.
-
+This route allows a range of library versions and your system's espeak-ng, so phoneme-based scores can differ slightly from the paper (see [Reproducibility](#reproducibility)).
 
 ### I want to reproduce your research
 
-1. Follow the steps in the [Installation](#installation) section.
-2. Follow the steps in the [Downloads](#downloads) section.
-3. Follow the steps in the [Testing](#testing) section.
-4. Run the evaluation script on the dataset(s) you want to evaluate. For example, to evaluate on the YouTube dataset:
+1. **Install** the exact environment (no sudo; needs `git`, `cmake` and a C compiler):
 
-```bash
-python scripts/evaluate_spk2score.py datasets/youtube
-```
+   ```bash
+   git clone https://github.com/karkirowle/pathbench.git && cd pathbench
+   make -C tools                  # CPU only: make -C tools CUDA_VERSION=
+   source tools/venv/bin/activate
+   ```
 
-To also write per-evaluator score CSVs, pass `--results-dir`:
+   On an HPC cluster or without build tools, run `make` inside the [container](https://github.com/karkirowle/pathbench/releases/download/v0.1.0/pathbench.sif) ([`tools/pathbench.def`](tools/pathbench.def)): `apptainer exec --nv pathbench.sif make -C tools`.
 
-```bash
-python scripts/evaluate_spk2score.py datasets/youtube --results-dir results/datasets/
-```
+2. **Download the datasets** below and repoint the `wav.scp` files, e.g. `find datasets/ -name "wav.scp" -exec sed -i 's|/data/group1/z40484r/datasets|/path/to/your/datasets|g' {} +`.
 
-You can evaluate multiple datasets in a single run:
+3. **Download the language models**: unzip `lms.zip` from [Zenodo](https://zenodo.org/records/18738598) in the repository root. The Mandarin model is not in it yet.
 
-```bash
-python scripts/evaluate_spk2score.py \
-    datasets/copas/pathological/word/balanced \
-    datasets/torgo/pathological/utterances/balanced \
-    datasets/youtube
-```
+4. **Test** the installation and your data (see [Testing](#testing)).
 
-Results are written to the `results_11/` directory as timestamped text files containing per-evaluator Pearson correlations and a summary table.
+5. **Run** the benchmark:
 
+   ```bash
+   python scripts/evaluate_spk2score.py datasets/youtube datasets/torgo/pathological/utterances/balanced
+   ```
 
-## Installation
+   Correlations go to `results_13/`. `--results-dir results/datasets/` also writes per-speaker scores; `--evaluators artp,artp_double_asr` runs only some metrics.
 
-There are two ways to install PathBench, depending on what you need:
+### I want to contribute a new predictor
 
-| | [Use PathBench in your project](#use-pathbench-in-your-project) | [Reproduce the paper](#reproduce-the-paper) |
-|---|---|---|
-| Install | `pip install` | `make` (or the container) |
-| sudo needed | only for your OS's `espeak-ng` package | no |
-| Python libraries | any version within the tested ranges | exact versions (`constraints.txt`) |
-| espeak-ng | whatever your system has | built from the pinned commit |
-| Scores vs. the paper | phoneme-based metrics may differ slightly | identical up to GPU rounding |
+See [CONTRIBUTING.md](CONTRIBUTING.md) for a step-by-step guide.
 
-**What can still make scores differ.** Phoneme-based metrics (PER, dPER, ArtP, DArtP, Double ASR) turn text into phonemes with [espeak-ng](https://github.com/espeak-ng/espeak-ng), a system C library that pip cannot install. Different espeak-ng versions phonemize some languages differently (e.g. Italian `r` vs `ɾ`), so the paper uses commit [`2ea41210`](https://github.com/espeak-ng/espeak-ng/commit/2ea41210). Model weights are pinned to fixed Hugging Face revisions on both routes. Different GPUs round floating point differently, which moves the published correlations by up to about 0.01–0.03. No installation route can remove that.
-
-### Use PathBench in your project
-
-```bash
-sudo apt-get install espeak-ng            # or your OS's package manager
-pip install "pathbench @ git+https://github.com/karkirowle/pathbench.git"
-```
-
-Install PyTorch for your CUDA version first if you need a specific build ([pytorch.org](https://pytorch.org/get-started/locally/)). Optional extras:
-
-- `pathbench[lm]` installs `kenlm` for the language-model evaluators (DArtP, Double ASR). It compiles from source, so it needs `cmake` and a C++ compiler.
-- `pathbench[scripts]` installs what `scripts/` uses.
-
-The dependency ranges in `pyproject.toml` are tested at both ends by CI, so any combination in between should work. To use the paper's espeak-ng without root, build it as in the `espeak.done` target of [`tools/Makefile`](tools/Makefile) and point phonemizer at it with `export PHONEMIZER_ESPEAK_LIBRARY=/path/to/libespeak-ng.so`.
-
-### Reproduce the paper
-
-```bash
-git clone https://github.com/karkirowle/pathbench.git
-cd pathbench
-make -C tools                  # CUDA 12.4 PyTorch; use `make -C tools CUDA_VERSION=` for CPU
-source tools/venv/bin/activate
-```
-
-This builds espeak-ng `2ea41210` into `tools/espeak-ng/` (no sudo), creates `tools/venv` with the exact versions from [`constraints.txt`](constraints.txt), and points the venv at the local espeak-ng. It needs Python 3.10–3.12, `git`, `cmake` and a C/C++ compiler.
-
-**No build tools, or an HPC cluster:** run the same `make` inside the [container](https://github.com/karkirowle/pathbench/releases/download/v0.1.0/pathbench.sif), which provides them. Its definition is [`container/pathbench.def`](container/pathbench.def).
-
-```bash
-apptainer exec --nv pathbench.sif make -C tools
-apptainer exec --nv pathbench.sif tools/venv/bin/python scripts/evaluate_spk2score.py ...
-```
-
-## Downloads
-
-### Datasets
+## Datasets
 
 We are not allowed to share these datasets ourselves, however, all of them are relatively easily accesible. Please get your copy.
 
 * [COPAS](https://taalmaterialen.ivdnt.org/download/tstc-corpus-pathologische-en-normale-spraak-copas/)
-
 * [EasyCall](http://neurolab.unife.it/easycallcorpus/)
-
 * [TORGO](https://www.cs.toronto.edu/~complingweb/data/TORGO/torgo.html)
-
 * [NeuroVoz](https://zenodo.org/records/10777657)
-
 * [UASpeech](https://speechtechnology.web.illinois.edu/uaspeech/)
-
 * [Oral Cancer - YouTube](https://zenodo.org/records/18738598)
-
 * [MDSC (Mandarin Dysarthric Speech Corpus)](https://www.aishelltech.com/AISHELL_6B)
 
-After downloading the datasets, repoint the `wav.scp` files to your local dataset root. We do not provide a script for this, but you can use a regex replacement such as:
-
-```bash
-find datasets/ -name "wav.scp" -exec sed -i 's|/data/group1/z40484r/datasets|/path/to/your/datasets|g' {} +
-```
-
-**EasyCall fix:** Some EasyCall audio files have a stray space in their filename (`m13 _` instead of `m13_`). Rename them before running the benchmark:
+**EasyCall fix:** some files have a stray space in their name (`m13 _` instead of `m13_`):
 
 ```bash
 find /path/to/your/datasets/easycall/EasyCall/m13 -name "m13 _*" -exec bash -c 'mv "$1" "${1//m13 _/m13_}"' _ {} \;
 ```
 
-### N-gram models
-
-The n-gram models required for DArtP and ArtP are included in the [Oral Cancer - YouTube](https://zenodo.org/records/18738598) download.
+**UASpeech:** PathBench uses the denoised version (December 2020); older copies will not match the hashes.
 
 ## Testing
 
-### Installation integrity
-
-It is recommended that after this setup you run the unit tests below. If these pass you can be reasonably sure about installation integrity.
-
 ```bash
-source tools/venv/bin/activate
-python -m pytest tests/test_evaluators.py::TestEvaluatorMethods -v
+python -m pytest tests/test_evaluators.py::TestEvaluatorMethods -v   # installation
+python -m pytest tests/test_evaluators.py::TestAudioFileHashes -v    # your audio files
 ```
 
-All tests should pass. If all evaluator tests fail simultaneously, the reference audio file in `tests/data/test_audio.wav` may be corrupted — the `test_audio_integrity` test will confirm this.
+During the NAD tests a `Wav2Vec2Model LOAD REPORT` lists some keys as **UNEXPECTED**. This is harmless: they belong to pre-training heads that are not used.
 
-> **Note:** During the NAD evaluator tests you will see a `Wav2Vec2Model LOAD REPORT` table listing several keys (e.g. `project_q`, `quantizer`) as **UNEXPECTED**. These warnings are harmless — the keys belong to pre-training heads that are not needed for feature extraction and can be safely ignored.
+## Reproducibility
 
-### Dataset integrity
-
-```bash
-python -m pytest tests/test_evaluators.py::TestDatasetIntegrity::test_audio_file_hashes -v
-```
-
-Share these hashes alongside your results so others can verify they are using the same data.
-
-> **Note:** Different versions of UASpeech exist. A denoising step was applied to UASpeech in December 2020. PathBench uses the **denoised** version canonically — `datasets/uaspeech/` points at the `noisereduce` audio set. If you have the pre-denoising audio your hashes will not match.
-
-
+The `make` route pins everything except the GPU: espeak-ng commit [`2ea41210`](https://github.com/espeak-ng/espeak-ng/commit/2ea41210), the library versions ([`tools/constraints.txt`](tools/constraints.txt)) and the model weights. The pip route pins only the model weights. The espeak-ng version matters most: different versions phonemize some languages differently (e.g. Italian `r` vs `ɾ`), which changes PER, dPER, ArtP, DArtP and Double ASR.
 
 # Citation
 
 If you use PathBench in your research, please cite:
 
 ```bibtex
-@misc{halpern2026pathbenchspeechintelligibilitybenchmark,
-      title={PathBench: Speech Intelligibility Benchmark for Automatic Pathological Speech Assessment},
-      author={Bence Mark Halpern and Thomas Tienkamp and Defne Abur and Tomoki Toda},
-      year={2026},
-      eprint={2603.08097},
-      archivePrefix={arXiv},
-      primaryClass={cs.SD},
-      url={https://arxiv.org/abs/2603.08097},
+@inproceedings{halpern26_interspeech,
+  title     = {{PathBench: Speech Intelligibility Benchmark for Automatic Pathological Speech Assessment}},
+  author    = {Bence Mark Halpern and Thomas Tienkamp and Defne Abur and Tomoki Toda},
+  year      = {2026},
+  booktitle = {{Interspeech 2026}},
+  pages     = {7526--7531},
+  doi       = {10.21437/Interspeech.2026-946},
+  issn      = {2958-1796},
+}
+```
+
+If you use ART-NAD, please also cite:
+
+```bibtex
+@misc{halpern2026artnad,
+  title         = {{ART-NAD: An Articulatory Inversion-based Neural Acoustic Distance for Pathological Speech Intelligibility Assessment}},
+  author        = {Bence Mark Halpern and Thomas Tienkamp and Defne Abur and Tomoki Toda},
+  year          = {2026},
+  eprint        = {2609.24046},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.SD},
+  note          = {Accepted at SLT 2026},
+  url           = {https://arxiv.org/abs/2609.24046},
 }
 ```
 
 # License
 
-The PathBench repository code is released under the MIT License. However, some individual evaluators include or derive from code released under more restrictive licenses. In particular, the `PraatSpeechRateEvaluator` in `pathbench/evaluators/speech_rate.py` is based on the Praat Script Syllable Nuclei by Nivja de Jong and Ton Wempe, which is licensed under the GNU General Public License v3 (GPL-3.0).
+The PathBench repository code is released under the MIT License. However, some individual evaluators include or derive from code released under more restrictive licenses. In particular, the `PraatSpeechRateEvaluator` in `pathbench/evaluators/speech_rate.py` is based on the Praat Script Syllable Nuclei by Nivja de Jong and Ton Wempe, which is licensed under the GNU General Public License v3 (GPL-3.0). The example sentence in `examples/audio/` is from LibriTTS (CC BY 4.0).
 
 We are not able to provide legal advice. If you believe there is a licensing concern with any component in this codebase, please [open an issue](https://github.com/karkirowle/pathbench/issues).
 
@@ -267,4 +197,3 @@ This work is partly financed by the Dutch Research Council (NWO) under project n
 ## Author
 
 Bence Mark Halpern, Nagoya University
-
