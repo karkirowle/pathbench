@@ -74,6 +74,8 @@ guidelines, as this is the only way we can ensure that you are not "cheating", i
 
 ### I want to use the predictors developed by you
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/karkirowle/pathbench/blob/main/examples/dartp_colab.ipynb) The [DArtP notebook](examples/dartp_colab.ipynb) installs PathBench, downloads the English language model and scores example and uploaded recordings with DArtP, the best reference-free metric. It runs on the free Colab tier.
+
 Follow the steps in the [Installation](#installation) section. Then you can run inference on individual audio files. For example, to score a single utterance with ArtP:
 
 ```python
