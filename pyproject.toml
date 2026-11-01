@@ -50,8 +50,14 @@ dependencies = [
     "transformers",
     "dtw-python",
     "jiwer",
-    "phonemizer-fork @ git+https://github.com/thewh1teagle/phonemizer-fork.git",
-    "pyctcdecode @ git+https://github.com/kensho-technologies/pyctcdecode.git",
+    # phonemizer 3.4.0 is the floor: it caches espeak backend instances across
+    # phonemize() calls, which is what the phonemizer-fork pin provided, and it
+    # makes the heavy "segments" dependency optional. Verified to phonemize all
+    # 1932 dataset transcripts byte-identically to phonemizer-fork 3.3.2.
+    "phonemizer>=3.4.0,<4",
+    # 0.5.0 is the latest PyPI release. Verified to produce identical LM-decoded
+    # transcriptions to the 0.6.0 development snapshot previously pinned from git.
+    "pyctcdecode>=0.5.0",
     "praat-parselmouth>=0.4.4",
     "scikit-learn",
 ]
@@ -63,6 +69,13 @@ scripts = [
     "pandas",
     "tqdm",
 ]
+# Language-model CTC decoding, used by DoubleASR and ArtP-DoubleASR. kenlm
+# publishes no wheels, so installing this extra compiles it from source and
+# needs cmake and a C++ toolchain. Without it those two evaluators raise at
+# decoder construction; every other metric works.
+lm = [
+    "kenlm",
+]
 # Sphinx documentation generation
 docs = [
     "sphinx",
@@ -73,6 +86,7 @@ docs = [
 all = [
     "pathbench[scripts]",
     "pathbench[docs]",
+    "pathbench[lm]",
 ]
 
 [tool.setuptools.packages.find]

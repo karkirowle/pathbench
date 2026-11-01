@@ -51,7 +51,10 @@ PARTIAL_COVERAGE_ALLOWLIST = {"spk2age", "wada_snr"}
 # Released tract-variable (Seneviratne TVs) BiGRU inversion checkpoint driving
 # ART-NAD, trained on wav2vec2-large layer 10 (``ssl_kind="w2v10"``). This is the
 # checkpoint behind the published ART-NAD-FA = 0.71 row (see run_tv_raw.sh).
-DEFAULT_TV_CKPT = "/nas02/homes/bence22-1000065/projects/articulatory_inversion/exp/tv_bigru_w2v10_sen/best.pkl"
+DEFAULT_TV_CKPT = os.environ.get(
+    "PATHBENCH_TV_CKPT",
+    "/nas02/homes/bence22-1000065/projects/articulatory_inversion/exp/tv_bigru_w2v10_sen/best.pkl",
+)
 
 # Evaluator keys that require reference audio and are run separately.
 REF_EVALUATOR_NAMES = ["p_estoi", "p_estoi_fa", "nad", "nad_fa",

@@ -1,6 +1,5 @@
 from typing import List, Optional, Tuple
 import os
-import matplotlib.pyplot as plt
 
 import numpy as np
 import parselmouth
@@ -220,6 +219,11 @@ class VSAEvaluator(LanguageAwareSpeakerEvaluator):
             return 0.0
 
         if self.visualize:
+            # Imported here rather than at module level: plotting is optional
+            # and matplotlib is only declared in the "scripts" extra, so a core
+            # install of pathbench must not need it to import this module.
+            import matplotlib.pyplot as plt
+
             fig_dir = "figure"
             os.makedirs(fig_dir, exist_ok=True)
 

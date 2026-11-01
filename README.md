@@ -131,7 +131,7 @@ dependency conflicts.
 
 ### Package installation
 
-PathBench cannot be published to PyPI because it depends on Git-hosted forks of `phonemizer` and `pyctcdecode`.
+All Python dependencies resolve from PyPI. The only component that cannot be installed with pip is `espeak-ng`, which must be built from the pinned commit below.
 
 **System dependencies** (not installable via pip — must be installed separately):
 - `espeak-ng` at commit [`2ea41210`](https://github.com/espeak-ng/espeak-ng/commit/2ea41210) (post-1.52.0) — required by the phonemizer for grapheme-to-phoneme conversion. The exact commit matters: different espeak-ng versions produce different IPA symbols for some languages (e.g. Italian `ɾ` vs `r`), which affects phoneme-based metrics (PER, dPER, ArtP). Build from source:
