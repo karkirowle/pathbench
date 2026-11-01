@@ -33,6 +33,8 @@ from typing import Optional
 import numpy as np
 import torch
 
+from pathbench.core.model_registry import model_revision
+
 
 # Vendored minimal ``articulatory`` package lives here. Putting this dir on
 # ``sys.path`` lets the upstream-style ``import articulatory.*`` in the vendored
@@ -112,8 +114,11 @@ class ArticulatoryRunner:
         from articulatory.utils import load_model
 
         # ---- HuBERT-Large (50 Hz, 1024-D last hidden state) ----
-        self._hubert_processor = Wav2Vec2FeatureExtractor.from_pretrained(self.hubert_id)
-        self._hubert = HubertModel.from_pretrained(self.hubert_id).to(self.device).eval()
+        revision = model_revision(self.hubert_id)
+        self._hubert_processor = Wav2Vec2FeatureExtractor.from_pretrained(
+            self.hubert_id, revision=revision)
+        self._hubert = HubertModel.from_pretrained(
+            self.hubert_id, revision=revision).to(self.device).eval()
 
         # ---- BiGRU inversion (HuBERT 50 Hz -> EMA 100 Hz) ----
         ckpt = self.checkpoint_dir / "best_mel_ckpt.pkl"
@@ -145,12 +150,16 @@ class ArticulatoryRunner:
         if self.ssl_kind == "hubert":
             from transformers import HubertModel
             self._ssl_model = HubertModel.from_pretrained(
-                "facebook/hubert-large-ll60k").to(self.device).eval()
+                "facebook/hubert-large-ll60k",
+                revision=model_revision("facebook/hubert-large-ll60k"),
+            ).to(self.device).eval()
             self._ssl_layer = -1
         elif self.ssl_kind == "w2v10":
             from transformers import Wav2Vec2Model
             self._ssl_model = Wav2Vec2Model.from_pretrained(
-                "facebook/wav2vec2-large").to(self.device).eval()
+                "facebook/wav2vec2-large",
+                revision=model_revision("facebook/wav2vec2-large"),
+            ).to(self.device).eval()
             self._ssl_layer = 10
         else:
             raise ValueError(f"Unknown ssl_kind: {self.ssl_kind}")

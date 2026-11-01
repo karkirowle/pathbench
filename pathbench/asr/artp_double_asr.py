@@ -11,12 +11,21 @@ from pyctcdecode import build_ctcdecoder
 import numpy as np
 from pathbench.core.evaluator import ReferenceFreeEvaluator
 from pathbench.core.string_clean import clean_text, cached_phonemize
+from pathbench.asr.lm import resolve_lm_path
 
 
 class ArtPDoubleASREvaluator(ReferenceFreeEvaluator):
     """An evaluator that uses a wav2vec 2.0 model to compute articulatory precision."""
 
-    def __init__(self, language: str, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft"):
+    def __init__(self, language: str, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft",
+                 lm_dir: str = "lms", lm_path: Optional[str] = None):
+        """
+        Args:
+            language: Language code, e.g. 'en', 'es', 'nl', 'it', 'cmn'.
+            model_id: Phonetic CTC model used for the forced alignment.
+            lm_dir: Directory holding the per-language KenLM files from lms.zip.
+            lm_path: Explicit KenLM file; overrides ``lm_dir``.
+        """
         from pathbench.core.model_registry import get_ctc_model
         self.phonetic_processor, self.phonetic_model, self.device = get_ctc_model(model_id)
 
@@ -36,27 +45,7 @@ class ArtPDoubleASREvaluator(ReferenceFreeEvaluator):
         asr_model_id = model_ids[language]
         self.processor, self.model, _ = get_ctc_model(asr_model_id)
 
-        # Assuming the 'lms' directory is at the project root.
-        lms_dir = 'lms'
-        lm_paths = {
-            "en": os.path.join(lms_dir, "wiki_en_token.arpa"),
-            "nl": os.path.join(lms_dir, "wiki_nl_token.arpa"),
-            "es": os.path.join(lms_dir, "wiki_es_token.arpa.bin"),
-            "it": os.path.join(lms_dir, "wiki_it_token.arpa.bin"),
-            "cmn": os.path.join(lms_dir, "wiki_zh_token.arpa"),
-        }
-
-        lm_lang = language.split('-')[0]
-        if lm_lang not in lm_paths:
-            lm_lang = 'en' # Default to 'en' if no specific LM
-        
-        lm_path = lm_paths.get(lm_lang)
-
-        if lm_path and lm_path.endswith('.arpa'):
-            bin_path = lm_path + '.bin'
-            if os.path.exists(bin_path):
-                print(f"Found binary LM file: {bin_path}, using it.")
-                lm_path = bin_path
+        lm_path = resolve_lm_path(language, lm_dir, lm_path)
 
         self.decoder = None
         if lm_path and os.path.exists(lm_path):

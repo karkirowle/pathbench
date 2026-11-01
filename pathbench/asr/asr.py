@@ -10,6 +10,7 @@ from pyctcdecode import build_ctcdecoder
 import numpy as np
 from pathbench.core.evaluator import ReferenceTxtEvaluator, ReferenceFreeEvaluator
 from pathbench.core.string_clean import clean_text, cached_phonemize
+from pathbench.asr.lm import resolve_lm_path
 
 
 class ASREvaluator(ReferenceTxtEvaluator):
@@ -206,7 +207,7 @@ class DirectPEREvaluator(ReferenceTxtEvaluator):
 class DoubleASREvaluator(ReferenceFreeEvaluator):
     """Computes PER between greedy and LM-based CTC decoding."""
 
-    def __init__(self, language: str):
+    def __init__(self, language: str, lm_dir: str = "lms", lm_path: Optional[str] = None):
         from pathbench.core.model_registry import get_ctc_model
         model_ids = {
             "en":    "jonatasgrosman/wav2vec2-large-xlsr-53-english",
@@ -223,24 +224,7 @@ class DoubleASREvaluator(ReferenceFreeEvaluator):
         self.processor, self.model, self.device = get_ctc_model(model_id)
         self.language = language
 
-        lms_dir = 'lms'
-        lm_paths = {
-            "en": os.path.join(lms_dir, "wiki_en_token.arpa"),
-            "nl": os.path.join(lms_dir, "wiki_nl_token.arpa"),
-            "es": os.path.join(lms_dir, "wiki_es_token.arpa.bin"),
-            "it": os.path.join(lms_dir, "wiki_it_token.arpa.bin"),
-            "cmn": os.path.join(lms_dir, "wiki_zh_token.arpa"),
-        }
-
-        lm_lang = language.split('-')[0]
-        if lm_lang not in lm_paths:
-            lm_lang = 'en'
-
-        lm_path = lm_paths.get(lm_lang)
-        if lm_path and lm_path.endswith('.arpa'):
-            bin_path = lm_path + '.bin'
-            if os.path.exists(bin_path):
-                lm_path = bin_path
+        lm_path = resolve_lm_path(language, lm_dir, lm_path)
 
         self.decoder = None
         if lm_path and os.path.exists(lm_path):
