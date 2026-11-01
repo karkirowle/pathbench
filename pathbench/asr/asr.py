@@ -5,12 +5,11 @@ import os
 import jiwer
 import librosa
 import torch
-from pyctcdecode import build_ctcdecoder
 
 import numpy as np
 from pathbench.core.evaluator import ReferenceTxtEvaluator, ReferenceFreeEvaluator
 from pathbench.core.string_clean import clean_text, cached_phonemize
-from pathbench.asr.lm import resolve_lm_path
+from pathbench.asr.lm import build_lm_decoder, resolve_lm_path
 
 
 class ASREvaluator(ReferenceTxtEvaluator):
@@ -231,7 +230,7 @@ class DoubleASREvaluator(ReferenceFreeEvaluator):
             vocab_dict = self.processor.tokenizer.get_vocab()
             sorted_vocab_dict = {k: v for k, v in sorted(vocab_dict.items(), key=lambda item: item[1])}
             labels = list(sorted_vocab_dict.keys())
-            self.decoder = build_ctcdecoder(labels, kenlm_model_path=lm_path)
+            self.decoder = build_lm_decoder(labels, lm_path)
             print(f"CTC decoder for '{language}' with LM '{lm_path}' built.")
         else:
             print(f"Warning: Language model for '{language}' not found at '{lm_path}'.")

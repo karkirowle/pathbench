@@ -80,7 +80,7 @@ Follow the steps in the [Installation](#installation) section. Then you can run 
 from pathbench import ArticulatoryPrecisionEvaluator
 
 evaluator = ArticulatoryPrecisionEvaluator()
-score = evaluator.score("utt1", "/path/to/audio.wav", transcription="the cat sat on the mat", language="en")
+score = evaluator.score("utt1", "/path/to/audio.wav", transcription="the cat sat on the mat", language="en-us")
 print(f"ArtP score: {score}")
 ```
 
