@@ -7,7 +7,7 @@
 # ArtP, DArtP, PER (SEM), PER (Phone) and Double ASR to two decimals.
 #
 # This is a pip constraints file: it pins versions without adding packages.
-#   pip install -c constraints.txt -e ".[lm,scripts]"
+#   pip install -c tools/constraints.txt -e ".[lm,scripts]"
 # torch/torchaudio carry no local tag, so the CUDA (cu124) and CPU wheels
 # both satisfy them; pick the build with --index-url.
 #

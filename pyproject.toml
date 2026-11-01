@@ -45,7 +45,7 @@ classifiers = [
 # CI job installs exactly these (uv --resolution lowest-direct) and checks the
 # EXPECTED_* scores. torch/torchaudio>=2.1 is needed for
 # torchaudio.functional.forced_align. Raise a bound rather than lower it
-# without testing. constraints.txt pins the exact paper environment.
+# without testing. tools/constraints.txt pins the exact paper environment.
 dependencies = [
     "numpy>=1.23",
     "scipy>=1.9",

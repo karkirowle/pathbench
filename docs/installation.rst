@@ -36,12 +36,12 @@ Reproduce the paper
     source tools/venv/bin/activate
 
 This builds espeak-ng ``2ea41210`` into ``tools/espeak-ng/`` without sudo,
-creates ``tools/venv`` with the exact versions in ``constraints.txt`` and points
+creates ``tools/venv`` with the exact versions in ``tools/constraints.txt`` and points
 the venv at the local espeak-ng. Scores then match the paper up to GPU
 floating-point rounding. It needs Python 3.10-3.12, ``git``, ``cmake`` and a
 C/C++ compiler.
 
 Without those build tools (e.g. on an HPC cluster), run the same ``make``
-inside the released container, defined in ``container/pathbench.def``::
+inside the released container, defined in ``tools/pathbench.def``::
 
     apptainer exec --nv pathbench.sif make -C tools

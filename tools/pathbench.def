@@ -3,7 +3,7 @@
 # Ubuntu 22.04, build tools and espeak-ng pinned to 2ea41210. The Python
 # environment is created on top of it by tools/Makefile:
 #
-#   apptainer build pathbench.sif container/pathbench.def      # optional rebuild
+#   apptainer build pathbench.sif tools/pathbench.def         # optional rebuild
 #   apptainer exec --nv pathbench.sif make -C tools
 #
 Bootstrap: docker

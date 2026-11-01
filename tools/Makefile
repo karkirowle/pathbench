@@ -67,7 +67,7 @@ pytorch.done: virtualenv.done
 # espeak-ng even when called without `activate` (e.g. tools/venv/bin/python).
 # setdefault keeps an explicit PHONEMIZER_ESPEAK_LIBRARY from the user.
 bench.done: virtualenv.done pytorch.done espeak.done
-	. venv/bin/activate; cd ../; pip install -c constraints.txt -e ".[lm,scripts]" pytest
+	. venv/bin/activate; cd ../; pip install -c tools/constraints.txt -e ".[lm,scripts]" pytest
 	. venv/bin/activate; echo "import os; os.environ.setdefault('PHONEMIZER_ESPEAK_LIBRARY', '$(ESPEAK_PREFIX)/lib/libespeak-ng.so')" \
 		> $$(python -c "import sysconfig; print(sysconfig.get_paths()['purelib'])")/pathbench_espeak.pth
 	touch bench.done

@@ -4,7 +4,7 @@ name: Unit Tests
 # jobs run on CPU. The tests disable TF32, so CPU and GPU give the same scores.
 #
 #   exact     - the "reproduce the paper" route: tools/Makefile with espeak-ng
-#               pinned to 2ea41210 and constraints.txt. Must match EXPECTED_*.
+#               pinned to 2ea41210 and tools/constraints.txt. Must match EXPECTED_*.
 #   flexible  - plain `pip install` with the latest allowed dependencies and
 #               the distribution's espeak-ng, on every supported Python.
 #   lowest    - the lowest versions pyproject.toml allows, so its lower bounds
