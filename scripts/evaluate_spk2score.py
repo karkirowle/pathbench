@@ -18,7 +18,7 @@ torch.backends.cudnn.deterministic = True
 torch.backends.cudnn.benchmark = False
 torch.use_deterministic_algorithms(True, warn_only=True)
 
-from pathbench.evaluator import (
+from pathbench.core.evaluator import (
     Spk2ScoreEvaluator,
     LookupEvaluator, ReferenceFreeEvaluator, ReferenceTxtEvaluator,
     ReferenceAudioEvaluator, ReferenceTxtAndAudioEvaluator,
@@ -26,22 +26,22 @@ from pathbench.evaluator import (
     TrimmedReferenceFreeEvaluator, TrimmedReferenceFreeSpeakerEvaluator,
     TrimmedLanguageAwareSpeakerEvaluator, load_audio, load_audios,
 )
-from pathbench.asr_evaluators import PEREvaluator, DirectPEREvaluator, DoubleASREvaluator
-from pathbench.f0_range_evaluator import StdPitchEvaluator
-from pathbench.reference_evaluator import ESTOIEvaluator
-from pathbench.nad_evaluator import NADEvaluator, TrimmedNADEvaluator
-from pathbench.articulatory_precision_evaluator import ArticulatoryPrecisionEvaluator, PhoneticConfidenceEvaluator
-from pathbench.articulatory_evaluators import ARTNADTVRawEvaluator, TrimmedARTNADTVRawEvaluator
-from pathbench.speech_rate import PraatSpeechRateEvaluator
-from pathbench.dataset import Dataset
-from pathbench.p_estoi_evaluator import ForcedAlignmentPESTOIEvaluator
-from pathbench.cpp_evaluator import CPPEvaluator
-from pathbench.wada_snr import WadaSnrEvaluator
-from pathbench.age_evaluator import Spk2AgeEvaluator
-from pathbench.artp_double_asr_evaluator import ArtPDoubleASREvaluator
-from pathbench.vsa_evaluator import VSAEvaluator
+from pathbench.asr.asr import PEREvaluator, DirectPEREvaluator, DoubleASREvaluator
+from pathbench.evaluators.f0_range import StdPitchEvaluator
+from pathbench.evaluators.stoi import ESTOIEvaluator
+from pathbench.evaluators.nad import NADEvaluator, TrimmedNADEvaluator
+from pathbench.asr.articulatory_precision import ArticulatoryPrecisionEvaluator, PhoneticConfidenceEvaluator
+from pathbench.articulatory.evaluators import ARTNADTVRawEvaluator, TrimmedARTNADTVRawEvaluator
+from pathbench.evaluators.speech_rate import PraatSpeechRateEvaluator
+from pathbench.data.dataset import Dataset
+from pathbench.evaluators.p_estoi import ForcedAlignmentPESTOIEvaluator
+from pathbench.evaluators.cpp import CPPEvaluator
+from pathbench.evaluators.wada_snr import WadaSnrEvaluator
+from pathbench.evaluators.age import Spk2AgeEvaluator
+from pathbench.asr.artp_double_asr import ArtPDoubleASREvaluator
+from pathbench.evaluators.vsa import VSAEvaluator
 from pathbench.vad import FATrimmer
-from pathbench.utils import write_correlation_table
+from pathbench.core.utils import write_correlation_table
 
 # Metrics where partial speaker coverage is expected and not an error.
 # spk2age: not all speakers have age data.
@@ -135,7 +135,7 @@ def build_evaluators(base_dataset, trimmer, evaluator_filter=None):
     _art_runner = []
     def _art_tv_runner():
         if not _art_runner:
-            from pathbench.articulatory_runner import ArticulatoryRunner
+            from pathbench.articulatory.runner import ArticulatoryRunner
             _art_runner.append(ArticulatoryRunner(
                 repo_path="tools/articulatory",
                 inversion_ckpt=DEFAULT_TV_CKPT, ssl_kind="w2v10"))

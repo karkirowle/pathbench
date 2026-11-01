@@ -7,7 +7,7 @@ from scipy.spatial import ConvexHull
 from sklearn.cluster import KMeans
 from sklearn.mixture import GaussianMixture
 
-from pathbench.evaluator import LanguageAwareSpeakerEvaluator
+from pathbench.core.evaluator import LanguageAwareSpeakerEvaluator
 
 
 class VSAEvaluator(LanguageAwareSpeakerEvaluator):

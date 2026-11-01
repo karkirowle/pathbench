@@ -3,8 +3,8 @@ from typing import Optional, List
 import numpy as np
 import librosa
 
-from pathbench.reference_evaluator import ReferenceEvaluator, STOI
-from pathbench.string_clean import clean_text
+from pathbench.evaluators.stoi import ReferenceEvaluator, STOI
+from pathbench.core.string_clean import clean_text
 from pathbench.vad import FATrimmer
 
 class ForcedAlignmentPESTOIEvaluator(ReferenceEvaluator):

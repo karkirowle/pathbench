@@ -50,7 +50,7 @@ If there is an accompanying paper or reference implementation, read it before wr
 
 ### Step 2 — Pick the right abstract base class
 
-All ABCs live in [pathbench/evaluator.py](pathbench/evaluator.py). The ABC you inherit from determines exactly what inputs `score()` receives.
+All ABCs live in [pathbench/core/evaluator.py](pathbench/core/evaluator.py). The ABC you inherit from determines exactly what inputs `score()` receives.
 
 | ABC | `score()` signature | Use for |
 |-----|---------------------|---------|
@@ -64,7 +64,15 @@ All ABCs live in [pathbench/evaluator.py](pathbench/evaluator.py). The ABC you i
 
 ### Step 3 — Implement the evaluator
 
-Create `pathbench/<name>_evaluator.py` and implement the method(s) required by your chosen ABC.
+Create `pathbench/<subpackage>/<name>.py` and implement the method(s) required by your chosen ABC. Pick the subpackage by what the evaluator runs on:
+
+| Subpackage | Contents |
+|---|---|
+| `pathbench/evaluators/` | Signal-level and reference-audio metrics (CPP, F0, SNR, speech rate, VSA, STOI, NAD, …) |
+| `pathbench/asr/` | Metrics built on CTC phoneme/character ASR models (PER, ArtP, phonetic confidence) |
+| `pathbench/articulatory/` | Speech-to-tract-variable inversion and ART-NAD |
+
+Shared code lives in `pathbench/core/` (ABCs, `model_registry`, `string_clean`, `utils`), the dataset loader in `pathbench/data/`, and the forced-alignment trimmer in `pathbench/vad/`.
 
 `ReferenceFreeEvaluator` additionally requires `_score_audio(audio: np.ndarray, fs: int)` — this private method is what FA-trimming wrappers call (see Step 4).
 
@@ -76,9 +84,9 @@ If your evaluator is a `ReferenceFreeEvaluator` and you want automatic forced-al
 TrimmedReferenceFreeEvaluator(inner=MyEvaluator(), trimmer=trimmer)
 ```
 
-The `FATrimmer` is defined in [pathbench/vad.py](pathbench/vad.py). Fallback behaviour (when trimming fails) is handled by the wrapper — you do not need to implement it yourself.
+The `FATrimmer` is defined in [pathbench/vad/trimmer.py](pathbench/vad/trimmer.py). Fallback behaviour (when trimming fails) is handled by the wrapper — you do not need to implement it yourself.
 
-> **Exception:** If your evaluator compares against a group of reference audios and all references must fall back together when trimming fails on any one of them, implement the fallback logic directly inside the class (see `TrimmedNADEvaluator` in [pathbench/nad_evaluator.py](pathbench/nad_evaluator.py) for the pattern).
+> **Exception:** If your evaluator compares against a group of reference audios and all references must fall back together when trimming fails on any one of them, implement the fallback logic directly inside the class (see `TrimmedNADEvaluator` in [pathbench/evaluators/nad.py](pathbench/evaluators/nad.py) for the pattern).
 
 ### Step 5 — Register the evaluator
 

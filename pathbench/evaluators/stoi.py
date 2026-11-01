@@ -10,11 +10,11 @@ import soundfile as sf
 import os.path
 from numpy.linalg import norm # distance calc in dtw
 from dtw import dtw #
-from pathbench.utils import normalise_signal, moving_average_filtering
+from pathbench.core.utils import normalise_signal, moving_average_filtering
 from typing import List, Optional
 
 import librosa
-from pathbench.evaluator import ReferenceAudioEvaluator
+from pathbench.core.evaluator import ReferenceAudioEvaluator
 
 eps = np.finfo(float).eps
 

@@ -6,8 +6,8 @@ import torchaudio
 import re
 
 import numpy as np
-from pathbench.evaluator import Evaluator, ReferenceFreeEvaluator, ReferenceTxtEvaluator
-from pathbench.string_clean import clean_text, cached_phonemize
+from pathbench.core.evaluator import Evaluator, ReferenceFreeEvaluator, ReferenceTxtEvaluator
+from pathbench.core.string_clean import clean_text, cached_phonemize
 
 
 class PhoneticConfidenceEvaluator(ReferenceFreeEvaluator):
@@ -15,7 +15,7 @@ class PhoneticConfidenceEvaluator(ReferenceFreeEvaluator):
     greedy-decoded phoneme sequence (no reference text used)."""
 
     def __init__(self, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft", use_exp: bool = False):
-        from pathbench.model_registry import get_ctc_model
+        from pathbench.core.model_registry import get_ctc_model
         self.processor, self.model, self.device = get_ctc_model(model_id)
         self.use_exp = use_exp
 
@@ -120,7 +120,7 @@ class ArticulatoryPrecisionEvaluator(ReferenceTxtEvaluator):
     """An evaluator that uses a wav2vec 2.0 model to compute articulatory precision."""
 
     def __init__(self, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft"):
-        from pathbench.model_registry import get_ctc_model
+        from pathbench.core.model_registry import get_ctc_model
         self.processor, self.model, self.device = get_ctc_model(model_id)
 
     def score(

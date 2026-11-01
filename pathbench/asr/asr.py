@@ -8,15 +8,15 @@ import torch
 from pyctcdecode import build_ctcdecoder
 
 import numpy as np
-from pathbench.evaluator import ReferenceTxtEvaluator, ReferenceFreeEvaluator
-from pathbench.string_clean import clean_text, cached_phonemize
+from pathbench.core.evaluator import ReferenceTxtEvaluator, ReferenceFreeEvaluator
+from pathbench.core.string_clean import clean_text, cached_phonemize
 
 
 class ASREvaluator(ReferenceTxtEvaluator):
     """Computes WER using an ASR model."""
 
     def __init__(self, model_id: str):
-        from pathbench.model_registry import get_ctc_model
+        from pathbench.core.model_registry import get_ctc_model
         self.processor, self.model, self.device = get_ctc_model(model_id)
 
     def score(
@@ -66,7 +66,7 @@ class PEREvaluator(ReferenceTxtEvaluator):
     """Computes PER using a language-specific ASR model."""
 
     def __init__(self, language: str):
-        from pathbench.model_registry import get_ctc_model
+        from pathbench.core.model_registry import get_ctc_model
         model_ids = {
             "en":    "jonatasgrosman/wav2vec2-large-xlsr-53-english",
             "en-us": "jonatasgrosman/wav2vec2-large-xlsr-53-english",
@@ -147,7 +147,7 @@ class DirectPEREvaluator(ReferenceTxtEvaluator):
     """Computes PER using the espeak-cv-ft model directly."""
 
     def __init__(self):
-        from pathbench.model_registry import get_ctc_model
+        from pathbench.core.model_registry import get_ctc_model
         self.processor, self.model, self.device = get_ctc_model(
             "facebook/wav2vec2-xlsr-53-espeak-cv-ft"
         )
@@ -207,7 +207,7 @@ class DoubleASREvaluator(ReferenceFreeEvaluator):
     """Computes PER between greedy and LM-based CTC decoding."""
 
     def __init__(self, language: str):
-        from pathbench.model_registry import get_ctc_model
+        from pathbench.core.model_registry import get_ctc_model
         model_ids = {
             "en":    "jonatasgrosman/wav2vec2-large-xlsr-53-english",
             "en-us": "jonatasgrosman/wav2vec2-large-xlsr-53-english",

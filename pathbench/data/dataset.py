@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Dict, Iterator, Any, Optional, List, Tuple
 import numpy as np
-from pathbench.string_clean import clean_text
+from pathbench.core.string_clean import clean_text
 
 
 def _load_kaldi_style_file(file_path: Path, num_parts: int) -> Dict[str, list[str]]:

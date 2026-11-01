@@ -7,7 +7,7 @@ import librosa
 import parselmouth
 from parselmouth.praat import call
 
-from pathbench.evaluator import ReferenceFreeEvaluator
+from pathbench.core.evaluator import ReferenceFreeEvaluator
 
 eps = np.finfo(float).eps
 

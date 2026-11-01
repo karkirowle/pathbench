@@ -4,7 +4,7 @@ Architecture
 Evaluator Hierarchy
 -------------------
 
-All evaluators live in :mod:`pathbench.evaluator` as abstract base classes. The
+All evaluators live in :mod:`pathbench.core.evaluator` as abstract base classes. The
 ABC a class inherits from defines exactly what inputs ``score()`` receives.
 When adding a new evaluator, pick the right ABC before writing any logic.
 
@@ -15,25 +15,25 @@ When adding a new evaluator, pick the right ABC before writing any logic.
    * - ABC
      - ``score()`` signature
      - Use for
-   * - :class:`~pathbench.evaluator.LookupEvaluator`
+   * - :class:`~pathbench.core.evaluator.LookupEvaluator`
      - ``(utt_id)``
      - Pre-computed scores
-   * - :class:`~pathbench.evaluator.ReferenceFreeEvaluator`
+   * - :class:`~pathbench.core.evaluator.ReferenceFreeEvaluator`
      - ``(utt_id, audio_path, start, end)``
      - Audio-only metrics (CPP, SNR, ...)
-   * - :class:`~pathbench.evaluator.ReferenceTxtEvaluator`
+   * - :class:`~pathbench.core.evaluator.ReferenceTxtEvaluator`
      - ``+ transcription, language``
      - ASR/FA-based metrics
-   * - :class:`~pathbench.evaluator.ReferenceAudioEvaluator`
+   * - :class:`~pathbench.core.evaluator.ReferenceAudioEvaluator`
      - ``+ reference_audios``
      - Reference comparison (NAD, ESTOI, ...)
-   * - :class:`~pathbench.evaluator.ReferenceTxtAndAudioEvaluator`
+   * - :class:`~pathbench.core.evaluator.ReferenceTxtAndAudioEvaluator`
      - ``+ transcription, language, reference_audios``
      - FA-trimmed reference metrics
-   * - :class:`~pathbench.evaluator.ReferenceFreeSpeakerEvaluator`
+   * - :class:`~pathbench.core.evaluator.ReferenceFreeSpeakerEvaluator`
      - ``_score_audio_list(audios)``
      - Speaker-level aggregation
-   * - :class:`~pathbench.evaluator.LanguageAwareSpeakerEvaluator`
+   * - :class:`~pathbench.core.evaluator.LanguageAwareSpeakerEvaluator`
      - ``_score_audio_list(audios, language)``
      - Speaker-level + language (VSA)
 
@@ -41,20 +41,20 @@ FA-Trimming: Decorator Pattern
 -------------------------------
 
 Forced-alignment silence trimming is never baked into evaluators. Instead,
-wrappers in ``evaluator.py`` handle it:
+wrappers in ``core/evaluator.py`` handle it:
 
-- :class:`~pathbench.evaluator.TrimmedReferenceFreeEvaluator` -- wraps any
+- :class:`~pathbench.core.evaluator.TrimmedReferenceFreeEvaluator` -- wraps any
   ``ReferenceFreeEvaluator``, presents a ``ReferenceTxtEvaluator`` interface
-- :class:`~pathbench.evaluator.TrimmedReferenceFreeSpeakerEvaluator` --
+- :class:`~pathbench.core.evaluator.TrimmedReferenceFreeSpeakerEvaluator` --
   speaker-level equivalent
-- :class:`~pathbench.evaluator.TrimmedLanguageAwareSpeakerEvaluator` --
+- :class:`~pathbench.core.evaluator.TrimmedLanguageAwareSpeakerEvaluator` --
   language-aware speaker-level equivalent
 
-The trimmer is :class:`~pathbench.vad.FATrimmer` in ``pathbench/vad.py``. If
+The trimmer is :class:`~pathbench.vad.trimmer.FATrimmer` in ``pathbench/vad/trimmer.py``. If
 trimming fails or a segment offset is specified, it falls back to plain
 ``librosa.load()``.
 
-:class:`~pathbench.nad_evaluator.TrimmedNADEvaluator` is an exception -- it
+:class:`~pathbench.evaluators.nad.TrimmedNADEvaluator` is an exception -- it
 implements its own two-pass trimming logic directly, because the fallback must
 be group-consistent (all references fall back together).
 
@@ -71,6 +71,6 @@ Each dataset directory uses Kaldi-style plain text files:
 - ``spk2gender`` -- ``speaker_id -> m|f``
 - ``language`` -- single line, two-letter code (``en``, ``nl``, ``it``, ``es``, ``cmn``)
 
-:class:`~pathbench.dataset.Dataset` loads these and iterates as
+:class:`~pathbench.data.dataset.Dataset` loads these and iterates as
 ``(utt_id, audio_path, transcription, ref_audio_list, start_time, end_time)``.
 Reference audio is matched by shared transcription text and, optionally, gender.

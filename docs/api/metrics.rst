@@ -7,7 +7,7 @@ metrics.
 CPP (Cepstral Peak Prominence)
 ------------------------------
 
-.. automodule:: pathbench.cpp_evaluator
+.. automodule:: pathbench.evaluators.cpp
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ CPP (Cepstral Peak Prominence)
 STOI / ESTOI
 -------------
 
-.. automodule:: pathbench.reference_evaluator
+.. automodule:: pathbench.evaluators.stoi
    :members:
    :undoc-members:
    :show-inheritance:
@@ -23,7 +23,7 @@ STOI / ESTOI
 NAD (Neural Acoustic Distance)
 ------------------------------
 
-.. automodule:: pathbench.nad_evaluator
+.. automodule:: pathbench.evaluators.nad
    :members:
    :undoc-members:
    :show-inheritance:
@@ -31,7 +31,7 @@ NAD (Neural Acoustic Distance)
 P-ESTOI with Forced Alignment
 ------------------------------
 
-.. automodule:: pathbench.p_estoi_evaluator
+.. automodule:: pathbench.evaluators.p_estoi
    :members:
    :undoc-members:
    :show-inheritance:
@@ -39,7 +39,7 @@ P-ESTOI with Forced Alignment
 VSA (Vowel Space Area)
 -----------------------
 
-.. automodule:: pathbench.vsa_evaluator
+.. automodule:: pathbench.evaluators.vsa
    :members:
    :undoc-members:
    :show-inheritance:
@@ -47,7 +47,7 @@ VSA (Vowel Space Area)
 ASR-based Evaluators
 --------------------
 
-.. automodule:: pathbench.asr_evaluators
+.. automodule:: pathbench.asr.asr
    :members:
    :undoc-members:
    :show-inheritance:
@@ -55,7 +55,7 @@ ASR-based Evaluators
 Articulatory Precision
 -----------------------
 
-.. automodule:: pathbench.articulatory_precision_evaluator
+.. automodule:: pathbench.asr.articulatory_precision
    :members:
    :undoc-members:
    :show-inheritance:
@@ -63,7 +63,7 @@ Articulatory Precision
 Articulatory Precision with Double ASR
 --------------------------------------
 
-.. automodule:: pathbench.artp_double_asr_evaluator
+.. automodule:: pathbench.asr.artp_double_asr
    :members:
    :undoc-members:
    :show-inheritance:
@@ -71,7 +71,7 @@ Articulatory Precision with Double ASR
 F0 Range / Pitch
 -----------------
 
-.. automodule:: pathbench.f0_range_evaluator
+.. automodule:: pathbench.evaluators.f0_range
    :members:
    :undoc-members:
    :show-inheritance:
@@ -79,7 +79,7 @@ F0 Range / Pitch
 WADA-SNR
 --------
 
-.. automodule:: pathbench.wada_snr
+.. automodule:: pathbench.evaluators.wada_snr
    :members:
    :undoc-members:
    :show-inheritance:
@@ -87,7 +87,7 @@ WADA-SNR
 Speech Rate
 -----------
 
-.. automodule:: pathbench.speech_rate
+.. automodule:: pathbench.evaluators.speech_rate
    :members:
    :undoc-members:
    :show-inheritance:
@@ -95,7 +95,7 @@ Speech Rate
 Age Evaluator
 -------------
 
-.. automodule:: pathbench.age_evaluator
+.. automodule:: pathbench.evaluators.age
    :members:
    :undoc-members:
    :show-inheritance:

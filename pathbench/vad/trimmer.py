@@ -7,7 +7,7 @@ import re
 import numpy as np
 import librosa
 
-from pathbench.string_clean import clean_text, cached_phonemize
+from pathbench.core.string_clean import clean_text, cached_phonemize
 
 
 class FATrimmer:
@@ -16,7 +16,7 @@ class FATrimmer:
     MAX_CACHE_SIZE = 10000
 
     def __init__(self, model_id: str = "facebook/wav2vec2-xlsr-53-espeak-cv-ft", use_exp: bool = False):
-        from pathbench.model_registry import get_ctc_model
+        from pathbench.core.model_registry import get_ctc_model
         self.processor, self.model, self.device = get_ctc_model(model_id)
         self.use_exp = use_exp
         self.cache = OrderedDict()

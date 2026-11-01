@@ -1,7 +1,7 @@
 from typing import Optional
 import numpy as np
 import librosa
-from pathbench.evaluator import ReferenceFreeEvaluator
+from pathbench.core.evaluator import ReferenceFreeEvaluator
 
 
 def wada_snr(wav: np.float32) -> np.float32:

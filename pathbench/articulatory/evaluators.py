@@ -1,5 +1,5 @@
 """Reference-audio intelligibility evaluators built on speech-to-EMA features
-from :mod:`pathbench.articulatory_runner`.
+from :mod:`pathbench.articulatory.runner`.
 
 Metrics that share feature extraction (one BiGRU forward pass per audio file,
 cached) and differ in the articulatory trajectory (EMA or tract variables),
@@ -8,7 +8,7 @@ applied:
 
 * :class:`ARTNADEvaluator` -- joint 12-D DTW over EMA, no VAD.
 * :class:`TrimmedARTNADEvaluator` -- joint 12-D DTW after forced-alignment
-  trimming (analog of :class:`pathbench.nad_evaluator.TrimmedNADEvaluator`,
+  trimming (analog of :class:`pathbench.evaluators.nad.TrimmedNADEvaluator`,
   which is what the master results table publishes as "NAD").
 * ``*TV*`` variants -- the same over the tract-variable trajectory.
 
@@ -24,8 +24,8 @@ import librosa
 import numpy as np
 from dtw import dtw
 
-from pathbench.articulatory_runner import ArticulatoryRunner
-from pathbench.evaluator import (
+from pathbench.articulatory.runner import ArticulatoryRunner
+from pathbench.core.evaluator import (
     ReferenceAudioEvaluator,
     ReferenceTxtAndAudioEvaluator,
 )
@@ -271,7 +271,7 @@ class ARTNADTVAugEvaluator(_ARTBaseEvaluator):
 
 # ----------------------------------------------------------------------------
 # Trimmed variants (forced-alignment VAD), mirroring
-# :class:`pathbench.nad_evaluator.TrimmedNADEvaluator` two-pass fallback.
+# :class:`pathbench.evaluators.nad.TrimmedNADEvaluator` two-pass fallback.
 # ----------------------------------------------------------------------------
 
 
@@ -280,7 +280,7 @@ class _TrimmedARTBaseEvaluator(ReferenceTxtAndAudioEvaluator):
     enabled; if the trimmer fails on ANY audio in the group (test or any
     reference), fall back to untrimmed for the whole group so the DTW
     distances within a group remain comparable. Mirrors the structure of
-    :class:`pathbench.nad_evaluator.TrimmedNADEvaluator`.
+    :class:`pathbench.evaluators.nad.TrimmedNADEvaluator`.
     """
 
     _dtw_fn = staticmethod(_dtw_joint)

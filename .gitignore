@@ -24,6 +24,7 @@ datasets/uaspeech/pathological/word_av_m5/
 # Raw recordings — NEVER commit. The pathological datasets are licensed and
 # contain identifiable patient speech. Publishing these would be a data leak.
 data/
+!pathbench/data/
 *.wav
 *.flac
 *.mp3

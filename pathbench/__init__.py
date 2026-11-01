@@ -1,7 +1,7 @@
 __version__ = "0.1.0"
 
 # Abstract base classes and trimming wrappers
-from .evaluator import (
+from .core.evaluator import (
     LookupEvaluator,
     ReferenceFreeEvaluator,
     ReferenceTxtEvaluator,
@@ -17,21 +17,21 @@ from .evaluator import (
 )
 
 # Dataset loader
-from .dataset import Dataset
+from .data import Dataset
 
 # Forced-alignment trimmer
 from .vad import FATrimmer
 
 # Concrete evaluators
-from .cpp_evaluator import CPPEvaluator, CPPDoubleLogEvaluator, PraatCPPEvaluator
-from .f0_range_evaluator import StdPitchEvaluator, F0RangeEvaluator
-from .wada_snr import WadaSnrEvaluator
-from .speech_rate import WpmEvaluator, PraatSpeechRateEvaluator
-from .vsa_evaluator import VSAEvaluator
-from .nad_evaluator import NADEvaluator, TrimmedNADEvaluator
-from .reference_evaluator import PSTOIEvaluator, ESTOIEvaluator
-from .p_estoi_evaluator import ForcedAlignmentPESTOIEvaluator
-from .asr_evaluators import ASREvaluator, PEREvaluator, DirectPEREvaluator, DoubleASREvaluator
-from .articulatory_precision_evaluator import PhoneticConfidenceEvaluator, ArticulatoryPrecisionEvaluator
-from .artp_double_asr_evaluator import ArtPDoubleASREvaluator
-from .age_evaluator import Spk2AgeEvaluator
+from .evaluators.cpp import CPPEvaluator, CPPDoubleLogEvaluator, PraatCPPEvaluator
+from .evaluators.f0_range import StdPitchEvaluator, F0RangeEvaluator
+from .evaluators.wada_snr import WadaSnrEvaluator
+from .evaluators.speech_rate import WpmEvaluator, PraatSpeechRateEvaluator
+from .evaluators.vsa import VSAEvaluator
+from .evaluators.nad import NADEvaluator, TrimmedNADEvaluator
+from .evaluators.stoi import PSTOIEvaluator, ESTOIEvaluator
+from .evaluators.p_estoi import ForcedAlignmentPESTOIEvaluator
+from .asr.asr import ASREvaluator, PEREvaluator, DirectPEREvaluator, DoubleASREvaluator
+from .asr.articulatory_precision import PhoneticConfidenceEvaluator, ArticulatoryPrecisionEvaluator
+from .asr.artp_double_asr import ArtPDoubleASREvaluator
+from .evaluators.age import Spk2AgeEvaluator

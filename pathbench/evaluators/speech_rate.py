@@ -1,6 +1,6 @@
 from typing import Optional
 import librosa
-from pathbench.evaluator import ReferenceFreeEvaluator, ReferenceTxtEvaluator
+from pathbench.core.evaluator import ReferenceFreeEvaluator, ReferenceTxtEvaluator
 import math
 import parselmouth
 from parselmouth.praat import call

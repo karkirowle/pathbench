@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from pathbench.evaluator import LookupEvaluator
+from pathbench.core.evaluator import LookupEvaluator
 
 
 class Spk2AgeEvaluator(LookupEvaluator):

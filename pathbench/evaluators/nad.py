@@ -5,9 +5,9 @@ from dtw import dtw
 import torch
 import librosa
 
-from pathbench.evaluator import ReferenceAudioEvaluator, ReferenceTxtAndAudioEvaluator
+from pathbench.core.evaluator import ReferenceAudioEvaluator, ReferenceTxtAndAudioEvaluator
 from pathbench.vad import FATrimmer
-from pathbench.model_registry import get_featurizer as load_wav2vec2_featurizer
+from pathbench.core.model_registry import get_featurizer as load_wav2vec2_featurizer
 
 
 class NADEvaluator(ReferenceAudioEvaluator):

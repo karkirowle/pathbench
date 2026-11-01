@@ -116,7 +116,7 @@ _tv_runner_cache = []
 def _tv_runner():
     """Shared ArticulatoryRunner on the TV inversion checkpoint (loaded once)."""
     if not _tv_runner_cache:
-        from pathbench.articulatory_runner import ArticulatoryRunner
+        from pathbench.articulatory.runner import ArticulatoryRunner
         _tv_runner_cache.append(ArticulatoryRunner(
             repo_path="tools/articulatory", inversion_ckpt=_TV_CKPT,
             ssl_kind="w2v10",
@@ -155,6 +155,11 @@ class TestEvaluatorMethods(unittest.TestCase):
             raise unittest.SkipTest(
                 "Audio files not found:\n" + "\n".join(f"  {p}" for p in missing)
             )
+        # cuDNN TF32 (on by default) shifts GPU scores away from the CPU-derived
+        # EXPECTED_* values, e.g. NAD by ~2e-4. Disable it so tests match on any device.
+        import torch
+        torch.backends.cudnn.allow_tf32 = False
+        torch.backends.cuda.matmul.allow_tf32 = False
 
     def test_audio_integrity(self):
         """Verify all committed audio files match their SHA256 hashes."""
@@ -191,43 +196,43 @@ class TestEvaluatorMethods(unittest.TestCase):
 
     def test_cpp(self):
         """CPP (standard formulation) on accented BLUE recording."""
-        from pathbench.cpp_evaluator import CPPEvaluator
+        from pathbench.evaluators.cpp import CPPEvaluator
         score = CPPEvaluator().score("test", BLUE_ACCENTED, start_time=0.0, end_time=-1.0)
         self._assert_score("CPP", score, EXPECTED_CPP)
 
     def test_cpp_double_log(self):
         """CPP legacy double-log formulation on accented BLUE recording."""
-        from pathbench.cpp_evaluator import CPPDoubleLogEvaluator
+        from pathbench.evaluators.cpp import CPPDoubleLogEvaluator
         score = CPPDoubleLogEvaluator().score("test", BLUE_ACCENTED, start_time=0.0, end_time=-1.0)
         self._assert_score("CPP_DoubleLog", score, EXPECTED_CPP_DOUBLE_LOG)
 
     def test_cpp_praat(self):
         """CPP Praat reference implementation on accented BLUE recording."""
-        from pathbench.cpp_evaluator import PraatCPPEvaluator
+        from pathbench.evaluators.cpp import PraatCPPEvaluator
         score = PraatCPPEvaluator().score("test", BLUE_ACCENTED, start_time=0.0, end_time=-1.0)
         self._assert_score("CPP_Praat", score, EXPECTED_CPP_PRAAT)
 
     def test_std_pitch(self):
         """Standard deviation of pitch (semitones) on accented BLUE recording."""
-        from pathbench.f0_range_evaluator import StdPitchEvaluator
+        from pathbench.evaluators.f0_range import StdPitchEvaluator
         score = StdPitchEvaluator().score("test", BLUE_ACCENTED, start_time=0.0, end_time=-1.0)
         self._assert_score("StdPitch", score, EXPECTED_STD_PITCH, places=4)
 
     def test_wada_snr(self):
         """WADA SNR (blind SNR estimate) on accented BLUE recording."""
-        from pathbench.wada_snr import WadaSnrEvaluator
+        from pathbench.evaluators.wada_snr import WadaSnrEvaluator
         score = WadaSnrEvaluator().score("test", BLUE_ACCENTED)
         self._assert_score("WadaSNR", score, EXPECTED_WADA_SNR, places=2)
 
     def test_praat_speech_rate(self):
         """Praat syllable-nuclei speech rate (syll/s) on accented BLUE recording."""
-        from pathbench.speech_rate import PraatSpeechRateEvaluator
+        from pathbench.evaluators.speech_rate import PraatSpeechRateEvaluator
         score = PraatSpeechRateEvaluator().score("test", BLUE_ACCENTED)
         self._assert_score("PraatSpeechRate", score, EXPECTED_PRAAT_SPEECH_RATE, places=3)
 
     def test_wpm(self):
         """Words-per-minute on accented BLUE recording with transcription 'blue'."""
-        from pathbench.speech_rate import WpmEvaluator
+        from pathbench.evaluators.speech_rate import WpmEvaluator
         score = WpmEvaluator().score("test", BLUE_ACCENTED, "blue", "en")
         self._assert_score("WPM", score, EXPECTED_WPM, places=1)
 
@@ -237,7 +242,7 @@ class TestEvaluatorMethods(unittest.TestCase):
 
     def test_f0_range(self):
         """F0 range (Hz) across all four BLUE speakers."""
-        from pathbench.f0_range_evaluator import F0RangeEvaluator
+        from pathbench.evaluators.f0_range import F0RangeEvaluator
         all_files = [(BLUE_ACCENTED, 0.0, -1.0)] + list(BLUE_CONTROLS)
         score = F0RangeEvaluator().score(all_files)
         self._assert_score("F0Range", score, EXPECTED_F0_RANGE, places=1)
@@ -245,7 +250,7 @@ class TestEvaluatorMethods(unittest.TestCase):
     def test_vsa(self):
         """VSA (Vowel Space Area) across all four BLUE speakers."""
         import librosa
-        from pathbench.vsa_evaluator import VSAEvaluator
+        from pathbench.evaluators.vsa import VSAEvaluator
         all_files = [(BLUE_ACCENTED, 0.0, -1.0)] + list(BLUE_CONTROLS)
         audios = []
         for path, start, end in all_files:
@@ -267,7 +272,7 @@ class TestEvaluatorMethods(unittest.TestCase):
 
     def test_pstoi(self):
         """PSTOI: accented BLUE vs three typical-English BLUE controls."""
-        from pathbench.reference_evaluator import PSTOIEvaluator
+        from pathbench.evaluators.stoi import PSTOIEvaluator
         score = PSTOIEvaluator(
             normalization_method='RMS', centroid_ind=0, frame_deletion=True
         ).score("test", BLUE_ACCENTED, BLUE_CONTROLS)
@@ -275,7 +280,7 @@ class TestEvaluatorMethods(unittest.TestCase):
 
     def test_estoi(self):
         """ESTOI: accented BLUE vs three typical-English BLUE controls."""
-        from pathbench.reference_evaluator import ESTOIEvaluator
+        from pathbench.evaluators.stoi import ESTOIEvaluator
         score = ESTOIEvaluator(
             normalization_method='RMS', centroid_ind=0, frame_deletion=True
         ).score("test", BLUE_ACCENTED, BLUE_CONTROLS)
@@ -287,7 +292,7 @@ class TestEvaluatorMethods(unittest.TestCase):
 
     def test_spk2age(self):
         """Spk2AgeEvaluator looks up age from a pre-computed dict (no audio processing)."""
-        from pathbench.age_evaluator import Spk2AgeEvaluator
+        from pathbench.evaluators.age import Spk2AgeEvaluator
         evaluator = Spk2AgeEvaluator(spk2age={"spk1": 45.0}, utt2spk={"test": "spk1"})
         score = evaluator.score("test")
         self.assertEqual(score, 45.0)
@@ -298,7 +303,7 @@ class TestEvaluatorMethods(unittest.TestCase):
 
     def test_nad(self):
         """NAD: accented BLUE vs three typical-English BLUE controls."""
-        from pathbench.nad_evaluator import NADEvaluator
+        from pathbench.evaluators.nad import NADEvaluator
         score = NADEvaluator().score(
             "test", BLUE_ACCENTED, BLUE_CONTROLS, start_time=0.0, end_time=-1.0
         )
@@ -306,7 +311,7 @@ class TestEvaluatorMethods(unittest.TestCase):
 
     def test_nad_trimmed(self):
         """TrimmedNAD: accented BLUE vs three typical-English BLUE controls (no trimmer → untrimmed fallback)."""
-        from pathbench.nad_evaluator import TrimmedNADEvaluator
+        from pathbench.evaluators.nad import TrimmedNADEvaluator
         score = TrimmedNADEvaluator().score(
             "test", BLUE_ACCENTED, "blue", "en", BLUE_CONTROLS
         )
@@ -316,7 +321,7 @@ class TestEvaluatorMethods(unittest.TestCase):
         """ArticulatoryPrecisionEvaluatorOld — confidence measure (avg phoneme probability
         from argmax decoding, without forced alignment) on accented BLUE recording.
         """
-        from pathbench.articulatory_precision_evaluator import PhoneticConfidenceEvaluator
+        from pathbench.asr.articulatory_precision import PhoneticConfidenceEvaluator
         score = PhoneticConfidenceEvaluator().score("test", BLUE_ACCENTED)
         self._assert_score("ArticulatoryPrecisionOld", score, EXPECTED_ARTICULATORY_PRECISION_OLD, places=4)
 
@@ -324,7 +329,7 @@ class TestEvaluatorMethods(unittest.TestCase):
         """ArticulatoryPrecisionEvaluator — forced-alignment articulatory precision
         (avg alignment score per phoneme) on accented BLUE recording.
         """
-        from pathbench.articulatory_precision_evaluator import ArticulatoryPrecisionEvaluator
+        from pathbench.asr.articulatory_precision import ArticulatoryPrecisionEvaluator
         score = ArticulatoryPrecisionEvaluator().score("test", BLUE_ACCENTED, "blue", "en-us")
         self._assert_score("ArticulatoryPrecision", score, EXPECTED_ARTICULATORY_PRECISION, places=4)
 
@@ -334,7 +339,7 @@ class TestEvaluatorMethods(unittest.TestCase):
     )
     def test_artp_double_asr(self):
         """ArtPDoubleASREvaluator (articulatory precision via double-pass ASR) on accented BLUE recording."""
-        from pathbench.artp_double_asr_evaluator import ArtPDoubleASREvaluator
+        from pathbench.asr.artp_double_asr import ArtPDoubleASREvaluator
         score = ArtPDoubleASREvaluator(language="en-us").score(
             "test", BLUE_ACCENTED, start_time=0.0, end_time=-1.0
         )
@@ -342,7 +347,7 @@ class TestEvaluatorMethods(unittest.TestCase):
 
     def test_fa_pestoi(self):
         """ForcedAlignmentPESTOI: accented BLUE vs three typical-English BLUE controls."""
-        from pathbench.p_estoi_evaluator import ForcedAlignmentPESTOIEvaluator
+        from pathbench.evaluators.p_estoi import ForcedAlignmentPESTOIEvaluator
         score = ForcedAlignmentPESTOIEvaluator().score(
             utterance_id="test",
             audio_path=BLUE_ACCENTED,
@@ -364,7 +369,7 @@ class TestEvaluatorMethods(unittest.TestCase):
                          "articulatory venv (h5py) / TV inversion checkpoint not available")
     def test_artnad_tv(self):
         """ART-NAD-TV (per-utterance z-scored tract variables, joint DTW)."""
-        from pathbench.articulatory_evaluators import ARTNADTVEvaluator
+        from pathbench.articulatory.evaluators import ARTNADTVEvaluator
         score = ARTNADTVEvaluator(runner=_tv_runner()).score(
             "test", BLUE_ACCENTED, BLUE_CONTROLS, start_time=0.0, end_time=-1.0
         )
@@ -374,7 +379,7 @@ class TestEvaluatorMethods(unittest.TestCase):
                          "articulatory venv (h5py) / TV inversion checkpoint not available")
     def test_artnad_tv_raw(self):
         """ART-NAD-TV on raw (un-normalized) tract variables, joint DTW."""
-        from pathbench.articulatory_evaluators import ARTNADTVRawEvaluator
+        from pathbench.articulatory.evaluators import ARTNADTVRawEvaluator
         score = ARTNADTVRawEvaluator(runner=_tv_runner()).score(
             "test", BLUE_ACCENTED, BLUE_CONTROLS, start_time=0.0, end_time=-1.0
         )
@@ -385,7 +390,7 @@ class TestEvaluatorMethods(unittest.TestCase):
     def test_artnad_tv_raw_fa(self):
         """ART-NAD-FA: raw tract variables + forced-alignment trimming. This is
         the variant reported in the paper (no trimmer here → untrimmed fallback)."""
-        from pathbench.articulatory_evaluators import TrimmedARTNADTVRawEvaluator
+        from pathbench.articulatory.evaluators import TrimmedARTNADTVRawEvaluator
         score = TrimmedARTNADTVRawEvaluator(runner=_tv_runner()).score(
             "test", BLUE_ACCENTED, "blue", "en", BLUE_CONTROLS
         )

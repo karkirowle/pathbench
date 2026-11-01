@@ -1,5 +1,5 @@
 import parselmouth
-from pathbench.evaluator import ReferenceFreeEvaluator, ReferenceFreeSpeakerEvaluator
+from pathbench.core.evaluator import ReferenceFreeEvaluator, ReferenceFreeSpeakerEvaluator
 from typing import List, Optional, Tuple
 import numpy as np
 import librosa

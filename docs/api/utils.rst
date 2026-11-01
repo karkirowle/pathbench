@@ -4,7 +4,7 @@ Utilities
 Signal Processing
 -----------------
 
-.. automodule:: pathbench.utils
+.. automodule:: pathbench.core.utils
    :members:
    :undoc-members:
    :show-inheritance:
@@ -12,7 +12,7 @@ Signal Processing
 Text Normalisation
 ------------------
 
-.. automodule:: pathbench.string_clean
+.. automodule:: pathbench.core.string_clean
    :members:
    :undoc-members:
    :show-inheritance:

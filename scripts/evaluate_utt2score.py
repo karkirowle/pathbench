@@ -3,18 +3,18 @@ from collections import defaultdict
 import numpy as np
 from tqdm import tqdm
 
-from pathbench.evaluator import Utt2ScoreEvaluator
-from pathbench.asr_evaluators import ASREvaluator, PEREvaluator, DirectPEREvaluator, DoubleASREvaluator
-from pathbench.reference_evaluator import ESTOIEvaluator
-from pathbench.nad_evaluator import NADEvaluator
-from pathbench.articulatory_precision_evaluator import ArticulatoryPrecisionEvaluator, PhoneticConfidenceEvaluator
-from pathbench.speech_rate import PraatSpeechRateEvaluator
-from pathbench.artp_double_asr_evaluator import ArtPDoubleASREvaluator
-from pathbench.p_estoi_evaluator import ForcedAlignmentPESTOIEvaluator
-from pathbench.cpp_evaluator import CPPEvaluator, CPPDoubleLogEvaluator, PraatCPPEvaluator
-from pathbench.wada_snr import WadaSnrEvaluator
-from pathbench.dataset import Dataset
-from pathbench.f0_range_evaluator import StdPitchEvaluator
+from pathbench.core.evaluator import Utt2ScoreEvaluator
+from pathbench.asr.asr import ASREvaluator, PEREvaluator, DirectPEREvaluator, DoubleASREvaluator
+from pathbench.evaluators.stoi import ESTOIEvaluator
+from pathbench.evaluators.nad import NADEvaluator
+from pathbench.asr.articulatory_precision import ArticulatoryPrecisionEvaluator, PhoneticConfidenceEvaluator
+from pathbench.evaluators.speech_rate import PraatSpeechRateEvaluator
+from pathbench.asr.artp_double_asr import ArtPDoubleASREvaluator
+from pathbench.evaluators.p_estoi import ForcedAlignmentPESTOIEvaluator
+from pathbench.evaluators.cpp import CPPEvaluator, CPPDoubleLogEvaluator, PraatCPPEvaluator
+from pathbench.evaluators.wada_snr import WadaSnrEvaluator
+from pathbench.data.dataset import Dataset
+from pathbench.evaluators.f0_range import StdPitchEvaluator
 from pathbench.vad import FATrimmer
 
 
