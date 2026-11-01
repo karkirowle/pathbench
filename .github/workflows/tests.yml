@@ -1,18 +1,68 @@
 name: Unit Tests
 
+# GitHub-hosted runners have no GPU (GPU runners are a paid feature), so all
+# jobs run on CPU. The tests disable TF32, so CPU and GPU give the same scores.
+#
+#   exact     - the "reproduce the paper" route: tools/Makefile with espeak-ng
+#               pinned to 2ea41210 and constraints.txt. Must match EXPECTED_*.
+#   flexible  - plain `pip install` with the latest allowed dependencies and
+#               the distribution's espeak-ng, on every supported Python.
+#   lowest    - the lowest versions pyproject.toml allows, so its lower bounds
+#               are known to work.
+
 on:
   push:
     branches: ["**"]
   pull_request:
     branches: ["**"]
 
+env:
+  TORCH_INDEX: https://download.pytorch.org/whl/cpu
+
 jobs:
-  test:
+  exact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y build-essential cmake libfftw3-dev liblapack-dev
+
+      - name: Cache pinned espeak-ng build
+        id: espeak-cache
+        uses: actions/cache@v4
+        with:
+          path: tools/espeak-ng
+          key: ${{ runner.os }}-espeak-ng-${{ hashFiles('tools/Makefile') }}
+
+      - name: Reuse cached espeak-ng
+        if: steps.espeak-cache.outputs.cache-hit == 'true'
+        run: touch tools/espeak.done
+
+      - name: Cache Hugging Face models
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: ${{ runner.os }}-hf-models-v1
+
+      - name: Build exact environment
+        run: make -C tools CUDA_VERSION=
+
+      - name: Run unit tests
+        run: tools/venv/bin/python -m pytest tests/test_evaluators.py::TestEvaluatorMethods -v
+
+  flexible:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
-
     steps:
       - uses: actions/checkout@v4
 
@@ -26,14 +76,6 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y espeak-ng libfftw3-dev liblapack-dev
 
-      - name: Cache pip packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
       - name: Cache Hugging Face models
         uses: actions/cache@v4
         with:
@@ -43,10 +85,41 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install -U pip pytest
-          pip install numpy
-          pip install torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu
-          pip install -e ".[all]"
-          pip install kenlm
+          pip install torch torchaudio --index-url "$TORCH_INDEX"
+          pip install -e ".[lm,scripts]"
+
+      - name: Run unit tests
+        run: python -m pytest tests/test_evaluators.py::TestEvaluatorMethods -v
+
+  lowest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y espeak-ng libfftw3-dev liblapack-dev
+
+      - name: Cache Hugging Face models
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: ${{ runner.os }}-hf-models-v1
+
+      # torch/torchaudio come first from the CPU index at the pyproject floor
+      # (keep in sync with "torch>=" there); everything else resolves to the
+      # lowest version pyproject.toml allows.
+      - name: Install lowest allowed dependencies
+        run: |
+          pip install -U pip uv pytest
+          uv pip install --system torch==2.1.0 torchaudio==2.1.0 --index-url "$TORCH_INDEX"
+          uv pip install --system --resolution lowest-direct -e ".[lm,scripts]"
 
       - name: Run unit tests
         run: python -m pytest tests/test_evaluators.py::TestEvaluatorMethods -v

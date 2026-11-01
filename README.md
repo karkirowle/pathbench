@@ -120,64 +120,49 @@ Results are written to the `results_11/` directory as timestamped text files con
 
 ## Installation
 
-We are continously trying to make the installation easier for your use case. 
+There are two ways to install PathBench, depending on what you need:
 
-If you have the opportunity to start from a clean AWS/GCE instance, please do so and follow the make installation.
+| | [Use PathBench in your project](#use-pathbench-in-your-project) | [Reproduce the paper](#reproduce-the-paper) |
+|---|---|---|
+| Install | `pip install` | `make` (or the container) |
+| sudo needed | only for your OS's `espeak-ng` package | no |
+| Python libraries | any version within the tested ranges | exact versions (`constraints.txt`) |
+| espeak-ng | whatever your system has | built from the pinned commit |
+| Scores vs. the paper | phoneme-based metrics may differ slightly | identical up to GPU rounding |
 
-If you are working on a highly restricted HPC cluster, I would recommend starting from the singularity container [provided](https://github.com/karkirowle/pathbench/releases/download/v0.1.0/pathbench.sif).
+**What can still make scores differ.** Phoneme-based metrics (PER, dPER, ArtP, DArtP, Double ASR) turn text into phonemes with [espeak-ng](https://github.com/espeak-ng/espeak-ng), a system C library that pip cannot install. Different espeak-ng versions phonemize some languages differently (e.g. Italian `r` vs `ɾ`), so the paper uses commit [`2ea41210`](https://github.com/espeak-ng/espeak-ng/commit/2ea41210). Model weights are pinned to fixed Hugging Face revisions on both routes. Different GPUs round floating point differently, which moves the published correlations by up to about 0.01–0.03. No installation route can remove that.
 
-Package installation is the recommended pathway when you are trying to incorporate into your existing stuff. In this case, you are kind of your own figuring out
-dependency conflicts.
+### Use PathBench in your project
 
-### Package installation
-
-All Python dependencies resolve from PyPI. The only component that cannot be installed with pip is `espeak-ng`, which must be built from the pinned commit below.
-
-**System dependencies** (not installable via pip — must be installed separately):
-- `espeak-ng` at commit [`2ea41210`](https://github.com/espeak-ng/espeak-ng/commit/2ea41210) (post-1.52.0) — required by the phonemizer for grapheme-to-phoneme conversion. The exact commit matters: different espeak-ng versions produce different IPA symbols for some languages (e.g. Italian `ɾ` vs `r`), which affects phoneme-based metrics (PER, dPER, ArtP). Build from source:
-  ```bash
-  git clone https://github.com/espeak-ng/espeak-ng.git
-  cd espeak-ng && git checkout 2ea41210
-  cmake -B build -DUSE_ASYNC=OFF -DBUILD_SHARED_LIBS=ON
-  cmake --build build -j$(nproc) && sudo cmake --install build
-  ```
-- PyTorch with CUDA support — install following [pytorch.org](https://pytorch.org/get-started/locally/) *before* installing pathbench
-
-**Option A — Install from a GitHub Release:**
 ```bash
-pip install https://github.com/karkirowle/pathbench/releases/download/v0.1.0/pathbench-0.1.0-py3-none-any.whl
+sudo apt-get install espeak-ng            # or your OS's package manager
+pip install "pathbench @ git+https://github.com/karkirowle/pathbench.git"
 ```
 
-**Option B — Install directly from the repository:**
-```bash
-pip install git+https://github.com/karkirowle/pathbench.git
-```
+Install PyTorch for your CUDA version first if you need a specific build ([pytorch.org](https://pytorch.org/get-started/locally/)). Optional extras:
 
-With optional dependencies (scripts, docs):
-```bash
-pip install "pathbench[scripts] @ git+https://github.com/karkirowle/pathbench.git"
-```
+- `pathbench[lm]` installs `kenlm` for the language-model evaluators (DArtP, Double ASR). It compiles from source, so it needs `cmake` and a C++ compiler.
+- `pathbench[scripts]` installs what `scripts/` uses.
 
-### Make installation
+The dependency ranges in `pyproject.toml` are tested at both ends by CI, so any combination in between should work. To use the paper's espeak-ng without root, build it as in the `espeak.done` target of [`tools/Makefile`](tools/Makefile) and point phonemizer at it with `export PHONEMIZER_ESPEAK_LIBRARY=/path/to/libespeak-ng.so`.
 
-The `make` installation route assumes the default setup of a standard Ubuntu 22.04 image (`ubuntu-2204-jammy`).
+### Reproduce the paper
 
 ```bash
-sudo apt-get update -qq
-sudo apt install python3 python3-pip python3-venv build-essential cmake libfftw3-dev liblapack-dev -y
-# Install espeak-ng from source (pinned commit for reproducible phonemization)
-git clone https://github.com/espeak-ng/espeak-ng.git /tmp/espeak-ng
-cd /tmp/espeak-ng && git checkout 2ea41210
-cmake -B build -DUSE_ASYNC=OFF -DBUILD_SHARED_LIBS=ON
-cmake --build build -j$(nproc) && sudo cmake --install build && sudo ldconfig
-cd -
-git clone git@github.com:karkirowle/pathbench.git
-cd pathbench/tools && make
-cd ..
+git clone https://github.com/karkirowle/pathbench.git
+cd pathbench
+make -C tools                  # CUDA 12.4 PyTorch; use `make -C tools CUDA_VERSION=` for CPU
 source tools/venv/bin/activate
 ```
 
-**Without sudo access:** A containerised environment such as Docker is recommended.
+This builds espeak-ng `2ea41210` into `tools/espeak-ng/` (no sudo), creates `tools/venv` with the exact versions from [`constraints.txt`](constraints.txt), and points the venv at the local espeak-ng. It needs Python 3.10–3.12, `git`, `cmake` and a C/C++ compiler.
+
+**No build tools, or an HPC cluster:** run the same `make` inside the [container](https://github.com/karkirowle/pathbench/releases/download/v0.1.0/pathbench.sif), which provides them. Its definition is [`container/pathbench.def`](container/pathbench.def).
+
+```bash
+apptainer exec --nv pathbench.sif make -C tools
+apptainer exec --nv pathbench.sif tools/venv/bin/python scripts/evaluate_spk2score.py ...
+```
 
 ## Downloads
 
