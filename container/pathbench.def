@@ -1,0 +1,46 @@
+# Definition of the released pathbench.sif container (extracted unchanged from
+# the image with `apptainer inspect --deffile`). It provides the system layer:
+# Ubuntu 22.04, build tools and espeak-ng pinned to 2ea41210. The Python
+# environment is created on top of it by tools/Makefile:
+#
+#   apptainer build pathbench.sif container/pathbench.def      # optional rebuild
+#   apptainer exec --nv pathbench.sif make -C tools
+#
+Bootstrap: docker
+From: ubuntu:22.04
+
+%post
+    apt-get update -qq
+    apt-get install -y \
+        python3 \
+        python3-pip \
+        python3-venv \
+        build-essential \
+        cmake \
+        libfftw3-dev \
+        liblapack-dev \
+        git \
+        curl \
+        unzip
+
+    # Build espeak-ng from pinned commit (post-1.52.0) for reproducible
+    # phonemization. Different espeak-ng versions produce different IPA
+    # symbols for some languages (e.g. Italian r vs ɾ), which affects
+    # phoneme-based metrics.
+    cd /tmp
+    git clone https://github.com/espeak-ng/espeak-ng.git
+    cd espeak-ng
+    git checkout 2ea41210
+    cmake -B build -DCMAKE_INSTALL_PREFIX=/usr -DUSE_ASYNC=OFF -DBUILD_SHARED_LIBS=ON
+    cmake --build build --target all -j$(nproc)
+    cmake --install build
+    ldconfig
+    cd /
+    rm -rf /tmp/espeak-ng
+
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+
+%labels
+    Author pathbench
+    Description Pathbench environment with espeak-ng pinned to 2ea41210
